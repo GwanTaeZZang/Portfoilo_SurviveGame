@@ -7,6 +7,7 @@ using System.IO; // 저장 등 파일 관리를 위해 추가
 [System.Serializable]
 public class TmpData
 {
+    public int[,] aa;
     public string name;
     public int age;
     public int level;
