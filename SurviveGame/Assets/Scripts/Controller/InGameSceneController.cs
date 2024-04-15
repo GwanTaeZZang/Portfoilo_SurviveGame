@@ -8,7 +8,7 @@ public class InGameSceneController : MonoBehaviour
 
     void Start()
     {
-        LoadMap();
+        //LoadMap();
     }
 
     private void LoadMap()
