@@ -19,7 +19,7 @@ public class tmpPlayerStatus
     }
 }
 
-public class ShopCanvas : MonoBehaviour
+public class ShopCanvas : UIBaseController
 {
     [SerializeField] private List<ShopItmeElement> itemElementList;
     [SerializeField] private Text[] statusAmountArr;
