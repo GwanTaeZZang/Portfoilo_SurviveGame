@@ -5,37 +5,24 @@ using UnityEngine.UI;
 
 public class tmpPlayerStatus
 {
-    public int damage;
-    public int attackSpeed;
-    public int speed;
-    public int hp;
-    public int def;
-    public int longRangeDemage;
-    public int shortRangeDemage;
+    public float[] status;
 
     public tmpPlayerStatus()
     {
-        damage = 0;
-        attackSpeed = 0;
-        speed = 0;
-        hp = 0;
-        def = 0;
-        longRangeDemage = 0;
-        shortRangeDemage = 0;
+        status = new float[(int)StatusEffectType.Lenght];
+
+        int count = status.Length;
+        for(int i =0; i < count; i++)
+        {
+            status[i] = 0;
+        }
     }
 }
 
 public class ShopCanvas : MonoBehaviour
 {
     [SerializeField] private List<ShopItmeElement> itemElementList;
-    [SerializeField] private Text demageAmount;
-    [SerializeField] private Text attackSpeedAmount;
-    [SerializeField] private Text speedAmount;
-    [SerializeField] private Text hpAmount;
-    [SerializeField] private Text defAmount;
-    [SerializeField] private Text longRangeDemageAmount;
-    [SerializeField] private Text shortRangeDemageAmount;
-
+    [SerializeField] private Text[] statusAmountArr;
     private tmpPlayerStatus playerStatus;
     private List<Item> tmpItemList;
 
@@ -49,13 +36,13 @@ public class ShopCanvas : MonoBehaviour
     {
         LoadTmpItemData();
 
-        UpdateStatusAmount(EffectType.Damage, 0);
-        UpdateStatusAmount(EffectType.AtteckSpeed, 0);
-        UpdateStatusAmount(EffectType.Speed, 0);
-        UpdateStatusAmount(EffectType.Hp, 0);
-        UpdateStatusAmount(EffectType.Def, 0);
-        UpdateStatusAmount(EffectType.LongRangeDamege, 0);
-        UpdateStatusAmount(EffectType.ShortRangeDamege, 0);
+        UpdateStatusAmount(StatusEffectType.Damage, 0);
+        UpdateStatusAmount(StatusEffectType.AtteckSpeed, 0);
+        UpdateStatusAmount(StatusEffectType.Speed, 0);
+        UpdateStatusAmount(StatusEffectType.Hp, 0);
+        UpdateStatusAmount(StatusEffectType.Def, 0);
+        UpdateStatusAmount(StatusEffectType.LongRangeDamege, 0);
+        UpdateStatusAmount(StatusEffectType.ShortRangeDamege, 0);
 
         UpdateItemElementInfo();
         BindButtonEvent();
@@ -82,14 +69,14 @@ public class ShopCanvas : MonoBehaviour
 
     private void OnClickItemBtn(ItemInfo _item)
     {
-        List<Effect> buff = _item.buff;
+        List<StatusEffect> buff = _item.buff;
         int buffCount = _item.buff.Count;
         for(int i =0; i < buffCount; i++)
         {
             UpdateStatusAmount(buff[i].effectType, buff[i].amount);
         }
 
-        List<Effect> deBuff = _item.deBuff;
+        List<StatusEffect> deBuff = _item.deBuff;
         int deBuffCount = _item.deBuff.Count;
         for(int i = 0; i < deBuffCount; i++)
         {
@@ -97,50 +84,10 @@ public class ShopCanvas : MonoBehaviour
         }
     }
 
-    private void UpdateStatusAmount(EffectType _type, int _amount)
+    private void UpdateStatusAmount(StatusEffectType _type, int _amount)
     {
-        if(_type == EffectType.Damage)
-        {
-            playerStatus.damage += _amount;
-            demageAmount.text = playerStatus.damage.ToString();
-        }
-        if (_type == EffectType.AtteckSpeed)
-        {
-            playerStatus.attackSpeed += _amount;
-            attackSpeedAmount.text = playerStatus.attackSpeed.ToString();
-
-        }
-        if (_type == EffectType.Speed)
-        {
-            playerStatus.speed += _amount;
-            speedAmount.text = playerStatus.speed.ToString();
-
-        }
-        if (_type == EffectType.Hp)
-        {
-            playerStatus.hp += _amount;
-            hpAmount.text = playerStatus.hp.ToString();
-
-        }
-        if (_type == EffectType.Def)
-        {
-            playerStatus.def += _amount;
-            defAmount.text = playerStatus.def.ToString();
-
-        }
-        if (_type == EffectType.LongRangeDamege)
-        {
-            playerStatus.longRangeDemage += _amount;
-            longRangeDemageAmount.text = playerStatus.longRangeDemage.ToString();
-
-        }
-        if (_type == EffectType.ShortRangeDamege)
-        {
-            playerStatus.shortRangeDemage += _amount;
-            shortRangeDemageAmount.text = playerStatus.shortRangeDemage.ToString();
-
-        }
-
+        playerStatus.status[(int)_type] += _amount;
+        statusAmountArr[(int)_type].text = playerStatus.status[(int)_type].ToString();
     }
 
     private void LoadTmpItemData()
@@ -149,32 +96,32 @@ public class ShopCanvas : MonoBehaviour
         item.itemInfo = new ItemInfo();
         item.itemInfo.itemName = "aaaa";
 
-        item.itemInfo.buff = new List<Effect>();
+        item.itemInfo.buff = new List<StatusEffect>();
 
-        Effect effect = new Effect();
+        StatusEffect effect = new StatusEffect();
         effect.stringKey = "a_buff";
-        effect.effectType = EffectType.Damage;
+        effect.effectType = StatusEffectType.Damage;
         effect.amount = +3;
         item.itemInfo.buff.Add(effect);
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "b_buff";
-        effect.effectType = EffectType.Speed;
+        effect.effectType = StatusEffectType.Speed;
         effect.amount = +2;
         item.itemInfo.buff.Add(effect);
 
-        item.itemInfo.deBuff = new List<Effect>();
+        item.itemInfo.deBuff = new List<StatusEffect>();
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "c_deBuff";
-        effect.effectType = EffectType.AtteckSpeed;
-        effect.amount = -3;
+        effect.effectType = StatusEffectType.AtteckSpeed;
+        effect.amount = -7;
         item.itemInfo.deBuff.Add(effect);
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "d_deBuff";
-        effect.effectType = EffectType.Hp;
-        effect.amount = -2;
+        effect.effectType = StatusEffectType.Hp;
+        effect.amount = -1;
         item.itemInfo.deBuff.Add(effect);
 
         tmpItemList.Add(item);
@@ -183,32 +130,32 @@ public class ShopCanvas : MonoBehaviour
         item.itemInfo = new ItemInfo();
         item.itemInfo.itemName = "bbbb";
 
-        item.itemInfo.buff = new List<Effect>();
+        item.itemInfo.buff = new List<StatusEffect>();
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "a_buff";
-        effect.effectType = EffectType.Damage;
+        effect.effectType = StatusEffectType.Damage;
+        effect.amount = +5;
+        item.itemInfo.buff.Add(effect);
+
+        effect = new StatusEffect();
+        effect.stringKey = "b_buff";
+        effect.effectType = StatusEffectType.Speed;
         effect.amount = +3;
         item.itemInfo.buff.Add(effect);
 
-        effect = new Effect();
-        effect.stringKey = "b_buff";
-        effect.effectType = EffectType.Speed;
-        effect.amount = +2;
-        item.itemInfo.buff.Add(effect);
+        item.itemInfo.deBuff = new List<StatusEffect>();
 
-        item.itemInfo.deBuff = new List<Effect>();
-
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "c_deBuff";
-        effect.effectType = EffectType.AtteckSpeed;
-        effect.amount = -3;
+        effect.effectType = StatusEffectType.AtteckSpeed;
+        effect.amount = -1;
         item.itemInfo.deBuff.Add(effect);
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "d_deBuff";
-        effect.effectType = EffectType.Hp;
-        effect.amount = -2;
+        effect.effectType = StatusEffectType.Hp;
+        effect.amount = -4;
         item.itemInfo.deBuff.Add(effect);
 
         tmpItemList.Add(item);
@@ -217,32 +164,32 @@ public class ShopCanvas : MonoBehaviour
         item.itemInfo = new ItemInfo();
         item.itemInfo.itemName = "cccc";
 
-        item.itemInfo.buff = new List<Effect>();
+        item.itemInfo.buff = new List<StatusEffect>();
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "a_buff";
-        effect.effectType = EffectType.Damage;
-        effect.amount = +3;
+        effect.effectType = StatusEffectType.Damage;
+        effect.amount = +100;
         item.itemInfo.buff.Add(effect);
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "b_buff";
-        effect.effectType = EffectType.Speed;
+        effect.effectType = StatusEffectType.Speed;
         effect.amount = +2;
         item.itemInfo.buff.Add(effect);
 
-        item.itemInfo.deBuff = new List<Effect>();
+        item.itemInfo.deBuff = new List<StatusEffect>();
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "c_deBuff";
-        effect.effectType = EffectType.AtteckSpeed;
+        effect.effectType = StatusEffectType.AtteckSpeed;
         effect.amount = -3;
         item.itemInfo.deBuff.Add(effect);
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "d_deBuff";
-        effect.effectType = EffectType.Hp;
-        effect.amount = -2;
+        effect.effectType = StatusEffectType.Hp;
+        effect.amount = -100;
         item.itemInfo.deBuff.Add(effect);
 
         tmpItemList.Add(item);
@@ -251,31 +198,31 @@ public class ShopCanvas : MonoBehaviour
         item.itemInfo = new ItemInfo();
         item.itemInfo.itemName = "dddd";
 
-        item.itemInfo.buff = new List<Effect>();
+        item.itemInfo.buff = new List<StatusEffect>();
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "a_buff";
-        effect.effectType = EffectType.Damage;
+        effect.effectType = StatusEffectType.Damage;
         effect.amount = +3;
         item.itemInfo.buff.Add(effect);
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "b_buff";
-        effect.effectType = EffectType.Speed;
+        effect.effectType = StatusEffectType.Speed;
         effect.amount = +2;
         item.itemInfo.buff.Add(effect);
 
-        item.itemInfo.deBuff = new List<Effect>();
+        item.itemInfo.deBuff = new List<StatusEffect>();
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "c_deBuff";
-        effect.effectType = EffectType.AtteckSpeed;
+        effect.effectType = StatusEffectType.AtteckSpeed;
         effect.amount = -3;
         item.itemInfo.deBuff.Add(effect);
 
-        effect = new Effect();
+        effect = new StatusEffect();
         effect.stringKey = "d_deBuff";
-        effect.effectType = EffectType.Hp;
+        effect.effectType = StatusEffectType.Hp;
         effect.amount = -2;
         item.itemInfo.deBuff.Add(effect);
 

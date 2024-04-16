@@ -10,18 +10,18 @@ public class Item
 public class ItemInfo
 {
     public string itemName;
-    public List<Effect> buff;
-    public List<Effect> deBuff;
+    public List<StatusEffect> buff;
+    public List<StatusEffect> deBuff;
 }
 
-public class Effect
+public class StatusEffect
 {
     public string stringKey;
-    public EffectType effectType;
+    public StatusEffectType effectType;
     public int amount;
 }
 
-public enum EffectType
+public enum StatusEffectType
 {
     Damage,
     AtteckSpeed,
@@ -30,4 +30,5 @@ public enum EffectType
     Def,
     LongRangeDamege,
     ShortRangeDamege,
+    Lenght,
 }
