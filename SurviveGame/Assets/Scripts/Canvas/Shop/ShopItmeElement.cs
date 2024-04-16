@@ -18,12 +18,12 @@ public class ShopItmeElement : MonoBehaviour
 
     public void UpdateItemInformation(Item _item)
     {
-        itemInfo = _item.itmeInfo;
+        itemInfo = _item.itemInfo;
         itemNameText.text = itemInfo.itemName;
 
         List<Effect> buff = itemInfo.buff;
         int buffCount = itemInfo.buff.Count;
-        effectInformationText.text = "증가 \n";
+        effectInformationText.text = "Increse \n";
         for(int i = 0; i < buffCount; i++)
         {
             effectInformationText.text += buff[i].stringKey;
@@ -32,10 +32,10 @@ public class ShopItmeElement : MonoBehaviour
 
         List<Effect> deBuff = itemInfo.deBuff;
         int deBuffCount = itemInfo.deBuff.Count;
-        effectInformationText.text += "감소 \n";
+        effectInformationText.text += "Decrese \n";
         for (int i = 0; i < deBuffCount; i++)
         {
-            effectInformationText.text += buff[i].stringKey;
+            effectInformationText.text += deBuff[i].stringKey;
             effectInformationText.text += "\n";
         }
     }

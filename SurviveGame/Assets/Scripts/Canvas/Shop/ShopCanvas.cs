@@ -37,14 +37,17 @@ public class ShopCanvas : MonoBehaviour
     [SerializeField] private Text shortRangeDemageAmount;
 
     private tmpPlayerStatus playerStatus;
+    private List<Item> tmpItemList;
 
     private void Awake()
     {
-        itemElementList = new List<ShopItmeElement>();
+        //itemElementList = new List<ShopItmeElement>();
+        tmpItemList = new List<Item>();
         playerStatus = new tmpPlayerStatus();
     }
     private void Start()
     {
+        LoadTmpItemData();
 
         UpdateStatusAmount(EffectType.Damage, 0);
         UpdateStatusAmount(EffectType.AtteckSpeed, 0);
@@ -54,7 +57,7 @@ public class ShopCanvas : MonoBehaviour
         UpdateStatusAmount(EffectType.LongRangeDamege, 0);
         UpdateStatusAmount(EffectType.ShortRangeDamege, 0);
 
-
+        UpdateItemElementInfo();
         BindButtonEvent();
     }
 
@@ -63,9 +66,20 @@ public class ShopCanvas : MonoBehaviour
         int count = itemElementList.Count;
         for(int i =0; i < count; i++)
         {
-            itemElementList[i].GetButtonEvent().AddListener(() => OnClickItemBtn(itemElementList[i].GetItemInfo()));
+            int index = i;
+            itemElementList[i].GetButtonEvent().AddListener(() => OnClickItemBtn(itemElementList[index].GetItemInfo()));
         }
     }
+
+    private void UpdateItemElementInfo()
+    {
+        int count = itemElementList.Count;
+        for (int i = 0; i < count; i++)
+        {
+            itemElementList[i].UpdateItemInformation(tmpItemList[i]);
+        }
+    }
+
     private void OnClickItemBtn(ItemInfo _item)
     {
         List<Effect> buff = _item.buff;
@@ -79,9 +93,10 @@ public class ShopCanvas : MonoBehaviour
         int deBuffCount = _item.deBuff.Count;
         for(int i = 0; i < deBuffCount; i++)
         {
-            UpdateStatusAmount(buff[i].effectType, buff[i].amount);
+            UpdateStatusAmount(deBuff[i].effectType, deBuff[i].amount);
         }
     }
+
     private void UpdateStatusAmount(EffectType _type, int _amount)
     {
         if(_type == EffectType.Damage)
@@ -125,6 +140,146 @@ public class ShopCanvas : MonoBehaviour
             shortRangeDemageAmount.text = playerStatus.shortRangeDemage.ToString();
 
         }
+
+    }
+
+    private void LoadTmpItemData()
+    {
+        Item item = new Item();
+        item.itemInfo = new ItemInfo();
+        item.itemInfo.itemName = "aaaa";
+
+        item.itemInfo.buff = new List<Effect>();
+
+        Effect effect = new Effect();
+        effect.stringKey = "a_buff";
+        effect.effectType = EffectType.Damage;
+        effect.amount = +3;
+        item.itemInfo.buff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "b_buff";
+        effect.effectType = EffectType.Speed;
+        effect.amount = +2;
+        item.itemInfo.buff.Add(effect);
+
+        item.itemInfo.deBuff = new List<Effect>();
+
+        effect = new Effect();
+        effect.stringKey = "c_deBuff";
+        effect.effectType = EffectType.AtteckSpeed;
+        effect.amount = -3;
+        item.itemInfo.deBuff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "d_deBuff";
+        effect.effectType = EffectType.Hp;
+        effect.amount = -2;
+        item.itemInfo.deBuff.Add(effect);
+
+        tmpItemList.Add(item);
+        ///////////////////////////////////////////
+        item = new Item();
+        item.itemInfo = new ItemInfo();
+        item.itemInfo.itemName = "bbbb";
+
+        item.itemInfo.buff = new List<Effect>();
+
+        effect = new Effect();
+        effect.stringKey = "a_buff";
+        effect.effectType = EffectType.Damage;
+        effect.amount = +3;
+        item.itemInfo.buff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "b_buff";
+        effect.effectType = EffectType.Speed;
+        effect.amount = +2;
+        item.itemInfo.buff.Add(effect);
+
+        item.itemInfo.deBuff = new List<Effect>();
+
+        effect = new Effect();
+        effect.stringKey = "c_deBuff";
+        effect.effectType = EffectType.AtteckSpeed;
+        effect.amount = -3;
+        item.itemInfo.deBuff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "d_deBuff";
+        effect.effectType = EffectType.Hp;
+        effect.amount = -2;
+        item.itemInfo.deBuff.Add(effect);
+
+        tmpItemList.Add(item);
+        ///////////////////////////////////////////
+        item = new Item();
+        item.itemInfo = new ItemInfo();
+        item.itemInfo.itemName = "cccc";
+
+        item.itemInfo.buff = new List<Effect>();
+
+        effect = new Effect();
+        effect.stringKey = "a_buff";
+        effect.effectType = EffectType.Damage;
+        effect.amount = +3;
+        item.itemInfo.buff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "b_buff";
+        effect.effectType = EffectType.Speed;
+        effect.amount = +2;
+        item.itemInfo.buff.Add(effect);
+
+        item.itemInfo.deBuff = new List<Effect>();
+
+        effect = new Effect();
+        effect.stringKey = "c_deBuff";
+        effect.effectType = EffectType.AtteckSpeed;
+        effect.amount = -3;
+        item.itemInfo.deBuff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "d_deBuff";
+        effect.effectType = EffectType.Hp;
+        effect.amount = -2;
+        item.itemInfo.deBuff.Add(effect);
+
+        tmpItemList.Add(item);
+        ///////////////////////////////////////////
+        item = new Item();
+        item.itemInfo = new ItemInfo();
+        item.itemInfo.itemName = "dddd";
+
+        item.itemInfo.buff = new List<Effect>();
+
+        effect = new Effect();
+        effect.stringKey = "a_buff";
+        effect.effectType = EffectType.Damage;
+        effect.amount = +3;
+        item.itemInfo.buff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "b_buff";
+        effect.effectType = EffectType.Speed;
+        effect.amount = +2;
+        item.itemInfo.buff.Add(effect);
+
+        item.itemInfo.deBuff = new List<Effect>();
+
+        effect = new Effect();
+        effect.stringKey = "c_deBuff";
+        effect.effectType = EffectType.AtteckSpeed;
+        effect.amount = -3;
+        item.itemInfo.deBuff.Add(effect);
+
+        effect = new Effect();
+        effect.stringKey = "d_deBuff";
+        effect.effectType = EffectType.Hp;
+        effect.amount = -2;
+        item.itemInfo.deBuff.Add(effect);
+
+        tmpItemList.Add(item);
 
     }
 }

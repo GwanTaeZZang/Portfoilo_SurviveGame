@@ -448,8 +448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemButton: {fileID: 463345408}
-  itemNameText: {fileID: 0}
-  effectInformationText: {fileID: 0}
+  itemNameText: {fileID: 1958653043}
+  effectInformationText: {fileID: 1693191303}
 --- !u!114 &463345408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,8 +897,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemButton: {fileID: 558234336}
-  itemNameText: {fileID: 0}
-  effectInformationText: {fileID: 0}
+  itemNameText: {fileID: 1839400764}
+  effectInformationText: {fileID: 1058903817}
 --- !u!114 &558234338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,8 +1270,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemButton: {fileID: 780249072}
-  itemNameText: {fileID: 0}
-  effectInformationText: {fileID: 0}
+  itemNameText: {fileID: 1542386048}
+  effectInformationText: {fileID: 144243399}
 --- !u!114 &780249074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1505,7 +1505,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1039371570}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2073b6f23511406f9b283953afd7e9d, type: 3}
   m_Name: 
@@ -1920,8 +1920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemButton: {fileID: 1129634420}
-  itemNameText: {fileID: 0}
-  effectInformationText: {fileID: 0}
+  itemNameText: {fileID: 1872602112}
+  effectInformationText: {fileID: 538721260}
 --- !u!114 &1129634422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2085,7 +2085,7 @@ MonoBehaviour:
   demageAmount: {fileID: 1455211221}
   attackSpeedAmount: {fileID: 668527531}
   speedAmount: {fileID: 1068071583}
-  HpAmount: {fileID: 1521539969}
+  hpAmount: {fileID: 1521539969}
   defAmount: {fileID: 1963535602}
   longRangeDemageAmount: {fileID: 503218799}
   shortRangeDemageAmount: {fileID: 1266625363}
@@ -3490,10 +3490,10 @@ RectTransform:
   - {fileID: 558234335}
   m_Father: {fileID: 1216602031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 275}
-  m_SizeDelta: {x: 0, y: -850}
+  m_SizeDelta: {x: 1080, y: -850}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2071717995
 MonoBehaviour:

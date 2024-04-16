@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item 
 {
-    public ItemInfo itmeInfo;
+    public ItemInfo itemInfo;
 }
 
 public class ItemInfo
