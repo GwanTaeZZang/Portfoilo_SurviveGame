@@ -2567,8 +2567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: MapData
-  width: 5
-  height: 5
+  width: 10
+  height: 10
   ranSprite:
   - {fileID: 2093186594, guid: 9ee30eb7d2f1f404790266ee96a67099, type: 3}
   - {fileID: -2031541144, guid: 9ee30eb7d2f1f404790266ee96a67099, type: 3}

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class tmpPlayerStatus
 {
-    public int demage;
+    public int damage;
     public int attackSpeed;
     public int speed;
     public int hp;
@@ -15,7 +15,7 @@ public class tmpPlayerStatus
 
     public tmpPlayerStatus()
     {
-        demage = 0;
+        damage = 0;
         attackSpeed = 0;
         speed = 0;
         hp = 0;
@@ -101,8 +101,8 @@ public class ShopCanvas : MonoBehaviour
     {
         if(_type == EffectType.Damage)
         {
-            playerStatus.demage += _amount;
-            demageAmount.text = playerStatus.demage.ToString();
+            playerStatus.damage += _amount;
+            demageAmount.text = playerStatus.damage.ToString();
         }
         if (_type == EffectType.AtteckSpeed)
         {

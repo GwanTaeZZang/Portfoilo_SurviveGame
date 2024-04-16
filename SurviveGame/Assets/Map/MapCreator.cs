@@ -34,13 +34,13 @@ public class MapCreator : MonoBehaviour
             {
                 sr.sprite = isNotMoveSprite;
                 sr.transform.position = new Vector2(startXPos + widthCount, startYPos + heightCount);
-                tileModelArr[i] = new TileModel(sr.sprite, false);
+                tileModelArr[i] = new TileModel(sr.sprite, sr.sprite.name, false);
             }
             else
             {
                 sr.sprite = ranSprite[Random.Range(0, ranSprite.Length)];
                 sr.transform.position = new Vector2(startXPos + widthCount, startYPos + heightCount);
-                tileModelArr[i] = new TileModel(sr.sprite, true);
+                tileModelArr[i] = new TileModel(sr.sprite, sr.sprite.name, true);
             }
 
         }

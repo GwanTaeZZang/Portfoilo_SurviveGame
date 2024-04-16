@@ -20,12 +20,14 @@ public class TileMapModel
 [System.Serializable]
 public class TileModel
 {
+    public string imageName;
     public Sprite sprite;
     public bool isMove;
 
-    public TileModel(Sprite _sprite, bool _isMove)
+    public TileModel(Sprite _sprite, string _imageName, bool _isMove)
     {
         sprite = _sprite;
+        imageName = _imageName;
         isMove = _isMove;
     }
 }

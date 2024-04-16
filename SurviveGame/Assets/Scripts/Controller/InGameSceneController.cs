@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class InGameSceneController : MonoBehaviour
 {
+    [SerializeField] private Transform mapParent;
     private Tile[,] tiles;
 
     void Start()
     {
-        //LoadMap();
+        LoadMap();
     }
 
     private void LoadMap()
@@ -28,11 +29,11 @@ public class InGameSceneController : MonoBehaviour
         int count = width * height;
         for (int i = 0; i < count; i++)
         {
-            SpriteRenderer sr = Instantiate<SpriteRenderer>(tile);
+            SpriteRenderer sr = Instantiate<SpriteRenderer>(tile,mapParent);
             int widthCount = i % width;
             int heightCount = i / height;
 
-            sr.sprite = tileArr[i].sprite;
+            sr.sprite = Resources.Load<Sprite>("Sprite/Map/" + tileArr[i].imageName);
             sr.transform.position = new Vector2(startXPos + widthCount, startYPos + heightCount);
 
             tiles[widthCount, heightCount] = new Tile(sr);
