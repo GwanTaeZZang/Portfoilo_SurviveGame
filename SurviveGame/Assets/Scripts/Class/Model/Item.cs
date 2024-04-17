@@ -6,28 +6,26 @@ public class BaseItem
 {
     public int price;
     public int uid;
-    public UniqueEffect uniqueEffect;
 }
 
 public abstract class WeaponItem : BaseItem
 {
-    int level;
-    float damage;
-    float damageRate;
-    float attackSpeed;
-    WeaponType type;
-    // 세트 효과
+    public int level;
+    public float damage;
+    public float damageRate;
+    public float attackSpeed;
+    public WeaponType type;
 
-    protected abstract void Fire();
+    public abstract void Fire();
 }
 
-public class EquipItem : BaseItem
+public abstract class EquipItem : BaseItem
 {
     public List<StatusEffect> buff;
     public List<StatusEffect> deBuff;
 }
 
-public class UniqueEffect
+public class SetEffect
 {
 
 }
@@ -35,4 +33,21 @@ public class UniqueEffect
 public enum WeaponType
 {
 
+}
+
+
+public class Knife : WeaponItem
+{
+    public override void Fire()
+    {
+        throw new System.NotImplementedException();
+    }
+}
+
+public class bar : WeaponItem
+{
+    public override void Fire()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -8,6 +8,7 @@ public class Character
     public CharacterStatus[] statusArr = new CharacterStatus[(int)StatusEffectType.End];
     public Job job;
     // 장착하고 있는 공격무기
+    public WeaponItem[] weaponItemArr;
     // 장비하고 스탯 효과 장비
     // 장비하고 있는 특수효과 장비
 
@@ -22,6 +23,11 @@ public class Character
     public void SetAbillityRate(StatusEffectType _type, float _abillityRate)
     {
         statusArr[(int)_type].SetAbillityRate(_abillityRate);
+    }
+
+    public void Update()
+    {
+        weaponItemArr[0].Fire();
     }
 }
 
