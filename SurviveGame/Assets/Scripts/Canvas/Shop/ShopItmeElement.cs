@@ -9,42 +9,42 @@ public class ShopItmeElement : MonoBehaviour
     [SerializeField] private Text itemNameText;
     [SerializeField] private Text effectInformationText;
 
-    private ItemInfo itemInfo;
+    //private ItemInfo itemInfo;
 
     public Button.ButtonClickedEvent GetButtonEvent()
     {
         return itemButton.onClick;
     }
 
-    public void UpdateItemInformation(Item _item)
-    {
-        itemInfo = _item.itemInfo;
-        itemNameText.text = itemInfo.itemName;
+    //public void UpdateItemInformation(Item _item)
+    //{
+    //    itemInfo = _item.itemInfo;
+    //    itemNameText.text = itemInfo.itemName;
 
-        List<StatusEffect> buff = itemInfo.buff;
-        int buffCount = itemInfo.buff.Count;
-        effectInformationText.text = "Increse \n";
-        for(int i = 0; i < buffCount; i++)
-        {
-            effectInformationText.text += buff[i].effectType;
-            effectInformationText.text += "  :  " + buff[i].amount.ToString();
-            effectInformationText.text += "\n";
-        }
+    //    List<StatusEffect> buff = itemInfo.buff;
+    //    int buffCount = itemInfo.buff.Count;
+    //    effectInformationText.text = "Increse \n";
+    //    for(int i = 0; i < buffCount; i++)
+    //    {
+    //        effectInformationText.text += buff[i].effectType;
+    //        effectInformationText.text += "  :  " + buff[i].amount.ToString();
+    //        effectInformationText.text += "\n";
+    //    }
 
-        List<StatusEffect> deBuff = itemInfo.deBuff;
-        int deBuffCount = itemInfo.deBuff.Count;
-        effectInformationText.text += "Decrese \n";
-        for (int i = 0; i < deBuffCount; i++)
-        {
-            effectInformationText.text += deBuff[i].effectType;
-            effectInformationText.text += "  :  " + deBuff[i].amount.ToString();
+    //    List<StatusEffect> deBuff = itemInfo.deBuff;
+    //    int deBuffCount = itemInfo.deBuff.Count;
+    //    effectInformationText.text += "Decrese \n";
+    //    for (int i = 0; i < deBuffCount; i++)
+    //    {
+    //        effectInformationText.text += deBuff[i].effectType;
+    //        effectInformationText.text += "  :  " + deBuff[i].amount.ToString();
 
-            effectInformationText.text += "\n";
-        }
-    }
+    //        effectInformationText.text += "\n";
+    //    }
+    //}
 
-    public ItemInfo GetItemInfo()
-    {
-        return itemInfo;
-    }
+    //public ItemInfo GetItemInfo()
+    //{
+    //    return itemInfo;
+    //}
 }

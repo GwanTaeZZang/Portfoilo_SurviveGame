@@ -2,33 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item 
+public class BaseItem 
 {
-    public ItemInfo itemInfo;
+    public int price;
+    public int uid;
+    public UniqueEffect uniqueEffect;
 }
 
-public class ItemInfo
+public abstract class WeaponItem : BaseItem
 {
-    public string itemName;
+    int level;
+    float damage;
+    float damageRate;
+    float attackSpeed;
+    WeaponType type;
+    // 세트 효과
+
+    protected abstract void Fire();
+}
+
+public class EquipItem : BaseItem
+{
     public List<StatusEffect> buff;
     public List<StatusEffect> deBuff;
 }
 
-public class StatusEffect
+public class UniqueEffect
 {
-    public string stringKey;
-    public StatusEffectType effectType;
-    public int amount;
+
 }
 
-public enum StatusEffectType
+public enum WeaponType
 {
-    Damage,
-    AtteckSpeed,
-    Speed,
-    Hp,
-    Def,
-    LongRangeDamege,
-    ShortRangeDamege,
-    Lenght,
+
 }
