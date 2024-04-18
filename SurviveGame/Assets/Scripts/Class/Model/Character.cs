@@ -41,39 +41,29 @@ public class CharacterStatus
     {
         abillityRate = _abillityRate;
     }
-    //float maxHp;
-    //float recoveryHp;
-    //float stealHp;
-    //float damage;
-    //float shortRangeDamage;
-    //float longRangeDamage;
-    //float attackSpeed;
-    //float criticalRate;
-    //float attackRange;
-    //float defence;
-    //float evasionRate;
-    //float speed;
-    //float luck;
-    //float yield;
 }
 
+[System.Serializable]
 public class Job
 {
+    public int Uid;
     public UniqueAbillity uniqueAbillity;
     public StatusEffect[] increaseStatus;
     public StatusEffect[] decreaseStatus;
     public int unLockId;
-    public int uniqueId;
     public string stringKey;
-    public string spriteName;
+    public string jobSpritePath;
+    public string jobName;
 }
 
+[System.Serializable]
 public class UniqueAbillity
 {
     // 무기 타입이나 능력치 타입과 증감 퍼센트 받아서 처리
     // 무기 타입 이넘 정해지면 마무리
 }
 
+[System.Serializable]
 public class StatusEffect
 {
     public string stringKey;
@@ -99,4 +89,11 @@ public enum StatusEffectType
     Yield,
     End
 
+}
+
+
+[System.Serializable]
+public class JobData
+{
+    public Job[] job;
 }

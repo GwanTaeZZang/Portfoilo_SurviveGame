@@ -19,7 +19,7 @@ public class ObjectPoolTest1 : MonoBehaviour
         {
             if(testPool == null)
             {
-                testPool = ObjectPoolManager.Instance.GetPool<TestObject>(10);
+                testPool = ObjectPoolManager.getInstance.GetPool<TestObject>(10);
                 testPool.SetModel(testModle);
             }
 

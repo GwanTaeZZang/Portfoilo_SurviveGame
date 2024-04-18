@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager
+public class UIManager : Singleton<UIManager>
 {
-    private static UIManager instance = null;
-    public static UIManager Instance
-    {
-        get
-        {
-            if(instance == null)
-            {
-                instance = new UIManager();
-            }
-            return instance;
-        }
-    }
+    //private static UIManager instance = null;
+    //public static UIManager Instance
+    //{
+    //    get
+    //    {
+    //        if(instance == null)
+    //        {
+    //            instance = new UIManager();
+    //        }
+    //        return instance;
+    //    }
+    //}
 
     private List<UIBaseController> UIList = new List<UIBaseController>();
     private Stack<UIBaseController> UIStack = new Stack<UIBaseController>(4);

@@ -16,7 +16,7 @@ public class UIBaseController : MonoBehaviour
         }
     }
 
-    public void Show()
+    public virtual void Show()
     {
         Debug.Log("Show Canvas");
         myCanvas.enabled = true;

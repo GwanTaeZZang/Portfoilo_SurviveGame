@@ -12,22 +12,22 @@ public class TestCanvasController : MonoBehaviour
             //GameObject obj = Resources.Load("FirstCanvas") as GameObject;
             //Instantiate(obj);
 
-            UIManager.Instance.Show<FirstCanvasController>("FirstCanvas");
+            UIManager.getInstance.Show<FirstCanvasController>("FirstCanvas");
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            UIManager.Instance.Show<SecondCanvasController>("SecondCanvas");
+            UIManager.getInstance.Show<SecondCanvasController>("SecondCanvas");
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            UIManager.Instance.Show<ThirdCanvasController>("ThirdCanvas");
+            UIManager.getInstance.Show<ThirdCanvasController>("ThirdCanvas");
 
         }
 
         if (Input.GetKeyDown("d"))
         {
-            UIManager.Instance.Hide();
+            UIManager.getInstance.Hide();
         }
     }
 }

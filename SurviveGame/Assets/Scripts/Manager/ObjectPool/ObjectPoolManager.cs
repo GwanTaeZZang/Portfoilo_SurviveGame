@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolManager
+public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
     private List<IObjectPool> poolList = new List<IObjectPool>();
 
-    private static ObjectPoolManager instance;
-    public static ObjectPoolManager Instance
-    {
-        get
-        {
-            if(instance == null)
-            {
-                instance = new ObjectPoolManager();
-            }
-            return instance;
-        }
-    }
+    //private static ObjectPoolManager instance;
+    //public static ObjectPoolManager Instance
+    //{
+    //    get
+    //    {
+    //        if(instance == null)
+    //        {
+    //            instance = new ObjectPoolManager();
+    //        }
+    //        return instance;
+    //    }
+    //}
 
 
 
