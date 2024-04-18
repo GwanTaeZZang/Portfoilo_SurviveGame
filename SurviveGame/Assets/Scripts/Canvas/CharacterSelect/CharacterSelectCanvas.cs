@@ -45,8 +45,8 @@ public class CharacterSelectCanvas : UIBaseController
             int idx = i;
             SelectIconElement element = Instantiate(characterElementPrefab, characterElementParent);
             characterSpriteList.Add(Resources.Load<Sprite>(jobList[i].jobSpritePath));
-            element.SetCharacterThumbnail(characterSpriteList[i]);
-            element.GetCharacterSelectBtnEvent().AddListener(() => OnClickCharacterSelectBtn(idx));
+            element.SetElementThumbnail(characterSpriteList[i]);
+            element.GetElementSelectBtnEvent().AddListener(() => OnClickCharacterSelectBtn(idx));
             element.gameObject.SetActive(true);
             characterElementList.Add(element);
         }

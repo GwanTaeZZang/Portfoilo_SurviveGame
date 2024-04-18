@@ -1,58 +1,58 @@
 {
-    "job": [
-      {
-        "Uid": 1000,
-        "uniqueAbillity": {},
-        "increaseStatus": [
-          {
-            "stringKey": "데미지 버프",
-            "effectType": 3,
-            "amount": 10
-          }
-        ],
-        "decreaseStatus": [
-          {
-            "stringKey": "공격속도 너프",
-            "effectType": 6,
-            "amount": -3
-          },
-          {
-            "stringKey": "속도 너프",
-            "effectType": 11,
-            "amount": -3
-          }
-        ],
-        "unLockId": 10003,
-        "stringKey": "힘 바보",
-        "jobSpritePath": "Sprite/Job/Job_0",
-        "jobName": "힘 바보"
-      },
-      {
-        "Uid": 1001,
-        "uniqueAbillity": {},
-        "increaseStatus": [
-          {
-            "stringKey": "공격속도 버프",
-            "effectType": 6,
-            "amount": 5
-          },
-          {
-            "stringKey": "속도 버프",
-            "effectType": 11,
-            "amount": 5
-          }
-        ],
-        "decreaseStatus": [
-          {
-            "stringKey": "데미지 너프",
-            "effectType": 3,
-            "amount": -7
-          }
-        ],
-        "unLockId": 10004,
-        "stringKey": "속도 바보",
-        "jobSpritePath": "Sprite/Job/Job_1",
-        "jobName": "속도 바보"
-      }
+    "jobArr": [
+        {
+            "Uid": 1000,
+            "uniqueAbillity": {},
+            "increaseStatus": [
+                {
+                    "stringKey": "데미지 버프",
+                    "effectType": 3,
+                    "amount": 10
+                }
+            ],
+            "decreaseStatus": [
+                {
+                    "stringKey": "공격속도 너프",
+                    "effectType": 6,
+                    "amount": -3
+                },
+                {
+                    "stringKey": "속도 너프",
+                    "effectType": 11,
+                    "amount": -3
+                }
+            ],
+            "unLockId": 10003,
+            "stringKey": "힘 바보",
+            "jobSpritePath": "Sprite/Job/Job_0",
+            "jobName": "힘 바보"
+        },
+        {
+            "Uid": 1001,
+            "uniqueAbillity": {},
+            "increaseStatus": [
+                {
+                    "stringKey": "공격속도 버프",
+                    "effectType": 6,
+                    "amount": 5
+                },
+                {
+                    "stringKey": "속도 버프",
+                    "effectType": 11,
+                    "amount": 5
+                }
+            ],
+            "decreaseStatus": [
+                {
+                    "stringKey": "데미지 너프",
+                    "effectType": 3,
+                    "amount": -7
+                }
+            ],
+            "unLockId": 10004,
+            "stringKey": "속도 바보",
+            "jobSpritePath": "Sprite/Job/Job_1",
+            "jobName": "속도 바보"
+        }
     ]
 }

@@ -8,14 +8,10 @@ public class BaseItem
     public int uid;
 }
 
+
 public abstract class WeaponItem : BaseItem
 {
-    public int level;
-    public float damage;
-    public float damageRate;
-    public float attackSpeed;
-    public WeaponType type;
-
+    WeaponItemInfo weaponItemInfo;
     public abstract void Fire();
 }
 
@@ -32,11 +28,12 @@ public class SetEffect
 
 public enum WeaponType
 {
-
+    ShotRange,
+    LongRange
 }
 
 
-public class Knife : WeaponItem
+public class ShotRangeWeapon : WeaponItem
 {
     public override void Fire()
     {
@@ -44,10 +41,31 @@ public class Knife : WeaponItem
     }
 }
 
-public class bar : WeaponItem
+public class LongRangeWeapon : WeaponItem
 {
     public override void Fire()
     {
         throw new System.NotImplementedException();
     }
 }
+
+[System.Serializable]
+public class WeaponItemInfo
+{
+    public int Uid;
+    public int level;
+    public float damage;
+    public float damageRate;
+    public float attackSpeed;
+    public string stringKey;
+    public string weaponSpritePath;
+    public string weaponName;
+    public WeaponType weaponType;
+}
+
+[System.Serializable]
+public class WeaponData
+{
+    public WeaponItemInfo[] weaponArr;
+}
+

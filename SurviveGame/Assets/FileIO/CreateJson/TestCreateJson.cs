@@ -5,12 +5,15 @@ using UnityEngine;
 public class TestCreateJson : MonoBehaviour
 {
     private string jobFileName = "JobData";
+    private string weaponFileName = "WeaponData";
 
     private JobData jobData;
+    private WeaponData weaponData;
 
     private void Awake()
     {
         CreateCharacterJobJson();
+        //CreateWeaponJson();
     }
 
     private void CreateCharacterJobJson()
@@ -89,11 +92,43 @@ public class TestCreateJson : MonoBehaviour
 
 
         jobData = new JobData();
-        jobData.job = jobArr;
+        jobData.jobArr = jobArr;
     }
 
-    [ContextMenu("To Json Data")]  // 컴포넌트 메뉴에 아래 함수를 호출하는 To Json Data 라는 명렁어가 생성됨 
-    private void SaveToJsonMapData()
+    private void CreateWeaponJson()
+    {
+        WeaponItemInfo[] weaponInfoArr = new WeaponItemInfo[2];
+
+        WeaponItemInfo info = new WeaponItemInfo();
+        info.Uid = 2000;
+        info.level = 1;
+        info.damage = 10;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 1f;
+        info.stringKey = "삼지창";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_1";
+        info.weaponName = "삼지창";
+        info.weaponType = WeaponType.ShotRange;
+        weaponInfoArr[0] = info;
+
+        info = new WeaponItemInfo();
+        info.Uid = 2001;
+        info.level = 1;
+        info.damage = 5;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 1f;
+        info.stringKey = "엽총";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_3";
+        info.weaponName = "엽총";
+        info.weaponType = WeaponType.LongRange;
+        weaponInfoArr[1] = info;
+
+        weaponData = new WeaponData();
+        weaponData.weaponArr = weaponInfoArr;
+    }
+
+    [ContextMenu("To Json Character Job Data")]  // 컴포넌트 메뉴에 아래 함수를 호출하는 To Json Data 라는 명렁어가 생성됨 
+    private void SaveToJsonCharacterJobData()
     {
         if (jobFileName == "")
         {
@@ -103,5 +138,16 @@ public class TestCreateJson : MonoBehaviour
         JsonController.WriteJson<JobData>(jobFileName, jobData);
     }
 
+
+    [ContextMenu("To Json Weapon Data")]  // 컴포넌트 메뉴에 아래 함수를 호출하는 To Json Data 라는 명렁어가 생성됨 
+    private void SaveToJsonWeaponData()
+    {
+        if (weaponFileName == "")
+        {
+            Debug.Log("파일 이름 없음 ");
+            return;
+        }
+        JsonController.WriteJson<WeaponData>(weaponFileName, weaponData);
+    }
 
 }

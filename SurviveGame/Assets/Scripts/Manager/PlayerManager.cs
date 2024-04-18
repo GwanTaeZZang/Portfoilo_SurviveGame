@@ -45,10 +45,10 @@ public class PlayerManager : Singleton<PlayerManager>
     private void LoadJobData()
     {
         JobData jobData = JsonController.ReadJson<JobData>("JobData");
-        int count = jobData.job.Length;
+        int count = jobData.jobArr.Length;
         for(int i = 0; i < count; i++)
         {
-            Job job = jobData.job[i];
+            Job job = jobData.jobArr[i];
             jobDict.Add(job.Uid, job);
             jobList.Add(job);
         }

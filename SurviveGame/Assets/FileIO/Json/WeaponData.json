@@ -1,0 +1,26 @@
+{
+    "weaponArr": [
+        {
+            "Uid": 2000,
+            "level": 1,
+            "damage": 10.0,
+            "damageRate": 0.5,
+            "attackSpeed": 1.0,
+            "stringKey": "삼지창",
+            "weaponSpritePath": "Sprite/Weapon/Weapon_1",
+            "weaponName": "삼지창",
+            "weaponType": 0
+        },
+        {
+            "Uid": 2001,
+            "level": 1,
+            "damage": 5.0,
+            "damageRate": 0.30000001192092898,
+            "attackSpeed": 1.0,
+            "stringKey": "엽총",
+            "weaponSpritePath": "Sprite/Weapon/Weapon_3",
+            "weaponName": "엽총",
+            "weaponType": 1
+        }
+    ]
+}

@@ -8,11 +8,11 @@ public class SelectIconElement : MonoBehaviour
     [SerializeField] private Button characterSeletBtn;
     [SerializeField] private Image characterThumbnail;
 
-    public void SetCharacterThumbnail(Sprite _sprite)
+    public void SetElementThumbnail(Sprite _sprite)
     {
         characterThumbnail.sprite = _sprite;
     }
-    public Button.ButtonClickedEvent GetCharacterSelectBtnEvent()
+    public Button.ButtonClickedEvent GetElementSelectBtnEvent()
     {
         return characterSeletBtn.onClick;
     }

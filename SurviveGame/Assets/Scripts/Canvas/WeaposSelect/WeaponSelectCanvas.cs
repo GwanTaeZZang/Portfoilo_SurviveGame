@@ -14,20 +14,21 @@ public class WeaponSelectCanvas : UIBaseController
     [SerializeField] private Image selectWeaponImage;
     [SerializeField] private Text selectWeaponInfo;
 
-    private List<SelectIconElement> characterElementList;
-    private List<Job> jobList;
-    private List<Sprite> characterSpriteList;
+    private List<SelectIconElement> weaponElementList;
+    private List<WeaponItemInfo> weaponInfoList;
+    private List<Sprite> weaponSpriteList;
+    private int curSelectedWeaponIdx;
 
     private void Start()
     {
-        characterElementList = new List<SelectIconElement>();
-        characterSpriteList = new List<Sprite>();
-        jobList = PlayerManager.getInstance.GetJobList();
+        weaponElementList = new List<SelectIconElement>();
+        weaponSpriteList = new List<Sprite>();
+        weaponInfoList = ItemManager.getInstance.GetWeaponList();
         backBtn.onClick.AddListener(OnClickBackBtn);
         selectCompleteBtn.onClick.AddListener(OnClickSelectCompleteBtn);
-        SetCharacterElement();
+        SetWeaponElement();
 
-        UpdateSelectCharacterInfo(0);
+        UpdateSelectWeaponInfo(0);
     }
 
     //public override void Show()
@@ -36,48 +37,39 @@ public class WeaponSelectCanvas : UIBaseController
     //    UpdateSelectCharacterInfo(0);
     //}
 
-    private void SetCharacterElement()
+    private void SetWeaponElement()
     {
-        int count = jobList.Count;
+        int count = weaponInfoList.Count;
         for (int i = 0; i < count; i++)
         {
             int idx = i;
             SelectIconElement element = Instantiate(weaponElementPrefab, weaponElementParent);
-            characterSpriteList.Add(Resources.Load<Sprite>(jobList[i].jobSpritePath));
-            element.SetCharacterThumbnail(characterSpriteList[i]);
-            element.GetCharacterSelectBtnEvent().AddListener(() => OnClickCharacterSelectBtn(idx));
+            weaponSpriteList.Add(Resources.Load<Sprite>(weaponInfoList[i].weaponSpritePath));
+            element.SetElementThumbnail(weaponSpriteList[i]);
+            element.GetElementSelectBtnEvent().AddListener(() => OnClickWeaponSelectBtn(idx));
             element.gameObject.SetActive(true);
-            characterElementList.Add(element);
+            weaponElementList.Add(element);
         }
     }
 
-    private void OnClickCharacterSelectBtn(int _idx)
+    private void OnClickWeaponSelectBtn(int _idx)
     {
         Debug.Log(_idx + "Click");
-        UpdateSelectCharacterInfo(_idx);
+        UpdateSelectWeaponInfo(_idx);
     }
 
-    private void UpdateSelectCharacterInfo(int _idx)
+    private void UpdateSelectWeaponInfo(int _idx)
     {
-        Job job = jobList[_idx];
-        selectWeaponName.text = job.jobName;
-        selectWeaponImage.sprite = characterSpriteList[_idx];
+        curSelectedWeaponIdx = _idx;
+        WeaponItemInfo weaponInfo = weaponInfoList[_idx];
+        selectWeaponName.text = weaponInfo.weaponName;
+        selectWeaponImage.sprite = weaponSpriteList[_idx];
 
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("증가");
-        int increaseCount = job.increaseStatus.Length;
-        for (int i = 0; i < increaseCount; i++)
-        {
-            builder.AppendLine(job.increaseStatus[i].stringKey + "  " + job.increaseStatus[i].amount);
-        }
-
-        builder.AppendLine("감소");
-        int decreaseCount = job.decreaseStatus.Length;
-        for (int i = 0; i < decreaseCount; i++)
-        {
-            builder.AppendLine(job.decreaseStatus[i].stringKey + "  " + job.decreaseStatus[i].amount);
-        }
-
+        builder.AppendLine("공격력  " + weaponInfo.damage);
+        builder.AppendLine("계수  " + weaponInfo.damageRate);
+        builder.AppendLine("공격속도  " + weaponInfo.attackSpeed);
+        builder.AppendLine("레벨  " + weaponInfo.level);
         selectWeaponInfo.text = builder.ToString();
     }
 
@@ -88,6 +80,6 @@ public class WeaponSelectCanvas : UIBaseController
 
     private void OnClickSelectCompleteBtn()
     {
-
+        ItemManager.getInstance.SetSelectedWeapon(weaponInfoList[curSelectedWeaponIdx]);
     }
 }

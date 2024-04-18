@@ -95,5 +95,5 @@ public enum StatusEffectType
 [System.Serializable]
 public class JobData
 {
-    public Job[] job;
+    public Job[] jobArr;
 }
