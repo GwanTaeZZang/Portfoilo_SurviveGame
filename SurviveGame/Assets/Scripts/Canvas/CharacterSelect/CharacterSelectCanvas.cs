@@ -81,6 +81,8 @@ public class CharacterSelectCanvas : UIBaseController
         }
 
         selectCharacterInfo.text = builder.ToString();
+        builder = null;
+
     }
 
     private void OnClickBackBtn()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WeaponSelectCanvas : UIBaseController
 {
@@ -71,6 +72,8 @@ public class WeaponSelectCanvas : UIBaseController
         builder.AppendLine("공격속도  " + weaponInfo.attackSpeed);
         builder.AppendLine("레벨  " + weaponInfo.level);
         selectWeaponInfo.text = builder.ToString();
+
+        builder = null;
     }
 
     private void OnClickBackBtn()
@@ -81,5 +84,8 @@ public class WeaponSelectCanvas : UIBaseController
     private void OnClickSelectCompleteBtn()
     {
         ItemManager.getInstance.SetSelectedWeapon(weaponInfoList[curSelectedWeaponIdx]);
+        UIManager.getInstance.Hide();
+        UIManager.getInstance.Hide();
+        SceneManager.LoadScene("InGameScene");
     }
 }
