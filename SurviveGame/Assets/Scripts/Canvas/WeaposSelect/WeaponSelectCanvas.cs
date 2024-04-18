@@ -4,20 +4,19 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterSelectCanvas : UIBaseController
+public class WeaponSelectCanvas : UIBaseController
 {
     [SerializeField] private Button backBtn;
     [SerializeField] private Button selectCompleteBtn;
-    [SerializeField] private Transform characterElementParent;
-    [SerializeField] private SelectIconElement characterElementPrefab;
-    [SerializeField] private Text selectCharacterName;
-    [SerializeField] private Image selectCharacterImage;
-    [SerializeField] private Text selectCharacterInfo;
+    [SerializeField] private Transform weaponElementParent;
+    [SerializeField] private SelectIconElement weaponElementPrefab;
+    [SerializeField] private Text selectWeaponName;
+    [SerializeField] private Image selectWeaponImage;
+    [SerializeField] private Text selectWeaponInfo;
 
     private List<SelectIconElement> characterElementList;
     private List<Job> jobList;
     private List<Sprite> characterSpriteList;
-    private int curSelectedJobIdx;
 
     private void Start()
     {
@@ -40,10 +39,10 @@ public class CharacterSelectCanvas : UIBaseController
     private void SetCharacterElement()
     {
         int count = jobList.Count;
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             int idx = i;
-            SelectIconElement element = Instantiate(characterElementPrefab, characterElementParent);
+            SelectIconElement element = Instantiate(weaponElementPrefab, weaponElementParent);
             characterSpriteList.Add(Resources.Load<Sprite>(jobList[i].jobSpritePath));
             element.SetCharacterThumbnail(characterSpriteList[i]);
             element.GetCharacterSelectBtnEvent().AddListener(() => OnClickCharacterSelectBtn(idx));
@@ -60,17 +59,16 @@ public class CharacterSelectCanvas : UIBaseController
 
     private void UpdateSelectCharacterInfo(int _idx)
     {
-        curSelectedJobIdx = _idx;
         Job job = jobList[_idx];
-        selectCharacterName.text = job.jobName;
-        selectCharacterImage.sprite = characterSpriteList[_idx];
+        selectWeaponName.text = job.jobName;
+        selectWeaponImage.sprite = characterSpriteList[_idx];
 
         StringBuilder builder = new StringBuilder();
         builder.AppendLine("증가");
         int increaseCount = job.increaseStatus.Length;
-        for(int i = 0; i < increaseCount; i++)
+        for (int i = 0; i < increaseCount; i++)
         {
-            builder.AppendLine(job.increaseStatus[i].stringKey + "  " +job.increaseStatus[i].amount);
+            builder.AppendLine(job.increaseStatus[i].stringKey + "  " + job.increaseStatus[i].amount);
         }
 
         builder.AppendLine("감소");
@@ -80,7 +78,7 @@ public class CharacterSelectCanvas : UIBaseController
             builder.AppendLine(job.decreaseStatus[i].stringKey + "  " + job.decreaseStatus[i].amount);
         }
 
-        selectCharacterInfo.text = builder.ToString();
+        selectWeaponInfo.text = builder.ToString();
     }
 
     private void OnClickBackBtn()
@@ -90,7 +88,6 @@ public class CharacterSelectCanvas : UIBaseController
 
     private void OnClickSelectCompleteBtn()
     {
-        PlayerManager.getInstance.SetSelectedJob(jobList[curSelectedJobIdx]);
-        UIManager.getInstance.Show<WeaponSelectCanvas>("Canvas/WeaponSelectCanvas");
+
     }
 }

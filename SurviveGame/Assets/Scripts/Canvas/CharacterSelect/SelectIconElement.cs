@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterElement : MonoBehaviour
+public class SelectIconElement : MonoBehaviour
 {
     [SerializeField] private Button characterSeletBtn;
     [SerializeField] private Image characterThumbnail;
