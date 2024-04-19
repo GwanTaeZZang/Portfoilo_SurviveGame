@@ -7,15 +7,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer playerSpriteRenderer;
     [SerializeField] JoyPad2DController joyPad;
 
+    private Character character;
     //private Vector2 moveDir;
     private float speed = 2;
 
-    private void Start()
+    private void Awake()
     {
         joyPad.Initialize(OnMove);
     }
+    public void Initialize()
+    {
+        character = new Character();
+        character.job = PlayerManager.getInstance.GetSelectedJob();
+        SetPlayerSprite(Resources.Load<Sprite>(character.job.jobSpritePath));
+    }
 
-    public void OnMove(Vector2 _dir)
+    private void OnMove(Vector2 _dir)
     {
         if (_dir == Vector2.zero)
             return;
@@ -28,4 +35,10 @@ public class PlayerController : MonoBehaviour
 
         playerSpriteRenderer.flipX = _dir.x < 0;
     }
+
+    private void SetPlayerSprite(Sprite _sprite)
+    {
+        playerSpriteRenderer.sprite = _sprite;
+    }
+
 }

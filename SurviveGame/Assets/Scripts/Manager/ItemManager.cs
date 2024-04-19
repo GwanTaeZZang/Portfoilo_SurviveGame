@@ -42,6 +42,10 @@ public class ItemManager : Singleton<ItemManager>
         Debug.Log("선택된 직업  = " + selectedWeapon.weaponName);
     }
 
+    public WeaponItemInfo GetSelectedWeapon()
+    {
+        return selectedWeapon;
+    }
     private void LoadWeaponData()
     {
         WeaponData weaponData = JsonController.ReadJson<WeaponData>("WeaponData");

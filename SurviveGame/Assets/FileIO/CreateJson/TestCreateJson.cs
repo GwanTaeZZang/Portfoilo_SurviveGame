@@ -12,8 +12,8 @@ public class TestCreateJson : MonoBehaviour
 
     private void Awake()
     {
-        CreateCharacterJobJson();
-        //CreateWeaponJson();
+        //CreateCharacterJobJson();
+        CreateWeaponJson();
     }
 
     private void CreateCharacterJobJson()
@@ -105,6 +105,7 @@ public class TestCreateJson : MonoBehaviour
         info.damage = 10;
         info.damageRate = 0.5f;
         info.attackSpeed = 1f;
+        info.attackRange = 3f;
         info.stringKey = "ªÔ¡ˆ√¢";
         info.weaponSpritePath = "Sprite/Weapon/Weapon_1";
         info.weaponName = "ªÔ¡ˆ√¢";
@@ -117,6 +118,7 @@ public class TestCreateJson : MonoBehaviour
         info.damage = 5;
         info.damageRate = 0.3f;
         info.attackSpeed = 1f;
+        info.attackRange = 10f;
         info.stringKey = "ø±√—";
         info.weaponSpritePath = "Sprite/Weapon/Weapon_3";
         info.weaponName = "ø±√—";

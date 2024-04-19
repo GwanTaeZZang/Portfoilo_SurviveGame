@@ -5,12 +5,19 @@ using UnityEngine;
 public class InGameSceneController : MonoBehaviour
 {
     [SerializeField] private Transform mapParent;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private WeaponController weaponController;
+
     private Tile[,] tiles;
 
-    void Start()
+    private void Awake()
     {
         LoadMap();
+        playerController.Initialize();
+        weaponController.Initialize();
     }
+
+
 
     private void LoadMap()
     {

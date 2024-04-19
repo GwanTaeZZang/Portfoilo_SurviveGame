@@ -42,6 +42,10 @@ public class PlayerManager : Singleton<PlayerManager>
         Debug.Log("선택된 직업  = " + selectedJob.jobName);
     }
 
+    public Job GetSelectedJob()
+    {
+        return selectedJob;
+    }
     private void LoadJobData()
     {
         JobData jobData = JsonController.ReadJson<JobData>("JobData");

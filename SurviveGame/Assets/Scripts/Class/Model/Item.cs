@@ -11,7 +11,7 @@ public class BaseItem
 
 public abstract class WeaponItem : BaseItem
 {
-    WeaponItemInfo weaponItemInfo;
+    public WeaponItemInfo weaponItemInfo;
     public abstract void Fire();
 }
 
@@ -57,6 +57,7 @@ public class WeaponItemInfo
     public float damage;
     public float damageRate;
     public float attackSpeed;
+    public float attackRange;
     public string stringKey;
     public string weaponSpritePath;
     public string weaponName;
