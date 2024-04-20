@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
     public void Initialize()
     {
         character = new Character();
-        character.job = PlayerManager.getInstance.GetSelectedJob();
+        //character.job = PlayerManager.getInstance.GetSelectedJob();
+        character.job = PlayerManager.getInstance.GetJobList()[0];
         SetPlayerSprite(Resources.Load<Sprite>(character.job.jobSpritePath));
     }
 

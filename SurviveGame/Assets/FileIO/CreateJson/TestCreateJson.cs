@@ -109,7 +109,7 @@ public class TestCreateJson : MonoBehaviour
         info.stringKey = "ªÔ¡ˆ√¢";
         info.weaponSpritePath = "Sprite/Weapon/Weapon_1";
         info.weaponName = "ªÔ¡ˆ√¢";
-        info.weaponType = WeaponType.ShotRange;
+        info.weaponType = WeaponType.StingWeapon;
         weaponInfoArr[0] = info;
 
         info = new WeaponItemInfo();
@@ -122,7 +122,7 @@ public class TestCreateJson : MonoBehaviour
         info.stringKey = "ø±√—";
         info.weaponSpritePath = "Sprite/Weapon/Weapon_3";
         info.weaponName = "ø±√—";
-        info.weaponType = WeaponType.LongRange;
+        info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoArr[1] = info;
 
         weaponData = new WeaponData();
