@@ -47,7 +47,7 @@ public class WeaponController : MonoBehaviour
     public void Initialize()
     {
         //WeaponItemInfo weaponInfo = ItemManager.getInstance.GetSelectedWeapon();
-        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[1];
+        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[0];
         EquipWeapon(weaponInfo);
     }
 
@@ -71,6 +71,9 @@ public class WeaponController : MonoBehaviour
             stingWeapon.weaponSprite = Resources.Load<Sprite>(_info.weaponSpritePath);
             stingWeapon.weapon = weaponPointList[weaponMountCount].transform;
 
+            //weaponPointList[weaponMountCount].SetAnim(WeaponType.StingWeapon);
+            stingWeapon.anim = weaponPointList[weaponMountCount].GetAnimator();
+
             equipWeaponList.Add(stingWeapon);
             SetWeaponSprite(stingWeapon.weaponSprite);
         }
@@ -89,6 +92,9 @@ public class WeaponController : MonoBehaviour
             mowWeapon.weaponItemInfo = _info;
             mowWeapon.weaponSprite = Resources.Load<Sprite>(_info.weaponSpritePath);
             mowWeapon.weapon = weaponPointList[weaponMountCount].transform;
+
+            //weaponPointList[weaponMountCount].SetAnim(WeaponType.MowWeapon);
+            mowWeapon.anim = weaponPointList[weaponMountCount].GetAnimator();
 
             equipWeaponList.Add(mowWeapon);
             SetWeaponSprite(mowWeapon.weaponSprite);

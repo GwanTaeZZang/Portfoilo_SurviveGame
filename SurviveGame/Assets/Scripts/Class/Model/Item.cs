@@ -36,6 +36,8 @@ public abstract class WeaponBase
     public WeaponItemInfo weaponItemInfo;
     public Sprite weaponSprite;
     public Transform weapon;
+    public Animator anim;
+
     public abstract void UpdateWeapon();
     protected abstract void Attack();
     protected abstract void LookAtEnemyInRange();
@@ -94,6 +96,7 @@ public class StingWeapon : WeaponBase
         if (timer > attackSpeed)
         {
             Debug.Log("찌르기 무기 공격");
+            anim.Play("Weapon_0_Attack_Anim", -1, 0f);
             timer = 0;
         }
     }
@@ -111,8 +114,7 @@ public class StingWeapon : WeaponBase
 
             weapon.rotation = Quaternion.Euler(0, 0, angle);
 
-            Attack();
-            timer = 0;
+            this.Attack();
         }
     }
 }
@@ -166,7 +168,6 @@ public class ShoootingWeapon : WeaponBase
             weapon.rotation = Quaternion.Euler(0, 0, angle);
 
             Attack();
-            timer = 0;
         }
 
     }

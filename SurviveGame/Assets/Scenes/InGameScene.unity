@@ -1421,6 +1421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSprite: {fileID: 1377172620}
+  anim: {fileID: 0}
 --- !u!1 &668527529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3268,6 +3269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSprite: {fileID: 1655267219}
+  anim: {fileID: 1655267220}
 --- !u!1 &1441597253
 GameObject:
   m_ObjectHideFlags: 0
@@ -3679,6 +3681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSprite: {fileID: 96218253}
+  anim: {fileID: 0}
 --- !u!1 &1542386046
 GameObject:
   m_ObjectHideFlags: 0
@@ -3768,6 +3771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1655267218}
   - component: {fileID: 1655267219}
+  - component: {fileID: 1655267220}
   m_Layer: 0
   m_Name: Weapon_0
   m_TagString: Untagged
@@ -3842,6 +3846,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1655267220
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655267217}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 048b7d81c20967c49b16d7d3d418edb2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1662919988
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,6 +4124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSprite: {fileID: 47135655}
+  anim: {fileID: 0}
 --- !u!1 &1725506303
 GameObject:
   m_ObjectHideFlags: 0
@@ -4437,6 +4463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSprite: {fileID: 1031181826}
+  anim: {fileID: 0}
 --- !u!1 &1815687931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4724,6 +4751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSprite: {fileID: 1727239941}
+  anim: {fileID: 0}
 --- !u!1 &1872602110
 GameObject:
   m_ObjectHideFlags: 0
