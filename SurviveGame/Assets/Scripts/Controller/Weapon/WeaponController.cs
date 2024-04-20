@@ -69,6 +69,8 @@ public class WeaponController : MonoBehaviour
         {
             StingWeapon stingWeapon = new StingWeapon(_info);
             stingWeapon.weaponSprite = Resources.Load<Sprite>(_info.weaponSpritePath);
+            stingWeapon.weapon = weaponPointList[weaponMountCount].transform;
+
             equipWeaponList.Add(stingWeapon);
             SetWeaponSprite(stingWeapon.weaponSprite);
         }
@@ -76,6 +78,8 @@ public class WeaponController : MonoBehaviour
         {
             ShoootingWeapon ShootingWeapon = new ShoootingWeapon(_info);
             ShootingWeapon.weaponSprite = Resources.Load<Sprite>(_info.weaponSpritePath);
+            ShootingWeapon.weapon = weaponPointList[weaponMountCount].transform;
+
             equipWeaponList.Add(ShootingWeapon);
             SetWeaponSprite(ShootingWeapon.weaponSprite);
         }
@@ -84,6 +88,8 @@ public class WeaponController : MonoBehaviour
             MowWeapon mowWeapon = new MowWeapon();
             mowWeapon.weaponItemInfo = _info;
             mowWeapon.weaponSprite = Resources.Load<Sprite>(_info.weaponSpritePath);
+            mowWeapon.weapon = weaponPointList[weaponMountCount].transform;
+
             equipWeaponList.Add(mowWeapon);
             SetWeaponSprite(mowWeapon.weaponSprite);
         }

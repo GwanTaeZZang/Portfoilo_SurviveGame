@@ -35,8 +35,10 @@ public abstract class WeaponBase
     public int uid;
     public WeaponItemInfo weaponItemInfo;
     public Sprite weaponSprite;
+    public Transform weapon;
     public abstract void UpdateWeapon();
     protected abstract void Attack();
+    protected abstract void LookAtEnemyInRange();
 }
 
 public abstract class EquipItem
@@ -83,7 +85,7 @@ public class StingWeapon : WeaponBase
 
     public override void UpdateWeapon()
     {
-
+        LookAtEnemyInRange();
     }
 
     protected override void Attack()
@@ -92,6 +94,24 @@ public class StingWeapon : WeaponBase
         if (timer > attackSpeed)
         {
             Debug.Log("찌르기 무기 공격");
+            timer = 0;
+        }
+    }
+
+    protected override void LookAtEnemyInRange()
+    {
+        Vector2 startPpos = weapon.position;
+        Vector2 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float dir = Vector2.Distance(endPos , startPpos);
+        if(dir < attackRange)
+        {
+            Debug.Log("범위 안에 있음");
+            Vector2 v2 = endPos - startPpos;
+            float angle = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
+
+            weapon.rotation = Quaternion.Euler(0, 0, angle);
+
+            Attack();
             timer = 0;
         }
     }
@@ -118,8 +138,10 @@ public class ShoootingWeapon : WeaponBase
 
     public override void UpdateWeapon()
     {
-
+        LookAtEnemyInRange();
     }
+
+    
 
     protected override void Attack()
     {
@@ -131,6 +153,23 @@ public class ShoootingWeapon : WeaponBase
         }
     }
 
+    protected override void LookAtEnemyInRange()
+    {
+        Vector2 startPpos = weapon.position;
+        Vector2 endPos =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float dir = Vector2.Distance(endPos, startPpos);
+        if (dir < attackRange - 3)
+        {
+            Vector2 v2 = endPos - startPpos;
+            float angle = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
+
+            weapon.rotation = Quaternion.Euler(0, 0, angle);
+
+            Attack();
+            timer = 0;
+        }
+
+    }
 }
 
 public class MowWeapon : WeaponBase
@@ -141,6 +180,11 @@ public class MowWeapon : WeaponBase
     }
 
     protected override void Attack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void LookAtEnemyInRange()
     {
         throw new System.NotImplementedException();
     }
