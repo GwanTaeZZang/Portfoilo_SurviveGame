@@ -38,9 +38,28 @@ public abstract class WeaponBase
     public Transform weapon;
     public Animator anim;
 
+    protected float damage;
+    protected float damageRate;
+    protected float attackSpeed;
+    protected float attackRange;
+
+    protected float timer;
+
+
     public abstract void UpdateWeapon();
     protected abstract void Attack();
     protected abstract void LookAtEnemyInRange();
+
+
+    public void SetWeaponInfo(WeaponItemInfo _info)
+    {
+        weaponItemInfo = _info;
+
+        damage = _info.damage;
+        damageRate = _info.damageRate;
+        attackRange = _info.attackRange;
+        attackSpeed = _info.attackSpeed;
+    }
 }
 
 public abstract class EquipItem
@@ -66,24 +85,6 @@ public enum WeaponType
 
 public class StingWeapon : WeaponBase
 {
-    private float damage;
-    private float damageRate;
-    private float attackSpeed;
-    private float attackRange;
-
-    private float timer;
-
-    public StingWeapon(WeaponItemInfo _info)
-    {
-        weaponItemInfo = _info;
-
-        damage = _info.damage;
-        damageRate = _info.damageRate;
-        attackRange = _info.attackRange;
-        attackSpeed = _info.attackSpeed;
-    }
-
-    
 
     public override void UpdateWeapon()
     {
@@ -95,8 +96,7 @@ public class StingWeapon : WeaponBase
         timer += Time.deltaTime;
         if (timer > attackSpeed)
         {
-            Debug.Log("찌르기 무기 공격");
-            anim.Play("Weapon_0_Attack_Anim", -1, 0f);
+            //anim.Play("Weapon_0_Attack_Anim", -1, 0f);
             timer = 0;
         }
     }
@@ -108,7 +108,6 @@ public class StingWeapon : WeaponBase
         float dir = Vector2.Distance(endPos , startPpos);
         if(dir < attackRange)
         {
-            Debug.Log("범위 안에 있음");
             Vector2 v2 = endPos - startPpos;
             float angle = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
 
@@ -119,24 +118,8 @@ public class StingWeapon : WeaponBase
     }
 }
 
-public class ShoootingWeapon : WeaponBase
+public class ShootingWeapon : WeaponBase
 {
-    private float damage;
-    private float damageRate;
-    private float attackSpeed;
-    private float attackRange;
-
-    private float timer;
-
-    public ShoootingWeapon(WeaponItemInfo _info)
-    {
-        weaponItemInfo = _info;
-
-        damage = _info.damage;
-        damageRate = _info.damageRate;
-        attackRange = _info.attackRange;
-        attackSpeed = _info.attackSpeed;
-    }
 
     public override void UpdateWeapon()
     {
@@ -150,7 +133,6 @@ public class ShoootingWeapon : WeaponBase
         timer += Time.deltaTime;
         if (timer > attackSpeed)
         {
-            Debug.Log("발사 무기 공격");
             timer = 0;
         }
     }
@@ -160,7 +142,7 @@ public class ShoootingWeapon : WeaponBase
         Vector2 startPpos = weapon.position;
         Vector2 endPos =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float dir = Vector2.Distance(endPos, startPpos);
-        if (dir < attackRange - 3)
+        if (dir < attackRange)
         {
             Vector2 v2 = endPos - startPpos;
             float angle = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;

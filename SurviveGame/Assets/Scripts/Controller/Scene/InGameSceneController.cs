@@ -13,10 +13,13 @@ public class InGameSceneController : MonoBehaviour
     private void Awake()
     {
         LoadMap();
+    }
+
+    private void Start()
+    {
         playerController.Initialize();
         weaponController.Initialize();
     }
-
 
 
     private void LoadMap()
