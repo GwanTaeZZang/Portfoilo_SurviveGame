@@ -5,24 +5,34 @@ using UnityEngine;
 public class WeaponPoint : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer weaponSprite;
-    [SerializeField] private Animator anim;
+    [SerializeField] private Transform weaponTransform;
+    //[SerializeField] private Animator anim;
 
     private WeaponBase weapon;
-    private StingWeapon stingWeapon = new StingWeapon();
-    private ShootingWeapon shootingWeapon = new ShootingWeapon();
-    private MowWeapon mowWeapon = new MowWeapon();
+    private StingWeapon stingWeapon;
+    private ShootingWeapon shootingWeapon;
+    private MowWeapon mowWeapon;
+
+    private bool isEquip = false;
 
     public void Awake()
     {
+        stingWeapon = new StingWeapon(weaponTransform);
+        shootingWeapon = new ShootingWeapon(weaponTransform);
+        mowWeapon = new MowWeapon(weaponTransform);
     }
 
     public void Update()
     {
-        weapon.UpdateWeapon();
+        if (isEquip)
+        {
+            weapon.UpdateWeapon();
+        }
     }
 
     public void EquipWeapon(WeaponItemInfo _info)
     {
+
         if (_info.weaponType.Equals(WeaponType.StingWeapon))
         {
             stingWeapon.SetWeaponInfo(_info);
@@ -38,18 +48,16 @@ public class WeaponPoint : MonoBehaviour
             mowWeapon.SetWeaponInfo(_info);
             weapon = mowWeapon;
         }
-        weapon.weapon = this.transform;
         weaponSprite.sprite = ItemManager.getInstance.GetWeaponSprite(_info.Uid);
-        weapon.anim = anim;
-
-        this.gameObject.SetActive(true);
+        //weapon.anim = anim;
+        isEquip = true;
     }
 
     public void UnEquipWeapon()
     {
         weapon = null;
-
-        this.gameObject.SetActive(false);
+        weaponSprite.sprite = null;
+        isEquip = false;
     }
 
     //public void SetWeaponSprite(Sprite _sprite)
@@ -59,11 +67,7 @@ public class WeaponPoint : MonoBehaviour
 
     public void SetAnim(WeaponType _type)
     {
-        anim.SetInteger("index",(int)_type);
+        //anim.SetInteger("index",(int)_type);
     }
 
-    public Animator GetAnimator()
-    {
-        return anim;
-    }
 }

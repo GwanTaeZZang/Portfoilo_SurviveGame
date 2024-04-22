@@ -14,6 +14,17 @@ public class WeaponController : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        int count = weaponPointList.Count;
+        for(int i = 0; i < count; i++)
+        {
+            weaponPointList[i].UnEquipWeapon();
+        }
+    }
+
+
+
     private void Update()
     {
         if (Input.GetKeyDown("q"))

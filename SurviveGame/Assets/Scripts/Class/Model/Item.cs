@@ -86,6 +86,11 @@ public enum WeaponType
 public class StingWeapon : WeaponBase
 {
 
+    public StingWeapon(Transform _weapon)
+    {
+        weapon = _weapon;
+    }
+
     public override void UpdateWeapon()
     {
         LookAtEnemyInRange();
@@ -97,6 +102,8 @@ public class StingWeapon : WeaponBase
         if (timer > attackSpeed)
         {
             //anim.Play("Weapon_0_Attack_Anim", -1, 0f);
+            
+
             timer = 0;
         }
     }
@@ -120,6 +127,12 @@ public class StingWeapon : WeaponBase
 
 public class ShootingWeapon : WeaponBase
 {
+
+    public ShootingWeapon(Transform _weapon)
+    {
+        weapon = _weapon;
+    }
+
 
     public override void UpdateWeapon()
     {
@@ -157,6 +170,12 @@ public class ShootingWeapon : WeaponBase
 
 public class MowWeapon : WeaponBase
 {
+        public MowWeapon(Transform _weapon)
+    {
+        weapon = _weapon;
+    }
+
+
     public override void UpdateWeapon()
     {
         throw new System.NotImplementedException();
