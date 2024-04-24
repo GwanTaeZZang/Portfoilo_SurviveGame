@@ -13,7 +13,7 @@ public class TestObject : IPoolable
 
     public void SetModel(Transform _model)
     {
-        model = GameObject.Instantiate(_model);
+        model = _model;
     }
     public Transform GetModel()
     {

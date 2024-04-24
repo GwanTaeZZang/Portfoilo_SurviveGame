@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : IPoolable
+public class TestMonoObject : MonoBehaviour , IPoolable
 {
     private Transform model;
+
+
+    private void Start()
+    {
+        Debug.Log("모노 오브젝트가 태어났");
+    }
 
     public void OnDequeue()
     {
@@ -19,6 +25,11 @@ public class Bullet : IPoolable
 
     public void SetModel(Transform _model)
     {
-        model = GameObject.Instantiate(_model);
+        model = _model;
+    }
+
+    public void ShowMessage(string _message)
+    {
+        Debug.Log(_message);
     }
 }

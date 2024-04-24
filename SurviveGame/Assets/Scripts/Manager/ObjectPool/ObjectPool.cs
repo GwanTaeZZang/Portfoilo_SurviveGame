@@ -21,15 +21,31 @@ public class ObjectPool<T> : IObjectPool where T : IPoolable, new()
     {
         if(pool.Count < 1)
         {
-            Debug.Log("풀에 있는 새로운 객체 생;");
             for(int i =0; i< increaseSize; i++)
             {
-                T obj = new T();
-                if (model != null)
+                //T obj = new T();
+                //if (model != null)
+                //{
+                //    obj.SetModel(model);
+                //}
+                //Enqueue(obj);
+
+                T poolObj;
+
+                Transform createdModel = GameObject.Instantiate(model);
+
+                if (typeof(T).IsSubclassOf(typeof(MonoBehaviour)))
                 {
-                    obj.SetModel(model);
+                    poolObj = createdModel.GetComponent<T>();
+                    poolObj.SetModel(createdModel);
                 }
-                Enqueue(obj);
+                else
+                {
+                    poolObj = new T();
+                    poolObj.SetModel(createdModel);
+                }
+
+                Enqueue(poolObj);
             }
         }
         return pool.Dequeue();

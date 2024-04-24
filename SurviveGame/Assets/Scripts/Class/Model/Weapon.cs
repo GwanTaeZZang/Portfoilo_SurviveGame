@@ -45,6 +45,12 @@ public abstract class WeaponBase
     protected float attackRange;
     protected float timer;
 
+    protected Vector2 oriWeaponPos;
+    protected Vector2 targetPos;
+    protected Vector2 dir;
+    protected float distance;
+    protected bool isAttack = false;
+
 
     public abstract void UpdateWeapon();
     protected abstract void LookAtEnemyInRange();
@@ -87,11 +93,6 @@ public enum WeaponType
 
 public class StingWeapon : WeaponBase
 {
-    protected Vector2 oriWeaponPos;
-    protected Vector2 targetPos;
-    protected Vector2 dir;
-    protected float distance;
-    protected bool isAttack = false;
     protected bool isGo = true;
     //protected bool isSetAttackVector = false;
 
@@ -150,7 +151,7 @@ public class StingWeapon : WeaponBase
 
     protected override void LookAtEnemyInRange()
     {
-        // 일정거리에 들어왔을 때 타겟 바라보기
+        // ?????????? ???????? ?? ???? ????????
 
         //oriWeaponPos = weapon.position;
         //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -165,7 +166,7 @@ public class StingWeapon : WeaponBase
         //    this.AttackCounter();
         //}
 
-        // 무조건 바라보기
+        // ?????? ????????
         targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         distance = Vector2.Distance(oriWeaponPos, targetPos);
 
@@ -179,7 +180,6 @@ public class StingWeapon : WeaponBase
 
         if (distance < attackRange)
         {
-            Debug.Log("공격범위 안");
             timer += Time.deltaTime;
             if (timer > attackSpeed)
             {
@@ -197,10 +197,16 @@ public class StingWeapon : WeaponBase
 
 public class ShootingWeapon : WeaponBase
 {
+    private ObjectPool<Bullet> bulletPool;
+    private Queue<Bullet> bulletQueue = new Queue<Bullet>();
 
     public ShootingWeapon(Transform _weapon)
     {
         weapon = _weapon;
+        oriWeaponPos = _weapon.position;
+
+        bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>(10);
+        bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"));
     }
 
 
@@ -209,18 +215,51 @@ public class ShootingWeapon : WeaponBase
         LookAtEnemyInRange();
     }
 
+    protected bool Shoot(Vector2 _dir)
+    {
+        Bullet obj = bulletPool.Dequeue();
+        bulletQueue.Enqueue(obj);
+        obj.SetPosition(weapon.position);
+        obj.SetDirection(_dir);
+        obj.OnDequeue();
+        //float angle = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg;
+        //obj.model.rotation = Quaternion.Euler(0, 0, angle);
+
+        //Vector2 bulletPos = obj.model.position;
+        //bulletPos.x += _dir.x * Time.deltaTime * 10;
+        //bulletPos.y += _dir.y * Time.deltaTime * 10;
+        //obj.model.position = bulletPos;
+
+        return true;
+    }
+
     protected override void LookAtEnemyInRange()
     {
-        Vector2 startPpos = weapon.position;
-        Vector2 endPos =  Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float dir = Vector2.Distance(endPos, startPpos);
-        if (dir < attackRange)
+        targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        distance = Vector2.Distance(oriWeaponPos, targetPos);
+
+        if (!isAttack)
         {
-            Vector2 v2 = endPos - startPpos;
-            float angle = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
-
+            dir = targetPos - oriWeaponPos;
+            //Vector2 v2 = targetPos - oriWeaponPos;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
+        }
 
+        if (distance < attackRange - 3)
+        {
+            Debug.Log("? ?? ?? ??? ");
+            timer += Time.deltaTime;
+            if (timer > attackSpeed)
+            {
+                isAttack = true;
+
+                if (Shoot(dir.normalized))
+                {
+                    isAttack = false;
+                    timer = 0;
+                }
+            }
         }
 
     }

@@ -6,8 +6,8 @@ public class ObjectPoolTest1 : MonoBehaviour
 {
     [SerializeField] private Transform testModle = null;
 
-    private ObjectPool<TestObject> testPool = null;
-    private Queue<TestObject> testObjectQueue = new Queue<TestObject>();
+    private ObjectPool<TestMonoObject> testPool = null;
+    private Queue<TestMonoObject> testObjectQueue = new Queue<TestMonoObject>();
 
     private void Start()
     {
@@ -19,14 +19,15 @@ public class ObjectPoolTest1 : MonoBehaviour
         {
             if(testPool == null)
             {
-                testPool = ObjectPoolManager.getInstance.GetPool<TestObject>(10);
+                testPool = ObjectPoolManager.getInstance.GetPool<TestMonoObject>(10);
                 testPool.SetModel(testModle);
             }
 
             Debug.Log("Dequeue Obejct");
-            TestObject obj = testPool.Dequeue();
+            TestMonoObject obj = testPool.Dequeue();
             testObjectQueue.Enqueue(obj);
             obj.OnDequeue();
+            obj.ShowMessage("dkdkdkdkdkdkdkkd");
         }
         if (Input.GetKeyDown("a"))
         {
@@ -37,7 +38,7 @@ public class ObjectPoolTest1 : MonoBehaviour
                 return;
             }
 
-            TestObject obj = testObjectQueue.Dequeue();
+            TestMonoObject obj = testObjectQueue.Dequeue();
             obj.OnEnqueue();
             testPool.Enqueue(obj);
         }
