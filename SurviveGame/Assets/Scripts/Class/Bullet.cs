@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour , IPoolable
     public Transform model;
 
     private Vector2 dir;
+    private Vector2 startPos;
 
     private void Update()
     {
@@ -30,13 +31,15 @@ public class Bullet : MonoBehaviour , IPoolable
 
     public void SetPosition(Vector2 _startPos)
     {
-        model.position = _startPos;
+        startPos = _startPos;
     }
 
     public void OnDequeue()
     {
         model.gameObject.SetActive(true);
-        //model.position = new Vector3(0, 0, 0);
+        startPos.x += dir.x * 1f;
+        startPos.y += dir.y * 1f;
+        model.position = startPos;
     }
 
     public void OnEnqueue()
