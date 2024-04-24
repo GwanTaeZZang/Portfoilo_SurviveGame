@@ -6,10 +6,10 @@
             "damage": 10.0,
             "damageRate": 0.5,
             "attackSpeed": 1.0,
-            "attackRange": 3.0,
-            "stringKey": "삼지창",
+            "attackRange": 2.0,
+            "stringKey": "???",
             "weaponSpritePath": "Sprite/Weapon/Weapon_1",
-            "weaponName": "삼지창",
+            "weaponName": "???",
             "weaponType": 0
         },
         {
@@ -18,11 +18,23 @@
             "damage": 5.0,
             "damageRate": 0.30000001192092898,
             "attackSpeed": 1.0,
-            "attackRange": 10.0,
-            "stringKey": "엽총",
+            "attackRange": 5.0,
+            "stringKey": "??",
             "weaponSpritePath": "Sprite/Weapon/Weapon_3",
-            "weaponName": "엽총",
+            "weaponName": "??",
             "weaponType": 2
+        },
+        {
+            "Uid": 2002,
+            "level": 1,
+            "damage": 5.0,
+            "damageRate": 0.30000001192092898,
+            "attackSpeed": 1.0,
+            "attackRange": 2.0,
+            "stringKey": "?? ?",
+            "weaponSpritePath": "Sprite/Weapon/Weapon_2",
+            "weaponName": "?? ?",
+            "weaponType": 1
         }
     ]
 }
