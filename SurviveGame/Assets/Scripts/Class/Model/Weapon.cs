@@ -39,10 +39,6 @@ public abstract class WeaponBase
     public Animator anim;
 
     protected Transform target;
-    protected float damage;
-    protected float damageRate;
-    protected float attackSpeed;
-    protected float attackRange;
     protected float timer;
 
     protected Vector2 oriWeaponPos;
@@ -68,11 +64,6 @@ public abstract class WeaponBase
     public void SetWeaponInfo(WeaponItemInfo _info)
     {
         weaponItemInfo = _info;
-
-        damage = _info.damage;
-        damageRate = _info.damageRate;
-        attackRange = _info.attackRange;
-        attackSpeed = _info.attackSpeed;
         Initiailzed();
     }
     public void SetWeapon(Transform _weapon)
@@ -137,7 +128,7 @@ public class StingWeapon : WeaponBase
             weapon.position = curWeaponPos;
 
             float distance = Vector2.Distance(curWeaponPos, oriWeaponPos);
-            if (distance >= attackRange)
+            if (distance >= weaponItemInfo.attackRange)
             {
                 isGo = false;
             }
@@ -195,10 +186,10 @@ public class StingWeapon : WeaponBase
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
-        if (distance < attackRange)
+        if (distance < weaponItemInfo.attackRange)
         {
             timer += Time.deltaTime;
-            if (timer > attackSpeed)
+            if (timer > weaponItemInfo.attackSpeed)
             {
                 isAttack = true;
 
@@ -269,11 +260,11 @@ public class ShootingWeapon : WeaponBase
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
-        if (distance < attackRange - 3)
+        if (distance < weaponItemInfo.attackRange - 3)
         {
             Debug.Log("? ?? ?? ??? ");
             timer += Time.deltaTime;
-            if (timer > attackSpeed)
+            if (timer > weaponItemInfo.attackSpeed)
             {
                 isAttack = true;
 
