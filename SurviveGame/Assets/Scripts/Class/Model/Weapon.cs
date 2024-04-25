@@ -46,6 +46,7 @@ public abstract class WeaponBase
     protected Vector2 dir;
     protected float distance;
     protected bool isAttack = false;
+    protected bool attackCompelet = false;
 
 
     public abstract void UpdateWeapon();
@@ -186,19 +187,26 @@ public class StingWeapon : WeaponBase
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
+        timer += Time.deltaTime;
+
         if (distance < weaponItemInfo.attackRange)
         {
-            timer += Time.deltaTime;
             if (timer > weaponItemInfo.attackSpeed)
             {
                 isAttack = true;
 
-                if (Attack(dir.normalized))
+                if (attackCompelet)
                 {
                     isAttack = false;
                     timer = 0;
+                    attackCompelet = false;
                 }
             }
+        }
+
+        if (isAttack)
+        {
+            attackCompelet = Attack(dir.normalized);
         }
     }
 }
