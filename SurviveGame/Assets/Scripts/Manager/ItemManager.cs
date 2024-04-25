@@ -6,18 +6,25 @@ public class ItemManager : Singleton<ItemManager>
 {
     private Dictionary<int, WeaponItemInfo> weaponItemDict = new Dictionary<int, WeaponItemInfo>();
     private Dictionary<int, Sprite> weaponItemSpriteDict = new Dictionary<int, Sprite>();
+    private Dictionary<WeaponType, Queue<WeaponBase>> weaponInstanceDict = new Dictionary<WeaponType, Queue<WeaponBase>>();
     private List<WeaponItemInfo> weaponItemList = new List<WeaponItemInfo>();
-    private List<Sprite> weaponItemSpriteList = new List<Sprite>();
+    //private List<Sprite> weaponItemSpriteList = new List<Sprite>();
     private WeaponItemInfo selectedWeapon;
+
+    private WeaponBase[] weaponBaseArr = new WeaponBase[(int)WeaponType.End];
+
+
 
     public override bool Initialize()
     {
         LoadWeaponData();
         SaveWeaponSprite();
+        SetWeaponBaseArr();
+
         return true;
     }
 
-    public WeaponItemInfo GetValue(int _key)
+    public WeaponItemInfo GetWeaponInfoValue(int _key)
     {
         if (!weaponItemDict.ContainsKey(_key))
         {
@@ -37,6 +44,35 @@ public class ItemManager : Singleton<ItemManager>
     public List<WeaponItemInfo> GetWeaponList()
     {
         return weaponItemList;
+    }
+
+    public WeaponBase GetWeaponInstance(WeaponType _key)
+    {
+        WeaponBase instance;
+
+        if (!weaponInstanceDict.ContainsKey(_key))
+        {
+            weaponInstanceDict.Add(_key, new Queue<WeaponBase>());
+        }
+
+        if (weaponInstanceDict.ContainsKey(_key))
+        {
+
+            if (weaponInstanceDict[_key].Count == 0)
+            {
+                instance = weaponBaseArr[(int)_key].DeepCopy();
+                weaponInstanceDict[_key].Enqueue(instance);
+            }
+        }
+
+        instance = weaponInstanceDict[_key].Dequeue();
+
+        return instance;
+    }
+
+    public void ReleaseWeaponInstance(WeaponType _type, WeaponBase _weaponBase)
+    {
+        weaponInstanceDict[_type].Enqueue(_weaponBase);
     }
 
     public void SetSelectedWeapon(WeaponItemInfo _selectedWeapon)
@@ -77,12 +113,30 @@ public class ItemManager : Singleton<ItemManager>
     {
         int count = weaponItemList.Count;
 
-        for(int i=0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             //weaponItemSpriteList.Add(Resources.Load<Sprite>(weaponItemList[i].weaponSpritePath));
             Sprite sprite = Resources.Load<Sprite>(weaponItemList[i].weaponSpritePath);
             weaponItemSpriteDict.Add(weaponItemList[i].Uid, sprite);
         }
     }
+
+    private void SetWeaponBaseArr()
+    {
+        StingWeapon stingWeapon = new StingWeapon();
+        ShootingWeapon shootingWeapon = new ShootingWeapon();
+        MowWeapon mowWeapon = new MowWeapon();
+
+        weaponBaseArr[(int)WeaponType.StingWeapon] = stingWeapon;
+        weaponBaseArr[(int)WeaponType.MowWeapon] = mowWeapon;
+        weaponBaseArr[(int)WeaponType.ShoootingWeapon] = shootingWeapon;
+    }
+
+    //private void DeepCopyWeaponInstance(WeaponType _type)
+    //{
+    //    var obj = weaponBaseArr[(int)_type];
+    //    obj = new WeaponBase();
+    //}
+
 
 }

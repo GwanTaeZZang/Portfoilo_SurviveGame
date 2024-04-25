@@ -19,7 +19,7 @@ public class WeaponController : MonoBehaviour
         int count = weaponPointList.Count;
         for(int i = 0; i < count; i++)
         {
-            weaponPointList[i].UnEquipWeapon();
+            weaponPointList[i].InitializeWeapon();
         }
     }
 
@@ -48,7 +48,7 @@ public class WeaponController : MonoBehaviour
 
     public void Initialize()
     {
-        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[2];
+        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[1];
         weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
         weaponMountCount++;
     }

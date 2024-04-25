@@ -17,9 +17,9 @@ public class WeaponPoint : MonoBehaviour
 
     public void Awake()
     {
-        stingWeapon = new StingWeapon(weaponTransform);
-        shootingWeapon = new ShootingWeapon(weaponTransform);
-        mowWeapon = new MowWeapon(weaponTransform);
+        stingWeapon = new StingWeapon();
+        shootingWeapon = new ShootingWeapon();
+        mowWeapon = new MowWeapon();
     }
 
     public void Update()
@@ -33,27 +33,46 @@ public class WeaponPoint : MonoBehaviour
     public void EquipWeapon(WeaponItemInfo _info)
     {
 
-        if (_info.weaponType.Equals(WeaponType.StingWeapon))
-        {
-            stingWeapon.SetWeaponInfo(_info);
-            weapon = stingWeapon;
-        }
-        if (_info.weaponType.Equals(WeaponType.ShoootingWeapon))
-        {
-            shootingWeapon.SetWeaponInfo(_info);
-            weapon = shootingWeapon;
-        }
-        if (_info.weaponType.Equals(WeaponType.MowWeapon))
-        {
-            mowWeapon.SetWeaponInfo(_info);
-            weapon = mowWeapon;
-        }
+        //if (_info.weaponType.Equals(WeaponType.StingWeapon))
+        //{
+        //    stingWeapon.SetWeaponInfo(_info);
+        //    weapon = stingWeapon;
+        //}
+        //if (_info.weaponType.Equals(WeaponType.ShoootingWeapon))
+        //{
+        //    shootingWeapon.SetWeaponInfo(_info);
+        //    weapon = shootingWeapon;
+        //}
+        //if (_info.weaponType.Equals(WeaponType.MowWeapon))
+        //{
+        //    mowWeapon.SetWeaponInfo(_info);
+        //    weapon = mowWeapon;
+        //}
+        //weaponSprite.sprite = ItemManager.getInstance.GetWeaponSprite(_info.Uid);
+        ////weapon.anim = anim;
+        //isEquip = true;
+
+
+        weapon = ItemManager.getInstance.GetWeaponInstance(_info.weaponType);
+        weapon.SetWeaponInfo(_info);
+        weapon.SetWeapon(weaponTransform);
         weaponSprite.sprite = ItemManager.getInstance.GetWeaponSprite(_info.Uid);
         //weapon.anim = anim;
         isEquip = true;
+
     }
 
     public void UnEquipWeapon()
+    {
+        ItemManager.getInstance.ReleaseWeaponInstance
+            (weapon.weaponItemInfo.weaponType, weapon);
+
+        weapon = null;
+        weaponSprite.sprite = null;
+        isEquip = false;
+    }
+
+    public void InitializeWeapon()
     {
         weapon = null;
         weaponSprite.sprite = null;

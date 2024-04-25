@@ -54,6 +54,12 @@ public abstract class WeaponBase
 
     public abstract void UpdateWeapon();
     protected abstract void LookAtEnemyInRange();
+    public abstract WeaponBase DeepCopy();
+
+    protected virtual void Initiailzed()
+    {
+
+    }
 
     public void SetTarget(Transform _target)
     {
@@ -67,6 +73,12 @@ public abstract class WeaponBase
         damageRate = _info.damageRate;
         attackRange = _info.attackRange;
         attackSpeed = _info.attackSpeed;
+        Initiailzed();
+    }
+    public void SetWeapon(Transform _weapon)
+    {
+        weapon = _weapon;
+        oriWeaponPos = _weapon.position;
     }
 }
 
@@ -87,7 +99,8 @@ public enum WeaponType
 {
     StingWeapon,
     MowWeapon,
-    ShoootingWeapon
+    ShoootingWeapon,
+    End,
 }
 
 
@@ -96,11 +109,11 @@ public class StingWeapon : WeaponBase
     protected bool isGo = true;
     //protected bool isSetAttackVector = false;
 
-    public StingWeapon(Transform _weapon)
-    {
-        weapon = _weapon;
-        oriWeaponPos = _weapon.position;
-    }
+    //public StingWeapon(Transform _weapon)
+    //{
+    //    weapon = _weapon;
+    //    oriWeaponPos = _weapon.position;
+    //}
 
     public override void UpdateWeapon()
     {
@@ -148,6 +161,10 @@ public class StingWeapon : WeaponBase
         return false;
     }
 
+    public override WeaponBase DeepCopy()
+    {
+        return new StingWeapon();
+    }
 
     protected override void LookAtEnemyInRange()
     {
@@ -200,15 +217,21 @@ public class ShootingWeapon : WeaponBase
     private ObjectPool<Bullet> bulletPool;
     private Queue<Bullet> bulletQueue = new Queue<Bullet>();
 
-    public ShootingWeapon(Transform _weapon)
-    {
-        weapon = _weapon;
-        oriWeaponPos = _weapon.position;
+    //public ShootingWeapon(Transform _weapon)
+    //{
+    //    weapon = _weapon;
+    //    oriWeaponPos = _weapon.position;
 
+    //    bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>(10);
+    //    bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"));
+    //}
+
+    protected override void Initiailzed()
+    {
+        base.Initiailzed();
         bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>(10);
         bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"));
     }
-
 
     public override void UpdateWeapon()
     {
@@ -263,14 +286,24 @@ public class ShootingWeapon : WeaponBase
         }
 
     }
+
+    public override WeaponBase DeepCopy()
+    {
+        return new ShootingWeapon();
+    }
 }
 
 public class MowWeapon : WeaponBase
 {
-        public MowWeapon(Transform _weapon)
+    public override WeaponBase DeepCopy()
     {
-        weapon = _weapon;
+        return new MowWeapon();
     }
+
+    //    public MowWeapon(Transform _weapon)
+    //{
+    //    weapon = _weapon;
+    //}
 
 
     public override void UpdateWeapon()
