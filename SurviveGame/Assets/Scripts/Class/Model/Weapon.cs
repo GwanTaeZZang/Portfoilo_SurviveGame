@@ -31,12 +31,9 @@ public class WeaponData
 
 public abstract class WeaponBase
 {
-    public int price;
-    public int uid;
     public WeaponItemInfo weaponItemInfo;
     public Sprite weaponSprite;
     public Transform weapon;
-    public Animator anim;
 
     protected Transform target;
     protected float timer;
@@ -74,18 +71,18 @@ public abstract class WeaponBase
     }
 }
 
-public abstract class EquipItem
-{
-    public int price;
-    public int uid;
-    public List<StatusEffect> buff;
-    public List<StatusEffect> deBuff;
-}
+//public abstract class EquipItem
+//{
+//    public int price;
+//    public int uid;
+//    public List<StatusEffect> buff;
+//    public List<StatusEffect> deBuff;
+//}
 
-public class SetEffect
-{
+//public class SetEffect
+//{
 
-}
+//}
 
 public enum WeaponType
 {

@@ -6,14 +6,16 @@ public class TestCreateJson : MonoBehaviour
 {
     private string jobFileName = "JobData";
     private string weaponFileName = "WeaponData";
+    private string monsterFileName = "MonsterDtat";
 
     private JobData jobData;
     private WeaponData weaponData;
+    private MonsterData monsterData;
 
     private void Awake()
     {
         //CreateCharacterJobJson();
-        CreateWeaponJson();
+        //CreateWeaponJson();
     }
 
     private void CreateCharacterJobJson()
@@ -143,6 +145,37 @@ public class TestCreateJson : MonoBehaviour
         weaponData.weaponArr = weaponInfoArr;
     }
 
+    private void CreateMonsterJson()
+    {
+        MonsterInfo[] monsterInfoArr = new MonsterInfo[2];
+        MonsterInfo info = new MonsterInfo();
+        info.Uid = 3000;
+        info.hp = 10;
+        info.damage = 5;
+        info.speed = 3;
+        info.attackSpeed = 1;
+        info.attackRange = 1;
+        info.stringKey = "근접 기본몬스터 ";
+        info.monsterSpritePath = "";
+        info.monsterName = "근접 기본몬스터 ";
+        info.monsterType = MonsterType.NormalMonster;
+        monsterInfoArr[0] = info;
+
+        info = new MonsterInfo();
+        info.Uid = 3001;
+        info.hp = 10;
+        info.damage = 3;
+        info.speed = 3;
+        info.attackSpeed = 1;
+        info.attackRange = 1;
+        info.stringKey = "원거리 기본몬스터 ";
+        info.monsterSpritePath = "";
+        info.monsterName = "원거리 기본몬스터 ";
+        info.monsterType = MonsterType.ShootingMonster;
+        monsterInfoArr[1] = info;
+
+    }
+
     [ContextMenu("To Json Character Job Data")]  // ???????? ?????? ???? ?????? ???????? To Json Data ???? ???????? ?????? 
     private void SaveToJsonCharacterJobData()
     {
@@ -165,5 +198,19 @@ public class TestCreateJson : MonoBehaviour
         }
         JsonController.WriteJson<WeaponData>(weaponFileName, weaponData);
     }
+
+    [ContextMenu("To Json Monster Data")]
+
+    private void SaveToJsonMonsterData()
+    {
+        if (monsterFileName == "")
+        {
+            Debug.Log("???? ???? ???? ");
+            return;
+        }
+        JsonController.WriteJson<MonsterData>(monsterFileName, monsterData);
+
+    }
+
 
 }
