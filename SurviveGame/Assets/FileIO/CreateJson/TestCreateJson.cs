@@ -16,6 +16,7 @@ public class TestCreateJson : MonoBehaviour
     {
         //CreateCharacterJobJson();
         //CreateWeaponJson();
+        //CreateMonsterJson();
     }
 
     private void CreateCharacterJobJson()
@@ -156,9 +157,11 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 1;
         info.attackRange = 1;
         info.stringKey = "근접 기본몬스터 ";
-        info.monsterSpritePath = "";
+        info.monsterSpritePath = "Sprite/Monster/CommonMonster_0";
         info.monsterName = "근접 기본몬스터 ";
-        info.monsterType = MonsterType.NormalMonster;
+        info.logicType = BehaviorLogicType.LoopBehavior;
+        info.moveType = MonsterMoveBehaviorType.ApproachToTarget;
+        info.attackType = MonsterAttackBehaviorType.None;
         monsterInfoArr[0] = info;
 
         info = new MonsterInfo();
@@ -169,11 +172,15 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 1;
         info.attackRange = 1;
         info.stringKey = "원거리 기본몬스터 ";
-        info.monsterSpritePath = "";
+        info.monsterSpritePath = "Sprite/Monster/ShootingMonster_0";
         info.monsterName = "원거리 기본몬스터 ";
-        info.monsterType = MonsterType.ShootingMonster;
+        info.logicType = BehaviorLogicType.LoopBehavior;
+        info.moveType = MonsterMoveBehaviorType.RunAwayFromTarget;
+        info.attackType = MonsterAttackBehaviorType.Shooting;
         monsterInfoArr[1] = info;
 
+        monsterData = new MonsterData();
+        monsterData.monsterArr = monsterInfoArr;
     }
 
     [ContextMenu("To Json Character Job Data")]  // ???????? ?????? ???? ?????? ???????? To Json Data ???? ???????? ?????? 
