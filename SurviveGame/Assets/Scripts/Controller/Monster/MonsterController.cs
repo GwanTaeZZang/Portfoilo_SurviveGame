@@ -8,6 +8,9 @@ public class MonsterController : MonoBehaviour , IPoolable
     private BehaviorLogicBase monsterBehavior;
     private Transform model;
 
+    public int monsterIdx;
+
+
     private void Update()
     {
         monsterBehavior?.Update();
@@ -16,7 +19,7 @@ public class MonsterController : MonoBehaviour , IPoolable
     public void OnDequeue()
     {
         model.gameObject.SetActive(true);
-        model.position = new Vector3(0, 0, 0);
+        model.position = new Vector3(5, 5, 0);
     }
 
     public void OnEnqueue()
@@ -37,5 +40,17 @@ public class MonsterController : MonoBehaviour , IPoolable
     public void SetMonsterBehavior(BehaviorLogicBase _behavior)
     {
         monsterBehavior = _behavior;
+    }
+
+    public void ShowMonster()
+    {
+        model.gameObject.SetActive(true);
+        model.position = new Vector3(5, 5, 0);
+    }
+
+    public void HideMonster()
+    {
+        model.gameObject.SetActive(false);
+        monsterBehavior = null;
     }
 }

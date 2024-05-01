@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterManager : Singleton<MonsterManager>
 {
+    private const int CAPICITY = 100;
+
     private BehaviorLogicBase[] behaviorLogicArr;
     private MonsterBehavior[] monsterAttackBehaviorArr;
     private MonsterBehavior[] monsterMoveBehaviorArr;
@@ -13,8 +15,11 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private ObjectPool<MonsterController> monsterPool;
     //private Queue<MonsterController> monsterQueue = new Queue<MonsterController>();
+    private MonsterController[] monsterCtrlArr;
     private Transform MonsterModel;
 
+
+    private int showMonsterCounter = 0;
 
     public override bool Initialize()
     {
@@ -22,19 +27,49 @@ public class MonsterManager : Singleton<MonsterManager>
 
         BindMonsterBehaviorInstance();
 
-        CreateMonsterPool();
+        //CreateMonsterPool();
 
-        //CreateMonster();
+        CreateMonster();
 
         return base.Initialize();
     }
 
     public void DequeueMonster(int _count, int _uid)
     {
-        for(int i = 0; i < _count; i++)
+        // use ObjectPool
+        //for(int i = 0; i < _count; i++)
+        //{
+        //    MonsterController monsterCtrl =  monsterPool.Dequeue();
+        //    monsterCtrl.OnDequeue();
+
+        //    monsterInfoDict.TryGetValue(_uid, out MonsterInfo value);
+        //    monsterCtrl.SetMonsterInfo(value);
+
+        //    BehaviorLogicBase logic = behaviorLogicArr[(int)value.logicType].DeepCopy();
+        //    MonsterBehavior moveBehavior = monsterMoveBehaviorArr[(int)value.moveType].DeepCopy();
+
+        //    MonsterBehavior attackBehavior;
+        //    if (value.attackType != MonsterAttackBehaviorType.None)
+        //    {
+        //        attackBehavior = monsterAttackBehaviorArr[(int)value.attackType].DeepCopy();
+        //    }
+        //    attackBehavior = null;
+        //    logic.Initialize(moveBehavior, attackBehavior);
+
+        //    monsterCtrl.SetMonsterBehavior(logic);
+        //}
+
+
+        if(showMonsterCounter + _count >= CAPICITY)
         {
-            MonsterController monsterCtrl =  monsterPool.Dequeue();
-            monsterCtrl.OnDequeue();
+
+        }
+
+
+        // use Array  :  show Monster
+        for(int i =0; i<_count; i++)
+        {
+            MonsterController monsterCtrl = monsterCtrlArr[showMonsterCounter + i];
 
             monsterInfoDict.TryGetValue(_uid, out MonsterInfo value);
             monsterCtrl.SetMonsterInfo(value);
@@ -49,7 +84,17 @@ public class MonsterManager : Singleton<MonsterManager>
             }
             attackBehavior = null;
             logic.Initialize(moveBehavior, attackBehavior);
+
+            monsterCtrl.SetMonsterBehavior(logic);
+
+            monsterCtrl.ShowMonster();
         }
+
+        showMonsterCounter += _count;
+
+        // if 100 over monster
+
+
     }
 
     private void BindMonsterBehaviorInstance()
@@ -96,11 +141,18 @@ public class MonsterManager : Singleton<MonsterManager>
         }
     }
 
+
+
     private void CreateMonster()
     {
-        SeqenceBehavior aa = new SeqenceBehavior();
-        aa.Initialize(monsterMoveBehaviorArr[0]);
-        aa.Update();
+        monsterCtrlArr = new MonsterController[CAPICITY];
+
+        for(int i =0; i < CAPICITY; i++)
+        {
+            MonsterController monster = Resources.Load<MonsterController>("Prefabs/Monster");
+            monster.monsterIdx = i;
+            monsterCtrlArr[i] = GameObject.Instantiate<MonsterController>(monster);
+        }
     }
 
     private void LoadMonsterData()
