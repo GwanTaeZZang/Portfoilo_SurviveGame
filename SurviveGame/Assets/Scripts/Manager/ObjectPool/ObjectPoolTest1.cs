@@ -9,18 +9,22 @@ public class ObjectPoolTest1 : MonoBehaviour
     private ObjectPool<TestMonoObject> testPool = null;
     private Queue<TestMonoObject> testObjectQueue = new Queue<TestMonoObject>();
 
+    private GameObject parent;
+
     private void Start()
     {
+        parent = new GameObject();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown("s"))
         {
+
             if(testPool == null)
             {
                 testPool = ObjectPoolManager.getInstance.GetPool<TestMonoObject>(10);
-                testPool.SetModel(testModle);
+                testPool.SetModel(testModle, parent.transform);
             }
 
             Debug.Log("Dequeue Obejct");

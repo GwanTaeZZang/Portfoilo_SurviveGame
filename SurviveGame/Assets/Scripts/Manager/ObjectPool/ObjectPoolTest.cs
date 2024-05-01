@@ -11,8 +11,10 @@ public class ObjectPoolTest : MonoBehaviour
 
     private void Start()
     {
+        GameObject parent = new GameObject();
+
         testPool = ObjectPoolManager.getInstance.GetPool<TestObject>(10);
-        testPool.SetModel(testModle);
+        testPool.SetModel(testModle, parent.transform);
     }
 
     private void Update()

@@ -6,6 +6,7 @@ public class ObjectPool<T> : IObjectPool where T : IPoolable, new()
 {
     private Queue<T> pool;
     private Transform model = null;
+    private Transform parent = null;
     int increaseSize; // defult = 4
 
     public ObjectPool(int _capacity, int _increaseSize)
@@ -13,9 +14,10 @@ public class ObjectPool<T> : IObjectPool where T : IPoolable, new()
         pool = new Queue<T>(_capacity);
         increaseSize = _increaseSize;
     }
-    public void SetModel(Transform _model)
+    public void SetModel(Transform _model, Transform _parent)
     {
         model = _model;
+        parent = _parent;
     }
     public T Dequeue()
     {
@@ -32,7 +34,7 @@ public class ObjectPool<T> : IObjectPool where T : IPoolable, new()
 
                 T poolObj;
 
-                Transform createdModel = GameObject.Instantiate(model);
+                Transform createdModel = GameObject.Instantiate(model, parent);
 
                 if (typeof(T).IsSubclassOf(typeof(MonoBehaviour)))
                 {

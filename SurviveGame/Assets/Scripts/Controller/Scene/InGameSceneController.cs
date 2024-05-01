@@ -19,6 +19,8 @@ public class InGameSceneController : MonoBehaviour
     {
         playerController.Initialize();
         weaponController.Initialize();
+
+        CreateMonster();
     }
 
 
@@ -48,7 +50,10 @@ public class InGameSceneController : MonoBehaviour
 
             tiles[widthCount, heightCount] = new Tile(sr);
         }
+    }
 
-
+    private void CreateMonster()
+    {
+        MonsterManager.getInstance.DequeueMonster(3, 3000);
     }
 }

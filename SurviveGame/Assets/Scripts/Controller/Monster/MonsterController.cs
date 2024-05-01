@@ -10,7 +10,7 @@ public class MonsterController : MonoBehaviour , IPoolable
 
     private void Update()
     {
-
+        monsterBehavior?.Update();
     }
 
     public void OnDequeue()
@@ -29,4 +29,13 @@ public class MonsterController : MonoBehaviour , IPoolable
         model = _model;
     }
 
+    public void SetMonsterInfo(MonsterInfo _info)
+    {
+        monsterInfo = _info;
+    }
+
+    public void SetMonsterBehavior(BehaviorLogicBase _behavior)
+    {
+        monsterBehavior = _behavior;
+    }
 }

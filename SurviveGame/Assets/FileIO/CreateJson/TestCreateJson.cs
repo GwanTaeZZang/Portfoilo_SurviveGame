@@ -6,7 +6,7 @@ public class TestCreateJson : MonoBehaviour
 {
     private string jobFileName = "JobData";
     private string weaponFileName = "WeaponData";
-    private string monsterFileName = "MonsterDtat";
+    private string monsterFileName = "MonsterData";
 
     private JobData jobData;
     private WeaponData weaponData;

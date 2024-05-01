@@ -30,6 +30,21 @@ public class BehaviorLogicBase
     protected MonsterBehavior moveBehavior;
     protected MonsterBehavior attackBehavior;
 
+    public virtual void Update()
+    {
+
+    }
+
+    public virtual BehaviorLogicBase DeepCopy()
+    {
+        return new BehaviorLogicBase();
+    }
+
+    public virtual void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
+    {
+        moveBehavior = _move;
+        attackBehavior = _attack;
+    }
 }
 
 public class SeqenceBehavior : BehaviorLogicBase
@@ -39,20 +54,20 @@ public class SeqenceBehavior : BehaviorLogicBase
 
     //}
 
-    public void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
+    public override void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
     {
         moveBehavior = _move;
         attackBehavior = _attack;
     }
 
 
-    public void Update()
+    public override void Update()
     {
         moveBehavior.Update();
         attackBehavior?.Update();
     }
 
-    public SeqenceBehavior DeepCopy()
+    public override BehaviorLogicBase DeepCopy()
     {
         return new SeqenceBehavior();
     }
@@ -64,20 +79,20 @@ public class LoopBehavior : BehaviorLogicBase
     //{
 
     //}
-    public void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
+    public override void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
     {
         moveBehavior = _move;
         attackBehavior = _attack;
     }
 
 
-    public void Update()
+    public override void Update()
     {
         moveBehavior.Update();
         attackBehavior?.Update();
     }
 
-    public LoopBehavior DeepCopy()
+    public override BehaviorLogicBase DeepCopy()
     {
         return new LoopBehavior();
     }
@@ -111,7 +126,12 @@ public class MonsterBehavior
 {
     public virtual void Update()
     {
-        Debug.Log("나는 베이스");
+        Debug.Log("???? ??????");
+    }
+
+    public virtual MonsterBehavior DeepCopy()
+    {
+        return new MonsterBehavior();
     }
 }
 
@@ -119,12 +139,17 @@ public class Shooting : MonsterBehavior
 {
     public override void Update()
     {
-        base.Update();
+        //base.Update();
         Show();
     }
     public void Show()
     {
-        Debug.Log("공격행동 : 발사");
+        Debug.Log("Attack Shooting");
+    }
+
+    public override MonsterBehavior DeepCopy()
+    {
+        return new Shooting();
     }
 }
 
@@ -132,13 +157,19 @@ public class Rush : MonsterBehavior
 {
     public override void Update()
     {
-        base.Update();
+        //base.Update();
         Show();
     }
     public void Show()
     {
-        Debug.Log("공격행동 : 돌진");
+        Debug.Log("Attack Rush");
     }
+
+    public override MonsterBehavior DeepCopy()
+    {
+        return new Rush();
+    }
+
 
 }
 
@@ -146,13 +177,20 @@ public class ApproachToTarget : MonsterBehavior
 {
     public override void Update()
     {
-        base.Update();
+        //base.Update();
         Show();
     }
     public void Show()
     {
-        Debug.Log("이동행동 : 접근");
+        Debug.Log("Move Approach");
     }
+
+
+    public override MonsterBehavior DeepCopy()
+    {
+        return new ApproachToTarget();
+    }
+
 
 }
 
@@ -160,12 +198,18 @@ public class RunAwayFromTarget : MonsterBehavior
 {
     public override void Update()
     {
-        base.Update();
+        //base.Update();
         Show();
     }
     public void Show()
     {
-        Debug.Log("이동행동 : 도망");
+        Debug.Log("Move Run Away");
+    }
+
+
+    public override MonsterBehavior DeepCopy()
+    {
+        return new RunAwayFromTarget();
     }
 
 }

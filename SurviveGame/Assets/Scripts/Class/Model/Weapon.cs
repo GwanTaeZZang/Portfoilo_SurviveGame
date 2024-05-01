@@ -212,6 +212,7 @@ public class ShootingWeapon : WeaponBase
 {
     private ObjectPool<Bullet> bulletPool;
     private Queue<Bullet> bulletQueue = new Queue<Bullet>();
+    private GameObject parent;
 
     //public ShootingWeapon(Transform _weapon)
     //{
@@ -225,8 +226,11 @@ public class ShootingWeapon : WeaponBase
     protected override void Initiailzed()
     {
         base.Initiailzed();
+
+        parent = new GameObject();
+        parent.name = "BulletPoolParent";
         bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>(10);
-        bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"));
+        bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"), parent.transform);
     }
 
     public override void UpdateWeapon()
