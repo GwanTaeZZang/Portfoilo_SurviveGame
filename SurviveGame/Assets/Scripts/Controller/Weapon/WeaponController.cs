@@ -48,7 +48,7 @@ public class WeaponController : MonoBehaviour
 
     public void Initialize()
     {
-        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[1];
+        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[0];
         weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
         weaponMountCount++;
     }

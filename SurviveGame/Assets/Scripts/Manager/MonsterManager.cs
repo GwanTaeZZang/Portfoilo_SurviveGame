@@ -36,6 +36,11 @@ public class MonsterManager : Singleton<MonsterManager>
         return base.Initialize();
     }
 
+    public LinkedList<MonsterController> GetMonsterList()
+    {
+        return monsterCtrlList;
+    }
+
     public void DequeueMonster(int _count, int _uid)
     {
         for(int i =0; i<_count; i++)

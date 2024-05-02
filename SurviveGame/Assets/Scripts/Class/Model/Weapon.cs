@@ -67,7 +67,7 @@ public abstract class WeaponBase
     public void SetWeapon(Transform _weapon)
     {
         weapon = _weapon;
-        oriWeaponPos = _weapon.position;
+        oriWeaponPos = _weapon.localPosition;
     }
 }
 
@@ -106,24 +106,46 @@ public class StingWeapon : WeaponBase
 
     public override void UpdateWeapon()
     {
+        FindTarget();
         LookAtEnemyInRange();
 
-        if (isAttack)
+    }
+
+
+    private void FindTarget()
+    {
+        float compareDistance = 100f;
+
+        LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
+
+        foreach (MonsterController monster in targetList)
         {
-            //Attack();
+            targetPos = monster.transform.position;
+
+            float distance = Vector2.Distance(weapon.position, targetPos);
+
+            if (compareDistance > distance)
+            {
+                compareDistance = distance;
+                targetPos = monster.transform.position;
+            }
+
         }
+
+
+
     }
 
     protected bool Attack(Vector2 _dir)
     {
 
-        Vector2 curWeaponPos = weapon.position;
+        Vector2 curWeaponPos = weapon.localPosition;
 
         if (isGo)
         {
             curWeaponPos.x += _dir.x * Time.deltaTime * 15;
             curWeaponPos.y += _dir.y * Time.deltaTime * 15;
-            weapon.position = curWeaponPos;
+            weapon.localPosition = curWeaponPos;
 
             float distance = Vector2.Distance(curWeaponPos, oriWeaponPos);
             if (distance >= weaponItemInfo.attackRange)
@@ -136,12 +158,12 @@ public class StingWeapon : WeaponBase
         {
             curWeaponPos.x -= _dir.x * Time.deltaTime * 15;
             curWeaponPos.y -= _dir.y * Time.deltaTime * 15;
-            weapon.position = curWeaponPos;
+            weapon.localPosition = curWeaponPos;
 
             float distance = Vector2.Distance(curWeaponPos, oriWeaponPos);
             if (distance <= 0.5f)
             {
-                weapon.localPosition = Vector2.zero;
+                weapon.localPosition = oriWeaponPos;
                 isGo = true;
                 return true;
             }
@@ -173,13 +195,12 @@ public class StingWeapon : WeaponBase
         //}
 
         // ?????? ????????
-        targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        distance = Vector2.Distance(oriWeaponPos, targetPos);
+        //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        distance = Vector2.Distance(weapon.position, targetPos);
 
         if (!isAttack)
         {
-            dir = targetPos - oriWeaponPos;
-            //Vector2 v2 = targetPos - oriWeaponPos;
+            dir = targetPos - (Vector2)weapon.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
@@ -192,7 +213,7 @@ public class StingWeapon : WeaponBase
             {
                 isAttack = true;
 
-                if (attackCompelet)
+                if (Attack(dir.normalized))
                 {
                     isAttack = false;
                     timer = 0;
@@ -201,10 +222,10 @@ public class StingWeapon : WeaponBase
             }
         }
 
-        if (isAttack)
-        {
-            attackCompelet = Attack(dir.normalized);
-        }
+        //if (isAttack)
+        //{
+        //    attackCompelet = Attack(dir.normalized);
+        //}
     }
 }
 
@@ -235,7 +256,32 @@ public class ShootingWeapon : WeaponBase
 
     public override void UpdateWeapon()
     {
+        FindTarget();
         LookAtEnemyInRange();
+    }
+
+    private void FindTarget()
+    {
+        float compareDistance = 100f;
+
+        LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
+
+        foreach(MonsterController monster in targetList)
+        {
+            targetPos = monster.transform.position;
+
+            float distance = Vector2.Distance(weapon.position, targetPos);
+
+            if(compareDistance > distance)
+            {
+                compareDistance = distance;
+                targetPos = monster.transform.position;
+            }
+
+        }
+
+
+
     }
 
     protected bool Shoot(Vector2 _dir)
@@ -258,18 +304,18 @@ public class ShootingWeapon : WeaponBase
 
     protected override void LookAtEnemyInRange()
     {
-        targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        distance = Vector2.Distance(oriWeaponPos, targetPos);
+        //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        distance = Vector2.Distance(weapon.position, targetPos);
 
         if (!isAttack)
         {
-            dir = targetPos - oriWeaponPos;
+            dir = targetPos - (Vector2)weapon.position;
             //Vector2 v2 = targetPos - oriWeaponPos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
-        if (distance < weaponItemInfo.attackRange - 3)
+        if (distance < weaponItemInfo.attackRange)
         {
             Debug.Log("? ?? ?? ??? ");
             timer += Time.deltaTime;
