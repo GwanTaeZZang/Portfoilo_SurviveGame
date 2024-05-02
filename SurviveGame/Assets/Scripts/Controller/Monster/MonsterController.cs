@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour , IPoolable
+public class MonsterController : MonoBehaviour
 {
     private MonsterInfo monsterInfo;
     private BehaviorLogicBase monsterBehavior;
-    private Transform model;
 
     public int monsterIdx;
 
@@ -14,22 +13,6 @@ public class MonsterController : MonoBehaviour , IPoolable
     private void Update()
     {
         monsterBehavior?.Update();
-    }
-
-    public void OnDequeue()
-    {
-        model.gameObject.SetActive(true);
-        model.position = new Vector3(5, 5, 0);
-    }
-
-    public void OnEnqueue()
-    {
-        model.gameObject.SetActive(false);
-    }
-
-    public void SetModel(Transform _model)
-    {
-        model = _model;
     }
 
     public void SetMonsterInfo(MonsterInfo _info)
@@ -44,13 +27,13 @@ public class MonsterController : MonoBehaviour , IPoolable
 
     public void ShowMonster()
     {
-        model.gameObject.SetActive(true);
-        model.position = new Vector3(5, 5, 0);
+        this.gameObject.SetActive(true);
+        this.transform.position = new Vector3(5, 5, 0);
     }
 
     public void HideMonster()
     {
-        model.gameObject.SetActive(false);
+        this.transform.gameObject.SetActive(false);
         monsterBehavior = null;
     }
 }

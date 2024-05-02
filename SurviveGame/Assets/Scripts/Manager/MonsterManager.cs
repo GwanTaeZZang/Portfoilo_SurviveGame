@@ -13,13 +13,14 @@ public class MonsterManager : Singleton<MonsterManager>
     private List<MonsterInfo> monsterInfoList = new List<MonsterInfo>();
     private Dictionary<int, MonsterInfo> monsterInfoDict = new Dictionary<int, MonsterInfo>();
 
-    private ObjectPool<MonsterController> monsterPool;
-    //private Queue<MonsterController> monsterQueue = new Queue<MonsterController>();
-    private MonsterController[] monsterCtrlArr;
-    private Transform MonsterModel;
+    private LinkedList<MonsterController> monsterCtrlList = new LinkedList<MonsterController>();
+    private Queue<LinkedListNode<MonsterController>> deadMonsterQueue;
+
+    private GameObject aliveMonsterParent;
 
 
-    private int showMonsterCounter = 0;
+
+    //private int showMonsterCounter = 0;
 
     public override bool Initialize()
     {
@@ -27,49 +28,32 @@ public class MonsterManager : Singleton<MonsterManager>
 
         BindMonsterBehaviorInstance();
 
-        //CreateMonsterPool();
-
         CreateMonster();
+
+        aliveMonsterParent = new GameObject();
+        aliveMonsterParent.name = "Alive Monster Parent";
 
         return base.Initialize();
     }
 
     public void DequeueMonster(int _count, int _uid)
     {
-        // use ObjectPool
-        //for(int i = 0; i < _count; i++)
-        //{
-        //    MonsterController monsterCtrl =  monsterPool.Dequeue();
-        //    monsterCtrl.OnDequeue();
-
-        //    monsterInfoDict.TryGetValue(_uid, out MonsterInfo value);
-        //    monsterCtrl.SetMonsterInfo(value);
-
-        //    BehaviorLogicBase logic = behaviorLogicArr[(int)value.logicType].DeepCopy();
-        //    MonsterBehavior moveBehavior = monsterMoveBehaviorArr[(int)value.moveType].DeepCopy();
-
-        //    MonsterBehavior attackBehavior;
-        //    if (value.attackType != MonsterAttackBehaviorType.None)
-        //    {
-        //        attackBehavior = monsterAttackBehaviorArr[(int)value.attackType].DeepCopy();
-        //    }
-        //    attackBehavior = null;
-        //    logic.Initialize(moveBehavior, attackBehavior);
-
-        //    monsterCtrl.SetMonsterBehavior(logic);
-        //}
-
-
-        if(showMonsterCounter + _count >= CAPICITY)
-        {
-
-        }
-
-
-        // use Array  :  show Monster
         for(int i =0; i<_count; i++)
         {
-            MonsterController monsterCtrl = monsterCtrlArr[showMonsterCounter + i];
+            MonsterController monsterCtrl;
+            LinkedListNode<MonsterController> node;
+
+            if (monsterCtrlList.Count >= CAPICITY)
+            {
+                node = monsterCtrlList.First;
+                monsterCtrlList.RemoveFirst();
+            }
+            else
+            {
+                node = deadMonsterQueue.Dequeue();
+            }
+
+            monsterCtrl = node.Value;
 
             monsterInfoDict.TryGetValue(_uid, out MonsterInfo value);
             monsterCtrl.SetMonsterInfo(value);
@@ -88,9 +72,16 @@ public class MonsterManager : Singleton<MonsterManager>
             monsterCtrl.SetMonsterBehavior(logic);
 
             monsterCtrl.ShowMonster();
+
+            monsterCtrl.transform.SetParent(aliveMonsterParent.transform);
+
+            monsterCtrl.ShowMonster();
+
+
+            node.Value = monsterCtrl;
+            monsterCtrlList.AddLast(node);
         }
 
-        showMonsterCounter += _count;
 
         // if 100 over monster
 
@@ -128,30 +119,24 @@ public class MonsterManager : Singleton<MonsterManager>
         };
     }
 
-    private void CreateMonsterPool()
-    {
-        GameObject poolParent = new GameObject();
-        poolParent.name = "Obejct Pool";
-
-        if (monsterPool == null)
-        {
-            monsterPool = ObjectPoolManager.getInstance.GetPool<MonsterController>(10);
-            MonsterModel = Resources.Load<Transform>("Prefabs/Monster");
-            monsterPool.SetModel(MonsterModel, poolParent.transform);
-        }
-    }
-
 
 
     private void CreateMonster()
     {
-        monsterCtrlArr = new MonsterController[CAPICITY];
+        deadMonsterQueue = new Queue<LinkedListNode<MonsterController>>();
+        GameObject poolParent = new GameObject();
+        poolParent.name = "DeadMonster";
 
-        for(int i =0; i < CAPICITY; i++)
+        MonsterController res = Resources.Load<MonsterController>("Prefabs/Monster");
+
+        for (int i =0; i < CAPICITY; i++)
         {
-            MonsterController monster = Resources.Load<MonsterController>("Prefabs/Monster");
-            monster.monsterIdx = i;
-            monsterCtrlArr[i] = GameObject.Instantiate<MonsterController>(monster);
+
+            MonsterController obj = GameObject.Instantiate<MonsterController>(res, poolParent.transform);
+            obj.monsterIdx = i;
+
+            LinkedListNode<MonsterController> node = new LinkedListNode<MonsterController>(obj);
+            deadMonsterQueue.Enqueue(node);
         }
     }
 
