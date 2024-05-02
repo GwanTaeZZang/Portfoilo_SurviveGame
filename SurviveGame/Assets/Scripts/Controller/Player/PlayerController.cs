@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         joyPad.Initialize(OnMove);
+
+        PlayerManager.getInstance.SetPlayer(this.transform);
     }
     public void Initialize()
     {

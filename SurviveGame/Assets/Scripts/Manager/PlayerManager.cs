@@ -7,6 +7,8 @@ public class PlayerManager : Singleton<PlayerManager>
     private Dictionary<int, Job> jobDict = new Dictionary<int, Job>();
     private List<Job> jobList = new List<Job>();
     private Job selectedJob;
+    private Transform player;
+
 
     public override bool Initialize()
     {
@@ -39,7 +41,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetSelectedJob(Job _selectedJob)
     {
         selectedJob = _selectedJob;
-        Debug.Log("선택된 직업  = " + selectedJob.jobName);
+        Debug.Log("?????? ????  = " + selectedJob.jobName);
     }
 
     public Job GetSelectedJob()
@@ -56,5 +58,15 @@ public class PlayerManager : Singleton<PlayerManager>
             jobDict.Add(job.Uid, job);
             jobList.Add(job);
         }
+    }
+
+    public void SetPlayer(Transform _player)
+    {
+        player = _player;
+    }
+
+    public Transform GetPlayer()
+    {
+        return player;
     }
 }

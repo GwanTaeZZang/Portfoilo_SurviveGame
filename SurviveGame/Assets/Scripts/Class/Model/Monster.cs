@@ -29,6 +29,8 @@ public class BehaviorLogicBase
 {
     protected MonsterBehavior moveBehavior;
     protected MonsterBehavior attackBehavior;
+    protected Transform target;
+    protected Transform monster;
 
     public virtual void Update()
     {
@@ -40,10 +42,16 @@ public class BehaviorLogicBase
         return new BehaviorLogicBase();
     }
 
-    public virtual void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
+    public virtual void Initialize(Transform _monster ,MonsterBehavior _move, MonsterBehavior _attack = null)
     {
         moveBehavior = _move;
         attackBehavior = _attack;
+
+        monster = _monster;
+        target = PlayerManager.getInstance.GetPlayer();
+
+        moveBehavior.Initialize(target, monster);
+        attackBehavior?.Initialize(target, monster);
     }
 }
 
@@ -54,10 +62,17 @@ public class SeqenceBehavior : BehaviorLogicBase
 
     //}
 
-    public override void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
+    public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
     {
         moveBehavior = _move;
         attackBehavior = _attack;
+
+        monster = _monster;
+        target = PlayerManager.getInstance.GetPlayer();
+
+        moveBehavior.Initialize(target, monster);
+        attackBehavior?.Initialize(target, monster);
+
     }
 
 
@@ -79,10 +94,17 @@ public class LoopBehavior : BehaviorLogicBase
     //{
 
     //}
-    public override void Initialize(MonsterBehavior _move, MonsterBehavior _attack = null)
+    public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
     {
         moveBehavior = _move;
         attackBehavior = _attack;
+
+        monster = _monster;
+        target = PlayerManager.getInstance.GetPlayer();
+
+        moveBehavior.Initialize(target , monster);
+        attackBehavior?.Initialize(target, monster);
+
     }
 
 
@@ -124,9 +146,19 @@ public enum MonsterAttackBehaviorType
 
 public class MonsterBehavior
 {
+    protected Transform target;
+    protected Transform monster;
+
+
     public virtual void Update()
     {
-        Debug.Log("???? ??????");
+
+    }
+
+    public virtual void Initialize(Transform _target, Transform _monster)
+    {
+        target = _target;
+        monster = _monster;
     }
 
     public virtual MonsterBehavior DeepCopy()
@@ -146,6 +178,8 @@ public class Shooting : MonsterBehavior
     {
         Debug.Log("Attack Shooting");
     }
+
+
 
     public override MonsterBehavior DeepCopy()
     {
@@ -179,10 +213,25 @@ public class ApproachToTarget : MonsterBehavior
     {
         //base.Update();
         Show();
+        Move();
     }
     public void Show()
     {
         Debug.Log("Move Approach");
+    }
+
+    private void Move()
+    {
+        Vector2 monsterPos = monster.position;
+        Vector2 targetPos = target.position;
+
+        //float distance = Vector2.Distance(targetPos, monsterPos);
+        Vector2 dir = targetPos - monsterPos;
+
+        monsterPos.x += dir.normalized.x * Time.deltaTime * 1;
+        monsterPos.y += dir.normalized.y * Time.deltaTime * 1;
+
+        monster.position = monsterPos;
     }
 
 
