@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InGameSceneController : MonoBehaviour
 {
+    private const float HALF = 0.5f;
+
     [SerializeField] private Transform mapParent;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private WeaponController weaponController;
@@ -31,8 +33,8 @@ public class InGameSceneController : MonoBehaviour
         int width = mapData.width;
         int height = mapData.height;
 
-        float startXPos = (width - 1) * -0.5f;
-        float startYPos = (height - 1) * -0.5f;
+        float startXPos = (width - 1) * -HALF;
+        float startYPos = (height - 1) * -HALF;
 
         SpriteRenderer tile = Resources.Load<SpriteRenderer>("Prefabs/Tile");
 
@@ -54,6 +56,6 @@ public class InGameSceneController : MonoBehaviour
 
     private void CreateMonster()
     {
-        MonsterManager.getInstance.DequeueMonster(3, 3000);
+        MonsterManager.getInstance.SpawnMonster(3, 3000);
     }
 }

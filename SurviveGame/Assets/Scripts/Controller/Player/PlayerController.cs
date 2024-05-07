@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] JoyPad2DController joyPad;
 
     private Character character;
-    //private Vector2 moveDir;
     private float speed = 2;
 
     private void Awake()
@@ -23,13 +22,14 @@ public class PlayerController : MonoBehaviour
         //character.job = PlayerManager.getInstance.GetSelectedJob();
         character.job = PlayerManager.getInstance.GetJobList()[0];
         SetPlayerSprite(Resources.Load<Sprite>(character.job.jobSpritePath));
+
+        //speed = character.statusArr[(int)StatusEffectType.Speed].status;
     }
 
     private void OnMove(Vector2 _dir)
     {
         if (_dir == Vector2.zero)
             return;
-        //moveDir = _dir;
 
         Vector3 curPos = this.transform.position;
         curPos.x += _dir.x * speed * Time.deltaTime;

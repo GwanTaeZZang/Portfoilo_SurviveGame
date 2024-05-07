@@ -6,23 +6,37 @@ public class WeaponController : MonoBehaviour
 {
     [SerializeField] private List<WeaponPoint> weaponPointList;
 
-    //private List<WeaponBase> equipWeaponList = new List<WeaponBase>();
+    private ObjectPool<Bullet> bulletPool;
+    private GameObject parent;
+
     private int weaponMountCount = 0;
 
-    private void Awake()
+    public void Initialize()
     {
+        CreatePool();
+        InitWeapon();
 
+        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[0];
+        weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
+        weaponMountCount++;
     }
 
-    private void Start()
+    private void CreatePool()
+    {
+        parent = new GameObject();
+        parent.name = "BulletPoolParent";
+        bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>();
+        bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"), parent.transform);
+    }
+
+    private void InitWeapon()
     {
         int count = weaponPointList.Count;
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             weaponPointList[i].InitializeWeapon();
         }
     }
-
 
 
     private void Update()
@@ -46,11 +60,5 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void Initialize()
-    {
-        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[0];
-        weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
-        weaponMountCount++;
-    }
 
 }

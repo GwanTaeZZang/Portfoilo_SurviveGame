@@ -43,6 +43,13 @@ public class CharacterStatus
     }
 }
 
+
+[System.Serializable]
+public class JobData
+{
+    public Job[] jobArr;
+}
+
 [System.Serializable]
 public class Job
 {
@@ -92,8 +99,3 @@ public enum StatusEffectType
 }
 
 
-[System.Serializable]
-public class JobData
-{
-    public Job[] jobArr;
-}

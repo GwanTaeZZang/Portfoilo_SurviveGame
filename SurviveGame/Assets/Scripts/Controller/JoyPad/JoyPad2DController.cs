@@ -60,11 +60,8 @@ public class JoyPad2DController : MonoBehaviour
         {
             InputJoyPadButtonDrag(Input.mousePosition);
         }
-        // player move update
-        //OnMove(dir.normalized, speed);
         if (isInit)
         {
-            //target.OnMove(dir.normalized, speed);
             OnJoyStickMove?.Invoke(dir.normalized);
         }
 

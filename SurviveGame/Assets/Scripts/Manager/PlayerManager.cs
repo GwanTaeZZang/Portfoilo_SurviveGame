@@ -41,7 +41,6 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetSelectedJob(Job _selectedJob)
     {
         selectedJob = _selectedJob;
-        Debug.Log("?????? ????  = " + selectedJob.jobName);
     }
 
     public Job GetSelectedJob()

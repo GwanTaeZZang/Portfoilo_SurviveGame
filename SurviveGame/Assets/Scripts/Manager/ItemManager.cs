@@ -57,7 +57,6 @@ public class ItemManager : Singleton<ItemManager>
 
         if (weaponInstanceDict.ContainsKey(_key))
         {
-
             if (weaponInstanceDict[_key].Count == 0)
             {
                 instance = weaponBaseArr[(int)_key].DeepCopy();
@@ -78,7 +77,6 @@ public class ItemManager : Singleton<ItemManager>
     public void SetSelectedWeapon(WeaponItemInfo _selectedWeapon)
     {
         selectedWeapon = _selectedWeapon;
-        Debug.Log("?????? ????  = " + selectedWeapon.weaponName);
     }
 
     public WeaponItemInfo GetSelectedWeapon()
@@ -88,7 +86,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public Sprite GetWeaponSprite(int _Uid)
     {
-        if (!weaponItemDict.ContainsKey(_Uid))
+        if (!weaponItemSpriteDict.ContainsKey(_Uid))
         {
             Debug.Log("have not key");
             return null;
@@ -96,6 +94,9 @@ public class ItemManager : Singleton<ItemManager>
 
         return weaponItemSpriteDict[_Uid];
     }
+
+
+
 
     private void LoadWeaponData()
     {
@@ -131,12 +132,5 @@ public class ItemManager : Singleton<ItemManager>
         weaponBaseArr[(int)WeaponType.MowWeapon] = mowWeapon;
         weaponBaseArr[(int)WeaponType.ShoootingWeapon] = shootingWeapon;
     }
-
-    //private void DeepCopyWeaponInstance(WeaponType _type)
-    //{
-    //    var obj = weaponBaseArr[(int)_type];
-    //    obj = new WeaponBase();
-    //}
-
 
 }

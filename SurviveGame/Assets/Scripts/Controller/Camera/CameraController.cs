@@ -18,7 +18,6 @@ public class CameraController : MonoBehaviour
     {
         if (_dir == Vector2.zero)
             return;
-        //moveDir = _dir;
 
         Vector3 curPos = this.transform.position;
         curPos.x += _dir.x * speed * Time.deltaTime;

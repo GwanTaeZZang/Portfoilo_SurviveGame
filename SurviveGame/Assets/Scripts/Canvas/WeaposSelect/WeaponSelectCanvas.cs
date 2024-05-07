@@ -32,12 +32,6 @@ public class WeaponSelectCanvas : UIBaseController
         UpdateSelectWeaponInfo(0);
     }
 
-    //public override void Show()
-    //{
-    //    base.Show();
-    //    UpdateSelectCharacterInfo(0);
-    //}
-
     private void SetWeaponElement()
     {
         int count = weaponInfoList.Count;
@@ -46,9 +40,11 @@ public class WeaponSelectCanvas : UIBaseController
             int idx = i;
             SelectIconElement element = Instantiate(weaponElementPrefab, weaponElementParent);
             weaponSpriteList.Add(Resources.Load<Sprite>(weaponInfoList[i].weaponSpritePath));
+
             element.SetElementThumbnail(weaponSpriteList[i]);
             element.GetElementSelectBtnEvent().AddListener(() => OnClickWeaponSelectBtn(idx));
             element.gameObject.SetActive(true);
+
             weaponElementList.Add(element);
         }
     }
@@ -63,6 +59,8 @@ public class WeaponSelectCanvas : UIBaseController
     {
         curSelectedWeaponIdx = _idx;
         WeaponItemInfo weaponInfo = weaponInfoList[_idx];
+
+
         selectWeaponName.text = weaponInfo.weaponName;
         selectWeaponImage.sprite = weaponSpriteList[_idx];
 

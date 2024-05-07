@@ -7,13 +7,6 @@ public class StartSceneController : MonoBehaviour
 {
     [SerializeField] private Button gameStartBtn;
 
-    private void Awake()
-    {
-        //PlayerManager.getInstance.Initialize();
-        //UIManager.getInstance.Initialize();
-        //ObjectPoolManager.getInstance.Initialize();
-        //ItemManager.getInstance.Initialize();
-    }
     private void Start()
     {
         gameStartBtn.onClick.AddListener(OnClickGameStartBtn);

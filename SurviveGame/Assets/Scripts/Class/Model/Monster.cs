@@ -62,18 +62,18 @@ public class SeqenceBehavior : BehaviorLogicBase
 
     //}
 
-    public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
-    {
-        moveBehavior = _move;
-        attackBehavior = _attack;
+    //public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
+    //{
+    //    moveBehavior = _move;
+    //    attackBehavior = _attack;
 
-        monster = _monster;
-        target = PlayerManager.getInstance.GetPlayer();
+    //    monster = _monster;
+    //    target = PlayerManager.getInstance.GetPlayer();
 
-        moveBehavior.Initialize(target, monster);
-        attackBehavior?.Initialize(target, monster);
+    //    moveBehavior.Initialize(target, monster);
+    //    attackBehavior?.Initialize(target, monster);
 
-    }
+    //}
 
 
     public override void Update()
@@ -94,18 +94,18 @@ public class LoopBehavior : BehaviorLogicBase
     //{
 
     //}
-    public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
-    {
-        moveBehavior = _move;
-        attackBehavior = _attack;
+    //public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
+    //{
+    //    moveBehavior = _move;
+    //    attackBehavior = _attack;
 
-        monster = _monster;
-        target = PlayerManager.getInstance.GetPlayer();
+    //    monster = _monster;
+    //    target = PlayerManager.getInstance.GetPlayer();
 
-        moveBehavior.Initialize(target , monster);
-        attackBehavior?.Initialize(target, monster);
+    //    moveBehavior.Initialize(target , monster);
+    //    attackBehavior?.Initialize(target, monster);
 
-    }
+    //}
 
 
     public override void Update()
@@ -171,7 +171,6 @@ public class Shooting : MonsterBehavior
 {
     public override void Update()
     {
-        //base.Update();
         Show();
     }
     public void Show()
@@ -191,7 +190,6 @@ public class Rush : MonsterBehavior
 {
     public override void Update()
     {
-        //base.Update();
         Show();
     }
     public void Show()
@@ -211,7 +209,6 @@ public class ApproachToTarget : MonsterBehavior
 {
     public override void Update()
     {
-        //base.Update();
         Show();
         Move();
     }
@@ -225,7 +222,6 @@ public class ApproachToTarget : MonsterBehavior
         Vector2 monsterPos = monster.position;
         Vector2 targetPos = target.position;
 
-        //float distance = Vector2.Distance(targetPos, monsterPos);
         Vector2 dir = targetPos - monsterPos;
 
         monsterPos.x += dir.normalized.x * Time.deltaTime * 1;
@@ -247,7 +243,6 @@ public class RunAwayFromTarget : MonsterBehavior
 {
     public override void Update()
     {
-        //base.Update();
         Show();
     }
     public void Show()

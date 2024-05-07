@@ -9,7 +9,6 @@ public class MonsterController : MonoBehaviour
 
     public int monsterIdx;
 
-
     private void Update()
     {
         monsterBehavior?.Update();

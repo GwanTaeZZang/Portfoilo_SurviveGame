@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour , IPoolable
 {
+    private const int SPEED = 10;
     public Transform model;
 
     private Vector2 dir;
@@ -13,20 +14,24 @@ public class Bullet : MonoBehaviour , IPoolable
     {
         if(dir != Vector2.zero)
         {
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            model.rotation = Quaternion.Euler(0, 0, angle - 90f);
-
             Vector2 bulletPos = model.position;
-            bulletPos.x += dir.x * Time.deltaTime * 10;
-            bulletPos.y += dir.y * Time.deltaTime * 10;
+            bulletPos.x += dir.x * Time.deltaTime * SPEED;
+            bulletPos.y += dir.y * Time.deltaTime * SPEED;
             model.position = bulletPos;
-
         }
+    }
+
+    private void SetAngle()
+    {
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        model.rotation = Quaternion.Euler(0, 0, angle - 90f);
     }
 
     public void SetDirection(Vector2 _dir)
     {
         dir = _dir;
+
+        SetAngle();
     }
 
     public void SetPosition(Vector2 _startPos)
@@ -45,6 +50,7 @@ public class Bullet : MonoBehaviour , IPoolable
     public void OnEnqueue()
     {
         model.gameObject.SetActive(false);
+        dir = Vector2.zero;
     }
 
     public void SetModel(Transform _model)

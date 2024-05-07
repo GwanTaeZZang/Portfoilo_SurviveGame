@@ -9,8 +9,6 @@ public class tmpPlayerStatus
 
     public tmpPlayerStatus()
     {
-        //status = new float[(int)TmpStatusEffectType.Lenght];
-
         int count = status.Length;
         for(int i =0; i < count; i++)
         {
@@ -24,7 +22,6 @@ public class ShopCanvas : UIBaseController
     [SerializeField] private List<ShopItmeElement> itemElementList;
     [SerializeField] private Text[] statusAmountArr;
     private tmpPlayerStatus playerStatus;
-    //private List<Item> tmpItemList;
 
     private void Awake()
     {

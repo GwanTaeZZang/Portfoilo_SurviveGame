@@ -41,7 +41,7 @@ public class MonsterManager : Singleton<MonsterManager>
         return monsterCtrlList;
     }
 
-    public void DequeueMonster(int _count, int _uid)
+    public void SpawnMonster(int _count, int _uid)
     {
         for(int i =0; i<_count; i++)
         {
@@ -67,14 +67,7 @@ public class MonsterManager : Singleton<MonsterManager>
             MonsterBehavior moveBehavior = monsterMoveBehaviorArr[(int)value.moveType].DeepCopy();
 
             MonsterBehavior attackBehavior;
-            if (value.attackType != MonsterAttackBehaviorType.None)
-            {
-                attackBehavior = monsterAttackBehaviorArr[(int)value.attackType].DeepCopy();
-            }
-            else
-            {
-                attackBehavior = null;
-            }
+            attackBehavior = monsterAttackBehaviorArr[(int)value.attackType]?.DeepCopy();
             logic.Initialize(monsterCtrl.transform, moveBehavior, attackBehavior);
 
             monsterCtrl.SetMonsterBehavior(logic);
@@ -89,11 +82,6 @@ public class MonsterManager : Singleton<MonsterManager>
             node.Value = monsterCtrl;
             monsterCtrlList.AddLast(node);
         }
-
-
-        // if 100 over monster
-
-
     }
 
     private void BindMonsterBehaviorInstance()

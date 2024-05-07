@@ -24,18 +24,13 @@ public class CharacterSelectCanvas : UIBaseController
         characterElementList = new List<SelectIconElement>();
         characterSpriteList = new List<Sprite>();
         jobList = PlayerManager.getInstance.GetJobList();
+
         backBtn.onClick.AddListener(OnClickBackBtn);
         selectCompleteBtn.onClick.AddListener(OnClickSelectCompleteBtn);
         SetCharacterElement();
 
         UpdateSelectCharacterInfo(0);
     }
-
-    //public override void Show()
-    //{
-    //    base.Show();
-    //    UpdateSelectCharacterInfo(0);
-    //}
 
     private void SetCharacterElement()
     {
@@ -45,9 +40,11 @@ public class CharacterSelectCanvas : UIBaseController
             int idx = i;
             SelectIconElement element = Instantiate(characterElementPrefab, characterElementParent);
             characterSpriteList.Add(Resources.Load<Sprite>(jobList[i].jobSpritePath));
+
             element.SetElementThumbnail(characterSpriteList[i]);
             element.GetElementSelectBtnEvent().AddListener(() => OnClickCharacterSelectBtn(idx));
             element.gameObject.SetActive(true);
+
             characterElementList.Add(element);
         }
     }
@@ -62,28 +59,35 @@ public class CharacterSelectCanvas : UIBaseController
     {
         curSelectedJobIdx = _idx;
         Job job = jobList[_idx];
-        selectCharacterName.text = job.jobName;
         selectCharacterImage.sprite = characterSpriteList[_idx];
+
+        UpdateCharacterInfoView(job);
+    }
+
+    private void UpdateCharacterInfoView(Job _job)
+    {
+        selectCharacterName.text = _job.jobName;
 
         StringBuilder builder = new StringBuilder();
         builder.AppendLine("증가");
-        int increaseCount = job.increaseStatus.Length;
-        for(int i = 0; i < increaseCount; i++)
+        int increaseCount = _job.increaseStatus.Length;
+        for (int i = 0; i < increaseCount; i++)
         {
-            builder.AppendLine(job.increaseStatus[i].stringKey + "  " +job.increaseStatus[i].amount);
+            builder.AppendLine(_job.increaseStatus[i].stringKey + "  " + _job.increaseStatus[i].amount);
         }
 
         builder.AppendLine("감소");
-        int decreaseCount = job.decreaseStatus.Length;
+        int decreaseCount = _job.decreaseStatus.Length;
         for (int i = 0; i < decreaseCount; i++)
         {
-            builder.AppendLine(job.decreaseStatus[i].stringKey + "  " + job.decreaseStatus[i].amount);
+            builder.AppendLine(_job.decreaseStatus[i].stringKey + "  " + _job.decreaseStatus[i].amount);
         }
 
         selectCharacterInfo.text = builder.ToString();
         builder = null;
 
     }
+
 
     private void OnClickBackBtn()
     {

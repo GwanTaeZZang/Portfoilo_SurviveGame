@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseItem 
-{
 
+[System.Serializable]
+public class WeaponData
+{
+    public WeaponItemInfo[] weaponArr;
 }
+
 
 [System.Serializable]
 public class WeaponItemInfo
@@ -22,11 +25,6 @@ public class WeaponItemInfo
     public WeaponType weaponType;
 }
 
-[System.Serializable]
-public class WeaponData
-{
-    public WeaponItemInfo[] weaponArr;
-}
 
 
 public abstract class WeaponBase
@@ -43,7 +41,6 @@ public abstract class WeaponBase
     protected Vector2 dir;
     protected float distance;
     protected bool isAttack = false;
-    protected bool attackCompelet = false;
 
 
     public abstract void UpdateWeapon();
@@ -55,66 +52,9 @@ public abstract class WeaponBase
 
     }
 
-    public void SetTarget(Transform _target)
+    protected virtual void FindTarget()
     {
-        target = _target;
-    }
-    public void SetWeaponInfo(WeaponItemInfo _info)
-    {
-        weaponItemInfo = _info;
-        Initiailzed();
-    }
-    public void SetWeapon(Transform _weapon)
-    {
-        weapon = _weapon;
-        oriWeaponPos = _weapon.localPosition;
-    }
-}
-
-//public abstract class EquipItem
-//{
-//    public int price;
-//    public int uid;
-//    public List<StatusEffect> buff;
-//    public List<StatusEffect> deBuff;
-//}
-
-//public class SetEffect
-//{
-
-//}
-
-public enum WeaponType
-{
-    StingWeapon,
-    MowWeapon,
-    ShoootingWeapon,
-    End,
-}
-
-
-public class StingWeapon : WeaponBase
-{
-    protected bool isGo = true;
-    //protected bool isSetAttackVector = false;
-
-    //public StingWeapon(Transform _weapon)
-    //{
-    //    weapon = _weapon;
-    //    oriWeaponPos = _weapon.position;
-    //}
-
-    public override void UpdateWeapon()
-    {
-        FindTarget();
-        LookAtEnemyInRange();
-
-    }
-
-
-    private void FindTarget()
-    {
-        float compareDistance = 100f;
+        float compareDistance = float.MaxValue;
 
         LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
 
@@ -131,9 +71,37 @@ public class StingWeapon : WeaponBase
             }
 
         }
+    }
+
+    public void SetWeaponInfo(WeaponItemInfo _info)
+    {
+        weaponItemInfo = _info;
+        Initiailzed();
+    }
+    public void SetWeapon(Transform _weapon)
+    {
+        weapon = _weapon;
+        oriWeaponPos = _weapon.localPosition;
+    }
+}
+
+public enum WeaponType
+{
+    StingWeapon,
+    MowWeapon,
+    ShoootingWeapon,
+    End,
+}
 
 
-
+public class StingWeapon : WeaponBase
+{
+    private const int ATTACK_SPEED = 15;
+    protected bool isGo = true;
+    public override void UpdateWeapon()
+    {
+        base.FindTarget();
+        LookAtEnemyInRange();
     }
 
     protected bool Attack(Vector2 _dir)
@@ -143,8 +111,8 @@ public class StingWeapon : WeaponBase
 
         if (isGo)
         {
-            curWeaponPos.x += _dir.x * Time.deltaTime * 15;
-            curWeaponPos.y += _dir.y * Time.deltaTime * 15;
+            curWeaponPos.x += _dir.x * Time.deltaTime * ATTACK_SPEED;
+            curWeaponPos.y += _dir.y * Time.deltaTime * ATTACK_SPEED;
             weapon.localPosition = curWeaponPos;
 
             float distance = Vector2.Distance(curWeaponPos, oriWeaponPos);
@@ -156,8 +124,8 @@ public class StingWeapon : WeaponBase
 
         else if (!isGo)
         {
-            curWeaponPos.x -= _dir.x * Time.deltaTime * 15;
-            curWeaponPos.y -= _dir.y * Time.deltaTime * 15;
+            curWeaponPos.x -= _dir.x * Time.deltaTime * ATTACK_SPEED;
+            curWeaponPos.y -= _dir.y * Time.deltaTime * ATTACK_SPEED;
             weapon.localPosition = curWeaponPos;
 
             float distance = Vector2.Distance(curWeaponPos, oriWeaponPos);
@@ -172,30 +140,8 @@ public class StingWeapon : WeaponBase
         return false;
     }
 
-    public override WeaponBase DeepCopy()
-    {
-        return new StingWeapon();
-    }
-
     protected override void LookAtEnemyInRange()
     {
-        // ?????????? ???????? ?? ???? ????????
-
-        //oriWeaponPos = weapon.position;
-        //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //float dir = Vector2.Distance(oriWeaponPos, targetPos);
-        //if(dir < attackRange)
-        //{
-        //    Vector2 v2 = targetPos - oriWeaponPos;
-        //    float angle = Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
-
-        //    weapon.rotation = Quaternion.Euler(0, 0, angle);
-
-        //    this.AttackCounter();
-        //}
-
-        // ?????? ????????
-        //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         distance = Vector2.Distance(weapon.position, targetPos);
 
         if (!isAttack)
@@ -207,7 +153,7 @@ public class StingWeapon : WeaponBase
 
         timer += Time.deltaTime;
 
-        if (distance < weaponItemInfo.attackRange)
+        if (distance < weaponItemInfo.attackRange || isAttack)
         {
             if (timer > weaponItemInfo.attackSpeed)
             {
@@ -217,71 +163,32 @@ public class StingWeapon : WeaponBase
                 {
                     isAttack = false;
                     timer = 0;
-                    attackCompelet = false;
                 }
             }
         }
-
-        //if (isAttack)
-        //{
-        //    attackCompelet = Attack(dir.normalized);
-        //}
     }
+
+    public override WeaponBase DeepCopy()
+    {
+        return new StingWeapon();
+    }
+
 }
 
 public class ShootingWeapon : WeaponBase
 {
     private ObjectPool<Bullet> bulletPool;
     private Queue<Bullet> bulletQueue = new Queue<Bullet>();
-    private GameObject parent;
-
-    //public ShootingWeapon(Transform _weapon)
-    //{
-    //    weapon = _weapon;
-    //    oriWeaponPos = _weapon.position;
-
-    //    bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>(10);
-    //    bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"));
-    //}
 
     protected override void Initiailzed()
     {
-        base.Initiailzed();
-
-        parent = new GameObject();
-        parent.name = "BulletPoolParent";
-        bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>(10);
-        bulletPool.SetModel(Resources.Load<Transform>("Prefabs/Bullet_3"), parent.transform);
+        bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>();
     }
 
     public override void UpdateWeapon()
     {
-        FindTarget();
+        base.FindTarget();
         LookAtEnemyInRange();
-    }
-
-    private void FindTarget()
-    {
-        float compareDistance = 100f;
-
-        LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
-
-        foreach(MonsterController monster in targetList)
-        {
-            targetPos = monster.transform.position;
-
-            float distance = Vector2.Distance(weapon.position, targetPos);
-
-            if(compareDistance > distance)
-            {
-                compareDistance = distance;
-                targetPos = monster.transform.position;
-            }
-
-        }
-
-
-
     }
 
     protected bool Shoot(Vector2 _dir)
@@ -291,33 +198,23 @@ public class ShootingWeapon : WeaponBase
         obj.SetPosition(weapon.position);
         obj.SetDirection(_dir);
         obj.OnDequeue();
-        //float angle = Mathf.Atan2(_dir.y, _dir.x) * Mathf.Rad2Deg;
-        //obj.model.rotation = Quaternion.Euler(0, 0, angle);
-
-        //Vector2 bulletPos = obj.model.position;
-        //bulletPos.x += _dir.x * Time.deltaTime * 10;
-        //bulletPos.y += _dir.y * Time.deltaTime * 10;
-        //obj.model.position = bulletPos;
 
         return true;
     }
 
     protected override void LookAtEnemyInRange()
     {
-        //targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         distance = Vector2.Distance(weapon.position, targetPos);
 
         if (!isAttack)
         {
             dir = targetPos - (Vector2)weapon.position;
-            //Vector2 v2 = targetPos - oriWeaponPos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
-        if (distance < weaponItemInfo.attackRange)
+        if (distance < weaponItemInfo.attackRange || isAttack)
         {
-            Debug.Log("? ?? ?? ??? ");
             timer += Time.deltaTime;
             if (timer > weaponItemInfo.attackSpeed)
             {
@@ -345,12 +242,6 @@ public class MowWeapon : WeaponBase
     {
         return new MowWeapon();
     }
-
-    //    public MowWeapon(Transform _weapon)
-    //{
-    //    weapon = _weapon;
-    //}
-
 
     public override void UpdateWeapon()
     {
