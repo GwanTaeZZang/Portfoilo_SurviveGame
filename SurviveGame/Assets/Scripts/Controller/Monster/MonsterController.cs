@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour
 {
+    [SerializeField] private NavMeshAgent agent;
     private MonsterInfo monsterInfo;
     private BehaviorLogicBase monsterBehavior;
 
     public int monsterIdx;
 
+    private void Awake()
+    {
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+    }
     private void Update()
     {
         monsterBehavior?.Update();
