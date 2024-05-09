@@ -12,6 +12,8 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private List<MonsterInfo> monsterInfoList = new List<MonsterInfo>();
     private Dictionary<int, MonsterInfo> monsterInfoDict = new Dictionary<int, MonsterInfo>();
+    private Dictionary<int, Sprite> monsterSpriteDict = new Dictionary<int, Sprite>();
+
 
     private LinkedList<MonsterController> monsterCtrlList = new LinkedList<MonsterController>();
     private Queue<LinkedListNode<MonsterController>> deadMonsterQueue;
@@ -72,11 +74,9 @@ public class MonsterManager : Singleton<MonsterManager>
 
             monsterCtrl.SetMonsterBehavior(logic);
 
-            monsterCtrl.ShowMonster();
-
             monsterCtrl.transform.SetParent(aliveMonsterParent.transform);
 
-            monsterCtrl.ShowMonster();
+            monsterCtrl.ShowMonster(new Vector2(i, i), monsterSpriteDict[_uid]);
 
 
             node.Value = monsterCtrl;
@@ -148,6 +148,9 @@ public class MonsterManager : Singleton<MonsterManager>
 
             int uid = info.Uid;
             monsterInfoDict.Add(uid, info);
+
+            Sprite sprite = Resources.Load<Sprite>(info.monsterSpritePath);
+            monsterSpriteDict.Add(uid, sprite);
         }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private MonsterInfo monsterInfo;
     private BehaviorLogicBase monsterBehavior;
 
@@ -31,10 +32,11 @@ public class MonsterController : MonoBehaviour
         monsterBehavior = _behavior;
     }
 
-    public void ShowMonster()
+    public void ShowMonster(Vector2 _spwan, Sprite _sprite)
     {
         this.gameObject.SetActive(true);
-        this.transform.position = new Vector3(5, 5, 0);
+        this.transform.position = _spwan;
+        spriteRenderer.sprite = _sprite;
     }
 
     public void HideMonster()
