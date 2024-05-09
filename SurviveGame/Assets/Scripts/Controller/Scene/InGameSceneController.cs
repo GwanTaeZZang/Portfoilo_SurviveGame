@@ -57,5 +57,6 @@ public class InGameSceneController : MonoBehaviour
     private void CreateMonster()
     {
         MonsterManager.getInstance.SpawnMonster(3, 3000);
+        MonsterManager.getInstance.SpawnMonster(2, 3001);
     }
 }

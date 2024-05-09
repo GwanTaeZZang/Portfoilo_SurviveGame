@@ -27,6 +27,7 @@ public class MonsterInfo
 
 public class BehaviorLogicBase
 {
+    protected MonsterInfo info;
     protected MonsterBehavior moveBehavior;
     protected MonsterBehavior attackBehavior;
     protected Transform target;
@@ -42,16 +43,17 @@ public class BehaviorLogicBase
         return new BehaviorLogicBase();
     }
 
-    public virtual void Initialize(Transform _monster ,MonsterBehavior _move, MonsterBehavior _attack = null)
+    public virtual void Initialize(MonsterInfo _info, Transform _monster ,MonsterBehavior _move, MonsterBehavior _attack = null)
     {
+        info = _info;
         moveBehavior = _move;
         attackBehavior = _attack;
 
         monster = _monster;
         target = PlayerManager.getInstance.GetPlayer();
 
-        moveBehavior.Initialize(target, monster);
-        attackBehavior?.Initialize(target, monster);
+        moveBehavior.Initialize(_info, target, monster);
+        attackBehavior?.Initialize(_info, target, monster);
     }
 }
 
@@ -146,6 +148,7 @@ public enum MonsterAttackBehaviorType
 
 public class MonsterBehavior
 {
+    protected MonsterInfo info;
     protected Transform target;
     protected Transform monster;
 
@@ -155,8 +158,9 @@ public class MonsterBehavior
 
     }
 
-    public virtual void Initialize(Transform _target, Transform _monster)
+    public virtual void Initialize(MonsterInfo _info ,Transform _target, Transform _monster)
     {
+        info = _info;
         target = _target;
         monster = _monster;
     }
@@ -171,14 +175,8 @@ public class Shooting : MonsterBehavior
 {
     public override void Update()
     {
-        Show();
-    }
-    public void Show()
-    {
-        Debug.Log("Attack Shooting");
-    }
 
-
+    }
 
     public override MonsterBehavior DeepCopy()
     {
@@ -209,12 +207,7 @@ public class ApproachToTarget : MonsterBehavior
 {
     public override void Update()
     {
-        Show();
         Move();
-    }
-    public void Show()
-    {
-        Debug.Log("Move Approach");
     }
 
     private void Move()
@@ -224,8 +217,8 @@ public class ApproachToTarget : MonsterBehavior
 
         Vector2 dir = targetPos - monsterPos;
 
-        monsterPos.x += dir.normalized.x * Time.deltaTime * 1;
-        monsterPos.y += dir.normalized.y * Time.deltaTime * 1;
+        monsterPos.x += dir.normalized.x * Time.deltaTime * info.speed;
+        monsterPos.y += dir.normalized.y * Time.deltaTime * info.speed;
 
         monster.position = monsterPos;
     }
@@ -243,11 +236,34 @@ public class RunAwayFromTarget : MonsterBehavior
 {
     public override void Update()
     {
-        Show();
+        Move();
     }
-    public void Show()
+
+    private void Move()
     {
-        Debug.Log("Move Run Away");
+
+        Vector2 monsterPos = monster.position;
+        Vector2 targetPos = target.position;
+
+        Vector2 dir = targetPos - monsterPos;
+        float distance = Vector2.Distance(monsterPos, targetPos);
+
+        if(distance > info.attackRange)
+        {
+            monsterPos.x += dir.normalized.x * Time.deltaTime * info.speed;
+            monsterPos.y += dir.normalized.y * Time.deltaTime * info.speed;
+
+            monster.position = monsterPos;
+        }
+
+        if(distance < info.attackRange * 0.8f)
+        {
+            monsterPos.x -= dir.normalized.x * Time.deltaTime * info.speed;
+            monsterPos.y -= dir.normalized.y * Time.deltaTime * info.speed;
+
+            monster.position = monsterPos;
+
+        }
     }
 
 

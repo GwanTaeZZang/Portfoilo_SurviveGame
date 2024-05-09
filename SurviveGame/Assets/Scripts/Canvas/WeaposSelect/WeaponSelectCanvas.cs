@@ -65,10 +65,10 @@ public class WeaponSelectCanvas : UIBaseController
         selectWeaponImage.sprite = weaponSpriteList[_idx];
 
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("공격력  " + weaponInfo.damage);
-        builder.AppendLine("계수  " + weaponInfo.damageRate);
-        builder.AppendLine("공격속도  " + weaponInfo.attackSpeed);
-        builder.AppendLine("레벨  " + weaponInfo.level);
+        builder.AppendLine("??????  " + weaponInfo.damage);
+        builder.AppendLine("????  " + weaponInfo.damageRate);
+        builder.AppendLine("????????  " + weaponInfo.attackSpeed);
+        builder.AppendLine("????  " + weaponInfo.level);
         selectWeaponInfo.text = builder.ToString();
 
         builder = null;
@@ -82,8 +82,8 @@ public class WeaponSelectCanvas : UIBaseController
     private void OnClickSelectCompleteBtn()
     {
         ItemManager.getInstance.SetSelectedWeapon(weaponInfoList[curSelectedWeaponIdx]);
-        UIManager.getInstance.Hide();
-        UIManager.getInstance.Hide();
+        //UIManager.getInstance.Hide();
+        //UIManager.getInstance.Hide();
         SceneManager.LoadScene("InGameScene");
     }
 }

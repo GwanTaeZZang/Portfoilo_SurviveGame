@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] JoyPad2DController joyPad;
 
     private Character character;
-    private float speed = 2;
+    private float speed = 3;
 
     private void Awake()
     {

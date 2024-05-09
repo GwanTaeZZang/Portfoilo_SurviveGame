@@ -60,9 +60,8 @@ public abstract class WeaponBase
 
         foreach (MonsterController monster in targetList)
         {
-            targetPos = monster.transform.position;
-
-            float distance = Vector2.Distance(weapon.position, targetPos);
+            
+            float distance = Vector2.Distance(weapon.position, monster.transform.position);
 
             if (compareDistance > distance)
             {

@@ -70,7 +70,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
             MonsterBehavior attackBehavior;
             attackBehavior = monsterAttackBehaviorArr[(int)value.attackType]?.DeepCopy();
-            logic.Initialize(monsterCtrl.transform, moveBehavior, attackBehavior);
+            logic.Initialize(value, monsterCtrl.transform, moveBehavior, attackBehavior);
 
             monsterCtrl.SetMonsterBehavior(logic);
 
