@@ -121,9 +121,9 @@ public class MonsterManager : Singleton<MonsterManager>
 
             //}
 
-            int intThreshold = 50 + (int)(playerPos.y * 7);
+            int threshold = 50 + (int)(playerPos.y * 7);
             int randomNum = Random.Range(0,100);
-            int aa = randomNum < intThreshold ? +1 : -1;
+            int aa = randomNum < threshold ? +1 : -1;
 
             yPos = Random.Range(playerPos.y + ((-1 * aa)*PlayerNonSpwanArea),
                 (-1 * aa)*MaxYpos);
