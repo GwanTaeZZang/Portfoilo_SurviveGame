@@ -12,6 +12,9 @@ public class InGameSceneController : MonoBehaviour
 
     private Tile[,] tiles;
 
+    private float testSpwanTime = 3f;
+    private float testSpwanTimer = 0f;
+
     private void Awake()
     {
         LoadMap();
@@ -22,9 +25,14 @@ public class InGameSceneController : MonoBehaviour
         playerController.Initialize();
         weaponController.Initialize();
 
-        CreateMonster();
+        //CreateMonster();
     }
 
+    private void Update()
+    {
+        TestMonsterSpwan();
+        //TestEventMonsterSpwan();
+    }
 
     private void LoadMap()
     {
@@ -58,5 +66,24 @@ public class InGameSceneController : MonoBehaviour
     {
         MonsterManager.getInstance.SpawnMonster(3, 3000);
         MonsterManager.getInstance.SpawnMonster(2, 3001);
+    }
+
+    private void TestMonsterSpwan()
+    {
+        testSpwanTimer += Time.deltaTime;
+
+        if(testSpwanTimer > testSpwanTime)
+        {
+            MonsterManager.getInstance.SpawnMonster(3, 3000);
+            testSpwanTimer = 0f;
+        }
+    }
+
+    private void TestEventMonsterSpwan()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            MonsterManager.getInstance.SpawnMonster(1, 3000);
+        }
     }
 }

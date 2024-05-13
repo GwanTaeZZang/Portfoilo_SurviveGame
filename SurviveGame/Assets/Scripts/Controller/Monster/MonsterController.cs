@@ -37,6 +37,8 @@ public class MonsterController : MonoBehaviour
         this.gameObject.SetActive(true);
         this.transform.position = _spwan;
         spriteRenderer.sprite = _sprite;
+
+        Invoke("HideMonster", 7f);
     }
 
     public void HideMonster()

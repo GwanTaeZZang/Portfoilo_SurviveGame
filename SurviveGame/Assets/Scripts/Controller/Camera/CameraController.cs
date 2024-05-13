@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] JoyPad2DController joyPad;
 
     //private Vector2 moveDir;
-    private float speed = 2;
+    private float speed = 3;
 
     private void Start()
     {

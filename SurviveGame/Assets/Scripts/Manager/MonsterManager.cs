@@ -76,12 +76,73 @@ public class MonsterManager : Singleton<MonsterManager>
 
             monsterCtrl.transform.SetParent(aliveMonsterParent.transform);
 
-            monsterCtrl.ShowMonster(new Vector2(i, i), monsterSpriteDict[_uid]);
+            monsterCtrl.ShowMonster(ComputeMonsterRandomSpawnPos(), monsterSpriteDict[_uid]);
 
 
             node.Value = monsterCtrl;
             monsterCtrlList.AddLast(node);
         }
+    }
+
+    private Vector2 ComputeMonsterRandomSpawnPos()
+    {
+        float MinXpos = -10f;
+        float MaxXpos = 10f;
+        float MinYpos = -10f;
+        float MaxYpos = 10;
+        float PlayerNonSpwanArea = 3f;
+
+        float xPos;
+        float yPos;
+
+        xPos = Random.Range(MinXpos, MaxXpos);
+
+        Vector2 playerPos = PlayerManager.getInstance.GetPlayer().transform.position;
+
+        Debug.Log("Random X Pos = " + xPos);
+
+        if(playerPos.x - PlayerNonSpwanArea < xPos && xPos < playerPos.x + PlayerNonSpwanArea)
+        {
+            // xpos is in Player area
+            //float threshold = 0.5f;
+
+            //bool result = Random.Range(0f, 1f) > Mathf.Abs(playerPos.y) / 10f + threshold;
+
+            //if (result)
+            //{
+            //    yPos = Random.Range(playerPos.y + PlayerNonSpwanArea, MaxYpos);
+            //    Debug.Log(" + Random Y = " + yPos);
+
+            //}
+            //else
+            //{
+            //    yPos = Random.Range(MinYpos, playerPos.y - PlayerNonSpwanArea);
+            //    Debug.Log(" - Random Y = " + yPos);
+
+            //}
+
+            int intThreshold = 50 + (int)(playerPos.y * 7);
+            int randomNum = Random.Range(0,100);
+            int aa = randomNum < intThreshold ? +1 : -1;
+
+            yPos = Random.Range(playerPos.y + ((-1 * aa)*PlayerNonSpwanArea),
+                (-1 * aa)*MaxYpos);
+
+            //yPos *= aa;
+
+
+        }
+        else
+        {
+            yPos = Random.Range(MinYpos, MaxYpos);
+
+            Debug.Log("Random Y = " + yPos);
+
+        }
+
+        Debug.Log("x = " + xPos + "  y = " + yPos);
+        Debug.Log("========================================");
+        return new Vector2(xPos, yPos);
     }
 
     private void BindMonsterBehaviorInstance()
