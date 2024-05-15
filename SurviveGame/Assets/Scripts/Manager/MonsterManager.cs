@@ -76,12 +76,33 @@ public class MonsterManager : Singleton<MonsterManager>
 
             monsterCtrl.transform.SetParent(aliveMonsterParent.transform);
 
-            monsterCtrl.ShowMonster(ComputeMonsterRandomSpawnPos(), monsterSpriteDict[_uid]);
+            monsterCtrl.ShowMonster(ComputeMonsterRandomVector(), monsterSpriteDict[_uid]);
 
 
             node.Value = monsterCtrl;
             monsterCtrlList.AddLast(node);
+
+            ComputeMonsterRandomVector();
         }
+    }
+
+    private Vector2 ComputeMonsterRandomVector()
+    {
+        float min = -10;
+        float max = 10;
+
+        float randomX = Random.Range(min, max);
+        float randomY = Random.Range(min, max);
+
+        Vector2 playerPos = PlayerManager.getInstance.GetPlayer().position;
+        Vector2 randomVector = new Vector2(randomX, randomY).normalized;
+        randomVector.x *= 5f;
+        randomVector.y *= 5f;
+
+        randomVector.x += playerPos.x;
+        randomVector.y += playerPos.y;
+
+        return randomVector;
     }
 
     private Vector2 ComputeMonsterRandomSpawnPos()
