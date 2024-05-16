@@ -43,9 +43,12 @@ public class MonsterManager : Singleton<MonsterManager>
         return monsterCtrlList;
     }
 
-    public void SpawnMonster(int _count, int _uid)
+    public Vector2 SpawnMonster(int _count, int _uid)
     {
-        for(int i =0; i<_count; i++)
+
+        Vector2 randomPos = Vector2.zero;
+
+        for (int i =0; i<_count; i++)
         {
             MonsterController monsterCtrl;
             LinkedListNode<MonsterController> node;
@@ -76,14 +79,17 @@ public class MonsterManager : Singleton<MonsterManager>
 
             monsterCtrl.transform.SetParent(aliveMonsterParent.transform);
 
-            monsterCtrl.ShowMonster(ComputeMonsterRandomVector(), monsterSpriteDict[_uid]);
+            randomPos = ComputeMonsterRandomVector();
+            monsterCtrl.ShowMonster(randomPos, monsterSpriteDict[_uid]);
 
 
             node.Value = monsterCtrl;
             monsterCtrlList.AddLast(node);
 
-            ComputeMonsterRandomVector();
+            //ComputeMonsterRandomVector();
         }
+
+        return randomPos;
     }
 
     private Vector2 ComputeMonsterRandomVector()
@@ -101,6 +107,8 @@ public class MonsterManager : Singleton<MonsterManager>
 
         randomVector.x += playerPos.x;
         randomVector.y += playerPos.y;
+
+
 
         return randomVector;
     }

@@ -30,8 +30,8 @@ public class InGameSceneController : MonoBehaviour
 
     private void Update()
     {
-        TestMonsterSpwan();
-        //TestEventMonsterSpwan();
+        //TestMonsterSpwan();
+        TestEventMonsterSpwan();
     }
 
     private void LoadMap()
@@ -79,11 +79,14 @@ public class InGameSceneController : MonoBehaviour
         }
     }
 
+    Vector2 monsterVector = Vector2.zero;
     private void TestEventMonsterSpwan()
     {
         if (Input.GetKeyDown("space"))
         {
-            MonsterManager.getInstance.SpawnMonster(1, 3000);
+            monsterVector = MonsterManager.getInstance.SpawnMonster(1, 3000);
         }
+
+        Debug.DrawLine(PlayerManager.getInstance.GetPlayer().position, monsterVector, Color.red);
     }
 }
