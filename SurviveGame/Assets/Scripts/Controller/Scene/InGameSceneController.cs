@@ -30,8 +30,8 @@ public class InGameSceneController : MonoBehaviour
 
     private void Update()
     {
-        //TestMonsterSpwan();
-        TestEventMonsterSpwan();
+        TestMonsterSpwan();
+        //TestEventMonsterSpwan();
     }
 
     private void LoadMap()
@@ -74,9 +74,11 @@ public class InGameSceneController : MonoBehaviour
 
         if(testSpwanTimer > testSpwanTime)
         {
-            MonsterManager.getInstance.SpawnMonster(1, 3000);
+            monsterVector = MonsterManager.getInstance.SpawnMonster(1, 3000);
             testSpwanTimer = 0f;
         }
+        Debug.DrawLine(PlayerManager.getInstance.GetPlayer().position, monsterVector, Color.red);
+
     }
 
     Vector2 monsterVector = Vector2.zero;
