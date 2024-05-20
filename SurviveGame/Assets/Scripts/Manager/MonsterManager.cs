@@ -22,7 +22,9 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private int max = 50;
     private int min = -50;
-    private int weight = 100;
+    private int weight = 30;
+    private float playerNonSpwanArea = 3f;
+
     private Vector2 xStartVector = Vector2.zero;
     private Vector2 yStartVector = Vector2.zero;
     private Vector2 endVector = Vector2.zero;
@@ -47,12 +49,14 @@ public class MonsterManager : Singleton<MonsterManager>
         return base.Initialize();
     }
 
+
+
     public LinkedList<MonsterController> GetMonsterList()
     {
         return monsterCtrlList;
     }
 
-    public Vector2 SpawnMonster(int _count, int _uid)
+    public void SpawnMonster(int _count, int _uid)
     {
 
         Vector2 randomPos = Vector2.zero;
@@ -98,7 +102,7 @@ public class MonsterManager : Singleton<MonsterManager>
             //ComputeMonsterRandomVector();
         }
 
-        return randomPos;
+        //return randomPos;
     }
 
     private Vector2 ComputeMonsterRandomVector()
@@ -112,27 +116,51 @@ public class MonsterManager : Singleton<MonsterManager>
         yStartVector = new Vector2(0, 10 * (randomVector.y > 0 ? +1 : -1));
         endVector = new Vector2(xStartVector.x, yStartVector.y);
 
-        Debug.Log(xStartVector.x);
-        Debug.Log(yStartVector.y);
-        Debug.Log(endVector);
+        //Debug.Log(xStartVector.x);
+        //Debug.Log(yStartVector.y);
+        //Debug.Log(endVector);
 
         ramdomWeightVector.x = randomVector.x * weight;
         ramdomWeightVector.y = randomVector.y * weight;
 
-        bool result = CrossCheck2D(Vector2.zero, ramdomWeightVector, xStartVector, endVector);
+        Vector2 crossVector = Vector2.zero;
+        Vector2 playerPos = PlayerManager.getInstance.GetPlayer().transform.position;
+
+        bool result = CrossCheck2D(playerPos, ramdomWeightVector, xStartVector, endVector);
         if (result)
         {
-            Vector2 crossVector = CrossCheck2DVector(Vector2.zero, ramdomWeightVector, xStartVector, endVector);
-            return crossVector;
+            crossVector = CrossCheck2DVector(playerPos, ramdomWeightVector, xStartVector, endVector);
+            //return crossVector;
             // 기존에 랜덤 백터에서 크로스 백터 사이의 랜덤 거리를 찾아 리턴
         }
         else
         {
-            Vector2 crossVector = CrossCheck2DVector(Vector2.zero, ramdomWeightVector, yStartVector, endVector);
-            return crossVector;
+            crossVector = CrossCheck2DVector(playerPos, ramdomWeightVector, yStartVector, endVector);
+            //return crossVector;
             // 기존에 랜덤 백터에서 크로스 백터 사이의 랜덤 거리를 찾아 리턴
         }
 
+        float distance = Vector2.Distance(playerPos, crossVector);
+        float randomDistance = Random.Range(playerNonSpwanArea, distance);
+
+        if (distance < playerNonSpwanArea + 1)
+        {
+            Vector2 monsterPos = new Vector2(-randomVector.x * randomDistance, -randomVector.y * randomDistance);
+            return monsterPos;
+        }
+        else
+        {
+            Vector2 monsterPos = new Vector2(randomVector.x * randomDistance, randomVector.y * randomDistance);
+            return monsterPos;
+        }
+
+    }
+    private float ComputeRandomBetweenVector(Vector2 _startVector, Vector2 _endVector)
+    {
+        float distance = Vector2.Distance(_startVector, _endVector);
+        float randomDistance = Random.Range(playerNonSpwanArea, distance);
+
+        return randomDistance;
     }
     private bool CrossCheck2D(Vector2 aStart, Vector2 aEnd, Vector2 bStart, Vector2 bEnd)
     {
@@ -209,7 +237,7 @@ public class MonsterManager : Singleton<MonsterManager>
         float MaxXpos = 10f;
         float MinYpos = -10f;
         float MaxYpos = 10;
-        float PlayerNonSpwanArea = 3f;
+        //float PlayerNonSpwanArea = 3f;
 
         float xPos;
         float yPos;
@@ -220,7 +248,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
         Debug.Log("Random X Pos = " + xPos);
 
-        if(playerPos.x - PlayerNonSpwanArea < xPos && xPos < playerPos.x + PlayerNonSpwanArea)
+        if(playerPos.x - playerNonSpwanArea < xPos && xPos < playerPos.x + playerNonSpwanArea)
         {
             // xpos is in Player area
             //float threshold = 0.5f;
@@ -244,7 +272,7 @@ public class MonsterManager : Singleton<MonsterManager>
             int randomNum = Random.Range(0,100);
             int aa = randomNum < threshold ? +1 : -1;
 
-            yPos = Random.Range(playerPos.y + ((-1 * aa)*PlayerNonSpwanArea),
+            yPos = Random.Range(playerPos.y + ((-1 * aa)*playerNonSpwanArea),
                 (-1 * aa)*MaxYpos);
 
             //yPos *= aa;

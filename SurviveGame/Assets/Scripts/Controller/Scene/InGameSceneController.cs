@@ -74,21 +74,17 @@ public class InGameSceneController : MonoBehaviour
 
         if(testSpwanTimer > testSpwanTime)
         {
-            monsterVector = MonsterManager.getInstance.SpawnMonster(1, 3000);
+            MonsterManager.getInstance.SpawnMonster(1, 3000);
             testSpwanTimer = 0f;
         }
-        Debug.DrawLine(PlayerManager.getInstance.GetPlayer().position, monsterVector, Color.red);
 
     }
 
-    Vector2 monsterVector = Vector2.zero;
     private void TestEventMonsterSpwan()
     {
         if (Input.GetKeyDown("space"))
         {
-            monsterVector = MonsterManager.getInstance.SpawnMonster(1, 3000);
+            MonsterManager.getInstance.SpawnMonster(1, 3000);
         }
-
-        Debug.DrawLine(PlayerManager.getInstance.GetPlayer().position, monsterVector, Color.red);
     }
 }
