@@ -30,7 +30,7 @@ public class InGameSceneController : MonoBehaviour
 
     private void Update()
     {
-        TestMonsterSpwan();
+        //TestMonsterSpwan();
         //TestEventMonsterSpwan();
     }
 

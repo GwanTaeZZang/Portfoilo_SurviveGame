@@ -33,11 +33,12 @@ public abstract class WeaponBase
     public Sprite weaponSprite;
     public Transform weapon;
 
-    protected Transform target;
+    
+    protected Transform target = null;
     protected float timer;
 
     protected Vector2 oriWeaponPos;
-    protected Vector2 targetPos;
+    //protected Vector2 targetPos;
     protected Vector2 dir;
     protected float distance;
     protected bool isAttack = false;
@@ -66,7 +67,7 @@ public abstract class WeaponBase
             if (compareDistance > distance)
             {
                 compareDistance = distance;
-                targetPos = monster.transform.position;
+                target = monster.transform;
             }
 
         }
@@ -141,11 +142,15 @@ public class StingWeapon : WeaponBase
 
     protected override void LookAtEnemyInRange()
     {
-        distance = Vector2.Distance(weapon.position, targetPos);
+        if(target == null)
+        {
+            return;
+        }
+        distance = Vector2.Distance(weapon.position, target.position);
 
         if (!isAttack)
         {
-            dir = targetPos - (Vector2)weapon.position;
+            dir = (Vector2)target.position - (Vector2)weapon.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
@@ -203,11 +208,16 @@ public class ShootingWeapon : WeaponBase
 
     protected override void LookAtEnemyInRange()
     {
-        distance = Vector2.Distance(weapon.position, targetPos);
+        if (target == null)
+        {
+            return;
+        }
+
+        distance = Vector2.Distance(weapon.position, target.position);
 
         if (!isAttack)
         {
-            dir = targetPos - (Vector2)weapon.position;
+            dir = (Vector2)target.position - (Vector2)weapon.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             weapon.localRotation = Quaternion.Euler(0, 0, angle);
         }
