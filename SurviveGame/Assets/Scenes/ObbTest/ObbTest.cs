@@ -55,7 +55,7 @@ public class ObbTest : MonoBehaviour
             }
 
             //.. 벡터 내적 절대값
-            if (Mathf.Abs(distance.x * unitVec.x + distance.y * unitVec.y) < sum)
+            if (Mathf.Abs(distance.x * unitVec.x + distance.y * unitVec.y) > sum)
             {
                 Debug.Log("충돌안해");
 
