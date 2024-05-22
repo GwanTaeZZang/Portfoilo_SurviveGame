@@ -7,7 +7,7 @@ public struct BoxInfo
 {
     public Vector2 center; //.. x,y [Transform Position]
     public Vector2 size; //.. x,y [Image Width / Height]
-    public float rot; //.. z축 [Transform Rotation]
+    public float rot; //.. z?? [Transform Rotation]
 }
 
 
@@ -16,11 +16,13 @@ public class ObbTest : MonoBehaviour
     public ObbTest target;
 
     public BoxInfo myInfo = new BoxInfo();
+    public SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
-        //.. 이미지꺼 받아와
-        myInfo.size = new Vector2(100f, 100f);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        //.. ???????? ??????
+        myInfo.size = spriteRenderer.bounds.size;
     }
 
     private void Update()
@@ -28,13 +30,23 @@ public class ObbTest : MonoBehaviour
         myInfo.center = transform.localPosition;
         myInfo.rot = transform.eulerAngles.z;
 
-        IsCollisionTest(target.myInfo);
+        //GetHeightVector(myInfo);
+
+
+        if (Input.GetKeyDown("space"))
+        {
+            IsCollisionTest(target.myInfo);
+        }
+
+        //Debug.DrawLine(Vector2.zero, new Vector2(3, 3), Color.black);
     }
 
     public bool IsCollisionTest(BoxInfo target)
     {
-        //.. 나와 피격 검출 대상과의 중점 거리벡터
+        //.. ???? ???? ???? ???????? ???? ????????
         Vector2 distance = GetCenterDistanceVector(target);
+        Debug.DrawLine(this.transform.position, target.center, Color.red);
+
         Vector2[] vec = new Vector2[4]
         {
             GetHeightVector(myInfo),
@@ -48,22 +60,28 @@ public class ObbTest : MonoBehaviour
         {
             float sum = 0f;
             unitVec = GetUnitVector(vec[i]);
+            Debug.Log("UnitVec = " +unitVec);
             for (int j = 0; j < 4; j++)
             {
-                //.. 벡터 내적 절대값
+                //.. ???? ???? ??????
                 sum += Mathf.Abs(vec[j].x * unitVec.x + vec[j].y * unitVec.y);
             }
 
-            //.. 벡터 내적 절대값
-            if (Mathf.Abs(distance.x * unitVec.x + distance.y * unitVec.y) > sum)
+            //.. ???? ???? ??????
+            float dotProduct = Mathf.Abs(distance.x * unitVec.x + distance.y * unitVec.y);
+            bool isNotCollision = dotProduct >= sum;
+
+            Debug.Log("sum : " + sum + "  dotProduct : " + dotProduct + "  isNotCollision :" + isNotCollision);
+
+            if (dotProduct >= sum)
             {
-                Debug.Log("충돌안해");
+                Debug.Log("Dont Collision");
 
                 return false;
             }
         }
 
-        Debug.Log("충돌해");
+        Debug.Log("Collision");
         return true;
     }
 
@@ -72,26 +90,31 @@ public class ObbTest : MonoBehaviour
         return (myInfo.center - target.center);
     }
 
-    //.. 높이 벡터 (Y축), 회전 값에 따른 벡터 방향 계산
+    //.. ???? ???? (Y??), ???? ???? ???? ???? ???? ????
     private Vector2 GetHeightVector(BoxInfo box)
     {
         float x = box.size.y * Mathf.Cos(Deg2Rad(box.rot - 90f)) / 2;
         float y = box.size.y * Mathf.Sin(Deg2Rad(box.rot - 90f)) / 2;
 
+        //Debug.Log(new Vector2(x, y));
+        Debug.DrawLine(box.center, new Vector2(x + box.center.x, y + box.center.y), Color.red);
+
         return new Vector2(x, y);
     }
 
 
-    //.. 너비 벡터 (X축), 회전 값에 따른 벡터 방향 계산
+    //.. ???? ???? (X??), ???? ???? ???? ???? ???? ????
     private Vector2 GetWidthVector(BoxInfo box)
     {
         float x = box.size.x * Mathf.Cos(Deg2Rad(box.rot)) / 2;
         float y = box.size.x * Mathf.Sin(Deg2Rad(box.rot)) / 2;
 
+        Debug.DrawLine(box.center, new Vector2(x + box.center.x, y + box.center.y), Color.blue);
+
         return new Vector2(x, y);
     }
 
-    //.. 단위벡터 연산
+    //.. ???????? ????
     private Vector2 GetUnitVector(Vector2 v)
     {
         float len = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2));
