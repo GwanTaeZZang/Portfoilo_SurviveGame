@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct BoxInfo
+{
+    public Vector2 center; //.. x,y [Transform Position]
+    public Vector2 size; //.. x,y [Image Width / Height]
+    public float rot; //.. z?? [Transform Rotation]
+}
 
 
-
-public class ObbTest : MonoBehaviour
+public class OBBCollision : MonoBehaviour
 {
     public ObbTest target;
 
     public BoxInfo myInfo = new BoxInfo();
     public SpriteRenderer spriteRenderer;
 
-    private void Awake()
+    private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        //.. ???????? ??????
         myInfo.size = spriteRenderer.bounds.size;
     }
 
@@ -31,8 +35,6 @@ public class ObbTest : MonoBehaviour
         {
             IsCollisionTest(target.myInfo);
         }
-
-        //Debug.DrawLine(Vector2.zero, new Vector2(3, 3), Color.black);
     }
 
     public bool IsCollisionTest(BoxInfo target)
@@ -57,11 +59,9 @@ public class ObbTest : MonoBehaviour
             //Debug.Log("UnitVec = " + unitVec);
             for (int j = 0; j < 4; j++)
             {
-                //.. ???? ???? ??????
                 sum += Mathf.Abs(vec[j].x * unitVec.x + vec[j].y * unitVec.y);
             }
 
-            //.. ???? ???? ??????
             float dotProduct = Mathf.Abs(distance.x * unitVec.x + distance.y * unitVec.y);
             bool isNotCollision = dotProduct >= sum;
 
@@ -79,25 +79,22 @@ public class ObbTest : MonoBehaviour
         return true;
     }
 
+
     private Vector2 GetCenterDistanceVector(BoxInfo target)
     {
         return (myInfo.center - target.center);
     }
 
-    //.. ???? ???? (Y??), ???? ???? ???? ???? ???? ????
     private Vector2 GetHeightVector(BoxInfo box)
     {
         float x = box.size.y * Mathf.Cos(Deg2Rad(box.rot - 90f)) / 2;
         float y = box.size.y * Mathf.Sin(Deg2Rad(box.rot - 90f)) / 2;
 
-        //Debug.Log(new Vector2(x, y));
         Debug.DrawLine(box.center, new Vector2(x + box.center.x, y + box.center.y), Color.red);
 
         return new Vector2(x, y);
     }
 
-
-    //.. ???? ???? (X??), ???? ???? ???? ???? ???? ????
     private Vector2 GetWidthVector(BoxInfo box)
     {
         float x = box.size.x * Mathf.Cos(Deg2Rad(box.rot)) / 2;
@@ -108,7 +105,6 @@ public class ObbTest : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    //.. ???????? ????
     private Vector2 GetUnitVector(Vector2 v)
     {
         float len = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2));
@@ -120,4 +116,6 @@ public class ObbTest : MonoBehaviour
     {
         return deg / 180 * Mathf.PI;
     }
+
+
 }
