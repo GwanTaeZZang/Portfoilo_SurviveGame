@@ -33,7 +33,7 @@ public abstract class WeaponBase
     public Sprite weaponSprite;
     public Transform weapon;
 
-    
+    protected Transform parent;
     protected Transform target = null;
     protected float timer;
 
@@ -48,10 +48,17 @@ public abstract class WeaponBase
     protected abstract void LookAtEnemyInRange();
     public abstract WeaponBase DeepCopy();
 
+    public void SetParent(Transform _parent)
+    {
+        parent = _parent;
+    }
+
     protected virtual void Initiailzed()
     {
 
     }
+
+
 
     protected virtual void FindTarget()
     {
@@ -111,8 +118,11 @@ public class StingWeapon : WeaponBase
 
         if (isGo)
         {
-            curWeaponPos.x += _dir.x * Time.deltaTime * ATTACK_SPEED;
-            curWeaponPos.y += _dir.y * Time.deltaTime * ATTACK_SPEED;
+            //curWeaponPos.x += _dir.x * Time.deltaTime * ATTACK_SPEED;
+            //curWeaponPos.y += _dir.y * Time.deltaTime * ATTACK_SPEED;
+
+            curWeaponPos.x += Time.deltaTime * ATTACK_SPEED;
+
             weapon.localPosition = curWeaponPos;
 
             float distance = Vector2.Distance(curWeaponPos, oriWeaponPos);
@@ -124,8 +134,11 @@ public class StingWeapon : WeaponBase
 
         else if (!isGo)
         {
-            curWeaponPos.x -= _dir.x * Time.deltaTime * ATTACK_SPEED;
-            curWeaponPos.y -= _dir.y * Time.deltaTime * ATTACK_SPEED;
+            //curWeaponPos.x -= _dir.x * Time.deltaTime * ATTACK_SPEED;
+            //curWeaponPos.y -= _dir.y * Time.deltaTime * ATTACK_SPEED;
+
+            curWeaponPos.x -= Time.deltaTime * ATTACK_SPEED;
+
             weapon.localPosition = curWeaponPos;
 
             float distance = Vector2.Distance(curWeaponPos, oriWeaponPos);
@@ -152,7 +165,8 @@ public class StingWeapon : WeaponBase
         {
             dir = (Vector2)target.position - (Vector2)weapon.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            weapon.localRotation = Quaternion.Euler(0, 0, angle);
+            //weapon.localRotation = Quaternion.Euler(0, 0, angle);
+            parent.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         timer += Time.deltaTime;
@@ -217,9 +231,10 @@ public class ShootingWeapon : WeaponBase
 
         if (!isAttack)
         {
-            dir = (Vector2)target.position - (Vector2)weapon.position;
+            dir = (Vector2)target.position - (Vector2)weapon.localPosition;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            weapon.localRotation = Quaternion.Euler(0, 0, angle);
+            //weapon.localRotation = Quaternion.Euler(0, 0, angle);
+            parent.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         if (distance < weaponItemInfo.attackRange || isAttack)

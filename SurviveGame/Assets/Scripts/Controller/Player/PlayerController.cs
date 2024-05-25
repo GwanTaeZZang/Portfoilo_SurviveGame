@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] SpriteRenderer playerSpriteRenderer;
     [SerializeField] JoyPad2DController joyPad;
+    //[SerializeField] private NavMeshAgent agent;
 
     private Character character;
     private float speed = 3;
@@ -15,6 +17,10 @@ public class PlayerController : MonoBehaviour
         joyPad.Initialize(OnMove);
 
         PlayerManager.getInstance.SetPlayer(this.transform);
+
+        //agent.updateRotation = false;
+        //agent.updateUpAxis = false;
+
     }
     public void Initialize()
     {

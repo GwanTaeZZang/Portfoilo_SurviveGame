@@ -21,15 +21,15 @@ public class ObbTest : MonoBehaviour
 
     private void Update()
     {
-        myInfo.center = transform.localPosition;
+        myInfo.center = transform.position;
         myInfo.rot = transform.eulerAngles.z;
 
         //GetHeightVector(myInfo);
 
+        IsCollisionTest(target.myInfo);
 
         if (Input.GetKeyDown("space"))
         {
-            IsCollisionTest(target.myInfo);
         }
 
         //Debug.DrawLine(Vector2.zero, new Vector2(3, 3), Color.black);

@@ -12,29 +12,38 @@ public struct BoxInfo
 
 public class OBBCollision : MonoBehaviour
 {
-    public ObbTest target;
+    //public ObbTest target;
 
     public BoxInfo myInfo = new BoxInfo();
     public SpriteRenderer spriteRenderer;
 
-    private void Start()
+
+    private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
         myInfo.size = spriteRenderer.bounds.size;
     }
 
+
     private void Update()
     {
-        myInfo.center = transform.localPosition;
+        myInfo.center = transform.position;
         myInfo.rot = transform.eulerAngles.z;
 
         //GetHeightVector(myInfo);
+        GetHeightVector(myInfo);
+        GetWidthVector(myInfo);
 
 
-        if (Input.GetKeyDown("space"))
-        {
-            IsCollisionTest(target.myInfo);
-        }
+        //IsCollisionTest(target.myInfo);
+    }
+
+    public void SetInfo()
+    {
+        myInfo.size = spriteRenderer.bounds.size;
     }
 
     public bool IsCollisionTest(BoxInfo target)
