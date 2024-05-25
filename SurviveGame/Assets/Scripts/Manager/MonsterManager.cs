@@ -19,6 +19,7 @@ public class MonsterManager : Singleton<MonsterManager>
     private Queue<LinkedListNode<MonsterController>> deadMonsterQueue;
 
     private GameObject aliveMonsterParent;
+    private GameObject poolParent;
 
     private int max = 50;
     private int min = -50;
@@ -104,6 +105,26 @@ public class MonsterManager : Singleton<MonsterManager>
 
         //return randomPos;
     }
+
+    public void DeadMonster(MonsterController _deadMonster)
+    {
+        LinkedListNode<MonsterController> node;
+
+        node = monsterCtrlList.Find(_deadMonster);
+        node.Value.transform.SetParent(poolParent.transform);
+        deadMonsterQueue.Enqueue(node);
+        monsterCtrlList.Remove(node);
+
+
+        //foreach (MonsterController monster in monsterCtrlList)
+        //{
+        //    if(monster.monsterIdx == _deadMonster.monsterIdx)
+        //    {
+
+        //    }
+        //}
+    }
+
 
     private Vector2 ComputeMonsterRandomVector()
     {
@@ -328,7 +349,7 @@ public class MonsterManager : Singleton<MonsterManager>
     private void CreateMonster()
     {
         deadMonsterQueue = new Queue<LinkedListNode<MonsterController>>();
-        GameObject poolParent = new GameObject();
+        poolParent = new GameObject();
         poolParent.name = "DeadMonster";
 
         MonsterController res = Resources.Load<MonsterController>("Prefabs/Monster");

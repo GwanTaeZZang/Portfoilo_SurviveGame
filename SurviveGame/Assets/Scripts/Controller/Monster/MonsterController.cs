@@ -7,6 +7,7 @@ public class MonsterController : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private OBBCollision obbController;
     private MonsterInfo monsterInfo;
     private BehaviorLogicBase monsterBehavior;
 
@@ -37,13 +38,17 @@ public class MonsterController : MonoBehaviour
         this.gameObject.SetActive(true);
         this.transform.position = _spwan;
         spriteRenderer.sprite = _sprite;
+        obbController.enabled = true;
+        obbController.SetInfo();
 
-        //Invoke("HideMonster", 7f);
+        Invoke("HideMonster", 7f);
     }
 
     public void HideMonster()
     {
         this.transform.gameObject.SetActive(false);
         monsterBehavior = null;
+
+        MonsterManager.getInstance.DeadMonster(this);
     }
 }

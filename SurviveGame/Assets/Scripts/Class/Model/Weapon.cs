@@ -66,6 +66,11 @@ public abstract class WeaponBase
 
         LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
 
+        if(targetList.Count == 0)
+        {
+            target = null;
+        }
+
         foreach (MonsterController monster in targetList)
         {
             
