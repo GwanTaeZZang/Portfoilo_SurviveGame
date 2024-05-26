@@ -46,7 +46,7 @@ public class OBBCollision : MonoBehaviour
         myInfo.size = spriteRenderer.bounds.size;
     }
 
-    public bool IsCollisionTest(BoxInfo target)
+    public bool IsCollision(BoxInfo target)
     {
         //.. ???? ???? ???? ???????? ???? ????????
         Vector2 distance = GetCenterDistanceVector(target);

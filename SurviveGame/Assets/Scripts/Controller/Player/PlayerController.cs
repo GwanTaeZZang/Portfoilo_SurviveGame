@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
         character.job = PlayerManager.getInstance.GetJobList()[0];
         SetPlayerSprite(Resources.Load<Sprite>(character.job.jobSpritePath));
 
+        CollisionManager.getInstance.SetPlayer(this.GetComponent<OBBCollision>());
+
         //speed = character.statusArr[(int)StatusEffectType.Speed].status;
     }
 

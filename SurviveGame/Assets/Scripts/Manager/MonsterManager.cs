@@ -106,7 +106,7 @@ public class MonsterManager : Singleton<MonsterManager>
         //return randomPos;
     }
 
-    public void DeadMonster(MonsterController _deadMonster)
+    public void RemoveMonsterList(MonsterController _deadMonster)
     {
         LinkedListNode<MonsterController> node;
 

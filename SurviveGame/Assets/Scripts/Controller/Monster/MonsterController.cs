@@ -40,15 +40,18 @@ public class MonsterController : MonoBehaviour
         spriteRenderer.sprite = _sprite;
         obbController.enabled = true;
         obbController.SetInfo();
+        CollisionManager.getInstance.AddMonsterList(obbController);
 
-        Invoke("HideMonster", 7f);
+        Invoke("DeadMonster", 7f);
     }
 
-    public void HideMonster()
+    public void DeadMonster()
     {
         this.transform.gameObject.SetActive(false);
         monsterBehavior = null;
 
-        MonsterManager.getInstance.DeadMonster(this);
+        MonsterManager.getInstance.RemoveMonsterList(this);
+        CollisionManager.getInstance.RemoveMonsterList(obbController);
+
     }
 }
