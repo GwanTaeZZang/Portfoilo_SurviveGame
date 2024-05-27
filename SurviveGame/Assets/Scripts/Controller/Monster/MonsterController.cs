@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MonsterController : MonoBehaviour
+public class MonsterController : MonoBehaviour, ITargetAble
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private OBBCollision obbController;
+    //[SerializeField] private OBBCollision obbController;
     private MonsterInfo monsterInfo;
     private BehaviorLogicBase monsterBehavior;
+    private BoxInfo monsterBoxInfo;
+    private bool isCollision = false;
 
     public int monsterIdx;
 
@@ -17,10 +19,20 @@ public class MonsterController : MonoBehaviour
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        monsterBoxInfo = new BoxInfo();
+
     }
     private void Update()
     {
+        monsterBoxInfo.center = this.transform.position;
+        //monsterBoxInfo.rot = this.transform.eulerAngles.z;
+
         monsterBehavior?.Update();
+    }
+
+    public BoxInfo GetBoxInfo()
+    {
+        return monsterBoxInfo;
     }
 
     public void SetMonsterInfo(MonsterInfo _info)
@@ -38,9 +50,10 @@ public class MonsterController : MonoBehaviour
         this.gameObject.SetActive(true);
         this.transform.position = _spwan;
         spriteRenderer.sprite = _sprite;
-        obbController.enabled = true;
-        obbController.SetInfo();
-        CollisionManager.getInstance.AddMonsterList(obbController);
+
+        monsterBoxInfo.center = _spwan;
+        monsterBoxInfo.size = spriteRenderer.bounds.size;
+        isCollision = true;
 
         Invoke("DeadMonster", 7f);
     }
@@ -51,7 +64,13 @@ public class MonsterController : MonoBehaviour
         monsterBehavior = null;
 
         MonsterManager.getInstance.RemoveMonsterList(this);
-        CollisionManager.getInstance.RemoveMonsterList(obbController);
+;
+        isCollision = false;
 
+    }
+
+    public bool IsCollision()
+    {
+        return isCollision;
     }
 }

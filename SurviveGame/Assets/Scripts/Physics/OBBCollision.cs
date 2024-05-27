@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct BoxInfo
+public class BoxInfo
 {
-    public Vector2 center; //.. x,y [Transform Position]
-    public Vector2 size; //.. x,y [Image Width / Height]
-    public float rot; //.. z?? [Transform Rotation]
+    public Vector2 center; 
+    public Vector2 size; 
+    public float rot; 
 }
 
 
@@ -30,8 +30,8 @@ public class OBBCollision : MonoBehaviour
 
     private void Update()
     {
-        myInfo.center = transform.position;
-        myInfo.rot = transform.eulerAngles.z;
+        myInfo.center = this.transform.position;
+        myInfo.rot = this.transform.eulerAngles.z;
 
         //GetHeightVector(myInfo);
         GetHeightVector(myInfo);
@@ -46,7 +46,7 @@ public class OBBCollision : MonoBehaviour
         myInfo.size = spriteRenderer.bounds.size;
     }
 
-    public bool IsCollision(BoxInfo target)
+    public bool IsCollisionOBB(BoxInfo target)
     {
         //.. ???? ???? ???? ???????? ???? ????????
         Vector2 distance = GetCenterDistanceVector(target);

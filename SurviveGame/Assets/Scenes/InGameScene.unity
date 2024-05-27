@@ -233,7 +233,6 @@ GameObject:
   - component: {fileID: 68296367}
   - component: {fileID: 68296369}
   - component: {fileID: 68296370}
-  - component: {fileID: 68296371}
   - component: {fileID: 68296372}
   m_Layer: 0
   m_Name: Player
@@ -331,7 +330,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpriteRenderer: {fileID: 68296367}
   joyPad: {fileID: 435315356}
-  agent: {fileID: 68296372}
 --- !u!114 &68296370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,19 +349,6 @@ MonoBehaviour:
   - {fileID: 564727883}
   - {fileID: 1741417083}
   - {fileID: 1530552787}
---- !u!114 &68296371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 68296366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3d4f6877749b3540ae254638f9ea346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 68296367}
 --- !u!195 &68296372
 NavMeshAgent:
   m_ObjectHideFlags: 0

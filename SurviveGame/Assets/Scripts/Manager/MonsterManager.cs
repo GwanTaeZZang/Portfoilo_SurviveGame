@@ -18,6 +18,8 @@ public class MonsterManager : Singleton<MonsterManager>
     private LinkedList<MonsterController> monsterCtrlList = new LinkedList<MonsterController>();
     private Queue<LinkedListNode<MonsterController>> deadMonsterQueue;
 
+    private ITargetAble[] targetArr = new ITargetAble[100];
+
     private GameObject aliveMonsterParent;
     private GameObject poolParent;
 
@@ -55,6 +57,11 @@ public class MonsterManager : Singleton<MonsterManager>
     public LinkedList<MonsterController> GetMonsterList()
     {
         return monsterCtrlList;
+    }
+
+    public ITargetAble[] GetTargetArr()
+    {
+        return targetArr;
     }
 
     public void SpawnMonster(int _count, int _uid)
@@ -152,13 +159,13 @@ public class MonsterManager : Singleton<MonsterManager>
         {
             crossVector = CrossCheck2DVector(playerPos, ramdomWeightVector, xStartVector, endVector);
             //return crossVector;
-            // 기존에 랜덤 백터에서 크로스 백터 사이의 랜덤 거리를 찾아 리턴
+            // ?????? ???? ???????? ?????? ???? ?????? ???? ?????? ???? ????
         }
         else
         {
             crossVector = CrossCheck2DVector(playerPos, ramdomWeightVector, yStartVector, endVector);
             //return crossVector;
-            // 기존에 랜덤 백터에서 크로스 백터 사이의 랜덤 거리를 찾아 리턴
+            // ?????? ???? ???????? ?????? ???? ?????? ???? ?????? ???? ????
         }
 
         float distance = Vector2.Distance(playerPos, crossVector);
@@ -354,15 +361,21 @@ public class MonsterManager : Singleton<MonsterManager>
 
         MonsterController res = Resources.Load<MonsterController>("Prefabs/Monster");
 
+        //MonsterController[] monsterArr = new MonsterController[CAPICITY];
+
         for (int i =0; i < CAPICITY; i++)
         {
 
             MonsterController obj = GameObject.Instantiate<MonsterController>(res, poolParent.transform);
             obj.monsterIdx = i;
+            //monsterArr[i] = obj;
+            targetArr[i] = obj;
 
             LinkedListNode<MonsterController> node = new LinkedListNode<MonsterController>(obj);
             deadMonsterQueue.Enqueue(node);
         }
+
+        //PlayerManager.getInstance.GetPlayer().SetMonsterArr(monsterArr);
     }
 
     private void LoadMonsterData()

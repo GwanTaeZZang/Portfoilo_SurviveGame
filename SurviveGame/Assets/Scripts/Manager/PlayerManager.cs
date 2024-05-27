@@ -7,8 +7,8 @@ public class PlayerManager : Singleton<PlayerManager>
     private Dictionary<int, Job> jobDict = new Dictionary<int, Job>();
     private List<Job> jobList = new List<Job>();
     private Job selectedJob;
-    private Transform player;
-
+    private PlayerController player;
+    private ITargetAble target;
 
     public override bool Initialize()
     {
@@ -59,13 +59,19 @@ public class PlayerManager : Singleton<PlayerManager>
         }
     }
 
-    public void SetPlayer(Transform _player)
+    public void SetPlayer(PlayerController _player)
     {
         player = _player;
+        target = _player;
     }
 
-    public Transform GetPlayer()
+    public PlayerController GetPlayer()
     {
         return player;
+    }
+
+    public ITargetAble GetTarget()
+    {
+        return target;
     }
 }

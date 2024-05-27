@@ -10,18 +10,12 @@ public class WeaponPoint : MonoBehaviour
 
     private Vector2 originLocalPos;
     private WeaponBase weapon;
-    //private StingWeapon stingWeapon;
-    //private ShootingWeapon shootingWeapon;
-    //private MowWeapon mowWeapon;
 
     private bool isEquip = false;
 
     public void Awake()
     {
         originLocalPos = new Vector2(0.4f, 0);
-        //stingWeapon = new StingWeapon();
-        //shootingWeapon = new ShootingWeapon();
-        //mowWeapon = new MowWeapon();
     }
 
     public void Update()

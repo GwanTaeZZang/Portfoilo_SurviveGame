@@ -50,7 +50,7 @@ public class BehaviorLogicBase
         attackBehavior = _attack;
 
         monster = _monster;
-        target = PlayerManager.getInstance.GetPlayer();
+        target = PlayerManager.getInstance.GetPlayer().transform;
 
         moveBehavior.Initialize(_info, target, monster);
         attackBehavior?.Initialize(_info, target, monster);
