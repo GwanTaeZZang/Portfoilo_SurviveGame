@@ -47,7 +47,6 @@ public abstract class WeaponBase
 
 
     public abstract void UpdateWeapon();
-    protected abstract void LookAtEnemyInRange();
     public abstract WeaponBase DeepCopy();
 
     public void SetParent(Transform _parent)
@@ -60,6 +59,39 @@ public abstract class WeaponBase
 
     }
 
+    protected virtual void LookAtEnemyInRange()
+    {
+        if (target == null)
+        {
+            return;
+        }
+        distance = Vector2.Distance(weapon.position, target.position);
+
+        if (!isAttack)
+        {
+            dir = (Vector2)target.position - (Vector2)parent.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            //weapon.localRotation = Quaternion.Euler(0, 0, angle);
+            parent.rotation = Quaternion.Euler(0, 0, angle);
+        }
+
+        timer += Time.deltaTime;
+
+        if (distance < weaponItemInfo.attackRange || isAttack)
+        {
+            if (timer > weaponItemInfo.attackSpeed)
+            {
+                isAttack = true;
+                OnAttackEvent?.Invoke(isAttack);
+                //if (Attack())
+                //{
+                //    isAttack = false;
+                //    OnAttackEvent?.Invoke(isAttack);
+                //    timer = 0;
+                //}
+            }
+        }
+    }
 
 
     protected virtual void FindTarget()
@@ -170,40 +202,6 @@ public class StingWeapon : WeaponBase
         return false;
     }
 
-    protected override void LookAtEnemyInRange()
-    {
-        if(target == null)
-        {
-            return;
-        }
-        distance = Vector2.Distance(weapon.position, target.position);
-
-        if (!isAttack)
-        {
-            dir = (Vector2)target.position - (Vector2)weapon.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            //weapon.localRotation = Quaternion.Euler(0, 0, angle);
-            parent.rotation = Quaternion.Euler(0, 0, angle);
-        }
-
-        timer += Time.deltaTime;
-
-        if (distance < weaponItemInfo.attackRange || isAttack)
-        {
-            if (timer > weaponItemInfo.attackSpeed)
-            {
-                isAttack = true;
-                OnAttackEvent?.Invoke(isAttack);
-                //if (Attack())
-                //{
-                //    isAttack = false;
-                //    OnAttackEvent?.Invoke(isAttack);
-                //    timer = 0;
-                //}
-            }
-        }
-    }
-
     public override WeaponBase DeepCopy()
     {
         return new StingWeapon();
@@ -225,6 +223,16 @@ public class ShootingWeapon : WeaponBase
     {
         base.FindTarget();
         LookAtEnemyInRange();
+
+        if (isAttack)
+        {
+            if (Shoot(dir.normalized))
+            {
+                isAttack = false;
+                timer = 0;
+            }
+        }
+
     }
 
     protected bool Shoot(Vector2 _dir)
@@ -232,45 +240,46 @@ public class ShootingWeapon : WeaponBase
         Bullet obj = bulletPool.Dequeue();
         bulletQueue.Enqueue(obj);
         obj.SetPosition(weapon.position);
+        obj.SetTarget(MonsterManager.getInstance.GetTargetArr());
         obj.SetDirection(_dir);
         obj.OnDequeue();
 
         return true;
     }
 
-    protected override void LookAtEnemyInRange()
-    {
-        if (target == null)
-        {
-            return;
-        }
+    //protected override void LookAtEnemyInRange()
+    //{
+    //    if (target == null)
+    //    {
+    //        return;
+    //    }
 
-        distance = Vector2.Distance(weapon.position, target.position);
+    //    distance = Vector2.Distance(weapon.position, target.position);
 
-        if (!isAttack)
-        {
-            dir = (Vector2)target.position - (Vector2)weapon.localPosition;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            //weapon.localRotation = Quaternion.Euler(0, 0, angle);
-            parent.rotation = Quaternion.Euler(0, 0, angle);
-        }
+    //    if (!isAttack)
+    //    {
+    //        dir = (Vector2)target.position - (Vector2)weapon.localPosition;
+    //        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+    //        //weapon.localRotation = Quaternion.Euler(0, 0, angle);
+    //        parent.rotation = Quaternion.Euler(0, 0, angle);
+    //    }
 
-        if (distance < weaponItemInfo.attackRange || isAttack)
-        {
-            timer += Time.deltaTime;
-            if (timer > weaponItemInfo.attackSpeed)
-            {
-                isAttack = true;
+    //    if (distance < weaponItemInfo.attackRange || isAttack)
+    //    {
+    //        timer += Time.deltaTime;
+    //        if (timer > weaponItemInfo.attackSpeed)
+    //        {
+    //            isAttack = true;
 
-                if (Shoot(dir.normalized))
-                {
-                    isAttack = false;
-                    timer = 0;
-                }
-            }
-        }
+    //            if (Shoot(dir.normalized))
+    //            {
+    //                isAttack = false;
+    //                timer = 0;
+    //            }
+    //        }
+    //    }
 
-    }
+    //}
 
     public override WeaponBase DeepCopy()
     {

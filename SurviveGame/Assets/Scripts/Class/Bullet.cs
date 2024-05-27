@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour , IPoolable
 {
+    [SerializeField] OBBCollision obbCollision;
+
     private const int SPEED = 10;
     public Transform model;
 
@@ -39,12 +41,19 @@ public class Bullet : MonoBehaviour , IPoolable
         startPos = _startPos;
     }
 
+    public void SetTarget(params ITargetAble[] _target)
+    {
+        obbCollision.SetTarget(_target);
+    }
+
     public void OnDequeue()
     {
         model.gameObject.SetActive(true);
         startPos.x += dir.x * 1f;
         startPos.y += dir.y * 1f;
         model.position = startPos;
+
+        obbCollision.enabled = true;
     }
 
     public void OnEnqueue()

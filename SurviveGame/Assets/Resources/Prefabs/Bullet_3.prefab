@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6921818732001574318}
   - component: {fileID: 5771722953970042894}
   - component: {fileID: 7613578565148486353}
+  - component: {fileID: 1907755680482395825}
   m_Layer: 0
   m_Name: Bullet_3
   m_TagString: Untagged
@@ -97,4 +98,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9064efad52e8c43ad3dccd8dfcb0b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obbCollision: {fileID: 1907755680482395825}
   model: {fileID: 6921818732001574318}
+--- !u!114 &1907755680482395825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6936130913555446692}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d4f6877749b3540ae254638f9ea346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5771722953970042894}
