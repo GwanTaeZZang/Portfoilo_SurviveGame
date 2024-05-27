@@ -61,7 +61,7 @@ public abstract class WeaponBase
 
     protected virtual void LookAtEnemyInRange()
     {
-        if (target == null)
+        if (target == null || isAttack)
         {
             return;
         }
@@ -239,7 +239,7 @@ public class ShootingWeapon : WeaponBase
     {
         Bullet obj = bulletPool.Dequeue();
         bulletQueue.Enqueue(obj);
-        obj.SetPosition(weapon.position);
+        obj.SetPosition(parent.position);
         obj.SetTarget(MonsterManager.getInstance.GetTargetArr());
         obj.SetDirection(_dir);
         obj.OnDequeue();
