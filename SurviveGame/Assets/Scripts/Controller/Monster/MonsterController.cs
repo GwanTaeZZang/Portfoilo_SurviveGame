@@ -54,8 +54,6 @@ public class MonsterController : MonoBehaviour, ITargetAble
         monsterBoxInfo.center = _spwan;
         monsterBoxInfo.size = spriteRenderer.bounds.size;
         isCollision = true;
-
-        Invoke("DeadMonster", 7f);
     }
 
     public void DeadMonster()
@@ -72,5 +70,10 @@ public class MonsterController : MonoBehaviour, ITargetAble
     public bool IsCollision()
     {
         return isCollision;
+    }
+
+    public void OnDamege()
+    {
+        DeadMonster();
     }
 }

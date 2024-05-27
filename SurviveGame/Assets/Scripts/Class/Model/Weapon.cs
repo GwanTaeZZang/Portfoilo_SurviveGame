@@ -32,6 +32,8 @@ public abstract class WeaponBase
     public WeaponItemInfo weaponItemInfo;
     public Sprite weaponSprite;
     public Transform weapon;
+    public delegate void OnAttackDelegate(bool _isAttack);
+    public OnAttackDelegate OnAttackEvent;
 
     protected Transform parent;
     protected Transform target = null;
@@ -114,9 +116,19 @@ public class StingWeapon : WeaponBase
     {
         base.FindTarget();
         LookAtEnemyInRange();
+
+        if (isAttack)
+        {
+            if (Attack())
+            {
+                isAttack = false;
+                OnAttackEvent?.Invoke(isAttack);
+                timer = 0;
+            }
+        }
     }
 
-    protected bool Attack(Vector2 _dir)
+    protected bool Attack()
     {
 
         Vector2 curWeaponPos = weapon.localPosition;
@@ -181,12 +193,13 @@ public class StingWeapon : WeaponBase
             if (timer > weaponItemInfo.attackSpeed)
             {
                 isAttack = true;
-
-                if (Attack(dir.normalized))
-                {
-                    isAttack = false;
-                    timer = 0;
-                }
+                OnAttackEvent?.Invoke(isAttack);
+                //if (Attack())
+                //{
+                //    isAttack = false;
+                //    OnAttackEvent?.Invoke(isAttack);
+                //    timer = 0;
+                //}
             }
         }
     }

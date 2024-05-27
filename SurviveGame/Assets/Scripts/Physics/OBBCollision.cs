@@ -14,18 +14,20 @@ public class OBBCollision : MonoBehaviour
 {
     //public ObbTest target;
 
+    private ITargetAble[] targetArr;
+
     public BoxInfo myInfo = new BoxInfo();
     public SpriteRenderer spriteRenderer;
+    
 
-
-    private void Awake()
-    {
-        if(spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-        myInfo.size = spriteRenderer.bounds.size;
-    }
+    //private void Awake()
+    //{
+    //    if(spriteRenderer == null)
+    //    {
+    //        spriteRenderer = GetComponent<SpriteRenderer>();
+    //    }
+    //    myInfo.size = spriteRenderer.bounds.size;
+    //}
 
 
     private void Update()
@@ -33,31 +35,53 @@ public class OBBCollision : MonoBehaviour
         myInfo.center = this.transform.position;
         myInfo.rot = this.transform.eulerAngles.z;
 
-        //GetHeightVector(myInfo);
-        GetHeightVector(myInfo);
-        GetWidthVector(myInfo);
 
+        int count = targetArr.Length;
 
-        //IsCollisionTest(target.myInfo);
+        for(int i =0; i < count; i++)
+        {
+            if (targetArr[i].IsCollision())
+            {
+                bool result = IsCollisionOBB(targetArr[i].GetBoxInfo());
+
+                if (result)
+                {
+                    //Debug.Log("Obb Collision");
+                    targetArr[i].OnDamege();
+                }
+                
+            }
+        }
     }
 
     public void SetInfo()
     {
         myInfo.size = spriteRenderer.bounds.size;
+        myInfo.center = this.transform.position;
+        myInfo.rot = this.transform.eulerAngles.z;
     }
 
-    public bool IsCollisionOBB(BoxInfo target)
+    public void SetObejctSize()
     {
-        //.. ???? ???? ???? ???????? ???? ????????
-        Vector2 distance = GetCenterDistanceVector(target);
-        Debug.DrawLine(this.transform.position, target.center, Color.red);
+        myInfo.size = spriteRenderer.bounds.size;
+    }
+
+    public void SetTarget(params ITargetAble[] _target)
+    {
+        targetArr = _target;
+    }
+
+    public bool IsCollisionOBB(BoxInfo _target)
+    {
+        Vector2 distance = GetCenterDistanceVector(_target);
+        Debug.DrawLine(this.transform.position, _target.center, Color.red);
 
         Vector2[] vec = new Vector2[4]
         {
             GetHeightVector(myInfo),
-            GetHeightVector(target),
+            GetHeightVector(_target),
             GetWidthVector(myInfo ),
-            GetWidthVector(target)
+            GetWidthVector(_target)
         };
 
         Vector2 unitVec;
@@ -78,47 +102,44 @@ public class OBBCollision : MonoBehaviour
 
             if (dotProduct >= sum)
             {
-                Debug.Log("Dont Collision");
-
                 return false;
             }
         }
 
-        Debug.Log("Collision");
         return true;
     }
 
 
-    private Vector2 GetCenterDistanceVector(BoxInfo target)
+    private Vector2 GetCenterDistanceVector(BoxInfo _target)
     {
-        return (myInfo.center - target.center);
+        return myInfo.center - _target.center;
     }
 
-    private Vector2 GetHeightVector(BoxInfo box)
+    private Vector2 GetHeightVector(BoxInfo _box)
     {
-        float x = box.size.y * Mathf.Cos(Deg2Rad(box.rot - 90f)) / 2;
-        float y = box.size.y * Mathf.Sin(Deg2Rad(box.rot - 90f)) / 2;
+        float x = _box.size.y * Mathf.Cos(Deg2Rad(_box.rot - 90f)) / 2;
+        float y = _box.size.y * Mathf.Sin(Deg2Rad(_box.rot - 90f)) / 2;
 
-        Debug.DrawLine(box.center, new Vector2(x + box.center.x, y + box.center.y), Color.red);
+        Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.red);
 
         return new Vector2(x, y);
     }
 
-    private Vector2 GetWidthVector(BoxInfo box)
+    private Vector2 GetWidthVector(BoxInfo _box)
     {
-        float x = box.size.x * Mathf.Cos(Deg2Rad(box.rot)) / 2;
-        float y = box.size.x * Mathf.Sin(Deg2Rad(box.rot)) / 2;
+        float x = _box.size.x * Mathf.Cos(Deg2Rad(_box.rot)) / 2;
+        float y = _box.size.x * Mathf.Sin(Deg2Rad(_box.rot)) / 2;
 
-        Debug.DrawLine(box.center, new Vector2(x + box.center.x, y + box.center.y), Color.blue);
+        Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.blue);
 
         return new Vector2(x, y);
     }
 
-    private Vector2 GetUnitVector(Vector2 v)
+    private Vector2 GetUnitVector(Vector2 _v)
     {
-        float len = Mathf.Sqrt(Mathf.Pow(v.x, 2) + Mathf.Pow(v.y, 2));
+        float len = Mathf.Sqrt(Mathf.Pow(_v.x, 2) + Mathf.Pow(_v.y, 2));
 
-        return new Vector2(v.x / len, v.y / len);
+        return new Vector2(_v.x / len, _v.y / len);
     }
 
     private float Deg2Rad(float deg)

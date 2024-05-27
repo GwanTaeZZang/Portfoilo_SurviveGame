@@ -39,16 +39,24 @@ public class WeaponPoint : MonoBehaviour
         //weapon.anim = anim;
         isEquip = true;
 
-        obbCollision.SetInfo();
+        obbCollision.SetObejctSize();
         if (_info.weaponType == WeaponType.ShoootingWeapon)
         {
             obbCollision.enabled = false;
         }
         else
         {
-            obbCollision.enabled = true;
+            weapon.OnAttackEvent = OnAttack;
+            //obbCollision.enabled = true;
+
         }
 
+    }
+
+    private void OnAttack(bool _isAttack)
+    {
+        obbCollision.enabled = _isAttack;
+        obbCollision.SetInfo();
     }
 
     public void UnEquipWeapon()
@@ -66,5 +74,7 @@ public class WeaponPoint : MonoBehaviour
         weapon = null;
         weaponSprite.sprite = null;
         isEquip = false;
+
+        obbCollision.SetTarget(MonsterManager.getInstance.GetTargetArr());
     }
 }

@@ -42,11 +42,11 @@ public class PlayerController : MonoBehaviour , ITargetAble
 
         if (result)
         {
-            Debug.Log("Collision");
+            //Debug.Log("Collision");
         }
         else
         {
-            Debug.Log("Not Collision");
+            //Debug.Log("Not Collision");
         }
     }
 
@@ -118,5 +118,10 @@ public class PlayerController : MonoBehaviour , ITargetAble
     public BoxInfo GetBoxInfo()
     {
         return playerBoxInfo;
+    }
+
+    public void OnDamege()
+    {
+        Debug.Log("Ums");
     }
 }

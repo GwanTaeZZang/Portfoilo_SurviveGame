@@ -6,4 +6,5 @@ public interface ITargetAble
 {
     public bool IsCollision();
     public BoxInfo GetBoxInfo();
+    public void OnDamege();
 }
