@@ -53,7 +53,7 @@ public class Bullet : MonoBehaviour , IPoolable
         startPos.y += dir.y * 1f;
         model.position = startPos;
 
-        obbCollision.enabled = true;
+        //obbCollision.enabled = true;
     }
 
     public void OnEnqueue()
