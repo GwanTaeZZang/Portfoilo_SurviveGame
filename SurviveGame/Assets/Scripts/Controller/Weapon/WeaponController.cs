@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour
         CreatePool();
         InitWeapon();
 
-        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[0];
+        WeaponItemInfo weaponInfo = ItemManager.getInstance.GetSelectedWeapon();
         weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
         weaponMountCount++;
     }

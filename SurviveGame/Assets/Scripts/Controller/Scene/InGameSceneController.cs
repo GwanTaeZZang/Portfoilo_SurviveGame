@@ -12,7 +12,7 @@ public class InGameSceneController : MonoBehaviour
 
     private Tile[,] tiles;
 
-    private float testSpwanTime = 3f;
+    private float testSpwanTime = 4f;
     private float testSpwanTimer = 0f;
 
     private void Awake()
@@ -30,7 +30,7 @@ public class InGameSceneController : MonoBehaviour
 
     private void Update()
     {
-        //TestMonsterSpwan();
+        TestMonsterSpwan();
         TestEventMonsterSpwan();
     }
 
@@ -74,7 +74,8 @@ public class InGameSceneController : MonoBehaviour
 
         if(testSpwanTimer > testSpwanTime)
         {
-            MonsterManager.getInstance.SpawnMonster(1, 3000);
+            MonsterManager.getInstance.SpawnMonster(2, 3000);
+            MonsterManager.getInstance.SpawnMonster(2, 3001);
             testSpwanTimer = 0f;
         }
 
