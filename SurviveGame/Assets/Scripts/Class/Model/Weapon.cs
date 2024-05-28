@@ -67,13 +67,19 @@ public abstract class WeaponBase
         }
         distance = Vector2.Distance(weapon.position, target.position);
 
-        if (!isAttack)
-        {
-            dir = (Vector2)target.position - (Vector2)parent.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            //weapon.localRotation = Quaternion.Euler(0, 0, angle);
-            parent.rotation = Quaternion.Euler(0, 0, angle);
-        }
+        //if (!isAttack)
+        //{
+        //    dir = (Vector2)target.position - (Vector2)parent.position;
+        //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //    //weapon.localRotation = Quaternion.Euler(0, 0, angle);
+        //    parent.rotation = Quaternion.Euler(0, 0, angle);
+        //}
+
+        dir = (Vector2)target.position - (Vector2)parent.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        //weapon.localRotation = Quaternion.Euler(0, 0, angle);
+        parent.rotation = Quaternion.Euler(0, 0, angle);
+
 
         timer += Time.deltaTime;
 
