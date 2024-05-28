@@ -74,8 +74,8 @@ public class InGameSceneController : MonoBehaviour
 
         if(testSpwanTimer > testSpwanTime)
         {
-            MonsterManager.getInstance.SpawnMonster(2, 3000);
-            MonsterManager.getInstance.SpawnMonster(2, 3001);
+            MonsterManager.getInstance.SpawnMonster(3, 3000);
+            MonsterManager.getInstance.SpawnMonster(1, 3001);
             testSpwanTimer = 0f;
         }
 

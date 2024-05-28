@@ -152,7 +152,6 @@ public class MonsterBehavior
     protected Transform target;
     protected Transform monster;
 
-
     public virtual void Update()
     {
 
@@ -173,8 +172,49 @@ public class MonsterBehavior
 
 public class Shooting : MonsterBehavior
 {
+    private ObjectPool<Bullet> monsterBullet;
+    private Queue<Bullet> bulletQueue;
+    private float coolTime;
+
     public override void Update()
     {
+        AttackCool();
+    }
+
+    public override void Initialize(MonsterInfo _info, Transform _target, Transform _monster)
+    {
+        base.Initialize(_info, _target, _monster);
+
+        bulletQueue = new Queue<Bullet>();
+        monsterBullet = ObjectPoolManager.getInstance.GetPool<Bullet>();
+
+        info.attackSpeed = 3f;
+    }
+
+    private void AttackCool()
+    {
+        float distance = Vector2.Distance(target.position, monster.position);
+        if(distance < info.attackRange)
+        {
+            coolTime += Time.deltaTime;
+            //Debug.Log("monster atteck cool");
+            if (coolTime > info.attackSpeed)
+            {
+                Shoot();
+                coolTime = 0;
+            }
+        }
+    }
+
+    private void Shoot()
+    {
+        Bullet obj = monsterBullet.Dequeue();
+        bulletQueue.Enqueue(obj);
+        obj.SetPosition(monster.position);
+        obj.SetTarget(PlayerManager.getInstance.GetTarget());
+        obj.SetDirection((target.position - monster.position).normalized);
+        obj.SetSpeed(3);
+        obj.OnDequeue();
 
     }
 

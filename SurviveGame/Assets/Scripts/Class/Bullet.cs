@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour , IPoolable
 {
     [SerializeField] OBBCollision obbCollision;
 
-    private const int SPEED = 10;
+    private int speed = 10;
     public Transform model;
 
     private Vector2 dir;
@@ -17,8 +17,8 @@ public class Bullet : MonoBehaviour , IPoolable
         if(dir != Vector2.zero)
         {
             Vector2 bulletPos = model.position;
-            bulletPos.x += dir.x * Time.deltaTime * SPEED;
-            bulletPos.y += dir.y * Time.deltaTime * SPEED;
+            bulletPos.x += dir.x * Time.deltaTime * speed;
+            bulletPos.y += dir.y * Time.deltaTime * speed;
             model.position = bulletPos;
         }
     }
@@ -65,5 +65,10 @@ public class Bullet : MonoBehaviour , IPoolable
     public void SetModel(Transform _model)
     {
         model = _model;
+    }
+
+    public void SetSpeed(int _speed)
+    {
+        speed = _speed;
     }
 }
