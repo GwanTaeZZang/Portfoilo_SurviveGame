@@ -1,0 +1,113 @@
+{
+    "waveDataArr": [
+        {
+            "Uid": 4010,
+            "monsterSpwanUid": [
+                4000
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 4011,
+            "monsterSpwanUid": [
+                4000,
+                4000
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 4012,
+            "monsterSpwanUid": [
+                4000,
+                4001
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 4013,
+            "monsterSpwanUid": [
+                4000,
+                4003
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 4014,
+            "monsterSpwanUid": [
+                4000,
+                4000,
+                4001
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 4015,
+            "monsterSpwanUid": [
+                4000,
+                4001,
+                4003
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 4016,
+            "monsterSpwanUid": [
+                4000,
+                4000,
+                4001,
+                4003
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 4017,
+            "monsterSpwanUid": [
+                4000,
+                4001,
+                4003,
+                4004
+            ],
+            "waveTime": 30.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        },
+        {
+            "Uid": 0,
+            "monsterSpwanUid": [],
+            "waveTime": 0.0
+        }
+    ]
+}

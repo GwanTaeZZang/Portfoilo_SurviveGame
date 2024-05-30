@@ -1,0 +1,28 @@
+{
+    "monsterSpwanDataArr": [
+        {
+            "Uid": 4000,
+            "monsterID": 3000,
+            "reSpwanTime": 2.0,
+            "monsterCount": 3
+        },
+        {
+            "Uid": 4001,
+            "monsterID": 3000,
+            "reSpwanTime": 8.0,
+            "monsterCount": 7
+        },
+        {
+            "Uid": 4002,
+            "monsterID": 3001,
+            "reSpwanTime": 5.0,
+            "monsterCount": 2
+        },
+        {
+            "Uid": 4003,
+            "monsterID": 3001,
+            "reSpwanTime": 7.0,
+            "monsterCount": 3
+        }
+    ]
+}
