@@ -26,19 +26,23 @@ public class InGameSceneController : MonoBehaviour
 
     private void Awake()
     {
+        stageManager = StageManager.getInstance;
+        //stageManager.Initialize();
+        stageManager.OnWaveEvent = SetWaveMonster;
+
+        playerController.Initialize();
+        weaponController.Initialize();
+
         LoadMap();
     }
 
     private void Start()
     {
-        playerController.Initialize();
-        weaponController.Initialize();
-        stageManager = StageManager.getInstance;
         stageData = stageManager.GetSelectedStage();
-
         //CreateMonster();
 
-        SetWaveMonster();
+        stageManager.StartWave();
+        //StartWave();
     }
 
     private void Update()
@@ -76,22 +80,49 @@ public class InGameSceneController : MonoBehaviour
         }
     }
 
-    private void SetWaveMonster()
+    private void SetWaveMonster(List<MonsterSpwanData> _monsterSpwanDataList, float _waveTime)
     {
-        int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
-        waveData = stageManager.GetWaveData(waveUid);
+        //int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
+        //waveData = stageManager.GetWaveData(waveUid);
 
-        waveTime = waveData.waveTime;
+        //waveTime = waveData.waveTime;
 
-        int count = waveData.monsterSpwanUid.Length;
-        for(int i =0;i < count; i++)
+        //int count = waveData.monsterSpwanUid.Length;
+        //for(int i =0;i < count; i++)
+        //{
+        //    MonsterSpwanData data = stageManager.GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
+        //    MosnterSpwanDataList.Add(data);
+        //}
+
+        waveTime = _waveTime;
+        MosnterSpwanDataList = _monsterSpwanDataList;
+
+
+        int count = MosnterSpwanDataList.Count;
+        Debug.Log("This Wave Monster Type Count  : " + count);
+        for( int i =0; i < count; i++)
         {
-            MonsterSpwanData data = stageManager.GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
-            MosnterSpwanDataList.Add(data);
+            Debug.Log("This Wave Monster Type   : " + MosnterSpwanDataList[i].Uid);
         }
 
         isWave = true;
     }
+
+    //private void StartWave()
+    //{
+    //    int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
+    //    waveData = stageManager.GetWaveData(waveUid);
+
+    //    waveTime = waveData.waveTime;
+
+    //    int count = waveData.monsterSpwanUid.Length;
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        MonsterSpwanData data = stageManager.GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
+    //        MosnterSpwanDataList.Add(data);
+    //    }
+
+    //}
 
     private void UpdateWave()
     {
@@ -102,7 +133,8 @@ public class InGameSceneController : MonoBehaviour
 
             if (waveTime < 0)
             {
-                MonsterManager.getInstance.EndWave();
+                stageManager.EndWave();
+                Invoke("ShowShopCanvas", 1f);
                 isWave = false;
             }
 
@@ -121,6 +153,10 @@ public class InGameSceneController : MonoBehaviour
         }
     }
 
+    private void ShowShopCanvas()
+    {
+        UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
+    }
 
     private void CreateMonster()
     {

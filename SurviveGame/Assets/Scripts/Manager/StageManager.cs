@@ -8,7 +8,12 @@ public class StageManager : Singleton<StageManager>
     private Dictionary<int, WaveData> waveDict = new Dictionary<int, WaveData>();
     private Dictionary<int, StageData> stageDict = new Dictionary<int, StageData>();
 
+    public delegate void WaveDelegate(List<MonsterSpwanData> _monsterSpwanDataList, float _waveTime);
+    public WaveDelegate OnWaveEvent;
+
+    private List<MonsterSpwanData> monsterSpwanDataList = new List<MonsterSpwanData>();
     private int stageBaseUid = 4100;
+
 
     public override bool Initialize()
     {
@@ -17,6 +22,34 @@ public class StageManager : Singleton<StageManager>
         LoadStageData();
 
         return base.Initialize();
+    }
+
+    public void StartWave()
+    {
+        Debug.Log("This Current Wave  : " + GetSelectedStage().curWaveIdx);
+
+        StageData stageData = GetSelectedStage();
+        int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
+        WaveData waveData = GetWaveData(waveUid);
+
+        float waveTime = waveData.waveTime;
+
+        int count = waveData.monsterSpwanUid.Length;
+        for (int i = 0; i < count; i++)
+        {
+            MonsterSpwanData data = GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
+            monsterSpwanDataList.Add(data);
+        }
+
+        OnWaveEvent?.Invoke(monsterSpwanDataList, waveTime);
+    }
+
+    public void EndWave()
+    {
+        MonsterManager.getInstance.EndWave();
+        GetSelectedStage().curWaveIdx++;
+        monsterSpwanDataList.Clear();
+
     }
 
     public int GetStageCount()
@@ -53,7 +86,10 @@ public class StageManager : Singleton<StageManager>
         for(int i=0; i < count; i++)
         {
             MonsterSpwanData data = monsterSpwanGroupData.monsterSpwanDataArr[i];
-            monsterSpwanDict.Add(data.Uid, data);
+            if (!monsterSpwanDict.ContainsKey(data.Uid))
+            {
+                monsterSpwanDict.Add(data.Uid, data);
+            }
         }
     }
 
@@ -66,7 +102,7 @@ public class StageManager : Singleton<StageManager>
         for (int i = 0; i < count; i++)
         {
             WaveData data = waveGroupData.waveDataArr[i];
-            if(data.Uid != 0)
+            if(data.Uid != 0 && !waveDict.ContainsKey(data.Uid))
             {
                 waveDict.Add(data.Uid, data);
             }
@@ -82,7 +118,10 @@ public class StageManager : Singleton<StageManager>
         for (int i = 0; i < count; i++)
         {
             StageData data = stageData.stageDataArr[i];
-            stageDict.Add(data.Uid, data);
+            if (!stageDict.ContainsKey(data.Uid))
+            {
+                stageDict.Add(data.Uid, data);
+            }
         }
     }
 }

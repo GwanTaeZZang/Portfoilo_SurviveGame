@@ -32,7 +32,7 @@ public class WeaponPoint : MonoBehaviour
         weapon.SetWeaponInfo(_info);
         weapon.SetParent(this.transform);
 
-        weaponTransform.localPosition = originLocalPos;
+        weaponTransform.localPosition = new Vector2(0.4f, 0);
         weapon.SetWeapon(weaponTransform);
 
         weaponSprite.sprite = ItemManager.getInstance.GetWeaponSprite(_info.Uid);
