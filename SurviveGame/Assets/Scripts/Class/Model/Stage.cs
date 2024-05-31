@@ -43,5 +43,6 @@ public class MonsterSpwanData
     public int Uid;
     public int monsterID;
     public float reSpwanTime;
+    public float timer;
     public int monsterCount;
 }

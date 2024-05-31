@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameSceneController : MonoBehaviour
 {
@@ -9,6 +10,14 @@ public class InGameSceneController : MonoBehaviour
     [SerializeField] private Transform mapParent;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private WeaponController weaponController;
+    [SerializeField] private Text waveTimerText;
+
+    private StageManager stageManager;
+    private StageData stageData;
+    private WaveData waveData;
+    private List<MonsterSpwanData> MosnterSpwanDataList = new List<MonsterSpwanData>();
+    private float waveTime;
+    private bool isWave = false;
 
     private Tile[,] tiles;
 
@@ -24,14 +33,19 @@ public class InGameSceneController : MonoBehaviour
     {
         playerController.Initialize();
         weaponController.Initialize();
+        stageManager = StageManager.getInstance;
+        stageData = stageManager.GetSelectedStage();
 
         //CreateMonster();
+
+        SetWaveMonster();
     }
 
     private void Update()
     {
-        TestMonsterSpwan();
-        TestEventMonsterSpwan();
+        //TestMonsterSpwan();
+        //TestEventMonsterSpwan();
+        UpdateWave();
     }
 
     private void LoadMap()
@@ -61,6 +75,52 @@ public class InGameSceneController : MonoBehaviour
             tiles[widthCount, heightCount] = new Tile(sr);
         }
     }
+
+    private void SetWaveMonster()
+    {
+        int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
+        waveData = stageManager.GetWaveData(waveUid);
+
+        waveTime = waveData.waveTime;
+
+        int count = waveData.monsterSpwanUid.Length;
+        for(int i =0;i < count; i++)
+        {
+            MonsterSpwanData data = stageManager.GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
+            MosnterSpwanDataList.Add(data);
+        }
+
+        isWave = true;
+    }
+
+    private void UpdateWave()
+    {
+        if (isWave)
+        {
+            waveTime -= Time.deltaTime;
+            waveTimerText.text = ((int)waveTime).ToString();
+
+            if (waveTime < 0)
+            {
+                MonsterManager.getInstance.EndWave();
+                isWave = false;
+            }
+
+            int count = MosnterSpwanDataList.Count;
+            for(int i = 0; i < count; i++)
+            {
+                MonsterSpwanData monster = MosnterSpwanDataList[i];
+                monster.timer += Time.deltaTime;
+
+                if(monster.timer > monster.reSpwanTime)
+                {
+                    MonsterManager.getInstance.SpawnMonster(monster.monsterCount, monster.monsterID);
+                    monster.timer = 0;
+                }
+            }
+        }
+    }
+
 
     private void CreateMonster()
     {

@@ -133,6 +133,24 @@ public class MonsterManager : Singleton<MonsterManager>
         //}
     }
 
+    public void EndWave()
+    {
+        //LinkedList<MonsterController>.Enumerator enumerator;
+        //enumerator = monsterCtrlList.GetEnumerator();
+
+        //while (enumerator.MoveNext())
+        //{
+        //    MonsterController monster = enumerator.Current;
+        //    monster.DeadMonster();
+        //}
+
+        int count = monsterCtrlList.Count;
+        for(int i =0; i < count; i++)
+        {
+            monsterCtrlList.Last.Value.DeadMonster();
+        }
+
+    }
 
     private Vector2 ComputeMonsterRandomVector()
     {

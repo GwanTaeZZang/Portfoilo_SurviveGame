@@ -29,6 +29,21 @@ public class StageManager : Singleton<StageManager>
         stageBaseUid += _idx;
     }
 
+    public StageData GetSelectedStage()
+    {
+        return stageDict[stageBaseUid];
+    }
+
+    public WaveData GetWaveData(int _Uid)
+    {
+        return waveDict[_Uid];
+    }
+
+    public MonsterSpwanData GetMonsterSpwanData(int _Uid)
+    {
+        return monsterSpwanDict[_Uid];
+    }
+
     private void LoadMonsterSpwanData()
     {
         MonsterSpwanGroupData monsterSpwanGroupData = JsonController.ReadJson<MonsterSpwanGroupData>("MonsterSpwanData");

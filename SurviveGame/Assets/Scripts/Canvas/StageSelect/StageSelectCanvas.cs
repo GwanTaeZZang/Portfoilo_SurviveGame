@@ -23,7 +23,7 @@ public class StageSelectCanvas : UIBaseController
 
         CreateStageBtn();
         backBtn.onClick.AddListener(OnClickBackBtn);
-        selectStageBtnPrefab.onClick.AddListener(OnClickSelectCompleteBtn);
+        selectCompleteBtn.onClick.AddListener(OnClickSelectCompleteBtn);
     }
 
     public override void Show()
