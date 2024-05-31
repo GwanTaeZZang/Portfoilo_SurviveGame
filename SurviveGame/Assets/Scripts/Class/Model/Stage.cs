@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+public class StageGroupData
+{
+    public StageData[] stageDataArr;
+}
+
+[System.Serializable]
 public class StageData
 {
     public int Uid;

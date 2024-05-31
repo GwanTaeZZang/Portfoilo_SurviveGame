@@ -1,40 +1,40 @@
 {
     "weaponArr": [
-        {
-            "Uid": 2000,
-            "level": 1,
-            "damage": 10.0,
-            "damageRate": 0.5,
-            "attackSpeed": 1.0,
-            "attackRange": 3.0,
-            "stringKey": "???",
-            "weaponSpritePath": "Sprite/Weapon/Weapon_1",
-            "weaponName": "???",
-            "weaponType": 0
-        },
-        {
-            "Uid": 2001,
-            "level": 1,
-            "damage": 5.0,
-            "damageRate": 0.30000001192092898,
-            "attackSpeed": 1.0,
-            "attackRange": 7.0,
-            "stringKey": "??",
-            "weaponSpritePath": "Sprite/Weapon/Weapon_3",
-            "weaponName": "??",
-            "weaponType": 2
-        },
-        {
-            "Uid": 2002,
-            "level": 1,
-            "damage": 5.0,
-            "damageRate": 0.30000001192092898,
-            "attackSpeed": 1.0,
-            "attackRange": 5.0,
-            "stringKey": "?? ?",
-            "weaponSpritePath": "Sprite/Weapon/Weapon_2",
-            "weaponName": "?? ?",
-            "weaponType": 1
-        }
+      {
+        "Uid": 2000,
+        "level": 1,
+        "damage": 10.0,
+        "damageRate": 0.5,
+        "attackSpeed": 1.0,
+        "attackRange": 3.0,
+        "stringKey": "???",
+        "weaponSpritePath": "Sprite/Weapon/Weapon_1",
+        "weaponName": "Spear",
+        "weaponType": 0
+      },
+      {
+        "Uid": 2001,
+        "level": 1,
+        "damage": 5.0,
+        "damageRate": 0.30000001192092898,
+        "attackSpeed": 1.0,
+        "attackRange": 7.0,
+        "stringKey": "??",
+        "weaponSpritePath": "Sprite/Weapon/Weapon_3",
+        "weaponName": "Rifle",
+        "weaponType": 2
+      },
+      {
+        "Uid": 2002,
+        "level": 1,
+        "damage": 5.0,
+        "damageRate": 0.30000001192092898,
+        "attackSpeed": 1.0,
+        "attackRange": 5.0,
+        "stringKey": "?? ?",
+        "weaponSpritePath": "Sprite/Weapon/Weapon_2",
+        "weaponName": "Scythe",
+        "weaponType": 1
+      }
     ]
 }

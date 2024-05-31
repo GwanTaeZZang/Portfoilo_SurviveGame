@@ -65,10 +65,10 @@ public class WeaponSelectCanvas : UIBaseController
         selectWeaponImage.sprite = weaponSpriteList[_idx];
 
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("??????  " + weaponInfo.damage);
-        builder.AppendLine("????  " + weaponInfo.damageRate);
-        builder.AppendLine("????????  " + weaponInfo.attackSpeed);
-        builder.AppendLine("????  " + weaponInfo.level);
+        builder.AppendLine("Damage  " + weaponInfo.damage);
+        builder.AppendLine("Damage Rate  " + weaponInfo.damageRate);
+        builder.AppendLine("Attack Speed  " + weaponInfo.attackSpeed);
+        builder.AppendLine("Level  " + weaponInfo.level);
         selectWeaponInfo.text = builder.ToString();
 
         builder = null;
@@ -84,6 +84,6 @@ public class WeaponSelectCanvas : UIBaseController
         ItemManager.getInstance.SetSelectedWeapon(weaponInfoList[curSelectedWeaponIdx]);
         //UIManager.getInstance.Hide();
         //UIManager.getInstance.Hide();
-        SceneManager.LoadScene("InGameScene");
+        UIManager.getInstance.Show<StageSelectCanvas>("Canvas/StageSelectCanvas");
     }
 }

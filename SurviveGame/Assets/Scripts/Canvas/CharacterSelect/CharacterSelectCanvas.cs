@@ -69,14 +69,14 @@ public class CharacterSelectCanvas : UIBaseController
         selectCharacterName.text = _job.jobName;
 
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("증가");
+        builder.AppendLine("Increase");
         int increaseCount = _job.increaseStatus.Length;
         for (int i = 0; i < increaseCount; i++)
         {
             builder.AppendLine(_job.increaseStatus[i].stringKey + "  " + _job.increaseStatus[i].amount);
         }
 
-        builder.AppendLine("감소");
+        builder.AppendLine("Decrease");
         int decreaseCount = _job.decreaseStatus.Length;
         for (int i = 0; i < decreaseCount; i++)
         {

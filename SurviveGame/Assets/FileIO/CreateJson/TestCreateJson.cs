@@ -8,7 +8,7 @@ public class TestCreateJson : MonoBehaviour
     private string weaponFileName = "WeaponData";
     private string monsterFileName = "MonsterData";
     private string monsterSpwanFileName = "MonsterSpwanData";
-    private string waveFileName = "waveData";
+    private string waveFileName = "WaveData";
     private string stageFileName = "StageData";
 
     private JobData jobData;
@@ -16,7 +16,7 @@ public class TestCreateJson : MonoBehaviour
     private MonsterData monsterData;
     private MonsterSpwanGroupData monsterSpwanGroupData;
     private WaveGroupData waveGroupData;
-    private StageData stageData;
+    private StageGroupData stageGroupData;
 
     private void Awake()
     {
@@ -285,7 +285,9 @@ public class TestCreateJson : MonoBehaviour
 
     private void CreateStageJson()
     {
-        stageData = new StageData();
+        stageGroupData = new StageGroupData();
+        StageData[] stageDataArr = new StageData[2];
+        StageData stageData = new StageData();
         stageData.Uid = 4100;
         stageData.waveUidArr = new int[] {
         4010,
@@ -305,6 +307,32 @@ public class TestCreateJson : MonoBehaviour
         4017,
         4017};
         stageData.curWaveIdx = 0;
+        stageDataArr[0] = stageData;
+
+        stageData = new StageData();
+        stageData.Uid = 4101;
+        stageData.waveUidArr = new int[] {
+        4017,
+        4017,
+        4016,
+        4016,
+        4015,
+        4015,
+        4014,
+        4014,
+        4013,
+        4013,
+        4012,
+        4012,
+        4011,
+        4011,
+        4010,
+        4010};
+        stageData.curWaveIdx = 0;
+        stageDataArr[1] = stageData;
+
+        stageGroupData.stageDataArr = stageDataArr;
+
     }
 
     [ContextMenu("To Json Character Job Data")]  // ???????? ?????? ???? ?????? ???????? To Json Data ???? ???????? ?????? 
@@ -376,7 +404,7 @@ public class TestCreateJson : MonoBehaviour
             return;
         }
 
-        JsonController.WriteJson<StageData>(stageFileName, stageData);
+        JsonController.WriteJson<StageGroupData>(stageFileName, stageGroupData);
     }
 
 }
