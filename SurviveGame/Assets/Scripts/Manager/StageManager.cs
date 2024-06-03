@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
 {
-    private Dictionary<int, MonsterSpwanData> monsterSpwanDict = new Dictionary<int, MonsterSpwanData>();
-    private Dictionary<int, WaveData> waveDict = new Dictionary<int, WaveData>();
+    private Dictionary<int, MonsterGroupData> monsterGroupDict = new Dictionary<int, MonsterGroupData>();
+    //private Dictionary<int, WaveData> waveDict = new Dictionary<int, WaveData>();
     private Dictionary<int, StageData> stageDict = new Dictionary<int, StageData>();
 
-    public delegate void WaveDelegate(List<MonsterSpwanData> _monsterSpwanDataList, float _waveTime);
+    public delegate void WaveDelegate(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime);
     public WaveDelegate OnWaveEvent;
 
-    private List<MonsterSpwanData> monsterSpwanDataList = new List<MonsterSpwanData>();
+    private List<MonsterSpawnData> monsterSpwanDataList = new List<MonsterSpawnData>();
     private int stageBaseUid = 4100;
 
 
@@ -29,15 +29,16 @@ public class StageManager : Singleton<StageManager>
         Debug.Log("This Current Wave  : " + GetSelectedStage().curWaveIdx);
 
         StageData stageData = GetSelectedStage();
-        int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
-        WaveData waveData = GetWaveData(waveUid);
+        int monsterGroupId = stageData.waveMonsterGroupId[stageData.curWaveIdx];
 
-        float waveTime = waveData.waveTime;
+        MonsterGroupData monsterData = GetMonsterSpwanData(monsterGroupId);
 
-        int count = waveData.monsterSpwanUid.Length;
+        float waveTime = 30;
+
+        int count = monsterData.monsterSpawnDataArr.Count;
         for (int i = 0; i < count; i++)
         {
-            MonsterSpwanData data = GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
+            MonsterSpawnData data = monsterData.monsterSpawnDataArr[i];
             monsterSpwanDataList.Add(data);
         }
 
@@ -67,52 +68,68 @@ public class StageManager : Singleton<StageManager>
         return stageDict[stageBaseUid];
     }
 
-    public WaveData GetWaveData(int _Uid)
-    {
-        return waveDict[_Uid];
-    }
+    //public WaveData GetWaveData(int _Uid)
+    //{
+    //    return waveDict[_Uid];
+    //}
 
-    public MonsterSpwanData GetMonsterSpwanData(int _Uid)
+    public MonsterGroupData GetMonsterSpwanData(int _Uid)
     {
-        return monsterSpwanDict[_Uid];
+        return monsterGroupDict[_Uid];
     }
 
     private void LoadMonsterSpwanData()
     {
-        MonsterSpwanGroupData monsterSpwanGroupData = JsonController.ReadJson<MonsterSpwanGroupData>("MonsterSpwanData");
+        MonsterGroupArrJsonModel monsterSpwanGroupData = JsonController.ReadJson<MonsterGroupArrJsonModel>("MonsterSpwanData");
 
-        int count = monsterSpwanGroupData.monsterSpwanDataArr.Length;
+        int count = monsterSpwanGroupData.modelArr.Length;
 
         for(int i=0; i < count; i++)
         {
-            MonsterSpwanData data = monsterSpwanGroupData.monsterSpwanDataArr[i];
-            if (!monsterSpwanDict.ContainsKey(data.Uid))
+            MonsterGroupJsonModel data = monsterSpwanGroupData.modelArr[i];
+            MonsterGroupData monsterData = new MonsterGroupData();
+            monsterData.Uid = data.Uid;
+            monsterData.monsterSpawnDataArr = new List<MonsterSpawnData>();
+
+            MonsterSpawnData model = new MonsterSpawnData();
+            model.monsterId = data.monsterId;
+            model.count = data.count;
+            model.firstSpawnTime = data.firstSpawnTime;
+            model.reSpawnTime = data.reSpawnTime;
+            model.endSpawnTime = data.endSpawnTime;
+
+            if (!monsterGroupDict.ContainsKey(data.Uid))
             {
-                monsterSpwanDict.Add(data.Uid, data);
+                monsterGroupDict.Add(data.Uid, monsterData);
+                monsterGroupDict[data.Uid].monsterSpawnDataArr.Add(model);
+            }
+            else
+            {
+                monsterGroupDict[data.Uid].monsterSpawnDataArr.Add(model);
             }
         }
     }
 
     private void LoadWaveData()
     {
-        WaveGroupData waveGroupData = JsonController.ReadJson<WaveGroupData>("WaveData");
+        //WaveGroupData waveGroupData = JsonController.ReadJson<WaveGroupData>("WaveData");
 
-        int count = waveGroupData.waveDataArr.Length;
+        //int count = waveGroupData.waveDataArr.Length;
 
-        for (int i = 0; i < count; i++)
-        {
-            WaveData data = waveGroupData.waveDataArr[i];
-            if(data.Uid != 0 && !waveDict.ContainsKey(data.Uid))
-            {
-                waveDict.Add(data.Uid, data);
-            }
-        }
+        //for (int i = 0; i < count; i++)
+        //{
+        //    WaveData data = waveGroupData.waveDataArr[i];
+        //    if(data.Uid != 0 && !waveDict.ContainsKey(data.Uid))
+        //    {
+        //        waveDict.Add(data.Uid, data);
+        //    }
+        //}
 
     }
 
     private void LoadStageData()
     {
-        StageGroupData stageData = JsonController.ReadJson<StageGroupData>("StageData");
+        StageArrJsonModel stageData = JsonController.ReadJson<StageArrJsonModel>("StageData");
         int count = stageData.stageDataArr.Length;
 
         for (int i = 0; i < count; i++)

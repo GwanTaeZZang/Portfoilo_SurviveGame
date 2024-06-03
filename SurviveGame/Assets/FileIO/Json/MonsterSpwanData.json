@@ -1,28 +1,116 @@
 {
-    "monsterSpwanDataArr": [
+    "modelArr": [
         {
             "Uid": 4000,
-            "monsterID": 3000,
-            "reSpwanTime": 2.0,
-            "monsterCount": 3
+            "monsterId": 3000,
+            "count": 2,
+            "firstSpawnTime": 3.0,
+            "reSpawnTime": 3.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4000,
+            "monsterId": 3000,
+            "count": 5,
+            "firstSpawnTime": 1.0,
+            "reSpawnTime": 4.0,
+            "endSpawnTime": 30.0
         },
         {
             "Uid": 4001,
-            "monsterID": 3000,
-            "reSpwanTime": 8.0,
-            "monsterCount": 7
+            "monsterId": 3000,
+            "count": 5,
+            "firstSpawnTime": 1.0,
+            "reSpawnTime": 4.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4001,
+            "monsterId": 3000,
+            "count": 7,
+            "firstSpawnTime": 2.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
         },
         {
             "Uid": 4002,
-            "monsterID": 3001,
-            "reSpwanTime": 5.0,
-            "monsterCount": 2
+            "monsterId": 3000,
+            "count": 7,
+            "firstSpawnTime": 2.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4002,
+            "monsterId": 3001,
+            "count": 1,
+            "firstSpawnTime": 3.0,
+            "reSpawnTime": 3.0,
+            "endSpawnTime": 30.0
         },
         {
             "Uid": 4003,
-            "monsterID": 3001,
-            "reSpwanTime": 7.0,
-            "monsterCount": 3
+            "monsterId": 3000,
+            "count": 7,
+            "firstSpawnTime": 2.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4003,
+            "monsterId": 3001,
+            "count": 1,
+            "firstSpawnTime": 3.0,
+            "reSpawnTime": 3.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4004,
+            "monsterId": 3000,
+            "count": 7,
+            "firstSpawnTime": 2.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4004,
+            "monsterId": 3001,
+            "count": 2,
+            "firstSpawnTime": 5.0,
+            "reSpawnTime": 4.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4005,
+            "monsterId": 3000,
+            "count": 7,
+            "firstSpawnTime": 2.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4005,
+            "monsterId": 3001,
+            "count": 3,
+            "firstSpawnTime": 4.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4006,
+            "monsterId": 3000,
+            "count": 7,
+            "firstSpawnTime": 2.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
+        },
+        {
+            "Uid": 4006,
+            "monsterId": 3001,
+            "count": 3,
+            "firstSpawnTime": 4.0,
+            "reSpawnTime": 5.0,
+            "endSpawnTime": 30.0
         }
     ]
 }

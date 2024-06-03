@@ -14,8 +14,8 @@ public class InGameSceneController : MonoBehaviour
 
     private StageManager stageManager;
     private StageData stageData;
-    private WaveData waveData;
-    private List<MonsterSpwanData> MosnterSpwanDataList = new List<MonsterSpwanData>();
+    //private WaveData waveData;
+    private List<MonsterSpawnData> MosnterSpwanDataList = new List<MonsterSpawnData>();
     private float waveTime;
     private bool isWave = false;
 
@@ -47,8 +47,6 @@ public class InGameSceneController : MonoBehaviour
 
     private void Update()
     {
-        //TestMonsterSpwan();
-        //TestEventMonsterSpwan();
         UpdateWave();
     }
 
@@ -80,7 +78,7 @@ public class InGameSceneController : MonoBehaviour
         }
     }
 
-    private void SetWaveMonster(List<MonsterSpwanData> _monsterSpwanDataList, float _waveTime)
+    private void SetWaveMonster(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime)
     {
         //int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
         //waveData = stageManager.GetWaveData(waveUid);
@@ -102,7 +100,7 @@ public class InGameSceneController : MonoBehaviour
         Debug.Log("This Wave Monster Type Count  : " + count);
         for( int i =0; i < count; i++)
         {
-            Debug.Log("This Wave Monster Type   : " + MosnterSpwanDataList[i].Uid);
+            Debug.Log("This Wave Monster Type   : " + MosnterSpwanDataList[i].monsterId);
         }
 
         isWave = true;
@@ -141,12 +139,12 @@ public class InGameSceneController : MonoBehaviour
             int count = MosnterSpwanDataList.Count;
             for(int i = 0; i < count; i++)
             {
-                MonsterSpwanData monster = MosnterSpwanDataList[i];
+                MonsterSpawnData monster = MosnterSpwanDataList[i];
                 monster.timer += Time.deltaTime;
 
-                if(monster.timer > monster.reSpwanTime)
+                if(monster.timer > monster.reSpawnTime)
                 {
-                    MonsterManager.getInstance.SpawnMonster(monster.monsterCount, monster.monsterID);
+                    MonsterManager.getInstance.SpawnMonster(monster.count, monster.monsterId);
                     monster.timer = 0;
                 }
             }
@@ -158,30 +156,4 @@ public class InGameSceneController : MonoBehaviour
         UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
     }
 
-    private void CreateMonster()
-    {
-        MonsterManager.getInstance.SpawnMonster(3, 3000);
-        MonsterManager.getInstance.SpawnMonster(2, 3001);
-    }
-
-    private void TestMonsterSpwan()
-    {
-        testSpwanTimer += Time.deltaTime;
-
-        if(testSpwanTimer > testSpwanTime)
-        {
-            MonsterManager.getInstance.SpawnMonster(3, 3000);
-            MonsterManager.getInstance.SpawnMonster(1, 3001);
-            testSpwanTimer = 0f;
-        }
-
-    }
-
-    private void TestEventMonsterSpwan()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            MonsterManager.getInstance.SpawnMonster(1, 3000);
-        }
-    }
 }

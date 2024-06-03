@@ -74,7 +74,7 @@ public class OBBCollision : MonoBehaviour
     public bool IsCollisionOBB(BoxInfo _target)
     {
         Vector2 distance = GetCenterDistanceVector(_target);
-        Debug.DrawLine(this.transform.position, _target.center, Color.red);
+        //Debug.DrawLine(this.transform.position, _target.center, Color.red);
 
         Vector2[] vec = new Vector2[4]
         {
@@ -120,7 +120,7 @@ public class OBBCollision : MonoBehaviour
         float x = _box.size.y * Mathf.Cos(Deg2Rad(_box.rot - 90f)) / 2;
         float y = _box.size.y * Mathf.Sin(Deg2Rad(_box.rot - 90f)) / 2;
 
-        Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.red);
+        //Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.red);
 
         return new Vector2(x, y);
     }
@@ -130,7 +130,7 @@ public class OBBCollision : MonoBehaviour
         float x = _box.size.x * Mathf.Cos(Deg2Rad(_box.rot)) / 2;
         float y = _box.size.x * Mathf.Sin(Deg2Rad(_box.rot)) / 2;
 
-        Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.blue);
+        //Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.blue);
 
         return new Vector2(x, y);
     }

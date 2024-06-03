@@ -14,16 +14,16 @@ public class TestCreateJson : MonoBehaviour
     private JobData jobData;
     private WeaponData weaponData;
     private MonsterData monsterData;
-    private MonsterSpwanGroupData monsterSpwanGroupData;
-    private WaveGroupData waveGroupData;
-    private StageGroupData stageGroupData;
+    private MonsterGroupArrJsonModel monsterGroupData;
+    //private WaveGroupData waveGroupData;
+    private StageArrJsonModel stageGroupData;
 
     private void Awake()
     {
         //CreateCharacterJobJson();
         //CreateWeaponJson();
         //CreateMonsterJson();
-        //CreateMonsterSpwanJson();
+        CreateMonsterSpwanJson();
         //CreateWaveData();
         CreateStageJson();
     }
@@ -194,145 +194,194 @@ public class TestCreateJson : MonoBehaviour
 
     private void CreateMonsterSpwanJson()
     {
-        monsterSpwanGroupData = new MonsterSpwanGroupData();
-        MonsterSpwanData[] monsterSpwanDataArr = new MonsterSpwanData[4];
-        MonsterSpwanData monsterSpwanData = new MonsterSpwanData();
-        monsterSpwanData.Uid = 4000;
-        monsterSpwanData.monsterID = 3000;
-        monsterSpwanData.reSpwanTime = 2f;
-        monsterSpwanData.monsterCount = 3;
-        monsterSpwanDataArr[0] = monsterSpwanData;
+        List<MonsterGroupJsonModel> modelList = new List<MonsterGroupJsonModel>();
+        MonsterGroupJsonModel model = new MonsterGroupJsonModel();
+        model.Uid = 4000;
+        model.monsterId = 3000;
+        model.count = 2;
+        model.firstSpawnTime = 3f;
+        model.reSpawnTime = 3f;
+        model.endSpawnTime = 30f;
 
-        monsterSpwanData = new MonsterSpwanData();
-        monsterSpwanData.Uid = 4001;
-        monsterSpwanData.monsterID = 3000;
-        monsterSpwanData.reSpwanTime = 8f;
-        monsterSpwanData.monsterCount = 7;
-        monsterSpwanDataArr[1] = monsterSpwanData;
+        modelList.Add(model);
 
-        monsterSpwanData = new MonsterSpwanData();
-        monsterSpwanData.Uid = 4002;
-        monsterSpwanData.monsterID = 3001;
-        monsterSpwanData.reSpwanTime = 5f;
-        monsterSpwanData.monsterCount = 2;
-        monsterSpwanDataArr[2] = monsterSpwanData;
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4000;
+        model.monsterId = 3000;
+        model.count = 5;
+        model.firstSpawnTime = 1f;
+        model.reSpawnTime = 4f;
+        model.endSpawnTime = 30f;
 
-        monsterSpwanData = new MonsterSpwanData();
-        monsterSpwanData.Uid = 4003;
-        monsterSpwanData.monsterID = 3001;
-        monsterSpwanData.reSpwanTime = 7f;
-        monsterSpwanData.monsterCount = 3;
-        monsterSpwanDataArr[3] = monsterSpwanData;
+        modelList.Add(model);
 
-        monsterSpwanGroupData.monsterSpwanDataArr = monsterSpwanDataArr;
 
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4001;
+        model.monsterId = 3000;
+        model.count = 5;
+        model.firstSpawnTime = 1f;
+        model.reSpawnTime = 4f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4001;
+        model.monsterId = 3000;
+        model.count = 7;
+        model.firstSpawnTime = 2f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4002;
+        model.monsterId = 3000;
+        model.count = 7;
+        model.firstSpawnTime = 2f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4002;
+        model.monsterId = 3001;
+        model.count = 1;
+        model.firstSpawnTime = 3f;
+        model.reSpawnTime = 3f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4003;
+        model.monsterId = 3000;
+        model.count = 7;
+        model.firstSpawnTime = 2f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4003;
+        model.monsterId = 3001;
+        model.count = 1;
+        model.firstSpawnTime = 3f;
+        model.reSpawnTime = 3f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4004;
+        model.monsterId = 3000;
+        model.count = 7;
+        model.firstSpawnTime = 2f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4004;
+        model.monsterId = 3001;
+        model.count = 2;
+        model.firstSpawnTime = 5f;
+        model.reSpawnTime = 4f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4005;
+        model.monsterId = 3000;
+        model.count = 7;
+        model.firstSpawnTime = 2f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4005;
+        model.monsterId = 3001;
+        model.count = 3;
+        model.firstSpawnTime = 4f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4006;
+        model.monsterId = 3000;
+        model.count = 7;
+        model.firstSpawnTime = 2f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+        model = new MonsterGroupJsonModel();
+        model.Uid = 4006;
+        model.monsterId = 3001;
+        model.count = 3;
+        model.firstSpawnTime = 4f;
+        model.reSpawnTime = 5f;
+        model.endSpawnTime = 30f;
+
+        modelList.Add(model);
+
+
+        monsterGroupData.modelArr = modelList.ToArray();
     }
 
     private void CreateWaveData()
     {
-        waveGroupData = new WaveGroupData();
-        WaveData[] waveDataArr = new WaveData[16];
-        WaveData waveData = new WaveData();
-        waveData.Uid = 4010;
-        waveData.monsterSpwanUid = new int[] { 4000 };
-        waveData.waveTime = 30f;
-        waveDataArr[0] = waveData;
-
-        waveData = new WaveData();
-        waveData.Uid = 4011;
-        waveData.monsterSpwanUid = new int[] { 4000 , 4000};
-        waveData.waveTime = 30f;
-        waveDataArr[1] = waveData;
-
-        waveData = new WaveData();
-        waveData.Uid = 4012;
-        waveData.monsterSpwanUid = new int[] { 4000, 4001 };
-        waveData.waveTime = 30f;
-        waveDataArr[2] = waveData;
-
-        waveData = new WaveData();
-        waveData.Uid = 4013;
-        waveData.monsterSpwanUid = new int[] { 4000, 4003 };
-        waveData.waveTime = 30f;
-        waveDataArr[3] = waveData;
-
-        waveData = new WaveData();
-        waveData.Uid = 4014;
-        waveData.monsterSpwanUid = new int[] { 4000, 4000, 4001 };
-        waveData.waveTime = 30f;
-        waveDataArr[4] = waveData;
-
-        waveData = new WaveData();
-        waveData.Uid = 4015;
-        waveData.monsterSpwanUid = new int[] { 4000, 4001, 4003 };
-        waveData.waveTime = 30f;
-        waveDataArr[5] = waveData;
-
-        waveData = new WaveData();
-        waveData.Uid = 4016;
-        waveData.monsterSpwanUid = new int[] { 4000, 4000, 4001, 4003 };
-        waveData.waveTime = 30f;
-        waveDataArr[6] = waveData;
-
-        waveData = new WaveData();
-        waveData.Uid = 4017;
-        waveData.monsterSpwanUid = new int[] { 4000, 4001, 4003, 4004 };
-        waveData.waveTime = 30f;
-        waveDataArr[7] = waveData;
-
-        waveGroupData.waveDataArr = waveDataArr;
     }
 
     private void CreateStageJson()
     {
-        stageGroupData = new StageGroupData();
-        StageData[] stageDataArr = new StageData[2];
-        StageData stageData = new StageData();
-        stageData.Uid = 4100;
-        stageData.waveUidArr = new int[] {
-        4010,
-        4010,
-        4011,
-        4011,
-        4012,
-        4012,
-        4013,
-        4013,
-        4014,
-        4014,
-        4015,
-        4015,
-        4016,
-        4016,
-        4017,
-        4017};
-        stageData.curWaveIdx = 0;
-        stageDataArr[0] = stageData;
+        List<StageData> stageDataList = new List<StageData>();
+        StageData model = new StageData();
+        model.Uid = 4100;
+        model.waveMonsterGroupId = new int[]
+        {
+            4000,
+            4001,
+            4002,
+            4003,
+            4004,
+            4005,
+            4006
+        };
+        model.stageInformation = 0;
+        model.bossMonsterId = 0;
 
-        stageData = new StageData();
-        stageData.Uid = 4101;
-        stageData.waveUidArr = new int[] {
-        4017,
-        4017,
-        4016,
-        4016,
-        4015,
-        4015,
-        4014,
-        4014,
-        4013,
-        4013,
-        4012,
-        4012,
-        4011,
-        4011,
-        4010,
-        4010};
-        stageData.curWaveIdx = 0;
-        stageDataArr[1] = stageData;
+        stageDataList.Add(model);
 
-        stageGroupData.stageDataArr = stageDataArr;
+        model = new StageData();
+        model.Uid = 4101;
+        model.waveMonsterGroupId = new int[]
+        {
+            4006,
+            4005,
+            4004,
+            4003,
+            4002,
+            4001
+        };
+        model.stageInformation = 0;
+        model.bossMonsterId = 0;
 
+        stageDataList.Add(model);
+
+        stageGroupData.stageDataArr = stageDataList.ToArray();
     }
 
     [ContextMenu("To Json Character Job Data")]  // ???????? ?????? ???? ?????? ???????? To Json Data ???? ???????? ?????? 
@@ -380,7 +429,7 @@ public class TestCreateJson : MonoBehaviour
             return;
         }
 
-        JsonController.WriteJson<MonsterSpwanGroupData>(monsterSpwanFileName, monsterSpwanGroupData);
+        JsonController.WriteJson<MonsterGroupArrJsonModel>(monsterSpwanFileName, monsterGroupData);
     }
 
     [ContextMenu("To Json Wave Data")]
@@ -392,7 +441,7 @@ public class TestCreateJson : MonoBehaviour
             return;
         }
 
-        JsonController.WriteJson<WaveGroupData>(waveFileName, waveGroupData);
+        //JsonController.WriteJson<WaveGroupData>(waveFileName, waveGroupData);
     }
 
     [ContextMenu("To Json Stage Data")]
@@ -404,7 +453,7 @@ public class TestCreateJson : MonoBehaviour
             return;
         }
 
-        JsonController.WriteJson<StageGroupData>(stageFileName, stageGroupData);
+        JsonController.WriteJson<StageArrJsonModel>(stageFileName, stageGroupData);
     }
 
 }
