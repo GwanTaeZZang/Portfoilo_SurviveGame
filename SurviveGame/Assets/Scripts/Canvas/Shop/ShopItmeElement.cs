@@ -8,6 +8,7 @@ public class ShopItmeElement : MonoBehaviour
     [SerializeField] private Button itemButton;
     [SerializeField] private Text itemNameText;
     [SerializeField] private Text effectInformationText;
+    [SerializeField] private Image itemImage;
 
     //private ItemInfo itemInfo;
 

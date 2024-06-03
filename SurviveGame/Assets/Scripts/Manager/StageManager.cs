@@ -5,7 +5,6 @@ using UnityEngine;
 public class StageManager : Singleton<StageManager>
 {
     private Dictionary<int, MonsterGroupData> monsterGroupDict = new Dictionary<int, MonsterGroupData>();
-    //private Dictionary<int, WaveData> waveDict = new Dictionary<int, WaveData>();
     private Dictionary<int, StageData> stageDict = new Dictionary<int, StageData>();
 
     public delegate void WaveDelegate(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime);
@@ -18,7 +17,6 @@ public class StageManager : Singleton<StageManager>
     public override bool Initialize()
     {
         LoadMonsterSpwanData();
-        LoadWaveData();
         LoadStageData();
 
         return base.Initialize();
@@ -68,11 +66,6 @@ public class StageManager : Singleton<StageManager>
         return stageDict[stageBaseUid];
     }
 
-    //public WaveData GetWaveData(int _Uid)
-    //{
-    //    return waveDict[_Uid];
-    //}
-
     public MonsterGroupData GetMonsterSpwanData(int _Uid)
     {
         return monsterGroupDict[_Uid];
@@ -110,22 +103,6 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
-    private void LoadWaveData()
-    {
-        //WaveGroupData waveGroupData = JsonController.ReadJson<WaveGroupData>("WaveData");
-
-        //int count = waveGroupData.waveDataArr.Length;
-
-        //for (int i = 0; i < count; i++)
-        //{
-        //    WaveData data = waveGroupData.waveDataArr[i];
-        //    if(data.Uid != 0 && !waveDict.ContainsKey(data.Uid))
-        //    {
-        //        waveDict.Add(data.Uid, data);
-        //    }
-        //}
-
-    }
 
     private void LoadStageData()
     {

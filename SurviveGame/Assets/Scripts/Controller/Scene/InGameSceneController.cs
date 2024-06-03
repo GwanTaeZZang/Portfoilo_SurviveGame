@@ -10,26 +10,16 @@ public class InGameSceneController : MonoBehaviour
     [SerializeField] private Transform mapParent;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private WeaponController weaponController;
-    [SerializeField] private Text waveTimerText;
-
-    private StageManager stageManager;
-    private StageData stageData;
-    //private WaveData waveData;
-    private List<MonsterSpawnData> MosnterSpwanDataList = new List<MonsterSpawnData>();
-    private float waveTime;
-    private bool isWave = false;
+    [SerializeField] private InGameCanvas inGameCanvas;
 
     private Tile[,] tiles;
 
-    private float testSpwanTime = 4f;
-    private float testSpwanTimer = 0f;
+    private StageController stageController;
 
     private void Awake()
     {
-        stageManager = StageManager.getInstance;
-        //stageManager.Initialize();
-        stageManager.OnWaveEvent = SetWaveMonster;
-
+        stageController = new StageController();
+        stageController.Initialized(inGameCanvas);
         playerController.Initialize();
         weaponController.Initialize();
 
@@ -38,16 +28,12 @@ public class InGameSceneController : MonoBehaviour
 
     private void Start()
     {
-        stageData = stageManager.GetSelectedStage();
-        //CreateMonster();
-
-        stageManager.StartWave();
-        //StartWave();
+        StageManager.getInstance.StartWave();
     }
 
     private void Update()
     {
-        UpdateWave();
+        stageController.UpdateWave();
     }
 
     private void LoadMap()
@@ -78,82 +64,5 @@ public class InGameSceneController : MonoBehaviour
         }
     }
 
-    private void SetWaveMonster(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime)
-    {
-        //int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
-        //waveData = stageManager.GetWaveData(waveUid);
-
-        //waveTime = waveData.waveTime;
-
-        //int count = waveData.monsterSpwanUid.Length;
-        //for(int i =0;i < count; i++)
-        //{
-        //    MonsterSpwanData data = stageManager.GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
-        //    MosnterSpwanDataList.Add(data);
-        //}
-
-        waveTime = _waveTime;
-        MosnterSpwanDataList = _monsterSpwanDataList;
-
-
-        int count = MosnterSpwanDataList.Count;
-        Debug.Log("This Wave Monster Type Count  : " + count);
-        for( int i =0; i < count; i++)
-        {
-            Debug.Log("This Wave Monster Type   : " + MosnterSpwanDataList[i].monsterId);
-        }
-
-        isWave = true;
-    }
-
-    //private void StartWave()
-    //{
-    //    int waveUid = stageData.waveUidArr[stageData.curWaveIdx];
-    //    waveData = stageManager.GetWaveData(waveUid);
-
-    //    waveTime = waveData.waveTime;
-
-    //    int count = waveData.monsterSpwanUid.Length;
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        MonsterSpwanData data = stageManager.GetMonsterSpwanData(waveData.monsterSpwanUid[i]);
-    //        MosnterSpwanDataList.Add(data);
-    //    }
-
-    //}
-
-    private void UpdateWave()
-    {
-        if (isWave)
-        {
-            waveTime -= Time.deltaTime;
-            waveTimerText.text = ((int)waveTime).ToString();
-
-            if (waveTime < 0)
-            {
-                stageManager.EndWave();
-                Invoke("ShowShopCanvas", 1f);
-                isWave = false;
-            }
-
-            int count = MosnterSpwanDataList.Count;
-            for(int i = 0; i < count; i++)
-            {
-                MonsterSpawnData monster = MosnterSpwanDataList[i];
-                monster.timer += Time.deltaTime;
-
-                if(monster.timer > monster.reSpawnTime)
-                {
-                    MonsterManager.getInstance.SpawnMonster(monster.count, monster.monsterId);
-                    monster.timer = 0;
-                }
-            }
-        }
-    }
-
-    private void ShowShopCanvas()
-    {
-        UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
-    }
 
 }
