@@ -10,6 +10,8 @@ public class ShopItmeElement : MonoBehaviour
     [SerializeField] private Text effectInformationText;
     [SerializeField] private Image itemImage;
 
+    private WeaponItemInfo weaponInfo;
+
     //private ItemInfo itemInfo;
 
     public Button.ButtonClickedEvent GetButtonEvent()
@@ -17,35 +19,18 @@ public class ShopItmeElement : MonoBehaviour
         return itemButton.onClick;
     }
 
-    //public void UpdateItemInformation(Item _item)
-    //{
-    //    itemInfo = _item.itemInfo;
-    //    itemNameText.text = itemInfo.itemName;
+    public void ShowItemNameText(string _ItemName)
+    {
+        itemNameText.text = _ItemName;
+    }
 
-    //    List<StatusEffect> buff = itemInfo.buff;
-    //    int buffCount = itemInfo.buff.Count;
-    //    effectInformationText.text = "Increse \n";
-    //    for(int i = 0; i < buffCount; i++)
-    //    {
-    //        effectInformationText.text += buff[i].effectType;
-    //        effectInformationText.text += "  :  " + buff[i].amount.ToString();
-    //        effectInformationText.text += "\n";
-    //    }
+    public void ShowEffectInformationText(string _information)
+    {
+        effectInformationText.text = _information;
+    }
 
-    //    List<StatusEffect> deBuff = itemInfo.deBuff;
-    //    int deBuffCount = itemInfo.deBuff.Count;
-    //    effectInformationText.text += "Decrese \n";
-    //    for (int i = 0; i < deBuffCount; i++)
-    //    {
-    //        effectInformationText.text += deBuff[i].effectType;
-    //        effectInformationText.text += "  :  " + deBuff[i].amount.ToString();
-
-    //        effectInformationText.text += "\n";
-    //    }
-    //}
-
-    //public ItemInfo GetItemInfo()
-    //{
-    //    return itemInfo;
-    //}
+    public void ShowItemIconImage(Sprite _weaponIcon)
+    {
+        itemImage.sprite = _weaponIcon;
+    }
 }

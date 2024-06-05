@@ -13,7 +13,7 @@ public class ItemManager : Singleton<ItemManager>
 
     private WeaponBase[] weaponBaseArr = new WeaponBase[(int)WeaponType.End];
 
-
+    private WeaponItemInfo[] playerEquipWeaponArr = new WeaponItemInfo[6];
 
     public override bool Initialize()
     {
@@ -77,11 +77,27 @@ public class ItemManager : Singleton<ItemManager>
     public void SetSelectedWeapon(WeaponItemInfo _selectedWeapon)
     {
         selectedWeapon = _selectedWeapon;
+        playerEquipWeaponArr[0] = _selectedWeapon;
     }
 
     public WeaponItemInfo GetSelectedWeapon()
     {
         return selectedWeapon;
+    }
+
+    public WeaponItemInfo[] GetEquipmentWeaponArr()
+    {
+        return playerEquipWeaponArr;
+    }
+
+    public void EquipWeapon(WeaponItemInfo _itemInfo, int _idx)
+    {
+        playerEquipWeaponArr[_idx] = _itemInfo;
+    }
+
+    public void UnEquipWeapon(int _idx)
+    {
+        playerEquipWeaponArr[_idx] = null;
     }
 
     public Sprite GetWeaponSprite(int _Uid)
