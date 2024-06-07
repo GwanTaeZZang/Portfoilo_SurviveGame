@@ -13,6 +13,8 @@ public class WeaponController : MonoBehaviour
 
     public void Initialize()
     {
+        ItemManager.getInstance.OnEquipWeapon = OnEquipWeapon;
+
         CreatePool();
         InitWeapon();
 
@@ -36,6 +38,12 @@ public class WeaponController : MonoBehaviour
         {
             weaponPointList[i].InitializeWeapon();
         }
+    }
+
+    private void OnEquipWeapon(WeaponItemInfo _weaponInfo)
+    {
+        weaponPointList[weaponMountCount].EquipWeapon(_weaponInfo);
+        weaponMountCount++;
     }
 
 

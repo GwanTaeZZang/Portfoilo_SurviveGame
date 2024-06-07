@@ -15,6 +15,10 @@ public class ItemManager : Singleton<ItemManager>
 
     private WeaponItemInfo[] playerEquipWeaponArr = new WeaponItemInfo[6];
 
+    public delegate void WeaponEquipEvent(WeaponItemInfo _weaponInfo);
+    public WeaponEquipEvent OnEquipWeapon;
+
+
     public override bool Initialize()
     {
         LoadWeaponData();
@@ -93,6 +97,7 @@ public class ItemManager : Singleton<ItemManager>
     public void EquipWeapon(WeaponItemInfo _itemInfo, int _idx)
     {
         playerEquipWeaponArr[_idx] = _itemInfo;
+        OnEquipWeapon?.Invoke(_itemInfo);
     }
 
     public void UnEquipWeapon(int _idx)

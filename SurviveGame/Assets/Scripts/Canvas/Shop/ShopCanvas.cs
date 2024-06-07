@@ -7,8 +7,10 @@ public class ShopCanvas : UIBaseController
 {
     [SerializeField] private List<ShopItmeElement> itemElementList;
     [SerializeField] private List<Text> statusAmountList;
-    [SerializeField] private List<ShopEquipWeaponElement> equipWeaponList;
+    [SerializeField] private List<ShopEquipWeaponElement> shopEquipWeaponList;
     [SerializeField] private Button startWaveBtn;
+    [SerializeField] private EquipWeaponOptionpopup optionPopup;
+
 
     private List<WeaponItemInfo> weaponList;
     private WeaponItemInfo[] equipWeaponArr;
@@ -23,7 +25,7 @@ public class ShopCanvas : UIBaseController
         weaponList = ItemManager.getInstance.GetWeaponList();
         equipWeaponArr = ItemManager.getInstance.GetEquipmentWeaponArr();
 
-        BindItemElementButtonEvent();
+        BindButtonEvent();
     }
 
     public override void Show()
@@ -49,23 +51,23 @@ public class ShopCanvas : UIBaseController
 
     private void UpdateEquipWeaponInfo()
     {
-        int count = equipWeaponList.Count;
+        int count = shopEquipWeaponList.Count;
         for(int i = 0; i < count; i++)
         {
             if(equipWeaponArr[i] != null)
             {
-                equipWeaponList[i].ShowWeaponImage(Resources.Load<Sprite>(equipWeaponArr[i].weaponSpritePath));
-                equipWeaponList[i].isEquip = true;
+                shopEquipWeaponList[i].ShowWeaponImage(Resources.Load<Sprite>(equipWeaponArr[i].weaponSpritePath));
+                shopEquipWeaponList[i].isEquip = true;
             }
         }
     }
 
     private int FindUnEquipWeaponSlotIdx()
     {
-        int count = equipWeaponList.Count;
+        int count = shopEquipWeaponList.Count;
         for (int i = 0; i < count; i++)
         {
-            if(!equipWeaponList[i].isEquip)
+            if(!shopEquipWeaponList[i].isEquip)
             {
                 return i;
             }
@@ -73,7 +75,7 @@ public class ShopCanvas : UIBaseController
         return -1;
     }
 
-    private void BindItemElementButtonEvent()
+    private void BindButtonEvent()
     {
         int count = itemElementList.Count;
         for(int i =0; i < count; i++)
@@ -81,6 +83,35 @@ public class ShopCanvas : UIBaseController
             int idx = i;
             itemElementList[i].GetButtonEvent().AddListener(() => OnClickItemElementBtn(idx));
         }
+
+        count = shopEquipWeaponList.Count;
+        for(int i =0; i < count; i++)
+        {
+            int idx = i;
+            shopEquipWeaponList[i].GetButtonEvent().AddListener(() => OnClickShopEquipWeaponButton(idx));
+        }
+
+        optionPopup.GetCancleButtonEvent().AddListener(OnClickOptionCancleButton);
+    }
+
+
+    private void OnClickOptionCancleButton()
+    {
+        optionPopup.gameObject.SetActive(false);
+
+    }
+
+    private void OnClickShopEquipWeaponButton(int _idx)
+    {
+        if (!shopEquipWeaponList[_idx].isEquip)
+        {
+            return;
+        }
+
+        optionPopup.transform.position = shopEquipWeaponList[_idx].transform.position;
+        optionPopup.gameObject.SetActive(true);
+
+        Debug.Log(equipWeaponArr[_idx].weaponName);
     }
 
     private void OnClickItemElementBtn(int _idx)
