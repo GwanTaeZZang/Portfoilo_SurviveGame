@@ -10,6 +10,7 @@ public class ShopCanvas : UIBaseController
     [SerializeField] private List<ShopEquipWeaponElement> shopEquipWeaponList;
     [SerializeField] private Button startWaveBtn;
     [SerializeField] private EquipWeaponOptionpopup optionPopup;
+    [SerializeField] private Button rerollBtn;
 
 
     private List<WeaponItemInfo> weaponList;
@@ -46,6 +47,7 @@ public class ShopCanvas : UIBaseController
             itemElementinfoArr[i] = weaponInfo;
 
             itemElementList[i].ShowItemIconImage(Resources.Load<Sprite>(weaponInfo.weaponSpritePath));
+
         }
     }
 
@@ -115,6 +117,9 @@ public class ShopCanvas : UIBaseController
         optionPopup.GetCancleButtonEvent().AddListener(OnClickOptionCancleButton);
         optionPopup.GetSynthesisButtonEvent().AddListener(OnClickOptionSynthesisButton);
         optionPopup.GetSellButtonEvent().AddListener(OnClickOptionSellButton);
+
+
+        rerollBtn.onClick.AddListener(OnClickReRollBtn);
     }
 
 
@@ -129,34 +134,43 @@ public class ShopCanvas : UIBaseController
     {
         int sameItemIdx = FindSameWeaponIdx(curSelectedEquipWeapon);
 
-        if(sameItemIdx != -1)
+        if(sameItemIdx != -1 && curSelectedEquipWeapon.level != 4)
         {
             ItemManager.getInstance.UnEquipWeapon(sameItemIdx);
 
             shopEquipWeaponList[sameItemIdx].isEquip = false;
             shopEquipWeaponList[sameItemIdx].ShowWeaponImage(null);
-            shopEquipWeaponList[sameItemIdx].ShowWeaponColor(Color.white);
 
-            curSelectedEquipWeapon.level++;
-            int level = curSelectedEquipWeapon.level;
+            int upgradeItemKey = curSelectedEquipWeapon.Uid + 1;
+
+            WeaponItemInfo itemInfo = ItemManager.getInstance.GetWeaponInfoValue(upgradeItemKey);
+
+            ItemManager.getInstance.EquipWeapon(itemInfo, curSelectedEquipWeaponIdx);
+
+
+            //shopEquipWeaponList[sameItemIdx].ShowWeaponColor(Color.white);
+
+            //curSelectedEquipWeapon.level++;
+            //int level = curSelectedEquipWeapon.level;
 
 
 
-            if (level == 2)
-            {
-                shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.yellow);
-            }
-            if(level == 3)
-            {
-                shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.blue);
-            }
-            if (level == 4)
-            {
-                shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.red);
-            }
+            //if (level == 2)
+            //{
+            //    shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.yellow);
+            //}
+            //if(level == 3)
+            //{
+            //    shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.blue);
+            //}
+            //if (level == 4)
+            //{
+            //    shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.red);
+            //}
         }
 
         OnClickOptionCancleButton();
+        UpdateEquipWeaponInfo();
     }
 
     private void OnClickOptionSellButton()
@@ -212,5 +226,10 @@ public class ShopCanvas : UIBaseController
     {
         StageManager.getInstance.StartWave();
         this.Hide();
+    }
+
+    private void OnClickReRollBtn()
+    {
+        UpdateItemElementInfo();
     }
 }

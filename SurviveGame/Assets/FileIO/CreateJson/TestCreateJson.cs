@@ -21,11 +21,10 @@ public class TestCreateJson : MonoBehaviour
     private void Awake()
     {
         //CreateCharacterJobJson();
-        //CreateWeaponJson();
+        CreateWeaponJson();
         //CreateMonsterJson();
-        CreateMonsterSpwanJson();
-        //CreateWaveData();
-        CreateStageJson();
+        //CreateMonsterSpwanJson();
+        //CreateStageJson();
     }
 
     private void CreateCharacterJobJson()
@@ -109,50 +108,129 @@ public class TestCreateJson : MonoBehaviour
 
     private void CreateWeaponJson()
     {
-        WeaponItemInfo[] weaponInfoArr = new WeaponItemInfo[3];
+        List<WeaponItemInfo> weaponInfoList = new List<WeaponItemInfo>();
 
         WeaponItemInfo info = new WeaponItemInfo();
-        info.Uid = 2000;
+        info.Uid = 2001;
         info.level = 1;
         info.damage = 10;
         info.damageRate = 0.5f;
         info.attackSpeed = 1f;
-        info.attackRange = 2f;
+        info.attackRange = 3f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_1";
-        info.weaponName = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_1";
+        info.weaponName = "Spear";
         info.weaponType = WeaponType.StingWeapon;
-        weaponInfoArr[0] = info;
-
-        info = new WeaponItemInfo();
-        info.Uid = 2001;
-        info.level = 1;
-        info.damage = 5;
-        info.damageRate = 0.3f;
-        info.attackSpeed = 1f;
-        info.attackRange = 5f;
-        info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_3";
-        info.weaponName = "??";
-        info.weaponType = WeaponType.ShoootingWeapon;
-        weaponInfoArr[1] = info;
+        weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2002;
+        info.level = 2;
+        info.damage = 10;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 0.7f;
+        info.attackRange = 3f;
+        info.stringKey = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_2";
+        info.weaponName = "Spear";
+        info.weaponType = WeaponType.StingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2003;
+        info.level = 3;
+        info.damage = 10;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 0.7f;
+        info.attackRange = 5f;
+        info.stringKey = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_3";
+        info.weaponName = "Spear";
+        info.weaponType = WeaponType.StingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2004;
+        info.level = 4;
+        info.damage = 10;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 0.5f;
+        info.attackRange = 6f;
+        info.stringKey = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_4";
+        info.weaponName = "Spear";
+        info.weaponType = WeaponType.StingWeapon;
+        weaponInfoList.Add(info);
+
+
+        info = new WeaponItemInfo();
+        info.Uid = 2011;
         info.level = 1;
         info.damage = 5;
         info.damageRate = 0.3f;
         info.attackSpeed = 1f;
-        info.attackRange = 2f;
-        info.stringKey = "?? ?";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_2";
-        info.weaponName = "?? ?";
-        info.weaponType = WeaponType.MowWeapon;
-        weaponInfoArr[2] = info;
+        info.attackRange = 6f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_1";
+        info.weaponName = "Rifle";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2012;
+        info.level = 2;
+        info.damage = 5;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 0.7f;
+        info.attackRange = 6f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_2";
+        info.weaponName = "Rifle";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2013;
+        info.level = 3;
+        info.damage = 5;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 0.5f;
+        info.attackRange = 6f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_3";
+        info.weaponName = "Rifle";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2014;
+        info.level = 4;
+        info.damage = 5;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 0.3f;
+        info.attackRange = 8f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_4";
+        info.weaponName = "Rifle";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
+        //info = new WeaponItemInfo();
+        //info.Uid = 2002;
+        //info.level = 1;
+        //info.damage = 5;
+        //info.damageRate = 0.3f;
+        //info.attackSpeed = 1f;
+        //info.attackRange = 2f;
+        //info.stringKey = "?? ?";
+        //info.weaponSpritePath = "Sprite/Weapon/Weapon_2";
+        //info.weaponName = "?? ?";
+        //info.weaponType = WeaponType.MowWeapon;
+        //weaponInfoArr[2] = info;
 
 
         weaponData = new WeaponData();
-        weaponData.weaponArr = weaponInfoArr;
+        weaponData.weaponArr = weaponInfoList.ToArray();
     }
 
     private void CreateMonsterJson()

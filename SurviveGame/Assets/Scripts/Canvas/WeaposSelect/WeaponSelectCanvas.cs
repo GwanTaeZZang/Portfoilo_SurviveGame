@@ -18,7 +18,7 @@ public class WeaponSelectCanvas : UIBaseController
     private List<SelectIconElement> weaponElementList;
     private List<WeaponItemInfo> weaponInfoList;
     private List<Sprite> weaponSpriteList;
-    private int curSelectedWeaponIdx;
+    private WeaponItemInfo curSelectedWeaponInfo;
 
     private void Start()
     {
@@ -29,49 +29,59 @@ public class WeaponSelectCanvas : UIBaseController
         selectCompleteBtn.onClick.AddListener(OnClickSelectCompleteBtn);
         SetWeaponElement();
 
-        UpdateSelectWeaponInfo(0);
+        //UpdateSelectWeaponInfo(0);
     }
 
     private void SetWeaponElement()
     {
         int count = weaponInfoList.Count;
+        int btnIdx = 0;
+
         for (int i = 0; i < count; i++)
         {
-            int idx = i;
-            SelectIconElement element = Instantiate(weaponElementPrefab, weaponElementParent);
-            weaponSpriteList.Add(Resources.Load<Sprite>(weaponInfoList[i].weaponSpritePath));
+            if(weaponInfoList[i].level == 1)
+            {
+                int idx = btnIdx;
+                WeaponItemInfo weaponInfo = weaponInfoList[i];
+                SelectIconElement element = Instantiate(weaponElementPrefab, weaponElementParent);
+                weaponSpriteList.Add(Resources.Load<Sprite>(weaponInfoList[i].weaponSpritePath));
 
-            element.SetElementThumbnail(weaponSpriteList[i]);
-            element.GetElementSelectBtnEvent().AddListener(() => OnClickWeaponSelectBtn(idx));
-            element.gameObject.SetActive(true);
+                element.SetElementThumbnail(weaponSpriteList[btnIdx]);
+                element.GetElementSelectBtnEvent().AddListener(() => UpdateSelectWeaponInfo(weaponInfo, idx));
+                element.gameObject.SetActive(true);
 
-            weaponElementList.Add(element);
+                weaponElementList.Add(element);
+
+                btnIdx++;
+            }
         }
     }
 
-    private void OnClickWeaponSelectBtn(int _idx)
+    //private void OnClickWeaponSelectBtn(int _idx)
+    //{
+    //    Debug.Log(_idx + "Click");
+    //    UpdateSelectWeaponInfo(_idx);
+    //}
+
+    private void UpdateSelectWeaponInfo(WeaponItemInfo _weaponInfo, int _idx)
     {
-        Debug.Log(_idx + "Click");
-        UpdateSelectWeaponInfo(_idx);
-    }
-
-    private void UpdateSelectWeaponInfo(int _idx)
-    {
-        curSelectedWeaponIdx = _idx;
-        WeaponItemInfo weaponInfo = weaponInfoList[_idx];
+        //curSelectedWeaponIdx = _idx;
+        //WeaponItemInfo weaponInfo = weaponInfoList[_idx];
 
 
-        selectWeaponName.text = weaponInfo.weaponName;
+        selectWeaponName.text = _weaponInfo.weaponName;
         selectWeaponImage.sprite = weaponSpriteList[_idx];
 
         StringBuilder builder = new StringBuilder();
-        builder.AppendLine("Damage  " + weaponInfo.damage);
-        builder.AppendLine("Damage Rate  " + weaponInfo.damageRate);
-        builder.AppendLine("Attack Speed  " + weaponInfo.attackSpeed);
-        builder.AppendLine("Level  " + weaponInfo.level);
+        builder.AppendLine("Damage  " + _weaponInfo.damage);
+        builder.AppendLine("Damage Rate  " + _weaponInfo.damageRate);
+        builder.AppendLine("Attack Speed  " + _weaponInfo.attackSpeed);
+        builder.AppendLine("Level  " + _weaponInfo.level);
         selectWeaponInfo.text = builder.ToString();
 
         builder = null;
+
+        curSelectedWeaponInfo = _weaponInfo;
     }
 
     private void OnClickBackBtn()
@@ -81,7 +91,7 @@ public class WeaponSelectCanvas : UIBaseController
 
     private void OnClickSelectCompleteBtn()
     {
-        ItemManager.getInstance.SetSelectedWeapon(weaponInfoList[curSelectedWeaponIdx]);
+        ItemManager.getInstance.SetSelectedWeapon(curSelectedWeaponInfo);
         //UIManager.getInstance.Hide();
         //UIManager.getInstance.Hide();
         UIManager.getInstance.Show<StageSelectCanvas>("Canvas/StageSelectCanvas");
