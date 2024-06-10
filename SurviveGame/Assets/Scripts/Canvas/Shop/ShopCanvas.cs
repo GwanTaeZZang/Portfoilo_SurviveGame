@@ -14,9 +14,9 @@ public class ShopCanvas : UIBaseController
 
     private List<WeaponItemInfo> weaponList;
     private WeaponItemInfo[] equipWeaponArr;
-
-
     private WeaponItemInfo[] itemElementinfoArr = new WeaponItemInfo[4];
+    private WeaponItemInfo curSelectedEquipWeapon;
+    private int curSelectedEquipWeaponIdx = -1;
 
     private void Awake()
     {
@@ -92,13 +92,33 @@ public class ShopCanvas : UIBaseController
         }
 
         optionPopup.GetCancleButtonEvent().AddListener(OnClickOptionCancleButton);
+        optionPopup.GetSynthesisButtonEvent().AddListener(OnClickOptionSynthesisButton);
+        optionPopup.GetSellButtonEvent().AddListener(OnClickOptionSellButton);
     }
 
 
     private void OnClickOptionCancleButton()
     {
         optionPopup.gameObject.SetActive(false);
+        curSelectedEquipWeapon = null;
+        curSelectedEquipWeaponIdx = -1;
+    }
 
+    private void OnClickOptionSynthesisButton()
+    {
+
+    }
+
+    private void OnClickOptionSellButton()
+    {
+        if(curSelectedEquipWeaponIdx != -1)
+        {
+            ItemManager.getInstance.UnEquipWeapon(curSelectedEquipWeaponIdx);
+
+            shopEquipWeaponList[curSelectedEquipWeaponIdx].isEquip = false;
+            shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponImage(null);
+            OnClickOptionCancleButton();
+        }
     }
 
     private void OnClickShopEquipWeaponButton(int _idx)
@@ -110,6 +130,9 @@ public class ShopCanvas : UIBaseController
 
         optionPopup.transform.position = shopEquipWeaponList[_idx].transform.position;
         optionPopup.gameObject.SetActive(true);
+
+        curSelectedEquipWeapon = equipWeaponArr[_idx];
+        curSelectedEquipWeaponIdx = _idx;
 
         Debug.Log(equipWeaponArr[_idx].weaponName);
     }

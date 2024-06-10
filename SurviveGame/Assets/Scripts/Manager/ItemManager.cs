@@ -15,9 +15,11 @@ public class ItemManager : Singleton<ItemManager>
 
     private WeaponItemInfo[] playerEquipWeaponArr = new WeaponItemInfo[6];
 
-    public delegate void WeaponEquipEvent(WeaponItemInfo _weaponInfo);
+    public delegate void WeaponEquipEvent(WeaponItemInfo _weaponInfo, int _idx);
     public WeaponEquipEvent OnEquipWeapon;
 
+    public delegate void WeaponUnEquipEvent(int _idx);
+    public WeaponUnEquipEvent OnUnEquipWeapon;
 
     public override bool Initialize()
     {
@@ -78,6 +80,30 @@ public class ItemManager : Singleton<ItemManager>
         weaponInstanceDict[_type].Enqueue(_weaponBase);
     }
 
+
+    public void EquipWeapon(WeaponItemInfo _itemInfo, int _idx)
+    {
+        playerEquipWeaponArr[_idx] = _itemInfo;
+        OnEquipWeapon?.Invoke(_itemInfo, _idx);
+    }
+
+    public void UnEquipWeapon(int _idx)
+    {
+        playerEquipWeaponArr[_idx] = null;
+        OnUnEquipWeapon?.Invoke(_idx);
+    }
+
+    public Sprite GetWeaponSprite(int _Uid)
+    {
+        if (!weaponItemSpriteDict.ContainsKey(_Uid))
+        {
+            Debug.Log("have not key");
+            return null;
+        }
+
+        return weaponItemSpriteDict[_Uid];
+    }
+
     public void SetSelectedWeapon(WeaponItemInfo _selectedWeapon)
     {
         selectedWeapon = _selectedWeapon;
@@ -93,29 +119,6 @@ public class ItemManager : Singleton<ItemManager>
     {
         return playerEquipWeaponArr;
     }
-
-    public void EquipWeapon(WeaponItemInfo _itemInfo, int _idx)
-    {
-        playerEquipWeaponArr[_idx] = _itemInfo;
-        OnEquipWeapon?.Invoke(_itemInfo);
-    }
-
-    public void UnEquipWeapon(int _idx)
-    {
-        playerEquipWeaponArr[_idx] = null;
-    }
-
-    public Sprite GetWeaponSprite(int _Uid)
-    {
-        if (!weaponItemSpriteDict.ContainsKey(_Uid))
-        {
-            Debug.Log("have not key");
-            return null;
-        }
-
-        return weaponItemSpriteDict[_Uid];
-    }
-
 
 
 

@@ -9,18 +9,19 @@ public class WeaponController : MonoBehaviour
     private ObjectPool<Bullet> bulletPool;
     private GameObject parent;
 
-    private int weaponMountCount = 0;
+    //private int weaponMountCount = 0;
 
     public void Initialize()
     {
         ItemManager.getInstance.OnEquipWeapon = OnEquipWeapon;
+        ItemManager.getInstance.OnUnEquipWeapon = OnUnEquipWeapon;
 
         CreatePool();
         InitWeapon();
 
         WeaponItemInfo weaponInfo = ItemManager.getInstance.GetSelectedWeapon();
-        weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
-        weaponMountCount++;
+        weaponPointList[0].EquipWeapon(weaponInfo);
+        //weaponMountCount++;
     }
 
     private void CreatePool()
@@ -40,10 +41,14 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    private void OnEquipWeapon(WeaponItemInfo _weaponInfo)
+    private void OnEquipWeapon(WeaponItemInfo _weaponInfo, int _idx)
     {
-        weaponPointList[weaponMountCount].EquipWeapon(_weaponInfo);
-        weaponMountCount++;
+        weaponPointList[_idx].EquipWeapon(_weaponInfo);
+    }
+
+    private void OnUnEquipWeapon(int _idx)
+    {
+        weaponPointList[_idx].UnEquipWeapon();
     }
 
 
@@ -52,19 +57,19 @@ public class WeaponController : MonoBehaviour
         if (Input.GetKeyDown("q"))
         {
             WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[1];
-            weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
-            weaponMountCount++;
+            //weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
+            //weaponMountCount++;
         }
         if (Input.GetKeyDown("w"))
         {
-            weaponMountCount--;
-            weaponPointList[weaponMountCount].UnEquipWeapon();
+            //weaponMountCount--;
+            //weaponPointList[weaponMountCount].UnEquipWeapon();
         }
         if (Input.GetKeyDown("e"))
         {
             WeaponItemInfo weaponInfo = ItemManager.getInstance.GetWeaponList()[0];
-            weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
-            weaponMountCount++;
+            //weaponPointList[weaponMountCount].EquipWeapon(weaponInfo);
+            //weaponMountCount++;
         }
     }
 
