@@ -22,4 +22,9 @@ public class ShopEquipWeaponElement : MonoBehaviour
         weaponImage.sprite = _weaponSprite;
     }
 
+    public void ShowWeaponColor(Color _color)
+    {
+        weaponImage.color = _color;
+    }
+
 }

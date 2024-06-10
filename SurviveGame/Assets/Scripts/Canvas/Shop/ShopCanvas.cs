@@ -75,6 +75,27 @@ public class ShopCanvas : UIBaseController
         return -1;
     }
 
+    private int FindSameWeaponIdx(WeaponItemInfo _weaponInfo)
+    {
+        int count = shopEquipWeaponList.Count;
+        for (int i = 0; i < count; i++)
+        {
+            if(curSelectedEquipWeaponIdx != i)
+            {
+                if (shopEquipWeaponList[i].isEquip)
+                {
+                    if (_weaponInfo.Uid == equipWeaponArr[i].Uid &&
+                        _weaponInfo.level == equipWeaponArr[i].level)
+                    {
+                        return i;
+                    }
+
+                }
+            }
+        }
+        return -1;
+    }
+
     private void BindButtonEvent()
     {
         int count = itemElementList.Count;
@@ -106,7 +127,36 @@ public class ShopCanvas : UIBaseController
 
     private void OnClickOptionSynthesisButton()
     {
+        int sameItemIdx = FindSameWeaponIdx(curSelectedEquipWeapon);
 
+        if(sameItemIdx != -1)
+        {
+            ItemManager.getInstance.UnEquipWeapon(sameItemIdx);
+
+            shopEquipWeaponList[sameItemIdx].isEquip = false;
+            shopEquipWeaponList[sameItemIdx].ShowWeaponImage(null);
+            shopEquipWeaponList[sameItemIdx].ShowWeaponColor(Color.white);
+
+            curSelectedEquipWeapon.level++;
+            int level = curSelectedEquipWeapon.level;
+
+
+
+            if (level == 2)
+            {
+                shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.yellow);
+            }
+            if(level == 3)
+            {
+                shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.blue);
+            }
+            if (level == 4)
+            {
+                shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.red);
+            }
+        }
+
+        OnClickOptionCancleButton();
     }
 
     private void OnClickOptionSellButton()
@@ -117,8 +167,10 @@ public class ShopCanvas : UIBaseController
 
             shopEquipWeaponList[curSelectedEquipWeaponIdx].isEquip = false;
             shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponImage(null);
-            OnClickOptionCancleButton();
+
         }
+        OnClickOptionCancleButton();
+
     }
 
     private void OnClickShopEquipWeaponButton(int _idx)

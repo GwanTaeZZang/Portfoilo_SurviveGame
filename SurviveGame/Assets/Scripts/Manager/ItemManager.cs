@@ -83,8 +83,8 @@ public class ItemManager : Singleton<ItemManager>
 
     public void EquipWeapon(WeaponItemInfo _itemInfo, int _idx)
     {
-        playerEquipWeaponArr[_idx] = _itemInfo;
-        OnEquipWeapon?.Invoke(_itemInfo, _idx);
+        playerEquipWeaponArr[_idx] = DeepCopyWeaponItemInfo(_itemInfo);
+        OnEquipWeapon?.Invoke(DeepCopyWeaponItemInfo(_itemInfo), _idx);
     }
 
     public void UnEquipWeapon(int _idx)
@@ -106,8 +106,8 @@ public class ItemManager : Singleton<ItemManager>
 
     public void SetSelectedWeapon(WeaponItemInfo _selectedWeapon)
     {
-        selectedWeapon = _selectedWeapon;
-        playerEquipWeaponArr[0] = _selectedWeapon;
+        selectedWeapon = DeepCopyWeaponItemInfo(_selectedWeapon);
+        playerEquipWeaponArr[0] = selectedWeapon;
     }
 
     public WeaponItemInfo GetSelectedWeapon()
@@ -120,7 +120,25 @@ public class ItemManager : Singleton<ItemManager>
         return playerEquipWeaponArr;
     }
 
+    public WeaponItemInfo DeepCopyWeaponItemInfo(WeaponItemInfo _weaponItemInfo)
+    {
+        WeaponItemInfo newWeaponItemInfo = new WeaponItemInfo();
 
+        newWeaponItemInfo.Uid = _weaponItemInfo.Uid;
+        newWeaponItemInfo.level = _weaponItemInfo.level;
+        newWeaponItemInfo.damage = _weaponItemInfo.damage;
+        newWeaponItemInfo.damageRate = _weaponItemInfo.damageRate;
+        newWeaponItemInfo.attackSpeed = _weaponItemInfo.attackSpeed;
+        newWeaponItemInfo.attackRange = _weaponItemInfo.attackRange;
+        newWeaponItemInfo.stringKey = _weaponItemInfo.stringKey;
+        newWeaponItemInfo.weaponSpritePath = _weaponItemInfo.weaponSpritePath;
+        newWeaponItemInfo.weaponName = _weaponItemInfo.weaponName;
+        newWeaponItemInfo.weaponType = _weaponItemInfo.weaponType;
+
+        //newWeaponItemInfo = _weaponItemInfo;
+
+        return newWeaponItemInfo;
+    }
 
     private void LoadWeaponData()
     {
