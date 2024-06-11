@@ -21,7 +21,7 @@ public class TestCreateJson : MonoBehaviour
     private void Awake()
     {
         //CreateCharacterJobJson();
-        CreateWeaponJson();
+        //CreateWeaponJson();
         //CreateMonsterJson();
         //CreateMonsterSpwanJson();
         //CreateStageJson();
@@ -461,6 +461,16 @@ public class TestCreateJson : MonoBehaviour
 
         stageGroupData.stageDataArr = stageDataList.ToArray();
     }
+
+    private void CreateAugmenterJson()
+    {
+
+    }
+
+
+
+
+
 
     [ContextMenu("To Json Character Job Data")]  // ???????? ?????? ???? ?????? ???????? To Json Data ???? ???????? ?????? 
     private void SaveToJsonCharacterJobData()
