@@ -147,26 +147,6 @@ public class ShopCanvas : UIBaseController
 
             ItemManager.getInstance.EquipWeapon(itemInfo, curSelectedEquipWeaponIdx);
 
-
-            //shopEquipWeaponList[sameItemIdx].ShowWeaponColor(Color.white);
-
-            //curSelectedEquipWeapon.level++;
-            //int level = curSelectedEquipWeapon.level;
-
-
-
-            //if (level == 2)
-            //{
-            //    shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.yellow);
-            //}
-            //if(level == 3)
-            //{
-            //    shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.blue);
-            //}
-            //if (level == 4)
-            //{
-            //    shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponColor(Color.red);
-            //}
         }
 
         OnClickOptionCancleButton();
