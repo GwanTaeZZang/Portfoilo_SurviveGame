@@ -20,7 +20,10 @@ public class AugmenterData
 
 public enum AugmenterType
 {
-    monsterSpawn,
+    monsterSpawnInCrease,
+    monsterSpawnDeCrease,
+    playerAttackInCrease,
+    playerAttackDeCrease,
     playerStatus,
     monsterStatus
 }

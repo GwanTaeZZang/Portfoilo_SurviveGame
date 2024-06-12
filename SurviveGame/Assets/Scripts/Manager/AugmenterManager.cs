@@ -14,6 +14,11 @@ public class AugmenterManager : Singleton<AugmenterManager>
         return true;
     }
 
+    public List<AugmenterData> GetAugmenterList()
+    {
+        return augmenterList;
+    }
+
     private void LoadAugmenterData()
     {
         AugmenterArrJson augmenterJson = JsonController.ReadJson<AugmenterArrJson>("AugmenterData");

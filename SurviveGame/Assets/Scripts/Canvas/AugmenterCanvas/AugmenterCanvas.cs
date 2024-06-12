@@ -9,9 +9,11 @@ public class AugmenterCanvas : UIBaseController
     [SerializeField] private Button rerollBtn;
     [SerializeField] private Text rerollValue;
 
+    private List<AugmenterData> augmenterList;
+
     private void Awake()
     {
-        
+        augmenterList = AugmenterManager.getInstance.GetAugmenterList();
     }
 
     private void Start()
@@ -19,9 +21,26 @@ public class AugmenterCanvas : UIBaseController
         BindButtonEvent();
     }
 
+    public override void Show()
+    {
+        base.Show();
+        UpdateAugmenterElementInfo();
+    }
+
     private void UpdateAugmenterElementInfo()
     {
-        
+        int count = augmenterElementList.Count;
+        for(int i = 0; i < count; i++)
+        {
+            int randomIdx = Random.Range(0, augmenterList.Count);
+            AugmenterData augmenterData = augmenterList[randomIdx];
+            AugmenterElement element = augmenterElementList[i];
+
+            Sprite icon = Resources.Load<Sprite>(augmenterData.augmenterSpritePath);
+            element.SetAugmenterIcon(icon);
+            element.SetAugmenterTitle(augmenterData.augmenterName);
+            element.SetAugmenterInfo(augmenterData.augmenterContent);
+        }
     }
 
     private void BindButtonEvent()
@@ -41,8 +60,10 @@ public class AugmenterCanvas : UIBaseController
     {
 
     }
+
+
     private void OnClickRerollBtn()
     {
-
+        UpdateAugmenterElementInfo();
     }
 }
