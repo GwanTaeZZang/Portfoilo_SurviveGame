@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class AugmenterArrJson
+public struct AugmenterArrJson
 {
-    AugmenterData[] augmenterArr;
+    public AugmenterData[] augmenterArr;
 }
 
 [System.Serializable]
@@ -15,7 +15,7 @@ public class AugmenterData
     public int augmenterGrade;
     public string augmenterName;
     public string augmenterSpritePath;
-
+    public string augmenterContent;
 }
 
 public enum AugmenterType

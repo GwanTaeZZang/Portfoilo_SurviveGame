@@ -1,0 +1,67 @@
+{
+    "augmenterArr": [
+        {
+            "Uid": 5001,
+            "augmenterGrade": 1,
+            "augmenterName": "aaaa1",
+            "augmenterSpritePath": "Sprite/Augmenter/BronzeAugmenter",
+            "augmenterContent": "this augment increase aaaa + 1"
+        },
+        {
+            "Uid": 5002,
+            "augmenterGrade": 2,
+            "augmenterName": "aaaa2",
+            "augmenterSpritePath": "Sprite/Augmenter/SliverAugmenter",
+            "augmenterContent": "this augment increase aaaa + 2"
+        },
+        {
+            "Uid": 5003,
+            "augmenterGrade": 3,
+            "augmenterName": "aaaa3",
+            "augmenterSpritePath": "Sprite/Augmenter/GoldAugmenter",
+            "augmenterContent": "this augment increase aaaa + 3"
+        },
+        {
+            "Uid": 5011,
+            "augmenterGrade": 1,
+            "augmenterName": "bbbb1",
+            "augmenterSpritePath": "Sprite/Augmenter/BronzeAugmenter",
+            "augmenterContent": "this augment increase bbbb + 1"
+        },
+        {
+            "Uid": 5012,
+            "augmenterGrade": 2,
+            "augmenterName": "bbbb2",
+            "augmenterSpritePath": "Sprite/Augmenter/SliverAugmenter",
+            "augmenterContent": "this augment increase bbbb + 2"
+        },
+        {
+            "Uid": 5013,
+            "augmenterGrade": 3,
+            "augmenterName": "bbbb3",
+            "augmenterSpritePath": "Sprite/Augmenter/GoldAugmenter",
+            "augmenterContent": "this augment increase bbbb + 3"
+        },
+        {
+            "Uid": 5021,
+            "augmenterGrade": 1,
+            "augmenterName": "cccc1",
+            "augmenterSpritePath": "Sprite/Augmenter/BronzeAugmenter",
+            "augmenterContent": "this augment increase cccc + 1"
+        },
+        {
+            "Uid": 5022,
+            "augmenterGrade": 2,
+            "augmenterName": "cccc2",
+            "augmenterSpritePath": "Sprite/Augmenter/SliverAugmenter",
+            "augmenterContent": "this augment increase cccc + 2"
+        },
+        {
+            "Uid": 5023,
+            "augmenterGrade": 3,
+            "augmenterName": "cccc3",
+            "augmenterSpritePath": "Sprite/Augmenter/GoldAugmenter",
+            "augmenterContent": "this augment increase cccc + 3"
+        }
+    ]
+}

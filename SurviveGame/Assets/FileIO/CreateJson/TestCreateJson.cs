@@ -10,6 +10,7 @@ public class TestCreateJson : MonoBehaviour
     private string monsterSpwanFileName = "MonsterSpwanData";
     private string waveFileName = "WaveData";
     private string stageFileName = "StageData";
+    private string augmentFileName = "AugmenterData";
 
     private JobData jobData;
     private WeaponData weaponData;
@@ -17,6 +18,8 @@ public class TestCreateJson : MonoBehaviour
     private MonsterGroupArrJsonModel monsterGroupData;
     //private WaveGroupData waveGroupData;
     private StageArrJsonModel stageGroupData;
+    private AugmenterArrJson augmenterGroupData;
+
 
     private void Awake()
     {
@@ -25,6 +28,7 @@ public class TestCreateJson : MonoBehaviour
         //CreateMonsterJson();
         //CreateMonsterSpwanJson();
         //CreateStageJson();
+        CreateAugmenterJson();
     }
 
     private void CreateCharacterJobJson()
@@ -419,10 +423,6 @@ public class TestCreateJson : MonoBehaviour
         monsterGroupData.modelArr = modelList.ToArray();
     }
 
-    private void CreateWaveData()
-    {
-    }
-
     private void CreateStageJson()
     {
         List<StageData> stageDataList = new List<StageData>();
@@ -464,7 +464,100 @@ public class TestCreateJson : MonoBehaviour
 
     private void CreateAugmenterJson()
     {
+        List<AugmenterData> augmenterDataList = new List<AugmenterData>();
+        AugmenterData data = new AugmenterData();
+        data.Uid = 5001;
+        data.augmenterGrade = 1;
+        data.augmenterName = "aaaa1";
+        data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
+        data.augmenterContent = "this augment increase aaaa + 1";
 
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5002;
+        data.augmenterGrade = 2;
+        data.augmenterName = "aaaa2";
+        data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
+        data.augmenterContent = "this augment increase aaaa + 2";
+
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5003;
+        data.augmenterGrade = 3;
+        data.augmenterName = "aaaa3";
+        data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
+        data.augmenterContent = "this augment increase aaaa + 3";
+
+        augmenterDataList.Add(data);
+
+
+
+
+
+
+        data = new AugmenterData();
+        data.Uid = 5011;
+        data.augmenterGrade = 1;
+        data.augmenterName = "bbbb1";
+        data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
+        data.augmenterContent = "this augment increase bbbb + 1";
+
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5012;
+        data.augmenterGrade = 2;
+        data.augmenterName = "bbbb2";
+        data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
+        data.augmenterContent = "this augment increase bbbb + 2";
+
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5013;
+        data.augmenterGrade = 3;
+        data.augmenterName = "bbbb3";
+        data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
+        data.augmenterContent = "this augment increase bbbb + 3";
+
+        augmenterDataList.Add(data);
+
+
+
+
+
+
+        data = new AugmenterData();
+        data.Uid = 5021;
+        data.augmenterGrade = 1;
+        data.augmenterName = "cccc1";
+        data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
+        data.augmenterContent = "this augment increase cccc + 1";
+
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5022;
+        data.augmenterGrade = 2;
+        data.augmenterName = "cccc2";
+        data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
+        data.augmenterContent = "this augment increase cccc + 2";
+
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5023;
+        data.augmenterGrade = 3;
+        data.augmenterName = "cccc3";
+        data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
+        data.augmenterContent = "this augment increase cccc + 3";
+
+        augmenterDataList.Add(data);
+
+
+        augmenterGroupData.augmenterArr = augmenterDataList.ToArray();
     }
 
 
@@ -542,6 +635,18 @@ public class TestCreateJson : MonoBehaviour
         }
 
         JsonController.WriteJson<StageArrJsonModel>(stageFileName, stageGroupData);
+    }
+
+    [ContextMenu("To Json Augmenter Data")]
+    private void SaveToJsonAugmenterData()
+    {
+        if(augmentFileName == "")
+        {
+            Debug.Log("File Name is Null");
+            return;
+        }
+
+        JsonController.WriteJson<AugmenterArrJson>(augmentFileName, augmenterGroupData);
     }
 
 }
