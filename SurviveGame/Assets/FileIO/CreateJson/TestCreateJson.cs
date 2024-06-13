@@ -25,7 +25,7 @@ public class TestCreateJson : MonoBehaviour
     {
         //CreateCharacterJobJson();
         //CreateWeaponJson();
-        CreateMonsterJson();
+        //CreateMonsterJson();
         //CreateMonsterSpwanJson();
         //CreateStageJson();
         CreateAugmenterJson();
@@ -43,7 +43,7 @@ public class TestCreateJson : MonoBehaviour
 
         StatusEffect effect = new StatusEffect();
         effect.stringKey = "?????? ????";
-        effect.effectType = StatusEffectType.Damage;
+        effect.effectType = StatusEffectType.P_Damage;
         effect.amount = +10;
         job1.increaseStatus[0] = effect;
 
@@ -51,13 +51,13 @@ public class TestCreateJson : MonoBehaviour
 
         effect = new StatusEffect();
         effect.stringKey = "???????? ????";
-        effect.effectType = StatusEffectType.AttackSpeed;
+        effect.effectType = StatusEffectType.P_AttackSpeed;
         effect.amount = -3;
         job1.decreaseStatus[0] = effect;
 
         effect = new StatusEffect();
         effect.stringKey = "???? ????";
-        effect.effectType = StatusEffectType.Speed;
+        effect.effectType = StatusEffectType.P_Speed;
         effect.amount = -3;
         job1.decreaseStatus[1] = effect;
 
@@ -78,13 +78,13 @@ public class TestCreateJson : MonoBehaviour
 
         effect = new StatusEffect();
         effect.stringKey = "???????? ????";
-        effect.effectType = StatusEffectType.AttackSpeed;
+        effect.effectType = StatusEffectType.P_AttackSpeed;
         effect.amount = +5;
         job2.increaseStatus[0] = effect;
 
         effect = new StatusEffect();
         effect.stringKey = "???? ????";
-        effect.effectType = StatusEffectType.Speed;
+        effect.effectType = StatusEffectType.P_Speed;
         effect.amount = +5;
         job2.increaseStatus[1] = effect;
 
@@ -92,7 +92,7 @@ public class TestCreateJson : MonoBehaviour
 
         effect = new StatusEffect();
         effect.stringKey = "?????? ????";
-        effect.effectType = StatusEffectType.Damage;
+        effect.effectType = StatusEffectType.P_Damage;
         effect.amount = -7;
         job2.decreaseStatus[0] = effect;
 
@@ -244,7 +244,7 @@ public class TestCreateJson : MonoBehaviour
         info.Uid = 3000;
 
         float[] statusArr = new float[(int)MonsterStatus.End];
-        statusArr[(int)MonsterStatus.M_Hp] = 10;
+        statusArr[(int)MonsterStatus.M_HP] = 10;
         statusArr[(int)MonsterStatus.M_Damage] = 5;
         statusArr[(int)MonsterStatus.M_Speed] = 3;
         statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
@@ -268,7 +268,7 @@ public class TestCreateJson : MonoBehaviour
         info.Uid = 3001;
 
         statusArr = new float[(int)MonsterStatus.End];
-        statusArr[(int)MonsterStatus.M_Hp] = 10;
+        statusArr[(int)MonsterStatus.M_HP] = 10;
         statusArr[(int)MonsterStatus.M_Damage] = 3;
         statusArr[(int)MonsterStatus.M_Speed] = 3;
         statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
@@ -486,28 +486,43 @@ public class TestCreateJson : MonoBehaviour
         List<AugmenterData> augmenterDataList = new List<AugmenterData>();
         AugmenterData data = new AugmenterData();
         data.Uid = 5001;
+        data.groupId = 0;
         data.augmenterGrade = 1;
         data.augmenterName = "aaaa1";
         data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
         data.augmenterContent = "this augment increase aaaa + 1";
+        data.firstType = AugmenterType.MonsterSpawnTime;
+        data.firstTypeValue = 1;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
         data = new AugmenterData();
         data.Uid = 5002;
+        data.groupId = 0;
         data.augmenterGrade = 2;
         data.augmenterName = "aaaa2";
         data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
         data.augmenterContent = "this augment increase aaaa + 2";
+        data.firstType = AugmenterType.MonsterSpawnTime;
+        data.firstTypeValue = 2;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
         data = new AugmenterData();
         data.Uid = 5003;
+        data.groupId = 0;
         data.augmenterGrade = 3;
         data.augmenterName = "aaaa3";
         data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
         data.augmenterContent = "this augment increase aaaa + 3";
+        data.firstType = AugmenterType.MonsterSpawnTime;
+        data.firstTypeValue = 3;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
@@ -517,29 +532,44 @@ public class TestCreateJson : MonoBehaviour
 
 
         data = new AugmenterData();
-        data.Uid = 5011;
+        data.Uid = 5004;
+        data.groupId = 1;
         data.augmenterGrade = 1;
         data.augmenterName = "bbbb1";
         data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
         data.augmenterContent = "this augment increase bbbb + 1";
+        data.firstType = AugmenterType.P_MaxHP;
+        data.firstTypeValue = 1;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
         data = new AugmenterData();
-        data.Uid = 5012;
+        data.Uid = 5005;
+        data.groupId = 1;
         data.augmenterGrade = 2;
         data.augmenterName = "bbbb2";
         data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
         data.augmenterContent = "this augment increase bbbb + 2";
+        data.firstType = AugmenterType.P_MaxHP;
+        data.firstTypeValue = 2;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
         data = new AugmenterData();
-        data.Uid = 5013;
+        data.Uid = 5006;
+        data.groupId = 1;
         data.augmenterGrade = 3;
         data.augmenterName = "bbbb3";
         data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
         data.augmenterContent = "this augment increase bbbb + 3";
+        data.firstType = AugmenterType.P_MaxHP;
+        data.firstTypeValue = 3;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
@@ -549,29 +579,44 @@ public class TestCreateJson : MonoBehaviour
 
 
         data = new AugmenterData();
-        data.Uid = 5021;
+        data.Uid = 5007;
+        data.groupId = 2;
         data.augmenterGrade = 1;
         data.augmenterName = "cccc1";
         data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
         data.augmenterContent = "this augment increase cccc + 1";
+        data.firstType = AugmenterType.M_HP;
+        data.firstTypeValue = 1;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
         data = new AugmenterData();
-        data.Uid = 5022;
+        data.Uid = 5008;
+        data.groupId = 2;
         data.augmenterGrade = 2;
         data.augmenterName = "cccc2";
         data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
         data.augmenterContent = "this augment increase cccc + 2";
+        data.firstType = AugmenterType.M_HP;
+        data.firstTypeValue = 2;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 
         data = new AugmenterData();
-        data.Uid = 5023;
+        data.Uid = 5009;
+        data.groupId = 2;
         data.augmenterGrade = 3;
         data.augmenterName = "cccc3";
         data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
         data.augmenterContent = "this augment increase cccc + 3";
+        data.firstType = AugmenterType.M_HP;
+        data.firstTypeValue = 3;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
 
         augmenterDataList.Add(data);
 

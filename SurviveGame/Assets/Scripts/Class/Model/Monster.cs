@@ -31,7 +31,7 @@ public class MonsterInfo
 
 public enum MonsterStatus
 {
-    M_Hp,
+    M_HP,
     M_Damage,
     M_Speed,
     M_AttackSpeed,

@@ -17,8 +17,8 @@ public class Character
         }
 
 
-        statusArr[(int)StatusEffectType.MaxHp].UpdataStatus(10f);
-        statusArr[(int)StatusEffectType.Speed].UpdataStatus(5f);
+        statusArr[(int)StatusEffectType.P_MaxHP].UpdataStatus(10f);
+        statusArr[(int)StatusEffectType.P_Speed].UpdataStatus(5f);
     }
 
 
@@ -101,22 +101,22 @@ public class StatusEffect
 
 public enum StatusEffectType
 {
-    MaxHp,
-    RecoveryHp,
-    StealHp,
-    Damage,
-    ShortRangeDamage,
-    LongRangeDamage,
-    AttackSpeed,
-    CriticalRate,
-    AttackRange,
-    Defence,
-    EvasionRate,
-    Speed,
-    Luck,
-    Yield,
-    End
+    P_MaxHP,
+    P_RecoveryHp,
+    P_StealHp,
+    P_Damage,
+    P_ShortRangeDamage,
+    P_LongRangeDamage,
+    P_AttackSpeed,
+    P_CriticalRate,
+    P_AttackRange,
+    P_Defence,
+    P_EvasionRate,
+    P_Speed,
+    P_Luck,
+    P_Yield,
 
+    End,
 }
 
 

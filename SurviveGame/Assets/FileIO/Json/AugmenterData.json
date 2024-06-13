@@ -2,66 +2,111 @@
     "augmenterArr": [
         {
             "Uid": 5001,
+            "groupId": 0,
             "augmenterGrade": 1,
             "augmenterName": "aaaa1",
             "augmenterSpritePath": "Sprite/Augmenter/BronzeAugmenter",
-            "augmenterContent": "this augment increase aaaa + 1"
+            "augmenterContent": "this augment increase aaaa + 1",
+            "firstType": 100,
+            "firstTypeValue": 1.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
             "Uid": 5002,
+            "groupId": 0,
             "augmenterGrade": 2,
             "augmenterName": "aaaa2",
             "augmenterSpritePath": "Sprite/Augmenter/SliverAugmenter",
-            "augmenterContent": "this augment increase aaaa + 2"
+            "augmenterContent": "this augment increase aaaa + 2",
+            "firstType": 100,
+            "firstTypeValue": 2.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
             "Uid": 5003,
+            "groupId": 0,
             "augmenterGrade": 3,
             "augmenterName": "aaaa3",
             "augmenterSpritePath": "Sprite/Augmenter/GoldAugmenter",
-            "augmenterContent": "this augment increase aaaa + 3"
+            "augmenterContent": "this augment increase aaaa + 3",
+            "firstType": 100,
+            "firstTypeValue": 3.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
-            "Uid": 5011,
+            "Uid": 5004,
+            "groupId": 1,
             "augmenterGrade": 1,
             "augmenterName": "bbbb1",
             "augmenterSpritePath": "Sprite/Augmenter/BronzeAugmenter",
-            "augmenterContent": "this augment increase bbbb + 1"
+            "augmenterContent": "this augment increase bbbb + 1",
+            "firstType": 200,
+            "firstTypeValue": 1.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
-            "Uid": 5012,
+            "Uid": 5005,
+            "groupId": 1,
             "augmenterGrade": 2,
             "augmenterName": "bbbb2",
             "augmenterSpritePath": "Sprite/Augmenter/SliverAugmenter",
-            "augmenterContent": "this augment increase bbbb + 2"
+            "augmenterContent": "this augment increase bbbb + 2",
+            "firstType": 200,
+            "firstTypeValue": 2.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
-            "Uid": 5013,
+            "Uid": 5006,
+            "groupId": 1,
             "augmenterGrade": 3,
             "augmenterName": "bbbb3",
             "augmenterSpritePath": "Sprite/Augmenter/GoldAugmenter",
-            "augmenterContent": "this augment increase bbbb + 3"
+            "augmenterContent": "this augment increase bbbb + 3",
+            "firstType": 200,
+            "firstTypeValue": 3.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
-            "Uid": 5021,
+            "Uid": 5007,
+            "groupId": 2,
             "augmenterGrade": 1,
             "augmenterName": "cccc1",
             "augmenterSpritePath": "Sprite/Augmenter/BronzeAugmenter",
-            "augmenterContent": "this augment increase cccc + 1"
+            "augmenterContent": "this augment increase cccc + 1",
+            "firstType": 300,
+            "firstTypeValue": 1.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
-            "Uid": 5022,
+            "Uid": 5008,
+            "groupId": 2,
             "augmenterGrade": 2,
             "augmenterName": "cccc2",
             "augmenterSpritePath": "Sprite/Augmenter/SliverAugmenter",
-            "augmenterContent": "this augment increase cccc + 2"
+            "augmenterContent": "this augment increase cccc + 2",
+            "firstType": 300,
+            "firstTypeValue": 2.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         },
         {
-            "Uid": 5023,
+            "Uid": 5009,
+            "groupId": 2,
             "augmenterGrade": 3,
             "augmenterName": "cccc3",
             "augmenterSpritePath": "Sprite/Augmenter/GoldAugmenter",
-            "augmenterContent": "this augment increase cccc + 3"
+            "augmenterContent": "this augment increase cccc + 3",
+            "firstType": 300,
+            "firstTypeValue": 3.0,
+            "secondType": 0,
+            "secondTypeValue": 0.0
         }
     ]
 }

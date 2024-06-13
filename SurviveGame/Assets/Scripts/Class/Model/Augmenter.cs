@@ -29,6 +29,8 @@ public class AugmenterData
 
 public enum AugmenterType
 {
+    None = 0,
+
     MonsterSpawnTime = 100,
 
     P_MaxHP = 200,
@@ -46,11 +48,9 @@ public enum AugmenterType
     P_Luck,
     P_Yield,
 
-    M_Hp = 300,
+    M_HP = 300,
     M_Damege,
     M_Speed,
     M_AttackSpeed,
     M_AttackRange,
-
-
 }

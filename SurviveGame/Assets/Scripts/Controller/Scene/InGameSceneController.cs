@@ -34,6 +34,7 @@ public class InGameSceneController : MonoBehaviour
     private void Update()
     {
         stageController.UpdateWave();
+        TempShowAugmenterCanvas();
     }
 
     private void LoadMap()
@@ -64,5 +65,11 @@ public class InGameSceneController : MonoBehaviour
         }
     }
 
-
+    private void TempShowAugmenterCanvas()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
+        }
+    }
 }
