@@ -25,7 +25,7 @@ public class TestCreateJson : MonoBehaviour
     {
         //CreateCharacterJobJson();
         //CreateWeaponJson();
-        //CreateMonsterJson();
+        CreateMonsterJson();
         //CreateMonsterSpwanJson();
         //CreateStageJson();
         CreateAugmenterJson();
@@ -242,11 +242,20 @@ public class TestCreateJson : MonoBehaviour
         MonsterInfo[] monsterInfoArr = new MonsterInfo[2];
         MonsterInfo info = new MonsterInfo();
         info.Uid = 3000;
-        info.hp = 10;
-        info.damage = 5;
-        info.speed = 3;
-        info.attackSpeed = 1;
-        info.attackRange = 1;
+
+        float[] statusArr = new float[(int)MonsterStatus.End];
+        statusArr[(int)MonsterStatus.M_Hp] = 10;
+        statusArr[(int)MonsterStatus.M_Damage] = 5;
+        statusArr[(int)MonsterStatus.M_Speed] = 3;
+        statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
+        statusArr[(int)MonsterStatus.M_AttackRange] = 1;
+
+        info.status = statusArr;
+        //info.hp = 10;
+        //info.damage = 5;
+        //info.speed = 3;
+        //info.attackSpeed = 1;
+        //info.attackRange = 1;
         info.stringKey = "근접 기본몬스터 ";
         info.monsterSpritePath = "Sprite/Monster/CommonMonster_0";
         info.monsterName = "근접 기본몬스터 ";
@@ -257,11 +266,21 @@ public class TestCreateJson : MonoBehaviour
 
         info = new MonsterInfo();
         info.Uid = 3001;
-        info.hp = 10;
-        info.damage = 3;
-        info.speed = 3;
-        info.attackSpeed = 1;
-        info.attackRange = 1;
+
+        statusArr = new float[(int)MonsterStatus.End];
+        statusArr[(int)MonsterStatus.M_Hp] = 10;
+        statusArr[(int)MonsterStatus.M_Damage] = 3;
+        statusArr[(int)MonsterStatus.M_Speed] = 3;
+        statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
+        statusArr[(int)MonsterStatus.M_AttackRange] = 4;
+
+        info.status = statusArr;
+
+        //info.hp = 10;
+        //info.damage = 3;
+        //info.speed = 3;
+        //info.attackSpeed = 1;
+        //info.attackRange = 1;
         info.stringKey = "원거리 기본몬스터 ";
         info.monsterSpritePath = "Sprite/Monster/ShootingMonster_0";
         info.monsterName = "원거리 기본몬스터 ";

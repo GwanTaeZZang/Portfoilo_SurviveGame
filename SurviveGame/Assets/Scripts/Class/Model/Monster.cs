@@ -12,11 +12,15 @@ public class MonsterData
 public class MonsterInfo
 {
     public int Uid;
-    public int hp;
-    public float damage;
-    public float speed;
-    public float attackSpeed;
-    public float attackRange;
+
+    //public int hp;
+    //public float damage;
+    //public float speed;
+    //public float attackSpeed;
+    //public float attackRange;
+
+    public float[] status = new float[(int)MonsterStatus.End];
+
     public string stringKey;
     public string monsterSpritePath;
     public string monsterName;
@@ -24,6 +28,17 @@ public class MonsterInfo
     public MonsterMoveBehaviorType moveType;
     public MonsterAttackBehaviorType attackType;
 }
+
+public enum MonsterStatus
+{
+    M_Hp,
+    M_Damage,
+    M_Speed,
+    M_AttackSpeed,
+    M_AttackRange,
+    End
+}
+
 
 public class BehaviorLogicBase
 {
@@ -188,17 +203,17 @@ public class Shooting : MonsterBehavior
         bulletQueue = new Queue<Bullet>();
         monsterBullet = ObjectPoolManager.getInstance.GetPool<Bullet>();
 
-        info.attackSpeed = 3f;
+        info.status[(int)MonsterStatus.M_Speed] = 3f;
     }
 
     private void AttackCool()
     {
         float distance = Vector2.Distance(target.position, monster.position);
-        if(distance < info.attackRange)
+        if(distance < info.status[(int)MonsterStatus.M_AttackRange])
         {
             coolTime += Time.deltaTime;
             //Debug.Log("monster atteck cool");
-            if (coolTime > info.attackSpeed)
+            if (coolTime > info.status[(int)MonsterStatus.M_AttackSpeed])
             {
                 Shoot();
                 coolTime = 0;
@@ -257,8 +272,8 @@ public class ApproachToTarget : MonsterBehavior
 
         Vector2 dir = targetPos - monsterPos;
 
-        monsterPos.x += dir.normalized.x * Time.deltaTime * info.speed;
-        monsterPos.y += dir.normalized.y * Time.deltaTime * info.speed;
+        monsterPos.x += dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
+        monsterPos.y += dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
 
         monster.position = monsterPos;
     }
@@ -288,18 +303,18 @@ public class RunAwayFromTarget : MonsterBehavior
         Vector2 dir = targetPos - monsterPos;
         float distance = Vector2.Distance(monsterPos, targetPos);
 
-        if(distance > info.attackRange)
+        if(distance > info.status[(int)MonsterStatus.M_AttackRange])
         {
-            monsterPos.x += dir.normalized.x * Time.deltaTime * info.speed;
-            monsterPos.y += dir.normalized.y * Time.deltaTime * info.speed;
+            monsterPos.x += dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
+            monsterPos.y += dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
 
             monster.position = monsterPos;
         }
 
-        if(distance < info.attackRange * 0.8f)
+        if(distance < info.status[(int)MonsterStatus.M_AttackRange] * 0.8f)
         {
-            monsterPos.x -= dir.normalized.x * Time.deltaTime * info.speed;
-            monsterPos.y -= dir.normalized.y * Time.deltaTime * info.speed;
+            monsterPos.x -= dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
+            monsterPos.y -= dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
 
             monster.position = monsterPos;
 

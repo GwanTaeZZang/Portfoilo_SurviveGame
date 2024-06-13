@@ -8,6 +8,20 @@ public class Character
     public CharacterStatus[] statusArr = new CharacterStatus[(int)StatusEffectType.End];
     public Job job;
 
+    public Character()
+    {
+        int count = statusArr.Length;
+        for(int i = 0; i < count; i++)
+        {
+            statusArr[i] = new CharacterStatus();
+        }
+
+
+        statusArr[(int)StatusEffectType.MaxHp].UpdataStatus(10f);
+        statusArr[(int)StatusEffectType.Speed].UpdataStatus(5f);
+    }
+
+
     public void UpdataStatus(StatusEffectType _type, int _amount)
     {
         statusArr[(int)_type].UpdataStatus(_amount);
@@ -28,7 +42,14 @@ public class CharacterStatus
     private float statusRate;
     private float abillityRate;
 
-    public void UpdataStatus(int _amount)
+    public CharacterStatus()
+    {
+        status = 0f;
+        statusRate = 1f;
+        abillityRate = 1f;
+    }
+
+    public void UpdataStatus(float _amount)
     {
         status += (statusRate * abillityRate * _amount);
     }

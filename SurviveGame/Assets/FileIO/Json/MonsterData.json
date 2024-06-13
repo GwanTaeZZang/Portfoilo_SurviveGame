@@ -2,11 +2,13 @@
     "monsterArr": [
         {
             "Uid": 3000,
-            "hp": 10,
-            "damage": 5.0,
-            "speed": 2.0,
-            "attackSpeed": 1.0,
-            "attackRange": 1.0,
+            "status": [
+                10.0,
+                5.0,
+                3.0,
+                1.0,
+                1.0
+            ],
             "stringKey": "근접 기본몬스터 ",
             "monsterSpritePath": "Sprite/Monster/CommonMonster_0",
             "monsterName": "근접 기본몬스터 ",
@@ -16,11 +18,13 @@
         },
         {
             "Uid": 3001,
-            "hp": 10,
-            "damage": 3.0,
-            "speed": 2.0,
-            "attackSpeed": 1.0,
-            "attackRange": 5.0,
+            "status": [
+                10.0,
+                3.0,
+                3.0,
+                1.0,
+                4.0
+            ],
             "stringKey": "원거리 기본몬스터 ",
             "monsterSpritePath": "Sprite/Monster/ShootingMonster_0",
             "monsterName": "원거리 기본몬스터 ",
