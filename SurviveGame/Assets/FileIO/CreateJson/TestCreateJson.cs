@@ -491,6 +491,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "aaaa1";
         data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
         data.augmenterContent = "this augment increase aaaa + 1";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.MonsterSpawnTime;
         data.firstTypeValue = 1;
         data.secondType = AugmenterType.None;
@@ -505,6 +506,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "aaaa2";
         data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
         data.augmenterContent = "this augment increase aaaa + 2";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.MonsterSpawnTime;
         data.firstTypeValue = 2;
         data.secondType = AugmenterType.None;
@@ -519,6 +521,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "aaaa3";
         data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
         data.augmenterContent = "this augment increase aaaa + 3";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.MonsterSpawnTime;
         data.firstTypeValue = 3;
         data.secondType = AugmenterType.None;
@@ -538,6 +541,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "bbbb1";
         data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
         data.augmenterContent = "this augment increase bbbb + 1";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.P_MaxHP;
         data.firstTypeValue = 1;
         data.secondType = AugmenterType.None;
@@ -552,6 +556,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "bbbb2";
         data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
         data.augmenterContent = "this augment increase bbbb + 2";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.P_MaxHP;
         data.firstTypeValue = 2;
         data.secondType = AugmenterType.None;
@@ -566,6 +571,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "bbbb3";
         data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
         data.augmenterContent = "this augment increase bbbb + 3";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.P_MaxHP;
         data.firstTypeValue = 3;
         data.secondType = AugmenterType.None;
@@ -585,6 +591,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "cccc1";
         data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
         data.augmenterContent = "this augment increase cccc + 1";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.M_HP;
         data.firstTypeValue = 1;
         data.secondType = AugmenterType.None;
@@ -599,6 +606,7 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "cccc2";
         data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
         data.augmenterContent = "this augment increase cccc + 2";
+        data.isDuplicat = true;
         data.firstType = AugmenterType.M_HP;
         data.firstTypeValue = 2;
         data.secondType = AugmenterType.None;
@@ -613,6 +621,55 @@ public class TestCreateJson : MonoBehaviour
         data.augmenterName = "cccc3";
         data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
         data.augmenterContent = "this augment increase cccc + 3";
+        data.isDuplicat = true;
+        data.firstType = AugmenterType.M_HP;
+        data.firstTypeValue = 3;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
+
+        augmenterDataList.Add(data);
+
+
+
+
+        data = new AugmenterData();
+        data.Uid = 5010;
+        data.groupId = 3;
+        data.augmenterGrade = 1;
+        data.augmenterName = "dddd1";
+        data.augmenterSpritePath = "Sprite/Augmenter/BronzeAugmenter";
+        data.augmenterContent = "this augment increase dddd + 1";
+        data.isDuplicat = false;
+        data.firstType = AugmenterType.M_HP;
+        data.firstTypeValue = 1;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
+
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5011;
+        data.groupId = 3;
+        data.augmenterGrade = 2;
+        data.augmenterName = "dddd2";
+        data.augmenterSpritePath = "Sprite/Augmenter/SliverAugmenter";
+        data.augmenterContent = "this augment increase dddd + 2";
+        data.isDuplicat = false;
+        data.firstType = AugmenterType.M_HP;
+        data.firstTypeValue = 2;
+        data.secondType = AugmenterType.None;
+        data.secondTypeValue = 0;
+
+        augmenterDataList.Add(data);
+
+        data = new AugmenterData();
+        data.Uid = 5012;
+        data.groupId = 3;
+        data.augmenterGrade = 3;
+        data.augmenterName = "dddd3";
+        data.augmenterSpritePath = "Sprite/Augmenter/GoldAugmenter";
+        data.augmenterContent = "this augment increase dddd + 3";
+        data.isDuplicat = false;
         data.firstType = AugmenterType.M_HP;
         data.firstTypeValue = 3;
         data.secondType = AugmenterType.None;

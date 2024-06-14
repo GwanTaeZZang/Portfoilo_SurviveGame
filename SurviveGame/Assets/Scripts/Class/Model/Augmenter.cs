@@ -17,6 +17,8 @@ public class AugmenterData
     public string augmenterName;
     public string augmenterSpritePath;
     public string augmenterContent;
+    public bool isDuplicat;
+
 
     public AugmenterType firstType;
     public float firstTypeValue;
