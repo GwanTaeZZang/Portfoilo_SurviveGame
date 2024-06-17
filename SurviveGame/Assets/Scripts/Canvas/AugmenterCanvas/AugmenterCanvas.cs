@@ -11,11 +11,13 @@ public class AugmenterCanvas : UIBaseController
     [SerializeField] private Text rerollValue;
 
     private List<AugmenterData> augmenterList;
+    private List<int> selectedAugmenterUidList;
 
     private List<AugmenterData> showAugmenterList = new List<AugmenterData>();
     private List<int> showAugmenterUid = new List<int>();
     private List<int> showAugmenterGroupId = new List<int>();
 
+    private AugmenterManager augmenterMgr;
 
     //System.Random random = new System.Random();
 
@@ -25,7 +27,9 @@ public class AugmenterCanvas : UIBaseController
 
     private void Awake()
     {
-        augmenterList = AugmenterManager.getInstance.GetAugmenterList();
+        augmenterMgr = AugmenterManager.getInstance;
+        augmenterList = augmenterMgr.GetAugmenterList();
+        selectedAugmenterUidList = augmenterMgr.GetSelectedAugmenterUidList();
     }
 
     private void Start()
@@ -56,7 +60,16 @@ public class AugmenterCanvas : UIBaseController
                 continue;
             }
             // Is Duplicat Check 
-            if(!augmenter.isDuplicat && showAugmenterGroupId.Contains(augmenter.groupId))
+            //if(!augmenter.isDuplicat && showAugmenterGroupId.Contains(augmenter.groupId))
+            //{
+            //    continue;
+            //}
+            if(!augmenter.isDuplicat && CheckNotDuplicatGroupId(augmenter.groupId))
+            {
+                continue;
+            }
+            // Is Selected Augmenter Check
+            if (selectedAugmenterUidList.Contains(augmenter.Uid))
             {
                 continue;
             }
@@ -90,17 +103,31 @@ public class AugmenterCanvas : UIBaseController
         }
     }
 
-    private void CopyAugmenterList()
+    private bool CheckNotDuplicatGroupId(int _gorupId)
     {
-        List<AugmenterData> oriaugmenterList = AugmenterManager.getInstance.GetAugmenterList();
-        augmenterList = new List<AugmenterData>();
-
-        int count = oriaugmenterList.Count;
-        for(int i =0; i < count; i++)
+        foreach(int uid in selectedAugmenterUidList)
         {
-            augmenterList.Add(oriaugmenterList[i]);
+            AugmenterData augmenter = augmenterMgr.GetAugmenterData(uid);
+
+            if(augmenter.groupId == _gorupId)
+            {
+                return true;
+            }
         }
+        return false;
     }
+
+    //private void CopyAugmenterList()
+    //{
+    //    List<AugmenterData> oriaugmenterList = AugmenterManager.getInstance.GetAugmenterList();
+    //    augmenterList = new List<AugmenterData>();
+
+    //    int count = oriaugmenterList.Count;
+    //    for(int i =0; i < count; i++)
+    //    {
+    //        augmenterList.Add(oriaugmenterList[i]);
+    //    }
+    //}
 
 
     private void BindButtonEvent()
@@ -118,7 +145,14 @@ public class AugmenterCanvas : UIBaseController
 
     private void OnClickAugmenterElementBtn(int _idx)
     {
+        AugmenterData selectedAugmenter = showAugmenterList[_idx];
+        augmenterMgr.SetSeletedAugmenterList(selectedAugmenter);
+        augmenterMgr.SetSelectedAugmenterUid(selectedAugmenter.Uid);
 
+        Debug.Log("Selected Augmenter Uid is  =  " + selectedAugmenter.Uid);
+
+        StageManager.getInstance.StartWave();
+        Hide();
     }
 
 

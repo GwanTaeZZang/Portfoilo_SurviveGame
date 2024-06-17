@@ -6,16 +6,19 @@ using System.Linq;
 public class AugmenterManager : Singleton<AugmenterManager>
 {
     private Dictionary<int, AugmenterData> augmenterDict = new Dictionary<int, AugmenterData>();
-    private Dictionary<int, List<AugmenterData>> augmenterGorupDict = new Dictionary<int, List<AugmenterData>>();
-
+    //private Dictionary<int, List<AugmenterData>> augmenterGorupDict = new Dictionary<int, List<AugmenterData>>();
+    private List<int> selectedAugmenterUidList = new List<int>();
+    private List<AugmenterData> selectedAugmenterList = new List<AugmenterData>();
 
     private List<AugmenterData> augmenterList = new List<AugmenterData>();
-    private Queue<AugmenterData> notSelectedAugmenterQueue = new Queue<AugmenterData>();
-    private Queue<AugmenterData> selectedAugmenterQueue = new Queue<AugmenterData>();
+    //private Queue<AugmenterData> notSelectedAugmenterQueue = new Queue<AugmenterData>();
+    //private Queue<AugmenterData> selectedAugmenterQueue = new Queue<AugmenterData>();
 
     public override bool Initialize()
     {
         LoadAugmenterData();
+        selectedAugmenterList.Clear();
+        selectedAugmenterUidList.Clear();
         return true;
     }
 
@@ -24,6 +27,25 @@ public class AugmenterManager : Singleton<AugmenterManager>
         return augmenterList;
     }
 
+    public void SetSelectedAugmenterUid(int _uid)
+    {
+        selectedAugmenterUidList.Add(_uid);
+    }
+
+    public void SetSeletedAugmenterList(AugmenterData _selectedAugmenter)
+    {
+        selectedAugmenterList.Add(_selectedAugmenter);
+    }
+
+    public List<int> GetSelectedAugmenterUidList()
+    {
+        return selectedAugmenterUidList;
+    }
+
+    public AugmenterData GetAugmenterData(int _uid)
+    {
+        return augmenterDict[_uid];
+    }
 
     //public List<AugmenterData> GetRandomAugment()
     //{
@@ -78,15 +100,15 @@ public class AugmenterManager : Singleton<AugmenterManager>
             AugmenterData data = augmenterJson.augmenterArr[i];
             augmenterDict.Add(data.Uid, data);
             augmenterList.Add(data);
-            notSelectedAugmenterQueue.Enqueue(data);
+            //notSelectedAugmenterQueue.Enqueue(data);
 
 
 
-            if (!augmenterGorupDict.ContainsKey(data.groupId))
-            {
-                augmenterGorupDict[data.groupId] = new List<AugmenterData>();
-            }
-            augmenterGorupDict[data.groupId].Add(data);
+            //if (!augmenterGorupDict.ContainsKey(data.groupId))
+            //{
+            //    augmenterGorupDict[data.groupId] = new List<AugmenterData>();
+            //}
+            //augmenterGorupDict[data.groupId].Add(data);
         }
     }
 }

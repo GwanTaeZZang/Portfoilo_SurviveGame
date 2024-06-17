@@ -61,6 +61,11 @@ public class StageManager : Singleton<StageManager>
         stageBaseUid += _idx;
     }
 
+    public int GetCurrentWave()
+    {
+        return stageDict[stageBaseUid].curWaveIdx;
+    }
+
     public StageData GetSelectedStage()
     {
         return stageDict[stageBaseUid];

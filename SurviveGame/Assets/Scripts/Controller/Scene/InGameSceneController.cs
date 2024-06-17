@@ -19,6 +19,7 @@ public class InGameSceneController : MonoBehaviour
     private void Awake()
     {
         stageController = new StageController();
+
         stageController.Initialized(inGameCanvas);
         playerController.Initialize();
         weaponController.Initialize();
@@ -28,13 +29,18 @@ public class InGameSceneController : MonoBehaviour
 
     private void Start()
     {
-        StageManager.getInstance.StartWave();
+        UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
     }
 
     private void Update()
     {
         stageController.UpdateWave();
         TempShowAugmenterCanvas();
+    }
+
+    private void GameStart()
+    {
+        StageManager.getInstance.StartWave();
     }
 
     private void LoadMap()
@@ -69,7 +75,8 @@ public class InGameSceneController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
         }
     }
+
+
 }
