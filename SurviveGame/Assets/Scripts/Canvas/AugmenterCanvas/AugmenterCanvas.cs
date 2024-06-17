@@ -40,6 +40,7 @@ public class AugmenterCanvas : UIBaseController
     public override void Show()
     {
         base.Show();
+        showAugmenterList.Clear();
         UpdateAugmenterElementInfo();
     }
 

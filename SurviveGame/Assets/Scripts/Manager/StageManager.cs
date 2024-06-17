@@ -13,6 +13,7 @@ public class StageManager : Singleton<StageManager>
     private List<MonsterSpawnData> monsterSpwanDataList = new List<MonsterSpawnData>();
     private int stageBaseUid = 4100;
 
+    private bool isGameClear = false;
 
     public override bool Initialize()
     {
@@ -24,6 +25,17 @@ public class StageManager : Singleton<StageManager>
 
     public void StartWave()
     {
+        if (isGameClear)
+        {
+            return;
+        }
+
+        //if(GetSelectedStage().curWaveIdx == GetSelectedStage().waveMonsterGroupId.Length)
+        //{
+        //    Debug.Log("Game Clear");
+        //    return;
+        //}
+
         Debug.Log("This Current Wave  : " + GetSelectedStage().curWaveIdx);
 
         StageData stageData = GetSelectedStage();
@@ -43,12 +55,18 @@ public class StageManager : Singleton<StageManager>
         OnWaveEvent?.Invoke(monsterSpwanDataList, waveTime);
     }
 
-    public void EndWave()
+    public bool EndWave()
     {
         MonsterManager.getInstance.EndWave();
         GetSelectedStage().curWaveIdx++;
         monsterSpwanDataList.Clear();
 
+        if (GetSelectedStage().curWaveIdx == GetSelectedStage().waveMonsterGroupId.Length)
+        {
+            Debug.Log("Game Clear");
+            isGameClear = true;
+        }
+        return isGameClear;
     }
 
     public int GetStageCount()

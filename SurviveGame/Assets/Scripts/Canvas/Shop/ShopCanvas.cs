@@ -204,9 +204,10 @@ public class ShopCanvas : UIBaseController
 
     private void OnClickStartWaveBtn()
     {
+        //UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
         int curWaveIdx = StageManager.getInstance.GetCurrentWave();
 
-        if(curWaveIdx == 6 || curWaveIdx == 11)
+        if (curWaveIdx == 6 || curWaveIdx == 11)
         {
             UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
         }
@@ -216,6 +217,7 @@ public class ShopCanvas : UIBaseController
         }
 
         this.Hide();
+
     }
 
     private void OnClickReRollBtn()

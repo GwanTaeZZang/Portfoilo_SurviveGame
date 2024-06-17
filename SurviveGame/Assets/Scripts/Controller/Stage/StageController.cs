@@ -46,9 +46,12 @@ public class StageController
 
             if (waveTime < 0)
             {
-                StageManager.getInstance.EndWave();
-                ShowShopCanvas();
-                isWave = false;
+                bool isGameClear = StageManager.getInstance.EndWave();
+                if (!isGameClear)
+                {
+                    ShowShopCanvas();
+                    isWave = false;
+                }
             }
 
             int count = MosnterSpwanDataList.Count;

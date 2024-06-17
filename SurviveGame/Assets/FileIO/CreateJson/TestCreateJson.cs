@@ -450,11 +450,18 @@ public class TestCreateJson : MonoBehaviour
         model.waveMonsterGroupId = new int[]
         {
             4000,
+            4000,
+            4001,
             4001,
             4002,
+            4002,
+            4003,
             4003,
             4004,
+            4004,
             4005,
+            4005,
+            4006,
             4006
         };
         model.stageInformation = 0;
@@ -467,10 +474,16 @@ public class TestCreateJson : MonoBehaviour
         model.waveMonsterGroupId = new int[]
         {
             4006,
+            4006,
+            4005,
             4005,
             4004,
+            4004,
+            4003,
             4003,
             4002,
+            4002,
+            4001,
             4001
         };
         model.stageInformation = 0;
