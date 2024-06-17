@@ -49,9 +49,20 @@ public class StageController
                 bool isGameClear = StageManager.getInstance.EndWave();
                 if (!isGameClear)
                 {
-                    ShowShopCanvas();
-                    isWave = false;
+                    int curWaveIdx = StageManager.getInstance.GetCurrentWave();
+                    if (curWaveIdx == 1 || curWaveIdx == 6 || curWaveIdx == 11)
+                    {
+                        UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
+                    }
+                    else
+                    {
+                        UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
+                    }
                 }
+
+
+
+                isWave = false;
             }
 
             int count = MosnterSpwanDataList.Count;

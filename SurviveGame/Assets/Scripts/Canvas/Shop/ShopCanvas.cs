@@ -205,16 +205,18 @@ public class ShopCanvas : UIBaseController
     private void OnClickStartWaveBtn()
     {
         //UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
-        int curWaveIdx = StageManager.getInstance.GetCurrentWave();
+        //int curWaveIdx = StageManager.getInstance.GetCurrentWave();
 
-        if (curWaveIdx == 6 || curWaveIdx == 11)
-        {
-            UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
-        }
-        else
-        {
-            StageManager.getInstance.StartWave();
-        }
+        StageManager.getInstance.StartWave();
+
+        //if (curWaveIdx == 6 || curWaveIdx == 11)
+        //{
+        //    UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
+        //}
+        //else
+        //{
+        //    StageManager.getInstance.StartWave();
+        //}
 
         this.Hide();
 

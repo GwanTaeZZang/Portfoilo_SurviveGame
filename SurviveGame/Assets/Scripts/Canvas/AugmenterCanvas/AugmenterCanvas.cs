@@ -152,8 +152,8 @@ public class AugmenterCanvas : UIBaseController
 
         Debug.Log("Selected Augmenter Uid is  =  " + selectedAugmenter.Uid);
 
-        StageManager.getInstance.StartWave();
-        Hide();
+        UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
+        this.Hide();
     }
 
 
