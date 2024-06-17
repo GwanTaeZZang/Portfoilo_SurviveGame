@@ -10,12 +10,20 @@ public class AugmenterCanvas : UIBaseController
     [SerializeField] private Button rerollBtn;
     [SerializeField] private Text rerollValue;
 
+    [SerializeField] private GameObject selectAugmenterBG;
+    [SerializeField] private AugmenterElement selectAugmenterElement;
+    [SerializeField] private Button selectButton;
+    [SerializeField] private Button cancleButton;
+
+
     private List<AugmenterData> augmenterList;
     private List<int> selectedAugmenterUidList;
 
     private List<AugmenterData> showAugmenterList = new List<AugmenterData>();
     private List<int> showAugmenterUid = new List<int>();
     private List<int> showAugmenterGroupId = new List<int>();
+
+    private AugmenterData selectAugmenterData;
 
     private AugmenterManager augmenterMgr;
 
@@ -141,19 +149,35 @@ public class AugmenterCanvas : UIBaseController
         }
 
         rerollBtn.onClick.AddListener(OnClickRerollBtn);
+
+        selectButton.onClick.AddListener(OnClickSelectBtn);
+        cancleButton.onClick.AddListener(OnClickCancleBtn);
     }
 
 
     private void OnClickAugmenterElementBtn(int _idx)
     {
+
+        selectAugmenterBG.SetActive(true);
+
         AugmenterData selectedAugmenter = showAugmenterList[_idx];
-        augmenterMgr.SetSeletedAugmenterList(selectedAugmenter);
-        augmenterMgr.SetSelectedAugmenterUid(selectedAugmenter.Uid);
+        selectAugmenterData = selectedAugmenter;
+        selectAugmenterElement.SetAugmenterIcon(Resources.Load<Sprite>(selectedAugmenter.augmenterSpritePath));
+        selectAugmenterElement.SetAugmenterTitle(selectedAugmenter.augmenterName);
+        selectAugmenterElement.SetAugmenterInfo(selectedAugmenter.augmenterContent);
 
-        Debug.Log("Selected Augmenter Uid is  =  " + selectedAugmenter.Uid);
 
-        UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
-        this.Hide();
+
+
+
+        //AugmenterData selectedAugmenter = showAugmenterList[_idx];
+        //augmenterMgr.SetSeletedAugmenterList(selectedAugmenter);
+        //augmenterMgr.SetSelectedAugmenterUid(selectedAugmenter.Uid);
+
+        //Debug.Log("Selected Augmenter Uid is  =  " + selectedAugmenter.Uid);
+
+        //UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
+        //this.Hide();
     }
 
 
@@ -164,4 +188,22 @@ public class AugmenterCanvas : UIBaseController
         UpdateAugmenterElementInfo();
     }
 
+    private void OnClickSelectBtn()
+    {
+        selectAugmenterBG.SetActive(false);
+
+        augmenterMgr.SetSeletedAugmenterList(selectAugmenterData);
+        augmenterMgr.SetSelectedAugmenterUid(selectAugmenterData.Uid);
+
+        Debug.Log("Selected Augmenter Uid is  =  " + selectAugmenterData.Uid);
+
+        UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
+        this.Hide();
+    }
+
+    private void OnClickCancleBtn()
+    {
+        selectAugmenterBG.SetActive(false);
+        selectAugmenterData = null;
+    }
 }
