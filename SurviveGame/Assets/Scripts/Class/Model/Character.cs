@@ -8,7 +8,7 @@ public class Character
     public CharacterStatus[] statusArr = new CharacterStatus[(int)StatusEffectType.End];
     public Job job;
 
-    public Character()
+    public Character(Job _characterJob)
     {
         int count = statusArr.Length;
         for(int i = 0; i < count; i++)
@@ -17,8 +17,28 @@ public class Character
         }
 
 
-        statusArr[(int)StatusEffectType.P_MaxHP].UpdataStatus(10f);
+        statusArr[(int)StatusEffectType.P_MaxHP].UpdataStatus(20f);
         statusArr[(int)StatusEffectType.P_Speed].UpdataStatus(5f);
+
+        job = _characterJob;
+
+        count = job.increaseStatus.Length;
+        for(int i = 0; i < count; i++)
+        {
+            UpdataStatus(job.increaseStatus[i].effectType, job.increaseStatus[i].amount);
+        }
+
+        count = job.decreaseStatus.Length;
+        for(int i =0; i < count; i++)
+        {
+            UpdataStatus(job.decreaseStatus[i].effectType, job.decreaseStatus[i].amount);
+        }
+
+        count = statusArr.Length;
+        for(int i =0; i < count; i++)
+        {
+            Debug.Log((StatusEffectType)i + " =  " + statusArr[i].status);
+        }
     }
 
 

@@ -8,6 +8,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private List<Job> jobList = new List<Job>();
     private Job selectedJob;
     private PlayerController player;
+    private Character character;
     private ITargetAble target;
 
     public override bool Initialize()
@@ -31,6 +32,12 @@ public class PlayerManager : Singleton<PlayerManager>
         //{
         //    return value;
         //}
+    }
+
+    public Character GetCharacter()
+    {
+        character = new Character(selectedJob);
+        return character;
     }
 
     public List<Job> GetJobList()

@@ -95,8 +95,6 @@ public class UIManager : Singleton<UIManager>
     }
 
 
-
-
     public void PushStack(UIBaseController _controller)
     {
         UIStack.Push(_controller);

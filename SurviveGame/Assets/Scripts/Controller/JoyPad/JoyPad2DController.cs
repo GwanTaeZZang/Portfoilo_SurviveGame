@@ -24,6 +24,7 @@ public class JoyPad2DController : MonoBehaviour
 
     private void Start()
     {
+
         joypadRect = this.GetComponent<RectTransform>();
         oriJoyPadPos = joypadRect.position;
         joyPadRadius = joypadRect.sizeDelta.x * HALF;
