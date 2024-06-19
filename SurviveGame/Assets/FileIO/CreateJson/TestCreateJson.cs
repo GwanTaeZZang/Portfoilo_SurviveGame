@@ -271,7 +271,7 @@ public class TestCreateJson : MonoBehaviour
         statusArr[(int)MonsterStatus.M_HP] = 10;
         statusArr[(int)MonsterStatus.M_Damage] = 1;
         statusArr[(int)MonsterStatus.M_Speed] = 1.5f;
-        statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
+        statusArr[(int)MonsterStatus.M_AttackSpeed] = 3;
         statusArr[(int)MonsterStatus.M_AttackRange] = 4;
 
         info.status = statusArr;
