@@ -5,13 +5,18 @@ using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour, ITargetAble
 {
+    private const float COLLISION_RANGE = 0.3f;
+
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
     //[SerializeField] private OBBCollision obbController;
+
+
     private MonsterInfo monsterInfo;
     private BehaviorLogicBase monsterBehavior;
     private BoxInfo monsterBoxInfo;
     private bool isCollision = false;
+    private ITargetAble player;
 
     public int monsterIdx;
 
@@ -22,12 +27,27 @@ public class MonsterController : MonoBehaviour, ITargetAble
         monsterBoxInfo = new BoxInfo();
 
     }
+
+    private void Start()
+    {
+        player = PlayerManager.getInstance.GetTarget();
+    }
+
     private void Update()
     {
         monsterBoxInfo.center = this.transform.position;
         //monsterBoxInfo.rot = this.transform.eulerAngles.z;
 
         monsterBehavior?.Update();
+
+        bool result = OnCollisionAABB();
+
+        if (result)
+        {
+            Debug.Log("Player Monster Collision");
+            player.OnDamege(1);
+        }
+
     }
 
     public BoxInfo GetBoxInfo()
@@ -67,12 +87,42 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
     }
 
+
+    private bool OnCollisionAABB()
+    {
+        if (player.IsCollision())
+        {
+            BoxInfo playerBox = player.GetBoxInfo();
+
+            Vector2 playerCenter = playerBox.center;
+            Vector2 monsterCenter = monsterBoxInfo.center;
+
+            float playerWidth = playerBox.size.x;
+            float playerHeight = playerBox.size.y;
+            float monsterWidth = monsterBoxInfo.size.x;
+            float monsterHeight = monsterBoxInfo.size.y;
+
+
+            if (playerCenter.x - playerWidth * COLLISION_RANGE < monsterCenter.x + monsterWidth * COLLISION_RANGE &&
+                playerCenter.x + playerWidth * COLLISION_RANGE > monsterCenter.x - monsterWidth * COLLISION_RANGE &&
+                playerCenter.y - playerHeight * COLLISION_RANGE < monsterCenter.y + monsterHeight * COLLISION_RANGE &&
+                playerCenter.y + playerHeight * COLLISION_RANGE > monsterCenter.y - monsterHeight * COLLISION_RANGE)
+            {
+                return true;
+
+            }
+        }
+        return false;
+
+    }
+
+
     public bool IsCollision()
     {
         return isCollision;
     }
 
-    public void OnDamege()
+    public void OnDamege(int _damageAmount)
     {
         DeadMonster();
     }

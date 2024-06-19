@@ -44,7 +44,7 @@ public class TestCreateJson : MonoBehaviour
         StatusEffect effect = new StatusEffect();
         effect.stringKey = "?????? ????";
         effect.effectType = StatusEffectType.P_Damage;
-        effect.amount = +10;
+        effect.amount = +5;
         job1.increaseStatus[0] = effect;
 
         job1.decreaseStatus = new StatusEffect[2];
@@ -58,7 +58,7 @@ public class TestCreateJson : MonoBehaviour
         effect = new StatusEffect();
         effect.stringKey = "???? ????";
         effect.effectType = StatusEffectType.P_Speed;
-        effect.amount = -3;
+        effect.amount = -2;
         job1.decreaseStatus[1] = effect;
 
         job1.unLockId = 10003;
@@ -85,7 +85,7 @@ public class TestCreateJson : MonoBehaviour
         effect = new StatusEffect();
         effect.stringKey = "???? ????";
         effect.effectType = StatusEffectType.P_Speed;
-        effect.amount = +5;
+        effect.amount = +2;
         job2.increaseStatus[1] = effect;
 
         job2.decreaseStatus = new StatusEffect[1];
@@ -93,7 +93,7 @@ public class TestCreateJson : MonoBehaviour
         effect = new StatusEffect();
         effect.stringKey = "?????? ????";
         effect.effectType = StatusEffectType.P_Damage;
-        effect.amount = -7;
+        effect.amount = -5;
         job2.decreaseStatus[0] = effect;
 
         job2.unLockId = 10004;
@@ -245,7 +245,7 @@ public class TestCreateJson : MonoBehaviour
 
         float[] statusArr = new float[(int)MonsterStatus.End];
         statusArr[(int)MonsterStatus.M_HP] = 10;
-        statusArr[(int)MonsterStatus.M_Damage] = 5;
+        statusArr[(int)MonsterStatus.M_Damage] = 1;
         statusArr[(int)MonsterStatus.M_Speed] = 2;
         statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
         statusArr[(int)MonsterStatus.M_AttackRange] = 1;
@@ -269,8 +269,8 @@ public class TestCreateJson : MonoBehaviour
 
         statusArr = new float[(int)MonsterStatus.End];
         statusArr[(int)MonsterStatus.M_HP] = 10;
-        statusArr[(int)MonsterStatus.M_Damage] = 3;
-        statusArr[(int)MonsterStatus.M_Speed] = 2;
+        statusArr[(int)MonsterStatus.M_Damage] = 1;
+        statusArr[(int)MonsterStatus.M_Speed] = 1.5f;
         statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
         statusArr[(int)MonsterStatus.M_AttackRange] = 4;
 

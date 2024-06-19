@@ -47,7 +47,7 @@ public class OBBCollision : MonoBehaviour
                 if (result)
                 {
                     //Debug.Log("Obb Collision");
-                    targetArr[i].OnDamege();
+                    targetArr[i].OnDamege(1);
                 }
                 
             }

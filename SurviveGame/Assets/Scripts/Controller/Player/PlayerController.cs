@@ -6,19 +6,23 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour , ITargetAble
 {
-    private const float HALF = 0.5f;
+    //private const float HALF = 0.5f;
+    private const float COLLISION_DLEAY_TIME = 1f;
 
     [SerializeField] SpriteRenderer playerSpriteRenderer;
     [SerializeField] JoyPad2DController joyPad;
     [SerializeField] GameObject hpBar;
     [SerializeField] Image hpImage;
 
-    private ITargetAble[] targetArr;
+    //private ITargetAble[] targetArr;
     private BoxInfo playerBoxInfo;
     private Character character;
-    //private float speed = 3;
-    private bool isCollision = true;
     private Camera mainCamera;
+
+    private float curHP;
+
+    private bool isCollision = true;
+    private float invincibleTime = COLLISION_DLEAY_TIME;
 
     private void Awake()
     {
@@ -35,7 +39,8 @@ public class PlayerController : MonoBehaviour , ITargetAble
     public void Initialize()
     {
         character = PlayerManager.getInstance.GetCharacter();
-        //character.job = PlayerManager.getInstance.GetJobList()[0];
+        curHP = character.statusArr[(int)StatusEffectType.P_MaxHP].status;
+
         SetPlayerSprite(Resources.Load<Sprite>(character.job.jobSpritePath));
 
         playerBoxInfo.size = playerSpriteRenderer.bounds.size;
@@ -45,15 +50,17 @@ public class PlayerController : MonoBehaviour , ITargetAble
 
     private void Update()
     {
-        bool result = OnCollisionAABB();
+        if (!isCollision)
+        {
+            invincibleTime -= Time.deltaTime;
+            if(invincibleTime < 0)
+            {
+                isCollision = true;
+                invincibleTime = COLLISION_DLEAY_TIME;
 
-        if (result)
-        {
-            //Debug.Log("Collision");
-        }
-        else
-        {
-            //Debug.Log("Not Collision");
+
+                playerSpriteRenderer.color = Color.white;
+            }
         }
     }
 
@@ -83,46 +90,6 @@ public class PlayerController : MonoBehaviour , ITargetAble
     }
 
 
-
-    private bool OnCollisionAABB()
-    {
-
-        if(targetArr == null)
-        {
-            targetArr = MonsterManager.getInstance.GetTargetArr();
-        }
-
-        int count = targetArr.Length;
-
-        for(int i =0; i < count; i++)
-        {
-            if (targetArr[i].IsCollision())
-            {
-                BoxInfo monsterBox = targetArr[i].GetBoxInfo();
-
-                Vector2 playerCenter = playerBoxInfo.center;
-                Vector2 monsterCenter = monsterBox.center;
-
-                float playerWidth = playerBoxInfo.size.x;
-                float playerHeight = playerBoxInfo.size.y;
-                float monsterWidth = monsterBox.size.x;
-                float monsterHeight = monsterBox.size.y;
-
-
-                if (playerCenter.x - playerWidth * HALF < monsterCenter.x + monsterWidth * HALF &&
-                    playerCenter.x + playerWidth * HALF > monsterCenter.x - monsterWidth * HALF &&
-                    playerCenter.y - playerHeight * HALF < monsterCenter.y + monsterHeight * HALF &&
-                    playerCenter.y + playerHeight * HALF > monsterCenter.y - monsterHeight * HALF)
-                {
-                    return true;
-                }
-            }
-
-        }
-        return false;
-
-    }
-
     public bool IsCollision()
     {
         return isCollision;
@@ -133,8 +100,15 @@ public class PlayerController : MonoBehaviour , ITargetAble
         return playerBoxInfo;
     }
 
-    public void OnDamege()
+    public void OnDamege(int _damageAmount)
     {
+        curHP -= _damageAmount;
+        float fillAmount = curHP / character.statusArr[(int)StatusEffectType.P_MaxHP].status;
+        hpImage.fillAmount = fillAmount;
+        isCollision = false;
+
+        playerSpriteRenderer.color = Color.red;
+
         Debug.Log("Ums");
     }
 }

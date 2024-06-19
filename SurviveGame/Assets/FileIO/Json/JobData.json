@@ -7,7 +7,7 @@
                 {
                     "stringKey": "데미지 버프",
                     "effectType": 3,
-                    "amount": 10
+                    "amount": 5
                 }
             ],
             "decreaseStatus": [
@@ -19,7 +19,7 @@
                 {
                     "stringKey": "속도 너프",
                     "effectType": 11,
-                    "amount": -3
+                    "amount": -2
                 }
             ],
             "unLockId": 10003,
@@ -39,14 +39,14 @@
                 {
                     "stringKey": "속도 버프",
                     "effectType": 11,
-                    "amount": 5
+                    "amount": 2
                 }
             ],
             "decreaseStatus": [
                 {
                     "stringKey": "데미지 너프",
                     "effectType": 3,
-                    "amount": -7
+                    "amount": -5
                 }
             ],
             "unLockId": 10004,
