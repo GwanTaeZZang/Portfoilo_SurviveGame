@@ -113,15 +113,16 @@ public abstract class WeaponBase
 
         foreach (MonsterController monster in targetList)
         {
-            
-            float distance = Vector2.Distance(weapon.position, monster.transform.position);
-
-            if (compareDistance > distance)
+            if (monster.IsCollision())
             {
-                compareDistance = distance;
-                target = monster.transform;
-            }
+                float distance = Vector2.Distance(weapon.position, monster.transform.position);
 
+                if (compareDistance > distance)
+                {
+                    compareDistance = distance;
+                    target = monster.transform;
+                }
+            }
         }
     }
 

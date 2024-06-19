@@ -2,23 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class MonsterController : MonoBehaviour, ITargetAble
 {
     private const float COLLISION_RANGE = 0.3f;
     private const float COLLISION_DLEAY_TIME = 0.2f;
+    private const float CREATE_DLEAY_TIME = 1f;
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite beforeCreationImage;
     //[SerializeField] private OBBCollision obbController;
 
 
     private MonsterInfo monsterInfo;
     private BehaviorLogicBase monsterBehavior;
     private BoxInfo monsterBoxInfo;
+    private Sprite monsterSprite;
     private bool isCollision = false;
+    private bool isCreate = true;
     private ITargetAble player;
     private float curHP;
+    private float createDleayTime = CREATE_DLEAY_TIME;
     private float invincibleTime = COLLISION_DLEAY_TIME;
 
     public int monsterIdx;
@@ -30,7 +36,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         monsterBoxInfo = new BoxInfo();
-
+        spriteRenderer.sprite = beforeCreationImage;
     }
 
     private void Start()
@@ -40,29 +46,50 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
     private void Update()
     {
-        if (!isCollision)
+
+        if (!isCreate)
         {
-            invincibleTime -= Time.deltaTime;
-            if(invincibleTime < 0)
+            createDleayTime -= Time.deltaTime;
+            if(createDleayTime < 0)
             {
+                isCreate = true;
                 isCollision = true;
-                invincibleTime = COLLISION_DLEAY_TIME;
-                spriteRenderer.color = Color.white;
+                createDleayTime = CREATE_DLEAY_TIME;
+                spriteRenderer.sprite = monsterSprite;
             }
         }
 
         monsterBoxInfo.center = this.transform.position;
         //monsterBoxInfo.rot = this.transform.eulerAngles.z;
 
-        monsterBehavior?.Update();
 
-        bool result = OnCollisionAABB();
 
-        if (result)
+        if (isCreate)
         {
-            Debug.Log("Player Monster Collision");
-            player.OnDamege(1);
+            if (!isCollision)
+            {
+                invincibleTime -= Time.deltaTime;
+                if (invincibleTime < 0)
+                {
+                    isCollision = true;
+                    invincibleTime = COLLISION_DLEAY_TIME;
+                    spriteRenderer.color = Color.white;
+                }
+            }
+
+            monsterBehavior?.Update();
+
+
+            bool result = OnCollisionAABB();
+
+            if (result)
+            {
+                Debug.Log("Player Monster Collision");
+                player.OnDamege(1);
+            }
+
         }
+
 
     }
 
@@ -86,12 +113,12 @@ public class MonsterController : MonoBehaviour, ITargetAble
     {
         this.gameObject.SetActive(true);
         this.transform.position = _spwan;
-        spriteRenderer.sprite = _sprite;
-
+        spriteRenderer.sprite = beforeCreationImage;
+        monsterSprite = _sprite;
         monsterBoxInfo.center = _spwan;
         monsterBoxInfo.size = spriteRenderer.bounds.size;
-        isCollision = true;
-
+        isCollision = false;
+        isCreate = false;
 
         spriteRenderer.color = Color.white;
 
@@ -105,6 +132,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
         MonsterManager.getInstance.RemoveMonsterList(this);
 ;
         isCollision = false;
+        isCreate = false;
 
     }
 
@@ -149,6 +177,14 @@ public class MonsterController : MonoBehaviour, ITargetAble
         isCollision = false;
         spriteRenderer.color = Color.yellow;
 
+        if (isCreate)
+        {
+            Vector2 dir = monsterBoxInfo.center - player.GetBoxInfo().center;
+            Vector2 monsterPos = this.transform.position;
+            monsterPos.x += dir.normalized.x * 0.3f;
+            monsterPos.y += dir.normalized.y * 0.3f;
+            this.transform.position = monsterPos;
+        }
 
         if (curHP <= 0)
         {

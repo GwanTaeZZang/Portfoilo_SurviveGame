@@ -122,5 +122,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: -6728436181944237184}
   spriteRenderer: {fileID: 8708719934316000803}
-  obbController: {fileID: 0}
+  beforeCreationImage: {fileID: 2129895255, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
   monsterIdx: 0
