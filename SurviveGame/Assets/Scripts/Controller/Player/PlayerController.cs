@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
         return playerBoxInfo;
     }
 
-    public void OnDamege(int _damageAmount)
+    public void OnDamege(float _damageAmount)
     {
         curHP -= _damageAmount;
         float fillAmount = curHP / character.statusArr[(int)StatusEffectType.P_MaxHP].status;

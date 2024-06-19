@@ -247,6 +247,7 @@ public class ShootingWeapon : WeaponBase
         bulletQueue.Enqueue(obj);
         obj.SetPosition(parent.position);
         obj.SetTarget(MonsterManager.getInstance.GetTargetArr());
+        obj.SetDamage(weaponItemInfo.damage);
         obj.SetDirection(_dir);
         obj.OnDequeue();
 

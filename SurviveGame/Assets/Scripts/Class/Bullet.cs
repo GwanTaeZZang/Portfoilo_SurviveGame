@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour , IPoolable
     private Vector2 dir;
     private Vector2 startPos;
 
+    private float damage;
+
     private void Update()
     {
         if(dir != Vector2.zero)
@@ -44,6 +46,11 @@ public class Bullet : MonoBehaviour , IPoolable
     public void SetTarget(params ITargetAble[] _target)
     {
         obbCollision.SetTarget(_target);
+    }
+
+    public void SetDamage(float _damageAmount)
+    {
+        obbCollision.SetDamage(_damageAmount);
     }
 
     public void OnDequeue()

@@ -227,6 +227,7 @@ public class Shooting : MonsterBehavior
         bulletQueue.Enqueue(obj);
         obj.SetPosition(monster.position);
         obj.SetTarget(PlayerManager.getInstance.GetTarget());
+        obj.SetDamage(info.status[(int)MonsterStatus.M_Damage]);
         obj.SetDirection((target.position - monster.position).normalized);
         obj.SetSpeed(3);
         obj.OnDequeue();

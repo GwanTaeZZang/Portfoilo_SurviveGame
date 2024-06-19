@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class MonsterController : MonoBehaviour, ITargetAble
 {
     private const float COLLISION_RANGE = 0.3f;
+    private const float COLLISION_DLEAY_TIME = 0.2f;
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -17,8 +18,12 @@ public class MonsterController : MonoBehaviour, ITargetAble
     private BoxInfo monsterBoxInfo;
     private bool isCollision = false;
     private ITargetAble player;
+    private float curHP;
+    private float invincibleTime = COLLISION_DLEAY_TIME;
 
     public int monsterIdx;
+
+
 
     private void Awake()
     {
@@ -35,6 +40,17 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
     private void Update()
     {
+        if (!isCollision)
+        {
+            invincibleTime -= Time.deltaTime;
+            if(invincibleTime < 0)
+            {
+                isCollision = true;
+                invincibleTime = COLLISION_DLEAY_TIME;
+                spriteRenderer.color = Color.white;
+            }
+        }
+
         monsterBoxInfo.center = this.transform.position;
         //monsterBoxInfo.rot = this.transform.eulerAngles.z;
 
@@ -58,6 +74,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
     public void SetMonsterInfo(MonsterInfo _info)
     {
         monsterInfo = _info;
+        curHP = _info.status[(int)MonsterStatus.M_HP];
     }
 
     public void SetMonsterBehavior(BehaviorLogicBase _behavior)
@@ -74,6 +91,10 @@ public class MonsterController : MonoBehaviour, ITargetAble
         monsterBoxInfo.center = _spwan;
         monsterBoxInfo.size = spriteRenderer.bounds.size;
         isCollision = true;
+
+
+        spriteRenderer.color = Color.white;
+
     }
 
     public void DeadMonster()
@@ -122,8 +143,16 @@ public class MonsterController : MonoBehaviour, ITargetAble
         return isCollision;
     }
 
-    public void OnDamege(int _damageAmount)
+    public void OnDamege(float _damageAmount)
     {
-        DeadMonster();
+        curHP -= _damageAmount;
+        isCollision = false;
+        spriteRenderer.color = Color.yellow;
+
+
+        if (curHP <= 0)
+        {
+            DeadMonster();
+        }
     }
 }

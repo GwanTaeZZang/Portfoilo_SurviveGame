@@ -11,6 +11,7 @@ public class WeaponPoint : MonoBehaviour
     private Vector2 originLocalPos;
     private WeaponBase weapon;
 
+    private float damage;
     private bool isEquip = false;
 
     public void Awake()
@@ -35,6 +36,8 @@ public class WeaponPoint : MonoBehaviour
         weaponTransform.localPosition = new Vector2(0.4f, 0);
         weapon.SetWeapon(weaponTransform);
 
+        damage = _info.damage;
+
         weaponSprite.sprite = ItemManager.getInstance.GetWeaponSprite(_info.Uid);
         //weapon.anim = anim;
         isEquip = true;
@@ -43,10 +46,13 @@ public class WeaponPoint : MonoBehaviour
         if (_info.weaponType == WeaponType.ShoootingWeapon)
         {
             obbCollision.enabled = false;
+            obbCollision.SetDamage(0);
+
         }
         else
         {
             weapon.OnAttackEvent = OnAttack;
+            obbCollision.SetDamage(damage);
             //obbCollision.enabled = true;
 
         }
