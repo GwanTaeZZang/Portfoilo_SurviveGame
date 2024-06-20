@@ -15,6 +15,7 @@ public class WeaponItemInfo
 {
     public int Uid;
     public int level;
+    public int penetrateCount;
     public float damage;
     public float damageRate;
     public float attackSpeed;

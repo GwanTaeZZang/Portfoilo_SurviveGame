@@ -19,7 +19,11 @@ public class OBBCollision : MonoBehaviour
     public BoxInfo myInfo = new BoxInfo();
     public SpriteRenderer spriteRenderer;
 
-    private float damage;
+    public delegate void OnCollisionDelegate(ITargetAble _target);
+    public OnCollisionDelegate OnOBBCollisionEvent;
+
+    private int resultIdx = -1;
+    //private float damage;
 
     //private void Awake()
     //{
@@ -47,10 +51,10 @@ public class OBBCollision : MonoBehaviour
 
                 if (result)
                 {
-                    //Debug.Log("Obb Collision");
-                    targetArr[i].OnDamege(damage);
+                    //resultIdx = i;
+                    //targetArr[i].OnDamege(damage);
+                    OnOBBCollisionEvent?.Invoke(targetArr[i]);
                 }
-                
             }
         }
     }
@@ -62,10 +66,10 @@ public class OBBCollision : MonoBehaviour
         myInfo.rot = this.transform.eulerAngles.z;
     }
 
-    public void SetDamage(float _damageAmount)
-    {
-        damage = _damageAmount;
-    }
+    //public void SetDamage(float _damageAmount)
+    //{
+    //    damage = _damageAmount;
+    //}
 
     public void SetObejctSize()
     {

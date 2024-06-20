@@ -25,7 +25,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
     private ITargetAble player;
     private float curHP;
     private float createDleayTime = CREATE_DLEAY_TIME;
-    private float invincibleTime = COLLISION_DLEAY_TIME;
+    //private float invincibleTime = COLLISION_DLEAY_TIME;
 
     public int monsterIdx;
 
@@ -42,6 +42,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
     private void Start()
     {
         player = PlayerManager.getInstance.GetTarget();
+
     }
 
     private void Update()
@@ -66,16 +67,16 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
         if (isCreate)
         {
-            if (!isCollision)
-            {
-                invincibleTime -= Time.deltaTime;
-                if (invincibleTime < 0)
-                {
-                    isCollision = true;
-                    invincibleTime = COLLISION_DLEAY_TIME;
-                    spriteRenderer.color = Color.white;
-                }
-            }
+            //if (!isCollision)
+            //{
+            //    invincibleTime -= Time.deltaTime;
+            //    if (invincibleTime < 0)
+            //    {
+            //        isCollision = true;
+            //        invincibleTime = COLLISION_DLEAY_TIME;
+            //        spriteRenderer.color = Color.white;
+            //    }
+            //}
 
             monsterBehavior?.Update();
 
@@ -174,7 +175,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
     public void OnDamege(float _damageAmount)
     {
         curHP -= _damageAmount;
-        isCollision = false;
+        //isCollision = false;
         spriteRenderer.color = Color.yellow;
 
         if (isCreate)

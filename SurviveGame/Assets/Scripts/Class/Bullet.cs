@@ -14,6 +14,11 @@ public class Bullet : MonoBehaviour , IPoolable
 
     private float damage;
 
+    private void Start()
+    {
+        obbCollision.OnOBBCollisionEvent = OnOBBCollision;
+    }
+
     private void Update()
     {
         if(dir != Vector2.zero)
@@ -50,7 +55,7 @@ public class Bullet : MonoBehaviour , IPoolable
 
     public void SetDamage(float _damageAmount)
     {
-        obbCollision.SetDamage(_damageAmount);
+        damage = _damageAmount;
     }
 
     public void OnDequeue()
@@ -78,4 +83,10 @@ public class Bullet : MonoBehaviour , IPoolable
     {
         speed = _speed;
     }
+
+    private void OnOBBCollision(ITargetAble _target)
+    {
+        _target.OnDamege(damage);
+    }
+
 }

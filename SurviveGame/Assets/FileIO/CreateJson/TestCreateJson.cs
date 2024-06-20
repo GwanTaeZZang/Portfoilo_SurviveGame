@@ -24,11 +24,11 @@ public class TestCreateJson : MonoBehaviour
     private void Awake()
     {
         //CreateCharacterJobJson();
-        //CreateWeaponJson();
+        CreateWeaponJson();
         //CreateMonsterJson();
         //CreateMonsterSpwanJson();
         //CreateStageJson();
-        CreateAugmenterJson();
+        //CreateAugmenterJson();
     }
 
     private void CreateCharacterJobJson()
@@ -117,6 +117,7 @@ public class TestCreateJson : MonoBehaviour
         WeaponItemInfo info = new WeaponItemInfo();
         info.Uid = 2001;
         info.level = 1;
+        info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
         info.attackSpeed = 1f;
@@ -130,6 +131,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2002;
         info.level = 2;
+        info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
         info.attackSpeed = 0.7f;
@@ -143,6 +145,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2003;
         info.level = 3;
+        info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
         info.attackSpeed = 0.7f;
@@ -156,6 +159,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2004;
         info.level = 4;
+        info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
         info.attackSpeed = 0.5f;
@@ -167,10 +171,75 @@ public class TestCreateJson : MonoBehaviour
         weaponInfoList.Add(info);
 
 
+
+
+
+        info = new WeaponItemInfo();
+        info.Uid = 2005;
+        info.level = 1;
+        info.penetrateCount = -1;
+        info.damage = 7;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 0.5f;
+        info.attackRange = 3f;
+        info.stringKey = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_1";
+        info.weaponName = "Shovel";
+        info.weaponType = WeaponType.StingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2006;
+        info.level = 2;
+        info.penetrateCount = -1;
+        info.damage = 7;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 0.4f;
+        info.attackRange = 3f;
+        info.stringKey = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_2";
+        info.weaponName = "Shovel";
+        info.weaponType = WeaponType.StingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2007;
+        info.level = 3;
+        info.penetrateCount = -1;
+        info.damage = 8;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 0.3f;
+        info.attackRange = 4f;
+        info.stringKey = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_3";
+        info.weaponName = "Shovel";
+        info.weaponType = WeaponType.StingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2008;
+        info.level = 4;
+        info.penetrateCount = -1;
+        info.damage = 9;
+        info.damageRate = 0.5f;
+        info.attackSpeed = 0.2f;
+        info.attackRange = 4f;
+        info.stringKey = "???";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_4";
+        info.weaponName = "Shovel";
+        info.weaponType = WeaponType.StingWeapon;
+        weaponInfoList.Add(info);
+
+
+
+
+
+
         info = new WeaponItemInfo();
         info.Uid = 2011;
         info.level = 1;
-        info.damage = 5;
+        info.penetrateCount = 3;
+        info.damage = 7;
         info.damageRate = 0.3f;
         info.attackSpeed = 1f;
         info.attackRange = 6f;
@@ -183,7 +252,8 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2012;
         info.level = 2;
-        info.damage = 5;
+        info.penetrateCount = 4;
+        info.damage = 7;
         info.damageRate = 0.3f;
         info.attackSpeed = 0.7f;
         info.attackRange = 6f;
@@ -196,7 +266,8 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2013;
         info.level = 3;
-        info.damage = 5;
+        info.penetrateCount = 5;
+        info.damage = 7;
         info.damageRate = 0.3f;
         info.attackSpeed = 0.5f;
         info.attackRange = 6f;
@@ -209,15 +280,78 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2014;
         info.level = 4;
-        info.damage = 5;
+        info.penetrateCount = 6;
+        info.damage = 7;
         info.damageRate = 0.3f;
         info.attackSpeed = 0.3f;
-        info.attackRange = 8f;
+        info.attackRange = 7f;
         info.stringKey = "??";
         info.weaponSpritePath = "Sprite/Weapon/Weapon_3_4";
         info.weaponName = "Rifle";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
+
+
+
+
+
+
+        info = new WeaponItemInfo();
+        info.Uid = 2015;
+        info.level = 1;
+        info.penetrateCount = 0;
+        info.damage = 2;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 0.3f;
+        info.attackRange = 7f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_1";
+        info.weaponName = "Thompson Submachine Gun";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2016;
+        info.level = 2;
+        info.penetrateCount = 1;
+        info.damage = 3;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 0.3f;
+        info.attackRange = 7f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_2";
+        info.weaponName = "Thompson Submachine Gun";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2017;
+        info.level = 3;
+        info.penetrateCount = 1;
+        info.damage = 4;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 0.2f;
+        info.attackRange = 7f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_3";
+        info.weaponName = "Thompson Submachine Gun";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
+        info = new WeaponItemInfo();
+        info.Uid = 2018;
+        info.level = 4;
+        info.penetrateCount = 2;
+        info.damage = 5;
+        info.damageRate = 0.3f;
+        info.attackSpeed = 0.1f;
+        info.attackRange = 7f;
+        info.stringKey = "??";
+        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_4";
+        info.weaponName = "Thompson Submachine Gun";
+        info.weaponType = WeaponType.ShoootingWeapon;
+        weaponInfoList.Add(info);
+
 
         //info = new WeaponItemInfo();
         //info.Uid = 2002;

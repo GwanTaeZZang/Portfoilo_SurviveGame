@@ -17,6 +17,7 @@ public class WeaponPoint : MonoBehaviour
     public void Awake()
     {
         originLocalPos = new Vector2(0.4f, 0);
+        obbCollision.OnOBBCollisionEvent = OnOBBCollision;
     }
 
     public void Update()
@@ -46,18 +47,24 @@ public class WeaponPoint : MonoBehaviour
         if (_info.weaponType == WeaponType.ShoootingWeapon)
         {
             obbCollision.enabled = false;
-            obbCollision.SetDamage(0);
+            //obbCollision.SetDamage(0);
 
         }
         else
         {
             weapon.OnAttackEvent = OnAttack;
-            obbCollision.SetDamage(damage);
+            //obbCollision.SetDamage(damage);
             //obbCollision.enabled = true;
 
         }
 
     }
+
+    private void OnOBBCollision(ITargetAble _target)
+    {
+        _target.OnDamege(damage);
+    }
+
 
     private void OnAttack(bool _isAttack)
     {
