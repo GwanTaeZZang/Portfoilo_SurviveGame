@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character
 {
     //CharacterStatus status;
-    public CharacterStatus[] statusArr = new CharacterStatus[(int)StatusEffectType.End];
+    public CharacterStatus[] statusArr = new CharacterStatus[(int)CharacterStatusType.End];
     public Job job;
 
     public Character(Job _characterJob)
@@ -17,8 +17,8 @@ public class Character
         }
 
 
-        statusArr[(int)StatusEffectType.P_MaxHP].UpdataStatus(20f);
-        statusArr[(int)StatusEffectType.P_Speed].UpdataStatus(5f);
+        statusArr[(int)CharacterStatusType.P_MaxHP].UpdataStatus(20f);
+        statusArr[(int)CharacterStatusType.P_Speed].UpdataStatus(5f);
 
         job = _characterJob;
 
@@ -37,20 +37,20 @@ public class Character
         count = statusArr.Length;
         for(int i =0; i < count; i++)
         {
-            Debug.Log((StatusEffectType)i + " =  " + statusArr[i].status);
+            Debug.Log((CharacterStatusType)i + " =  " + statusArr[i].status);
         }
     }
 
 
-    public void UpdataStatus(StatusEffectType _type, int _amount)
+    public void UpdataStatus(CharacterStatusType _type, int _amount)
     {
         statusArr[(int)_type].UpdataStatus(_amount);
     }
-    public void UpdataRate(StatusEffectType _type, float _rate)
+    public void UpdataRate(CharacterStatusType _type, float _rate)
     {
         statusArr[(int)_type].UpdatsStatusRate(_rate);
     }
-    public void SetAbillityRate(StatusEffectType _type, float _abillityRate)
+    public void SetAbillityRate(CharacterStatusType _type, float _abillityRate)
     {
         statusArr[(int)_type].SetAbillityRate(_abillityRate);
     }
@@ -86,7 +86,7 @@ public class CharacterStatus
 
 
 [System.Serializable]
-public class JobData
+public struct JobArrJson
 {
     public Job[] jobArr;
 }
@@ -115,11 +115,11 @@ public class UniqueAbillity
 public class StatusEffect
 {
     public string stringKey;
-    public StatusEffectType effectType;
+    public CharacterStatusType effectType;
     public int amount;
 }
 
-public enum StatusEffectType
+public enum CharacterStatusType
 {
     P_MaxHP,
     P_RecoveryHp,

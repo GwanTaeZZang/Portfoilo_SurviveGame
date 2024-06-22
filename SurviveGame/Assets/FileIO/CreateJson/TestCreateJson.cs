@@ -11,14 +11,16 @@ public class TestCreateJson : MonoBehaviour
     private string waveFileName = "WaveData";
     private string stageFileName = "StageData";
     private string augmentFileName = "AugmenterData";
+    private string itemFileName = "ItemData";
 
-    private JobData jobData;
-    private WeaponData weaponData;
-    private MonsterData monsterData;
-    private MonsterGroupArrJsonModel monsterGroupData;
+    private JobArrJson jobData;
+    private WeaponArrData weaponData;
+    private MonsterInfoArrData monsterData;
+    private MonsterGroupArrJson monsterGroupData;
     //private WaveGroupData waveGroupData;
-    private StageArrJsonModel stageGroupData;
+    private StageArrJson stageGroupData;
     private AugmenterArrJson augmenterGroupData;
+    private ItemInfoArrJson itemData;
 
 
     private void Awake()
@@ -43,7 +45,7 @@ public class TestCreateJson : MonoBehaviour
 
         StatusEffect effect = new StatusEffect();
         effect.stringKey = "?????? ????";
-        effect.effectType = StatusEffectType.P_Damage;
+        effect.effectType = CharacterStatusType.P_Damage;
         effect.amount = +5;
         job1.increaseStatus[0] = effect;
 
@@ -51,13 +53,13 @@ public class TestCreateJson : MonoBehaviour
 
         effect = new StatusEffect();
         effect.stringKey = "???????? ????";
-        effect.effectType = StatusEffectType.P_AttackSpeed;
+        effect.effectType = CharacterStatusType.P_AttackSpeed;
         effect.amount = -3;
         job1.decreaseStatus[0] = effect;
 
         effect = new StatusEffect();
         effect.stringKey = "???? ????";
-        effect.effectType = StatusEffectType.P_Speed;
+        effect.effectType = CharacterStatusType.P_Speed;
         effect.amount = -2;
         job1.decreaseStatus[1] = effect;
 
@@ -78,13 +80,13 @@ public class TestCreateJson : MonoBehaviour
 
         effect = new StatusEffect();
         effect.stringKey = "???????? ????";
-        effect.effectType = StatusEffectType.P_AttackSpeed;
+        effect.effectType = CharacterStatusType.P_AttackSpeed;
         effect.amount = +5;
         job2.increaseStatus[0] = effect;
 
         effect = new StatusEffect();
         effect.stringKey = "???? ????";
-        effect.effectType = StatusEffectType.P_Speed;
+        effect.effectType = CharacterStatusType.P_Speed;
         effect.amount = +2;
         job2.increaseStatus[1] = effect;
 
@@ -92,7 +94,7 @@ public class TestCreateJson : MonoBehaviour
 
         effect = new StatusEffect();
         effect.stringKey = "?????? ????";
-        effect.effectType = StatusEffectType.P_Damage;
+        effect.effectType = CharacterStatusType.P_Damage;
         effect.amount = -5;
         job2.decreaseStatus[0] = effect;
 
@@ -106,7 +108,7 @@ public class TestCreateJson : MonoBehaviour
         jobArr[1] = job2;
 
 
-        jobData = new JobData();
+        jobData = new JobArrJson();
         jobData.jobArr = jobArr;
     }
 
@@ -117,6 +119,7 @@ public class TestCreateJson : MonoBehaviour
         WeaponItemInfo info = new WeaponItemInfo();
         info.Uid = 2001;
         info.level = 1;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
@@ -131,6 +134,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2002;
         info.level = 2;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
@@ -145,6 +149,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2003;
         info.level = 3;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
@@ -159,6 +164,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2004;
         info.level = 4;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 10;
         info.damageRate = 0.5f;
@@ -177,6 +183,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2005;
         info.level = 1;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 7;
         info.damageRate = 0.5f;
@@ -191,6 +198,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2006;
         info.level = 2;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 7;
         info.damageRate = 0.5f;
@@ -205,6 +213,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2007;
         info.level = 3;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 8;
         info.damageRate = 0.5f;
@@ -219,6 +228,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2008;
         info.level = 4;
+        info.price = 10;
         info.penetrateCount = -1;
         info.damage = 9;
         info.damageRate = 0.5f;
@@ -238,6 +248,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2011;
         info.level = 1;
+        info.price = 10;
         info.penetrateCount = 3;
         info.damage = 7;
         info.damageRate = 0.3f;
@@ -252,6 +263,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2012;
         info.level = 2;
+        info.price = 10;
         info.penetrateCount = 4;
         info.damage = 7;
         info.damageRate = 0.3f;
@@ -266,6 +278,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2013;
         info.level = 3;
+        info.price = 10;
         info.penetrateCount = 5;
         info.damage = 7;
         info.damageRate = 0.3f;
@@ -280,6 +293,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2014;
         info.level = 4;
+        info.price = 10;
         info.penetrateCount = 6;
         info.damage = 7;
         info.damageRate = 0.3f;
@@ -299,6 +313,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2015;
         info.level = 1;
+        info.price = 10;
         info.penetrateCount = 0;
         info.damage = 2;
         info.damageRate = 0.3f;
@@ -313,6 +328,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2016;
         info.level = 2;
+        info.price = 10;
         info.penetrateCount = 1;
         info.damage = 3;
         info.damageRate = 0.3f;
@@ -327,6 +343,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2017;
         info.level = 3;
+        info.price = 10;
         info.penetrateCount = 1;
         info.damage = 4;
         info.damageRate = 0.3f;
@@ -341,6 +358,7 @@ public class TestCreateJson : MonoBehaviour
         info = new WeaponItemInfo();
         info.Uid = 2018;
         info.level = 4;
+        info.price = 10;
         info.penetrateCount = 2;
         info.damage = 5;
         info.damageRate = 0.3f;
@@ -367,7 +385,7 @@ public class TestCreateJson : MonoBehaviour
         //weaponInfoArr[2] = info;
 
 
-        weaponData = new WeaponData();
+        weaponData = new WeaponArrData();
         weaponData.weaponArr = weaponInfoList.ToArray();
     }
 
@@ -377,12 +395,12 @@ public class TestCreateJson : MonoBehaviour
         MonsterInfo info = new MonsterInfo();
         info.Uid = 3000;
 
-        float[] statusArr = new float[(int)MonsterStatus.End];
-        statusArr[(int)MonsterStatus.M_HP] = 10;
-        statusArr[(int)MonsterStatus.M_Damage] = 1;
-        statusArr[(int)MonsterStatus.M_Speed] = 2;
-        statusArr[(int)MonsterStatus.M_AttackSpeed] = 1;
-        statusArr[(int)MonsterStatus.M_AttackRange] = 1;
+        float[] statusArr = new float[(int)MonsterStatusType.End];
+        statusArr[(int)MonsterStatusType.M_HP] = 10;
+        statusArr[(int)MonsterStatusType.M_Damage] = 1;
+        statusArr[(int)MonsterStatusType.M_Speed] = 2;
+        statusArr[(int)MonsterStatusType.M_AttackSpeed] = 1;
+        statusArr[(int)MonsterStatusType.M_AttackRange] = 1;
 
         info.status = statusArr;
         //info.hp = 10;
@@ -401,12 +419,12 @@ public class TestCreateJson : MonoBehaviour
         info = new MonsterInfo();
         info.Uid = 3001;
 
-        statusArr = new float[(int)MonsterStatus.End];
-        statusArr[(int)MonsterStatus.M_HP] = 10;
-        statusArr[(int)MonsterStatus.M_Damage] = 1;
-        statusArr[(int)MonsterStatus.M_Speed] = 1.5f;
-        statusArr[(int)MonsterStatus.M_AttackSpeed] = 3;
-        statusArr[(int)MonsterStatus.M_AttackRange] = 4;
+        statusArr = new float[(int)MonsterStatusType.End];
+        statusArr[(int)MonsterStatusType.M_HP] = 10;
+        statusArr[(int)MonsterStatusType.M_Damage] = 1;
+        statusArr[(int)MonsterStatusType.M_Speed] = 1.5f;
+        statusArr[(int)MonsterStatusType.M_AttackSpeed] = 3;
+        statusArr[(int)MonsterStatusType.M_AttackRange] = 4;
 
         info.status = statusArr;
 
@@ -423,7 +441,7 @@ public class TestCreateJson : MonoBehaviour
         info.attackType = MonsterAttackBehaviorType.Shooting;
         monsterInfoArr[1] = info;
 
-        monsterData = new MonsterData();
+        monsterData = new MonsterInfoArrData();
         monsterData.monsterArr = monsterInfoArr;
     }
 
@@ -828,7 +846,251 @@ public class TestCreateJson : MonoBehaviour
         augmenterGroupData.augmenterArr = augmenterDataList.ToArray();
     }
 
+    private void CreateItemJson()
+    {
+        List<ItemInfo> itemInfoList = new List<ItemInfo>();
 
+        ItemInfo info = new ItemInfo();
+        info.Uid = 6001;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_0";
+        info.itemName = "HP";
+        info.itemContent = "Increase player HP and Monster HP";
+
+        List<ItemEffect> itemEffectList = new List<ItemEffect>();
+
+        ItemEffect effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        effect.amount = +3f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.M_HP;
+        effect.amount = +3f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+        info = new ItemInfo();
+        info.Uid = 6002;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_1";
+        info.itemName = "Up Attack Speed";
+        info.itemContent = "Increase player Attack Speed and Decrease player Damage";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_AttackSpeed;
+        effect.amount = +3f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect.amount = -2f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6003;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_2";
+        info.itemName = "Up Damage";
+        info.itemContent = "Increase player Damage and Decrease player Speed";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect.amount = +3f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_Speed;
+        effect.amount = -2f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6004;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_3";
+        info.itemName = "Up Range";
+        info.itemContent = "Increase player Attack Range and Monster Damage";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_AttackRange;
+        effect.amount = +1f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.M_Damage;
+        effect.amount = +2f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6005;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_4";
+        info.itemName = "Up Speed";
+        info.itemContent = "Increase player Speed and Decrease player HP";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_Speed;
+        effect.amount = +3f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        effect.amount = -2f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6006;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_5";
+        info.itemName = "SuperUP Damage Attack Speed";
+        info.itemContent = "Increase player Damage and Attack Speed";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect.amount = +1f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_AttackSpeed;
+        effect.amount = +1f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6007;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_6";
+        info.itemName = "SuperUp Speed HP";
+        info.itemContent = "Increase player Speed and HP";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_Speed;
+        effect.amount = +1f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        effect.amount = +1f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6008;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_7";
+        info.itemName = "Up Attack Speed";
+        info.itemContent = "Increase player Attack Speed and Monster Damage";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_AttackSpeed;
+        effect.amount = +3f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.M_Damage;
+        effect.amount = +2;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6009;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_8";
+        info.itemName = "Up HP";
+        info.itemContent = "Increase player HP and Monster Damage";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        effect.amount = +3f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.M_Damage;
+        effect.amount = +2f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+
+        info = new ItemInfo();
+        info.Uid = 6010;
+        info.price = 10;
+        info.itemSpritePath = "Sprite/Item/Item_9";
+        info.itemName = "Down Damage";
+        info.itemContent = "Decrease player Damage and Decrease Monster HP";
+
+        itemEffectList = new List<ItemEffect>();
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect.amount = -3f;
+        itemEffectList.Add(effect);
+
+        effect = new ItemEffect();
+        effect.statusEffectType = ItemEffectType.M_HP;
+        effect.amount = -2f;
+        itemEffectList.Add(effect);
+
+        info.itemEffectArr = itemEffectList.ToArray();
+        itemInfoList.Add(info);
+
+
+        itemData.itemInfoArr = itemInfoList.ToArray();
+
+    }
 
 
 
@@ -841,7 +1103,7 @@ public class TestCreateJson : MonoBehaviour
             Debug.Log("???? ???? ???? ");
             return;
         }
-        JsonController.WriteJson<JobData>(jobFileName, jobData);
+        JsonController.WriteJson<JobArrJson>(jobFileName, jobData);
     }
 
 
@@ -853,7 +1115,7 @@ public class TestCreateJson : MonoBehaviour
             Debug.Log("???? ???? ???? ");
             return;
         }
-        JsonController.WriteJson<WeaponData>(weaponFileName, weaponData);
+        JsonController.WriteJson<WeaponArrData>(weaponFileName, weaponData);
     }
 
     [ContextMenu("To Json Monster Data")]
@@ -865,7 +1127,7 @@ public class TestCreateJson : MonoBehaviour
             Debug.Log("???? ???? ???? ");
             return;
         }
-        JsonController.WriteJson<MonsterData>(monsterFileName, monsterData);
+        JsonController.WriteJson<MonsterInfoArrData>(monsterFileName, monsterData);
 
     }
 
@@ -878,7 +1140,7 @@ public class TestCreateJson : MonoBehaviour
             return;
         }
 
-        JsonController.WriteJson<MonsterGroupArrJsonModel>(monsterSpwanFileName, monsterGroupData);
+        JsonController.WriteJson<MonsterGroupArrJson>(monsterSpwanFileName, monsterGroupData);
     }
 
     [ContextMenu("To Json Wave Data")]
@@ -902,7 +1164,7 @@ public class TestCreateJson : MonoBehaviour
             return;
         }
 
-        JsonController.WriteJson<StageArrJsonModel>(stageFileName, stageGroupData);
+        JsonController.WriteJson<StageArrJson>(stageFileName, stageGroupData);
     }
 
     [ContextMenu("To Json Augmenter Data")]
@@ -915,6 +1177,18 @@ public class TestCreateJson : MonoBehaviour
         }
 
         JsonController.WriteJson<AugmenterArrJson>(augmentFileName, augmenterGroupData);
+    }
+
+    [ContextMenu("To Json Item Data")]
+    private void SaveToJsonItemData()
+    {
+        if (itemFileName == "")
+        {
+            Debug.Log("File Name is Null");
+            return;
+        }
+
+        JsonController.WriteJson<ItemInfoArrJson>(itemFileName, itemData);
     }
 
 }

@@ -176,7 +176,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private void LoadMonsterData()
     {
-        MonsterData monsterData = JsonController.ReadJson<MonsterData>("MonsterData");
+        MonsterInfoArrData monsterData = JsonController.ReadJson<MonsterInfoArrData>("MonsterData");
         int count = monsterData.monsterArr.Length;
 
         for(int i =0; i < count; i++)

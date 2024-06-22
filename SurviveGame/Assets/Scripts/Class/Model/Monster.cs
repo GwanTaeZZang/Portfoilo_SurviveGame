@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MonsterData
+public struct MonsterInfoArrData
 {
     public MonsterInfo[] monsterArr;
 }
@@ -19,7 +19,7 @@ public class MonsterInfo
     //public float attackSpeed;
     //public float attackRange;
 
-    public float[] status = new float[(int)MonsterStatus.End];
+    public float[] status = new float[(int)MonsterStatusType.End];
 
     public string stringKey;
     public string monsterSpritePath;
@@ -29,7 +29,7 @@ public class MonsterInfo
     public MonsterAttackBehaviorType attackType;
 }
 
-public enum MonsterStatus
+public enum MonsterStatusType
 {
     M_HP,
     M_Damage,
@@ -203,17 +203,17 @@ public class Shooting : MonsterBehavior
         bulletQueue = new Queue<Bullet>();
         monsterBullet = ObjectPoolManager.getInstance.GetPool<Bullet>();
 
-        info.status[(int)MonsterStatus.M_Speed] = 3f;
+        info.status[(int)MonsterStatusType.M_Speed] = 3f;
     }
 
     private void AttackCool()
     {
         float distance = Vector2.Distance(target.position, monster.position);
-        if(distance < info.status[(int)MonsterStatus.M_AttackRange])
+        if(distance < info.status[(int)MonsterStatusType.M_AttackRange])
         {
             coolTime += Time.deltaTime;
             //Debug.Log("monster atteck cool");
-            if (coolTime > info.status[(int)MonsterStatus.M_AttackSpeed])
+            if (coolTime > info.status[(int)MonsterStatusType.M_AttackSpeed])
             {
                 Shoot();
                 coolTime = 0;
@@ -227,7 +227,7 @@ public class Shooting : MonsterBehavior
         bulletQueue.Enqueue(obj);
         obj.SetPosition(monster.position);
         obj.SetTarget(PlayerManager.getInstance.GetTarget());
-        obj.SetDamage(info.status[(int)MonsterStatus.M_Damage]);
+        obj.SetDamage(info.status[(int)MonsterStatusType.M_Damage]);
         obj.SetDirection((target.position - monster.position).normalized);
         obj.SetSpeed(3);
         obj.OnDequeue();
@@ -273,8 +273,8 @@ public class ApproachToTarget : MonsterBehavior
 
         Vector2 dir = targetPos - monsterPos;
 
-        monsterPos.x += dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
-        monsterPos.y += dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
+        monsterPos.x += dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatusType.M_Speed];
+        monsterPos.y += dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatusType.M_Speed];
 
         monster.position = monsterPos;
     }
@@ -304,18 +304,18 @@ public class RunAwayFromTarget : MonsterBehavior
         Vector2 dir = targetPos - monsterPos;
         float distance = Vector2.Distance(monsterPos, targetPos);
 
-        if(distance > info.status[(int)MonsterStatus.M_AttackRange])
+        if(distance > info.status[(int)MonsterStatusType.M_AttackRange])
         {
-            monsterPos.x += dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
-            monsterPos.y += dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
+            monsterPos.x += dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatusType.M_Speed];
+            monsterPos.y += dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatusType.M_Speed];
 
             monster.position = monsterPos;
         }
 
-        if(distance < info.status[(int)MonsterStatus.M_AttackRange] * 0.8f)
+        if(distance < info.status[(int)MonsterStatusType.M_AttackRange] * 0.8f)
         {
-            monsterPos.x -= dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
-            monsterPos.y -= dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatus.M_Speed];
+            monsterPos.x -= dir.normalized.x * Time.deltaTime * info.status[(int)MonsterStatusType.M_Speed];
+            monsterPos.y -= dir.normalized.y * Time.deltaTime * info.status[(int)MonsterStatusType.M_Speed];
 
             monster.position = monsterPos;
 

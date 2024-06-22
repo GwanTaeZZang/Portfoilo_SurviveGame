@@ -142,7 +142,7 @@ public class ItemManager : Singleton<ItemManager>
 
     private void LoadWeaponData()
     {
-        WeaponData weaponData = JsonController.ReadJson<WeaponData>("WeaponData");
+        WeaponArrData weaponData = JsonController.ReadJson<WeaponArrData>("WeaponData");
         int count = weaponData.weaponArr.Length;
         for (int i = 0; i < count; i++)
         {

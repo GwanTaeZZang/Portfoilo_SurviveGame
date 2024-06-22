@@ -102,7 +102,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
     public void SetMonsterInfo(MonsterInfo _info)
     {
         monsterInfo = _info;
-        curHP = _info.status[(int)MonsterStatus.M_HP];
+        curHP = _info.status[(int)MonsterStatusType.M_HP];
     }
 
     public void SetMonsterBehavior(BehaviorLogicBase _behavior)

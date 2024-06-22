@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class WeaponData
+public struct WeaponArrData
 {
     public WeaponItemInfo[] weaponArr;
 }
@@ -15,6 +15,7 @@ public class WeaponItemInfo
 {
     public int Uid;
     public int level;
+    public int price;
     public int penetrateCount;
     public float damage;
     public float damageRate;

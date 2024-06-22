@@ -56,7 +56,7 @@ public class PlayerManager : Singleton<PlayerManager>
     }
     private void LoadJobData()
     {
-        JobData jobData = JsonController.ReadJson<JobData>("JobData");
+        JobArrJson jobData = JsonController.ReadJson<JobArrJson>("JobData");
         int count = jobData.jobArr.Length;
         for(int i = 0; i < count; i++)
         {

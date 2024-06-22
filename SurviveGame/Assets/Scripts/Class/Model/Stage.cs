@@ -51,7 +51,7 @@ using UnityEngine;
 //////////////////////////////////////
 ///
 [System.Serializable]
-public struct StageArrJsonModel
+public struct StageArrJson
 {
     public StageData[] stageDataArr;
 }
@@ -67,7 +67,7 @@ public class StageData
 }
 
 [System.Serializable]
-public struct MonsterGroupArrJsonModel
+public struct MonsterGroupArrJson
 {
     public MonsterGroupJsonModel[] modelArr;
 }

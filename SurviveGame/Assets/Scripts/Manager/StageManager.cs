@@ -96,7 +96,7 @@ public class StageManager : Singleton<StageManager>
 
     private void LoadMonsterSpwanData()
     {
-        MonsterGroupArrJsonModel monsterSpwanGroupData = JsonController.ReadJson<MonsterGroupArrJsonModel>("MonsterSpwanData");
+        MonsterGroupArrJson monsterSpwanGroupData = JsonController.ReadJson<MonsterGroupArrJson>("MonsterSpwanData");
 
         int count = monsterSpwanGroupData.modelArr.Length;
 
@@ -129,7 +129,7 @@ public class StageManager : Singleton<StageManager>
 
     private void LoadStageData()
     {
-        StageArrJsonModel stageData = JsonController.ReadJson<StageArrJsonModel>("StageData");
+        StageArrJson stageData = JsonController.ReadJson<StageArrJson>("StageData");
         int count = stageData.stageDataArr.Length;
 
         for (int i = 0; i < count; i++)

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
     public void Initialize()
     {
         character = PlayerManager.getInstance.GetCharacter();
-        curHP = character.statusArr[(int)StatusEffectType.P_MaxHP].status;
+        curHP = character.statusArr[(int)CharacterStatusType.P_MaxHP].status;
 
         SetPlayerSprite(Resources.Load<Sprite>(character.job.jobSpritePath));
 
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
         if (_dir == Vector2.zero)
             return;
 
-        float speed = character.statusArr[(int)StatusEffectType.P_Speed].status;
+        float speed = character.statusArr[(int)CharacterStatusType.P_Speed].status;
 
 
         Vector3 curPos = this.transform.position;
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
     public void OnDamege(float _damageAmount)
     {
         curHP -= _damageAmount;
-        float fillAmount = curHP / character.statusArr[(int)StatusEffectType.P_MaxHP].status;
+        float fillAmount = curHP / character.statusArr[(int)CharacterStatusType.P_MaxHP].status;
         hpImage.fillAmount = fillAmount;
         isCollision = false;
 

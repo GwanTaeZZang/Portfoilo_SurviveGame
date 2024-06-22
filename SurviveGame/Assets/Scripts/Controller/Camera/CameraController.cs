@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
         if (_dir == Vector2.zero)
             return;
 
-        float speed = character.statusArr[(int)StatusEffectType.P_Speed].status;
+        float speed = character.statusArr[(int)CharacterStatusType.P_Speed].status;
 
 
         Vector3 curPos = this.transform.position;
