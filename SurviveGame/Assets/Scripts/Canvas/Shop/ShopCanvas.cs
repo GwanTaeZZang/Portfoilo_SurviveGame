@@ -14,7 +14,7 @@ public class ShopCanvas : UIBaseController
     [SerializeField] private Button showStatusBtn;
     [SerializeField] private Button showItemBtn;
     // PassiveItem
-    [SerializeField] private ShopEquipItemElement equipItemElement;
+    [SerializeField] private ShopEquipPassiveItemElement equipItemElement;
     [SerializeField] private Transform equipItemElementParent;
     [SerializeField] private GameObject statusZone;
     [SerializeField] private GameObject equipItemZone;
@@ -22,7 +22,7 @@ public class ShopCanvas : UIBaseController
     private ItemManager itemMgr;
     //private List<WeaponItemInfo> weaponList;
     private List<BaseItemInfo> itemList;
-    private List<ShopEquipItemElement> passiveItemSlotList = new List<ShopEquipItemElement>();
+    private List<ShopEquipPassiveItemElement> passiveItemSlotList = new List<ShopEquipPassiveItemElement>();
     private WeaponItemInfo[] equipWeaponArr;
     private List<PassiveItemInfo> equipPassiveItemList = new List<PassiveItemInfo>();
     //private WeaponItemInfo[] itemElementinfoArr = new WeaponItemInfo[4];
@@ -100,7 +100,7 @@ public class ShopCanvas : UIBaseController
         int count = equipPassiveItemList.Count;
         for(int i =0; i < count; i++)
         {
-            ShopEquipItemElement slot = passiveItemSlotList[i];
+            ShopEquipPassiveItemElement slot = passiveItemSlotList[i];
             PassiveItemInfo info = equipPassiveItemList[i];
 
             slot.gameObject.SetActive(true);
@@ -149,7 +149,7 @@ public class ShopCanvas : UIBaseController
         int count = 100;
         for(int i =0; i< count; i++)
         {
-            ShopEquipItemElement element = GameObject.Instantiate<ShopEquipItemElement>(equipItemElement, equipItemElementParent);
+            ShopEquipPassiveItemElement element = GameObject.Instantiate<ShopEquipPassiveItemElement>(equipItemElement, equipItemElementParent);
             element.gameObject.SetActive(false);
 
             passiveItemSlotList.Add(element);
