@@ -11,7 +11,12 @@ public class ShopCanvas : UIBaseController
     [SerializeField] private Button startWaveBtn;
     [SerializeField] private EquipWeaponOptionpopup optionPopup;
     [SerializeField] private Button rerollBtn;
-
+    [SerializeField] private Button showStatusBtn;
+    [SerializeField] private Button showItemBtn;
+    [SerializeField] private ShopEquipItemElement equipItemElement;
+    [SerializeField] private Transform equipItemElementParent;
+    [SerializeField] private GameObject statusZone;
+    [SerializeField] private GameObject equipItemZone;
 
     private List<WeaponItemInfo> weaponList;
     private WeaponItemInfo[] equipWeaponArr;
@@ -27,6 +32,9 @@ public class ShopCanvas : UIBaseController
         equipWeaponArr = ItemManager.getInstance.GetEquipmentWeaponArr();
 
         BindButtonEvent();
+
+
+        ShowEquipItem();
     }
 
     public override void Show()
@@ -34,6 +42,8 @@ public class ShopCanvas : UIBaseController
         base.Show();
         UpdateItemElementInfo();
         UpdateEquipWeaponInfo();
+
+        OnClickShowStatusZoneButton();
     }
 
 
@@ -98,6 +108,15 @@ public class ShopCanvas : UIBaseController
         return -1;
     }
 
+    private void ShowEquipItem()
+    {
+        int count = 100;
+        for(int i =0; i< count; i++)
+        {
+            GameObject.Instantiate<ShopEquipItemElement>(equipItemElement, equipItemElementParent);
+        }
+    }
+
     private void BindButtonEvent()
     {
         int count = itemElementList.Count;
@@ -118,10 +137,27 @@ public class ShopCanvas : UIBaseController
         optionPopup.GetSynthesisButtonEvent().AddListener(OnClickOptionSynthesisButton);
         optionPopup.GetSellButtonEvent().AddListener(OnClickOptionSellButton);
 
-
         rerollBtn.onClick.AddListener(OnClickReRollBtn);
+
+        showStatusBtn.onClick.AddListener(OnClickShowStatusZoneButton);
+        showItemBtn.onClick.AddListener(OnClickShowEuquipItemZoneButton);
+
     }
 
+
+    private void OnClickShowStatusZoneButton()
+    {
+        statusZone.SetActive(true);
+        equipItemZone.SetActive(false);
+
+    }
+
+    private void OnClickShowEuquipItemZoneButton()
+    {
+        statusZone.SetActive(false);
+        equipItemZone.SetActive(true);
+
+    }
 
     private void OnClickOptionCancleButton()
     {
