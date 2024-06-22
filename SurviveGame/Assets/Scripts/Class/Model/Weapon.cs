@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [System.Serializable]
 public struct WeaponArrData
 {
@@ -11,19 +10,19 @@ public struct WeaponArrData
 
 
 [System.Serializable]
-public class WeaponItemInfo
+public class WeaponItemInfo : BaseItemInfo
 {
-    public int Uid;
+    //public int Uid;
     public int level;
-    public int price;
+    //public int price;
     public int penetrateCount;
     public float damage;
     public float damageRate;
     public float attackSpeed;
     public float attackRange;
     public string stringKey;
-    public string weaponSpritePath;
-    public string weaponName;
+    //public string itemSpritePath;
+    //public string itemName;
     public WeaponType weaponType;
 }
 

@@ -31,6 +31,7 @@ public class TestCreateJson : MonoBehaviour
         //CreateMonsterSpwanJson();
         //CreateStageJson();
         //CreateAugmenterJson();
+        CreateItemJson();
     }
 
     private void CreateCharacterJobJson()
@@ -118,6 +119,7 @@ public class TestCreateJson : MonoBehaviour
 
         WeaponItemInfo info = new WeaponItemInfo();
         info.Uid = 2001;
+        info.itemType = ItemType.WeaponType;
         info.level = 1;
         info.price = 10;
         info.penetrateCount = -1;
@@ -126,13 +128,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 1f;
         info.attackRange = 3f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_1";
-        info.weaponName = "Spear";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_1_1";
+        info.itemName = "Spear";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2002;
+        info.itemType = ItemType.WeaponType;
         info.level = 2;
         info.price = 10;
         info.penetrateCount = -1;
@@ -141,13 +144,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.7f;
         info.attackRange = 3f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_2";
-        info.weaponName = "Spear";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_1_2";
+        info.itemName = "Spear";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2003;
+        info.itemType = ItemType.WeaponType;
         info.level = 3;
         info.price = 10;
         info.penetrateCount = -1;
@@ -156,13 +160,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.7f;
         info.attackRange = 5f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_3";
-        info.weaponName = "Spear";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_1_3";
+        info.itemName = "Spear";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2004;
+        info.itemType = ItemType.WeaponType;
         info.level = 4;
         info.price = 10;
         info.penetrateCount = -1;
@@ -171,8 +176,8 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.5f;
         info.attackRange = 6f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_1_4";
-        info.weaponName = "Spear";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_1_4";
+        info.itemName = "Spear";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
@@ -182,6 +187,7 @@ public class TestCreateJson : MonoBehaviour
 
         info = new WeaponItemInfo();
         info.Uid = 2005;
+        info.itemType = ItemType.WeaponType;
         info.level = 1;
         info.price = 10;
         info.penetrateCount = -1;
@@ -190,13 +196,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.5f;
         info.attackRange = 3f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_1";
-        info.weaponName = "Shovel";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_2_1";
+        info.itemName = "Shovel";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2006;
+        info.itemType = ItemType.WeaponType;
         info.level = 2;
         info.price = 10;
         info.penetrateCount = -1;
@@ -205,13 +212,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.4f;
         info.attackRange = 3f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_2";
-        info.weaponName = "Shovel";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_2_2";
+        info.itemName = "Shovel";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2007;
+        info.itemType = ItemType.WeaponType;
         info.level = 3;
         info.price = 10;
         info.penetrateCount = -1;
@@ -220,13 +228,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.3f;
         info.attackRange = 4f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_3";
-        info.weaponName = "Shovel";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_2_3";
+        info.itemName = "Shovel";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2008;
+        info.itemType = ItemType.WeaponType;
         info.level = 4;
         info.price = 10;
         info.penetrateCount = -1;
@@ -235,8 +244,8 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.2f;
         info.attackRange = 4f;
         info.stringKey = "???";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_2_4";
-        info.weaponName = "Shovel";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_2_4";
+        info.itemName = "Shovel";
         info.weaponType = WeaponType.StingWeapon;
         weaponInfoList.Add(info);
 
@@ -247,6 +256,7 @@ public class TestCreateJson : MonoBehaviour
 
         info = new WeaponItemInfo();
         info.Uid = 2011;
+        info.itemType = ItemType.WeaponType;
         info.level = 1;
         info.price = 10;
         info.penetrateCount = 3;
@@ -255,13 +265,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 1f;
         info.attackRange = 6f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_1";
-        info.weaponName = "Rifle";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_3_1";
+        info.itemName = "Rifle";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2012;
+        info.itemType = ItemType.WeaponType;
         info.level = 2;
         info.price = 10;
         info.penetrateCount = 4;
@@ -270,13 +281,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.7f;
         info.attackRange = 6f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_2";
-        info.weaponName = "Rifle";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_3_2";
+        info.itemName = "Rifle";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2013;
+        info.itemType = ItemType.WeaponType;
         info.level = 3;
         info.price = 10;
         info.penetrateCount = 5;
@@ -285,13 +297,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.5f;
         info.attackRange = 6f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_3";
-        info.weaponName = "Rifle";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_3_3";
+        info.itemName = "Rifle";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2014;
+        info.itemType = ItemType.WeaponType;
         info.level = 4;
         info.price = 10;
         info.penetrateCount = 6;
@@ -300,8 +313,8 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.3f;
         info.attackRange = 7f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_3_4";
-        info.weaponName = "Rifle";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_3_4";
+        info.itemName = "Rifle";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
@@ -312,6 +325,7 @@ public class TestCreateJson : MonoBehaviour
 
         info = new WeaponItemInfo();
         info.Uid = 2015;
+        info.itemType = ItemType.WeaponType;
         info.level = 1;
         info.price = 10;
         info.penetrateCount = 0;
@@ -320,13 +334,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.3f;
         info.attackRange = 7f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_1";
-        info.weaponName = "Thompson Submachine Gun";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_4_1";
+        info.itemName = "Thompson Submachine Gun";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2016;
+        info.itemType = ItemType.WeaponType;
         info.level = 2;
         info.price = 10;
         info.penetrateCount = 1;
@@ -335,13 +350,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.3f;
         info.attackRange = 7f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_2";
-        info.weaponName = "Thompson Submachine Gun";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_4_2";
+        info.itemName = "Thompson Submachine Gun";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2017;
+        info.itemType = ItemType.WeaponType;
         info.level = 3;
         info.price = 10;
         info.penetrateCount = 1;
@@ -350,13 +366,14 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.2f;
         info.attackRange = 7f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_3";
-        info.weaponName = "Thompson Submachine Gun";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_4_3";
+        info.itemName = "Thompson Submachine Gun";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
         info = new WeaponItemInfo();
         info.Uid = 2018;
+        info.itemType = ItemType.WeaponType;
         info.level = 4;
         info.price = 10;
         info.penetrateCount = 2;
@@ -365,8 +382,8 @@ public class TestCreateJson : MonoBehaviour
         info.attackSpeed = 0.1f;
         info.attackRange = 7f;
         info.stringKey = "??";
-        info.weaponSpritePath = "Sprite/Weapon/Weapon_4_4";
-        info.weaponName = "Thompson Submachine Gun";
+        info.itemSpritePath = "Sprite/Weapon/Weapon_4_4";
+        info.itemName = "Thompson Submachine Gun";
         info.weaponType = WeaponType.ShoootingWeapon;
         weaponInfoList.Add(info);
 
@@ -848,24 +865,25 @@ public class TestCreateJson : MonoBehaviour
 
     private void CreateItemJson()
     {
-        List<ItemInfo> itemInfoList = new List<ItemInfo>();
+        List<PassiveItemInfo> itemInfoList = new List<PassiveItemInfo>();
 
-        ItemInfo info = new ItemInfo();
+        PassiveItemInfo info = new PassiveItemInfo();
         info.Uid = 6001;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_0";
         info.itemName = "HP";
         info.itemContent = "Increase player HP and Monster HP";
 
-        List<ItemEffect> itemEffectList = new List<ItemEffect>();
+        List<PassiveItemEffect> itemEffectList = new List<PassiveItemEffect>();
 
-        ItemEffect effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        PassiveItemEffect effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_MaxHP;
         effect.amount = +3f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.M_HP;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.M_HP;
         effect.amount = +3f;
         itemEffectList.Add(effect);
 
@@ -873,22 +891,23 @@ public class TestCreateJson : MonoBehaviour
         itemInfoList.Add(info);
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6002;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_1";
         info.itemName = "Up Attack Speed";
         info.itemContent = "Increase player Attack Speed and Decrease player Damage";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_AttackSpeed;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_AttackSpeed;
         effect.amount = +3f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_Damage;
         effect.amount = -2f;
         itemEffectList.Add(effect);
 
@@ -897,22 +916,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6003;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_2";
         info.itemName = "Up Damage";
         info.itemContent = "Increase player Damage and Decrease player Speed";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_Damage;
         effect.amount = +3f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_Speed;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_Speed;
         effect.amount = -2f;
         itemEffectList.Add(effect);
 
@@ -921,22 +941,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6004;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_3";
         info.itemName = "Up Range";
         info.itemContent = "Increase player Attack Range and Monster Damage";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_AttackRange;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_AttackRange;
         effect.amount = +1f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.M_Damage;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.M_Damage;
         effect.amount = +2f;
         itemEffectList.Add(effect);
 
@@ -945,22 +966,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6005;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_4";
         info.itemName = "Up Speed";
         info.itemContent = "Increase player Speed and Decrease player HP";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_Speed;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_Speed;
         effect.amount = +3f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_MaxHP;
         effect.amount = -2f;
         itemEffectList.Add(effect);
 
@@ -969,22 +991,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6006;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_5";
         info.itemName = "SuperUP Damage Attack Speed";
         info.itemContent = "Increase player Damage and Attack Speed";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_Damage;
         effect.amount = +1f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_AttackSpeed;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_AttackSpeed;
         effect.amount = +1f;
         itemEffectList.Add(effect);
 
@@ -993,22 +1016,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6007;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_6";
         info.itemName = "SuperUp Speed HP";
         info.itemContent = "Increase player Speed and HP";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_Speed;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_Speed;
         effect.amount = +1f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_MaxHP;
         effect.amount = +1f;
         itemEffectList.Add(effect);
 
@@ -1017,22 +1041,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6008;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_7";
         info.itemName = "Up Attack Speed";
         info.itemContent = "Increase player Attack Speed and Monster Damage";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_AttackSpeed;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_AttackSpeed;
         effect.amount = +3f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.M_Damage;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.M_Damage;
         effect.amount = +2;
         itemEffectList.Add(effect);
 
@@ -1041,22 +1066,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6009;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_8";
         info.itemName = "Up HP";
         info.itemContent = "Increase player HP and Monster Damage";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_MaxHP;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_MaxHP;
         effect.amount = +3f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.M_Damage;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.M_Damage;
         effect.amount = +2f;
         itemEffectList.Add(effect);
 
@@ -1065,22 +1091,23 @@ public class TestCreateJson : MonoBehaviour
 
 
 
-        info = new ItemInfo();
+        info = new PassiveItemInfo();
         info.Uid = 6010;
+        info.itemType = ItemType.PassiveType;
         info.price = 10;
         info.itemSpritePath = "Sprite/Item/Item_9";
         info.itemName = "Down Damage";
         info.itemContent = "Decrease player Damage and Decrease Monster HP";
 
-        itemEffectList = new List<ItemEffect>();
+        itemEffectList = new List<PassiveItemEffect>();
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.P_Damage;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.P_Damage;
         effect.amount = -3f;
         itemEffectList.Add(effect);
 
-        effect = new ItemEffect();
-        effect.statusEffectType = ItemEffectType.M_HP;
+        effect = new PassiveItemEffect();
+        effect.statusEffectType = PassiveItemEffectType.M_HP;
         effect.amount = -2f;
         itemEffectList.Add(effect);
 

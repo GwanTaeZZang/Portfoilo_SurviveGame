@@ -39,7 +39,7 @@ public class WeaponPoint : MonoBehaviour
 
         damage = _info.damage;
 
-        weaponSprite.sprite = ItemManager.getInstance.GetWeaponSprite(_info.Uid);
+        weaponSprite.sprite = ItemManager.getInstance.GetItemSprite(_info.Uid);
         //weapon.anim = anim;
         isEquip = true;
 

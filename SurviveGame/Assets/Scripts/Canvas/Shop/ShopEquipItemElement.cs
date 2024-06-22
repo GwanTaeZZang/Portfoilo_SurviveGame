@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopEquipItemElement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Image iconImage;
+
+    private string itemName;
+    private string itemContent;
+
+    public void SetIconIamge(Sprite _sprite)
     {
-        
+        iconImage.sprite = _sprite;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetItemName(string _name)
     {
-        
+        itemName = _name;
+    }
+
+    public void SetItemContent(string _content)
+    {
+        itemContent = _content;
     }
 }

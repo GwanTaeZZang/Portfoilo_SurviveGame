@@ -44,7 +44,7 @@ public class WeaponSelectCanvas : UIBaseController
                 int idx = btnIdx;
                 WeaponItemInfo weaponInfo = weaponInfoList[i];
                 SelectIconElement element = Instantiate(weaponElementPrefab, weaponElementParent);
-                weaponSpriteList.Add(Resources.Load<Sprite>(weaponInfoList[i].weaponSpritePath));
+                weaponSpriteList.Add(Resources.Load<Sprite>(weaponInfoList[i].itemSpritePath));
 
                 element.SetElementThumbnail(weaponSpriteList[btnIdx]);
                 element.GetElementSelectBtnEvent().AddListener(() => UpdateSelectWeaponInfo(weaponInfo, idx));
@@ -69,7 +69,7 @@ public class WeaponSelectCanvas : UIBaseController
         //WeaponItemInfo weaponInfo = weaponInfoList[_idx];
 
 
-        selectWeaponName.text = _weaponInfo.weaponName;
+        selectWeaponName.text = _weaponInfo.itemName;
         selectWeaponImage.sprite = weaponSpriteList[_idx];
 
         StringBuilder builder = new StringBuilder();

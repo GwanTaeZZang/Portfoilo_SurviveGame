@@ -6,28 +6,28 @@ using UnityEngine;
 [System.Serializable]
 public struct ItemInfoArrJson
 {
-    public ItemInfo[] itemInfoArr;
+    public PassiveItemInfo[] itemInfoArr;
 }
 
 [System.Serializable]
-public class ItemInfo
+public class PassiveItemInfo : BaseItemInfo
 {
-    public int Uid;
-    public int price;
-    public string itemSpritePath;
-    public string itemName;
+    //public int Uid;
+    //public int price;
+    //public string itemSpritePath;
+    //public string itemName;
     public string itemContent;
-    public ItemEffect[] itemEffectArr;
+    public PassiveItemEffect[] itemEffectArr;
 }
 
 [System.Serializable]
-public class ItemEffect
+public class PassiveItemEffect
 {
-    public ItemEffectType statusEffectType;
+    public PassiveItemEffectType statusEffectType;
     public float amount;
 }
 
-public enum ItemEffectType
+public enum PassiveItemEffectType
 {
     P_MaxHP = 200,
     P_RecoveryHp,

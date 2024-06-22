@@ -1,0 +1,184 @@
+{
+    "itemInfoArr": [
+        {
+            "Uid": 6001,
+            "price": 10,
+            "itemName": "HP",
+            "itemSpritePath": "Sprite/Item/Item_0",
+            "itemType": 1,
+            "itemContent": "Increase player HP and Monster HP",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 200,
+                    "amount": 3.0
+                },
+                {
+                    "statusEffectType": 300,
+                    "amount": 3.0
+                }
+            ]
+        },
+        {
+            "Uid": 6002,
+            "price": 10,
+            "itemName": "Up Attack Speed",
+            "itemSpritePath": "Sprite/Item/Item_1",
+            "itemType": 1,
+            "itemContent": "Increase player Attack Speed and Decrease player Damage",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 206,
+                    "amount": 3.0
+                },
+                {
+                    "statusEffectType": 203,
+                    "amount": -2.0
+                }
+            ]
+        },
+        {
+            "Uid": 6003,
+            "price": 10,
+            "itemName": "Up Damage",
+            "itemSpritePath": "Sprite/Item/Item_2",
+            "itemType": 1,
+            "itemContent": "Increase player Damage and Decrease player Speed",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 203,
+                    "amount": 3.0
+                },
+                {
+                    "statusEffectType": 211,
+                    "amount": -2.0
+                }
+            ]
+        },
+        {
+            "Uid": 6004,
+            "price": 10,
+            "itemName": "Up Range",
+            "itemSpritePath": "Sprite/Item/Item_3",
+            "itemType": 1,
+            "itemContent": "Increase player Attack Range and Monster Damage",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 208,
+                    "amount": 1.0
+                },
+                {
+                    "statusEffectType": 301,
+                    "amount": 2.0
+                }
+            ]
+        },
+        {
+            "Uid": 6005,
+            "price": 10,
+            "itemName": "Up Speed",
+            "itemSpritePath": "Sprite/Item/Item_4",
+            "itemType": 1,
+            "itemContent": "Increase player Speed and Decrease player HP",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 211,
+                    "amount": 3.0
+                },
+                {
+                    "statusEffectType": 200,
+                    "amount": -2.0
+                }
+            ]
+        },
+        {
+            "Uid": 6006,
+            "price": 10,
+            "itemName": "SuperUP Damage Attack Speed",
+            "itemSpritePath": "Sprite/Item/Item_5",
+            "itemType": 1,
+            "itemContent": "Increase player Damage and Attack Speed",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 203,
+                    "amount": 1.0
+                },
+                {
+                    "statusEffectType": 206,
+                    "amount": 1.0
+                }
+            ]
+        },
+        {
+            "Uid": 6007,
+            "price": 10,
+            "itemName": "SuperUp Speed HP",
+            "itemSpritePath": "Sprite/Item/Item_6",
+            "itemType": 1,
+            "itemContent": "Increase player Speed and HP",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 211,
+                    "amount": 1.0
+                },
+                {
+                    "statusEffectType": 200,
+                    "amount": 1.0
+                }
+            ]
+        },
+        {
+            "Uid": 6008,
+            "price": 10,
+            "itemName": "Up Attack Speed",
+            "itemSpritePath": "Sprite/Item/Item_7",
+            "itemType": 1,
+            "itemContent": "Increase player Attack Speed and Monster Damage",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 206,
+                    "amount": 3.0
+                },
+                {
+                    "statusEffectType": 301,
+                    "amount": 2.0
+                }
+            ]
+        },
+        {
+            "Uid": 6009,
+            "price": 10,
+            "itemName": "Up HP",
+            "itemSpritePath": "Sprite/Item/Item_8",
+            "itemType": 1,
+            "itemContent": "Increase player HP and Monster Damage",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 200,
+                    "amount": 3.0
+                },
+                {
+                    "statusEffectType": 301,
+                    "amount": 2.0
+                }
+            ]
+        },
+        {
+            "Uid": 6010,
+            "price": 10,
+            "itemName": "Down Damage",
+            "itemSpritePath": "Sprite/Item/Item_9",
+            "itemType": 1,
+            "itemContent": "Decrease player Damage and Decrease Monster HP",
+            "itemEffectArr": [
+                {
+                    "statusEffectType": 203,
+                    "amount": -3.0
+                },
+                {
+                    "statusEffectType": 300,
+                    "amount": -2.0
+                }
+            ]
+        }
+    ]
+}

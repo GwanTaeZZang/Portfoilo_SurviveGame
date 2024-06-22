@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class ItemManager : Singleton<ItemManager>
 {
+    private Dictionary<int, BaseItemInfo> itemDict = new Dictionary<int, BaseItemInfo>();
     private Dictionary<int, WeaponItemInfo> weaponItemDict = new Dictionary<int, WeaponItemInfo>();
-    private Dictionary<int, Sprite> weaponItemSpriteDict = new Dictionary<int, Sprite>();
+    private Dictionary<int, PassiveItemInfo> passiveItemDict = new Dictionary<int, PassiveItemInfo>();
+
+    private Dictionary<int, Sprite> itemSpriteDict = new Dictionary<int, Sprite>();
+
     private Dictionary<WeaponType, Queue<WeaponBase>> weaponInstanceDict = new Dictionary<WeaponType, Queue<WeaponBase>>();
+
+    private List<BaseItemInfo> itemInfoList = new List<BaseItemInfo>();
     private List<WeaponItemInfo> weaponItemList = new List<WeaponItemInfo>();
+    private List<PassiveItemInfo> passiveItemList = new List<PassiveItemInfo>();
     //private List<Sprite> weaponItemSpriteList = new List<Sprite>();
     private WeaponItemInfo selectedWeapon;
 
     private WeaponBase[] weaponBaseArr = new WeaponBase[(int)WeaponType.End];
 
     private WeaponItemInfo[] playerEquipWeaponArr = new WeaponItemInfo[6];
+    private List<PassiveItemInfo> playerEquipPassiveItemList = new List<PassiveItemInfo>();
 
     public delegate void WeaponEquipEvent(WeaponItemInfo _weaponInfo, int _idx);
     public WeaponEquipEvent OnEquipWeapon;
@@ -24,7 +32,8 @@ public class ItemManager : Singleton<ItemManager>
     public override bool Initialize()
     {
         LoadWeaponData();
-        SaveWeaponSprite();
+        LoadPassiveItemData();
+        SaveItemSprite();
         SetWeaponBaseArr();
 
         return true;
@@ -50,6 +59,11 @@ public class ItemManager : Singleton<ItemManager>
     public List<WeaponItemInfo> GetWeaponList()
     {
         return weaponItemList;
+    }
+
+    public List<BaseItemInfo> GetItemInfoList()
+    {
+        return itemInfoList;
     }
 
     public WeaponBase GetWeaponInstance(WeaponType _key)
@@ -93,15 +107,20 @@ public class ItemManager : Singleton<ItemManager>
         OnUnEquipWeapon?.Invoke(_idx);
     }
 
-    public Sprite GetWeaponSprite(int _Uid)
+    public void EquipPassiveItem(PassiveItemInfo _itemInfo)
     {
-        if (!weaponItemSpriteDict.ContainsKey(_Uid))
+        playerEquipPassiveItemList.Add(_itemInfo);
+    }
+
+    public Sprite GetItemSprite(int _Uid)
+    {
+        if (!itemSpriteDict.ContainsKey(_Uid))
         {
             Debug.Log("have not key");
             return null;
         }
 
-        return weaponItemSpriteDict[_Uid];
+        return itemSpriteDict[_Uid];
     }
 
     public void SetSelectedWeapon(WeaponItemInfo _selectedWeapon)
@@ -118,6 +137,11 @@ public class ItemManager : Singleton<ItemManager>
     public WeaponItemInfo[] GetEquipmentWeaponArr()
     {
         return playerEquipWeaponArr;
+    }
+
+    public List<PassiveItemInfo> GetEquipPassiveItemList()
+    {
+        return playerEquipPassiveItemList;
     }
 
     //public WeaponItemInfo DeepCopyWeaponItemInfo(WeaponItemInfo _weaponItemInfo)
@@ -149,18 +173,45 @@ public class ItemManager : Singleton<ItemManager>
             WeaponItemInfo weapon = weaponData.weaponArr[i];
             weaponItemDict.Add(weapon.Uid, weapon);
             weaponItemList.Add(weapon);
+
+            itemDict.Add(weapon.Uid, weapon);
+            itemInfoList.Add(weapon);
         }
     }
 
-    private void SaveWeaponSprite()
+    private void LoadPassiveItemData()
+    {
+        ItemInfoArrJson passiveItemData = JsonController.ReadJson<ItemInfoArrJson>("ItemData");
+        int count = passiveItemData.itemInfoArr.Length;
+        for(int i = 0; i < count; i++)
+        {
+            PassiveItemInfo passiveItem = passiveItemData.itemInfoArr[i];
+            passiveItemDict.Add(passiveItem.Uid, passiveItem);
+            passiveItemList.Add(passiveItem);
+
+            itemDict.Add(passiveItem.Uid, passiveItem);
+            itemInfoList.Add(passiveItem);
+        }
+    }
+
+    private void SaveItemSprite()
     {
         int count = weaponItemList.Count;
 
         for (int i = 0; i < count; i++)
         {
             //weaponItemSpriteList.Add(Resources.Load<Sprite>(weaponItemList[i].weaponSpritePath));
-            Sprite sprite = Resources.Load<Sprite>(weaponItemList[i].weaponSpritePath);
-            weaponItemSpriteDict.Add(weaponItemList[i].Uid, sprite);
+            Sprite sprite = Resources.Load<Sprite>(weaponItemList[i].itemSpritePath);
+            itemSpriteDict.Add(weaponItemList[i].Uid, sprite);
+        }
+
+        count = passiveItemList.Count;
+
+        for(int i = 0; i < count; i++)
+        {
+            Sprite sprite = Resources.Load<Sprite>(passiveItemList[i].itemSpritePath);
+            itemSpriteDict.Add(passiveItemList[i].Uid, sprite);
+
         }
     }
 

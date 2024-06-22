@@ -40,7 +40,7 @@ public class StageSelectCanvas : UIBaseController
         selectedCharacterImage.sprite = Resources.Load<Sprite>(job.jobSpritePath);
 
         WeaponItemInfo weapon = ItemManager.getInstance.GetSelectedWeapon();
-        selectedWeaponImage.sprite = Resources.Load<Sprite>(weapon.weaponSpritePath);
+        selectedWeaponImage.sprite = Resources.Load<Sprite>(weapon.itemSpritePath);
     }
 
     private void CreateStageBtn()
