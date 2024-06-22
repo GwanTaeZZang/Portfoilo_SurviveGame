@@ -97,17 +97,30 @@ public class ShopCanvas : UIBaseController
 
     private void UpdateEquipPassiveItemInfo()
     {
-        int count = equipPassiveItemList.Count;
-        for(int i =0; i < count; i++)
-        {
-            ShopEquipPassiveItemElement slot = passiveItemSlotList[i];
-            PassiveItemInfo info = equipPassiveItemList[i];
+        //int count = equipPassiveItemList.Count;
+        //for(int i =0; i < count; i++)
+        //{
+        //    ShopEquipPassiveItemElement slot = passiveItemSlotList[i];
+        //    PassiveItemInfo info = equipPassiveItemList[i];
 
+        //    slot.gameObject.SetActive(true);
+        //    slot.SetIconIamge(itemMgr.GetItemSprite(info.Uid));
+        //    slot.SetItemName(info.itemName);
+        //    slot.SetItemContent(info.itemContent);
+        //}
+
+        int count = equipPassiveItemList.Count;
+
+        if (count != 0)
+        {
+            ShopEquipPassiveItemElement slot = passiveItemSlotList[count - 1];
+            PassiveItemInfo info = equipPassiveItemList[count - 1];
             slot.gameObject.SetActive(true);
             slot.SetIconIamge(itemMgr.GetItemSprite(info.Uid));
             slot.SetItemName(info.itemName);
             slot.SetItemContent(info.itemContent);
         }
+
     }
 
     private int FindUnEquipWeaponSlotIdx()
