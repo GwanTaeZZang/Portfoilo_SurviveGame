@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour , IPoolable
 {
+    private const float RANGE_MAX = 30f;
+
+
     [SerializeField] OBBCollision obbCollision;
 
     private int speed = 10;
     public Transform model;
+    ObjectPool<Bullet> bulletPool;
 
     private Vector2 dir;
     private Vector2 startPos;
 
     private float damage;
+    private int penetrateCount;
 
     private void Start()
     {
         obbCollision.OnOBBCollisionEvent = OnOBBCollision;
+
+        bulletPool = bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>();
     }
 
     private void Update()
@@ -27,6 +34,13 @@ public class Bullet : MonoBehaviour , IPoolable
             bulletPos.x += dir.x * Time.deltaTime * speed;
             bulletPos.y += dir.y * Time.deltaTime * speed;
             model.position = bulletPos;
+
+
+            float distance = Vector2.Distance(startPos, this.transform.position);
+            if(distance > RANGE_MAX)
+            {
+                OnEnqueue();
+            }
         }
     }
 
@@ -58,6 +72,11 @@ public class Bullet : MonoBehaviour , IPoolable
         damage = _damageAmount;
     }
 
+    public void SetPenetrateCount(int _count = 0)
+    {
+        penetrateCount = _count;
+    }
+
     public void OnDequeue()
     {
         model.gameObject.SetActive(true);
@@ -72,6 +91,7 @@ public class Bullet : MonoBehaviour , IPoolable
     {
         model.gameObject.SetActive(false);
         dir = Vector2.zero;
+        bulletPool.Enqueue(this);
     }
 
     public void SetModel(Transform _model)
@@ -87,6 +107,15 @@ public class Bullet : MonoBehaviour , IPoolable
     private void OnOBBCollision(ITargetAble _target)
     {
         _target.OnDamege(damage);
+
+        if(penetrateCount == 0)
+        {
+            this.OnEnqueue();
+        }
+        else
+        {
+            penetrateCount--;
+        }
     }
 
 }

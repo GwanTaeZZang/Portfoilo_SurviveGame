@@ -250,6 +250,7 @@ public class ShootingWeapon : WeaponBase
         obj.SetPosition(parent.position);
         obj.SetTarget(MonsterManager.getInstance.GetTargetArr());
         obj.SetDamage(weaponItemInfo.damage);
+        obj.SetPenetrateCount(weaponItemInfo.penetrateCount);
         obj.SetDirection(_dir);
         obj.OnDequeue();
 

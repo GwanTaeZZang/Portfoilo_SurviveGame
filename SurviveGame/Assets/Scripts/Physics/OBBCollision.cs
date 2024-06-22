@@ -22,7 +22,9 @@ public class OBBCollision : MonoBehaviour
     public delegate void OnCollisionDelegate(ITargetAble _target);
     public OnCollisionDelegate OnOBBCollisionEvent;
 
-    private int resultIdx = -1;
+    private List<ITargetAble> collisionTargetList = new List<ITargetAble>();
+
+    //private int resultIdx = -1;
     //private float damage;
 
     //private void Awake()
@@ -45,7 +47,7 @@ public class OBBCollision : MonoBehaviour
 
         for(int i =0; i < count; i++)
         {
-            if (targetArr[i].IsCollision())
+            if (targetArr[i].IsCollision() && !collisionTargetList.Contains(targetArr[i]))
             {
                 bool result = IsCollisionOBB(targetArr[i].GetBoxInfo());
 
@@ -53,6 +55,7 @@ public class OBBCollision : MonoBehaviour
                 {
                     //resultIdx = i;
                     //targetArr[i].OnDamege(damage);
+                    collisionTargetList.Add(targetArr[i]);
                     OnOBBCollisionEvent?.Invoke(targetArr[i]);
                 }
             }
@@ -79,6 +82,12 @@ public class OBBCollision : MonoBehaviour
     public void SetTarget(params ITargetAble[] _target)
     {
         targetArr = _target;
+        collisionTargetList.Clear();
+    }
+
+    public void ClearCollisionTargetList()
+    {
+        collisionTargetList.Clear();
     }
 
     public bool IsCollisionOBB(BoxInfo _target)

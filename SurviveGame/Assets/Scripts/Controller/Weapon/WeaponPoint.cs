@@ -70,6 +70,7 @@ public class WeaponPoint : MonoBehaviour
     {
         obbCollision.enabled = _isAttack;
         obbCollision.SetInfo();
+        obbCollision.ClearCollisionTargetList();
     }
 
     public void UnEquipWeapon()
