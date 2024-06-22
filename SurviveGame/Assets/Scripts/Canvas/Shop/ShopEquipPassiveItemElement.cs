@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ShopEquipPassiveItemElement : MonoBehaviour
 {
     [SerializeField] private Image iconImage;
+    [SerializeField] private Button passiveItemButton;
 
     private string itemName;
     private string itemContent;
@@ -23,5 +24,10 @@ public class ShopEquipPassiveItemElement : MonoBehaviour
     public void SetItemContent(string _content)
     {
         itemContent = _content;
+    }
+
+    public Button.ButtonClickedEvent GetPassiveButtonEvent()
+    {
+        return passiveItemButton.onClick;
     }
 }

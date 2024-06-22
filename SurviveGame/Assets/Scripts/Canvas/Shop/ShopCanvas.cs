@@ -18,6 +18,8 @@ public class ShopCanvas : UIBaseController
     [SerializeField] private Transform equipItemElementParent;
     [SerializeField] private GameObject statusZone;
     [SerializeField] private GameObject equipItemZone;
+    // item Infomation Popup
+    [SerializeField] private ShopItemInfomationPopup itemInfomationPopup;
 
     private ItemManager itemMgr;
     //private List<WeaponItemInfo> weaponList;
@@ -162,8 +164,12 @@ public class ShopCanvas : UIBaseController
         int count = 100;
         for(int i =0; i< count; i++)
         {
+            int idx = i;
+
             ShopEquipPassiveItemElement element = GameObject.Instantiate<ShopEquipPassiveItemElement>(equipItemElement, equipItemElementParent);
             element.gameObject.SetActive(false);
+
+            element.GetPassiveButtonEvent().AddListener(() => OnClickEquipPassiveItemElementButton(idx));
 
             passiveItemSlotList.Add(element);
         }
@@ -193,6 +199,8 @@ public class ShopCanvas : UIBaseController
 
         showStatusBtn.onClick.AddListener(OnClickShowStatusZoneButton);
         showItemBtn.onClick.AddListener(OnClickShowEuquipItemZoneButton);
+
+        itemInfomationPopup.GetBackButtonEvent().AddListener(OnClickItemInfoPopupBackButton);
 
     }
 
@@ -326,5 +334,23 @@ public class ShopCanvas : UIBaseController
     private void OnClickReRollBtn()
     {
         UpdateItemElementInfo();
+    }
+
+    private void OnClickEquipPassiveItemElementButton(int _idx)
+    {
+        PassiveItemInfo info = equipPassiveItemList[_idx];
+
+
+        itemInfomationPopup.gameObject.SetActive(true);
+
+        itemInfomationPopup.SetIconImage(itemMgr.GetItemSprite(info.Uid));
+        itemInfomationPopup.SetItemName(info.itemName);
+        itemInfomationPopup.SetItemContent(info.itemContent);
+
+    }
+
+    private void OnClickItemInfoPopupBackButton()
+    {
+        itemInfomationPopup.gameObject.SetActive(false);
     }
 }
