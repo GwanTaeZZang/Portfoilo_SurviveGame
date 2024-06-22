@@ -16,7 +16,7 @@ public class PassiveItemInfo : BaseItemInfo
     //public int price;
     //public string itemSpritePath;
     //public string itemName;
-    public string itemContent;
+    //public string itemContent;
     public PassiveItemEffect[] itemEffectArr;
 }
 

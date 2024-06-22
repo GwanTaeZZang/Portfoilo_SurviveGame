@@ -7,6 +7,7 @@ public class BaseItemInfo
     public int Uid;
     public int price;
     public string itemName;
+    public string itemContent;
     public string itemSpritePath;
     public ItemType itemType;
 }

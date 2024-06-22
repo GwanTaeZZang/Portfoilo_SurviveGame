@@ -175,6 +175,11 @@ public class ShopCanvas : UIBaseController
         }
     }
 
+
+
+    /// <summary>
+    /// Button Binding Method
+    /// </summary>
     private void BindButtonEvent()
     {
         int count = itemElementList.Count;
@@ -193,6 +198,7 @@ public class ShopCanvas : UIBaseController
 
         optionPopup.GetCancleButtonEvent().AddListener(OnClickOptionCancleButton);
         optionPopup.GetSynthesisButtonEvent().AddListener(OnClickOptionSynthesisButton);
+        optionPopup.GetShowInfoButtonEvent().AddListener(OnClickShowWeaponItemInfo);
         optionPopup.GetSellButtonEvent().AddListener(OnClickOptionSellButton);
 
         rerollBtn.onClick.AddListener(OnClickReRollBtn);
@@ -204,6 +210,10 @@ public class ShopCanvas : UIBaseController
 
     }
 
+
+    /// <summary>
+    /// Event
+    /// </summary>
 
     private void OnClickShowStatusZoneButton()
     {
@@ -239,14 +249,25 @@ public class ShopCanvas : UIBaseController
 
             int upgradeItemKey = curSelectedEquipWeapon.Uid + 1;
 
-            WeaponItemInfo itemInfo = ItemManager.getInstance.GetWeaponInfoValue(upgradeItemKey);
+            WeaponItemInfo itemInfo = itemMgr.GetWeaponInfoValue(upgradeItemKey);
 
-            ItemManager.getInstance.EquipWeapon(itemInfo, curSelectedEquipWeaponIdx);
+            itemMgr.EquipWeapon(itemInfo, curSelectedEquipWeaponIdx);
 
         }
 
         OnClickOptionCancleButton();
         UpdateEquipWeaponInfo();
+    }
+
+    private void OnClickShowWeaponItemInfo()
+    {
+        WeaponItemInfo info = equipWeaponArr[curSelectedEquipWeaponIdx];
+
+        itemInfomationPopup.gameObject.SetActive(true);
+
+        itemInfomationPopup.SetIconImage(itemMgr.GetItemSprite(info.Uid));
+        itemInfomationPopup.SetItemName(info.itemName);
+        itemInfomationPopup.SetItemContent(info.itemContent);
     }
 
     private void OnClickOptionSellButton()

@@ -7,6 +7,7 @@ public class EquipWeaponOptionpopup : MonoBehaviour
 {
     [SerializeField] private Button sellButton;
     [SerializeField] private Button synthesisButton;
+    [SerializeField] private Button showInfoButton;
     [SerializeField] private Button cancleButton;
 
     public Button.ButtonClickedEvent GetSellButtonEvent()
@@ -17,6 +18,11 @@ public class EquipWeaponOptionpopup : MonoBehaviour
     public Button.ButtonClickedEvent GetSynthesisButtonEvent()
     {
         return synthesisButton.onClick;
+    }
+
+    public Button.ButtonClickedEvent GetShowInfoButtonEvent()
+    {
+        return showInfoButton.onClick;
     }
 
     public Button.ButtonClickedEvent GetCancleButtonEvent()
