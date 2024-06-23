@@ -28,15 +28,21 @@ public class BossPatternSelector
     private void BindBossBehaviourInstance()
     {
         DashToTarget dashToTarget = new DashToTarget();
+        BossApproachToTarget bossApproachToTarget = new BossApproachToTarget();
+        RandomDash randomDash = new RandomDash();
         BackRush backRush = new BackRush();
         HexagonShoot hexagonShoot = new HexagonShoot();
+        ContinuousHexagonShoot continuousHexagonShoot = new ContinuousHexagonShoot();
         TurningShoot turningShoot = new TurningShoot();
 
         bossBehaviourArr = new IBehaviour[(int)BossBehaviourType.End]
         {
             dashToTarget,
+            bossApproachToTarget,
+            randomDash,
             backRush,
             hexagonShoot,
+            continuousHexagonShoot,
             turningShoot
         };
     }
