@@ -5,18 +5,19 @@ using UnityEngine.UI;
 
 public class ShopItmeElement : MonoBehaviour
 {
-    [SerializeField] private Button itemButton;
+    [SerializeField] private Button BuyButton;
     [SerializeField] private Text itemNameText;
     [SerializeField] private Text effectInformationText;
     [SerializeField] private Image itemImage;
+    [SerializeField] private Text price;
 
     private WeaponItemInfo weaponInfo;
 
     //private ItemInfo itemInfo;
 
-    public Button.ButtonClickedEvent GetButtonEvent()
+    public Button.ButtonClickedEvent GetBuyButtonEvent()
     {
-        return itemButton.onClick;
+        return BuyButton.onClick;
     }
 
     public void ShowItemNameText(string _ItemName)
@@ -32,5 +33,10 @@ public class ShopItmeElement : MonoBehaviour
     public void ShowItemIconImage(Sprite _weaponIcon)
     {
         itemImage.sprite = _weaponIcon;
+    }
+
+    public void ShowItemPriceText(int _priceAmount)
+    {
+        price.text = _priceAmount.ToString();
     }
 }

@@ -20,6 +20,11 @@ public class ShopCanvas : UIBaseController
     [SerializeField] private GameObject equipItemZone;
     // item Infomation Popup
     [SerializeField] private ShopItemInfomationPopup itemInfomationPopup;
+    // gold Text
+    [SerializeField] private Text goldText;
+
+
+
 
     private ItemManager itemMgr;
     //private List<WeaponItemInfo> weaponList;
@@ -31,6 +36,8 @@ public class ShopCanvas : UIBaseController
     private BaseItemInfo[] baseItemElementinfoArr = new BaseItemInfo[4];
     private WeaponItemInfo curSelectedEquipWeapon;
     private int curSelectedEquipWeaponIdx = -1;
+
+    private int goldAmount;
 
     private void Awake()
     {
@@ -57,6 +64,9 @@ public class ShopCanvas : UIBaseController
 
         OnClickShowStatusZoneButton();
         UpdateEquipPassiveItemInfo();
+
+        goldAmount = GlobalData.getInstance.GetGoldAmount();
+        goldText.text = goldAmount.ToString();
     }
 
 
@@ -75,12 +85,15 @@ public class ShopCanvas : UIBaseController
 
             // 수정  
             int randomWeaponNum = Random.Range(0, itemList.Count);
-            BaseItemInfo weaponInfo = itemList[randomWeaponNum];
-            baseItemElementinfoArr[i] = weaponInfo;
+            BaseItemInfo itemInfo = itemList[randomWeaponNum];
+            baseItemElementinfoArr[i] = itemInfo;
 
-            itemElementList[i].ShowItemIconImage(itemMgr.GetItemSprite(weaponInfo.Uid));
+            ShopItmeElement element = itemElementList[i];
 
-
+            element.ShowItemNameText(itemInfo.itemName);
+            element.ShowItemIconImage(itemMgr.GetItemSprite(itemInfo.Uid));
+            element.ShowEffectInformationText(itemInfo.itemContent);
+            element.ShowItemPriceText(itemInfo.price);
         }
     }
 
@@ -186,7 +199,7 @@ public class ShopCanvas : UIBaseController
         for(int i =0; i < count; i++)
         {
             int idx = i;
-            itemElementList[i].GetButtonEvent().AddListener(() => OnClickItemElementBtn(idx));
+            itemElementList[i].GetBuyButtonEvent().AddListener(() => OnClickItemBuyBtn(idx));
         }
 
         count = shopEquipWeaponList.Count;
@@ -300,10 +313,21 @@ public class ShopCanvas : UIBaseController
         Debug.Log(equipWeaponArr[_idx].itemName);
     }
 
-    private void OnClickItemElementBtn(int _idx)
+    private void OnClickItemBuyBtn(int _idx)
     {
         //WeaponItemInfo itemInfo = itemElementinfoArr[_idx];
         BaseItemInfo itemInfo = baseItemElementinfoArr[_idx];
+
+        if(goldAmount - itemInfo.price < 0)
+        {
+            Debug.Log("No Money");
+            return;
+        }
+
+        GlobalData.getInstance.DeCreaseGold(itemInfo.price);
+        goldAmount -= itemInfo.price;
+        goldText.text = goldAmount.ToString();
+
 
         Debug.Log("item info  = " + itemInfo.itemName);
 

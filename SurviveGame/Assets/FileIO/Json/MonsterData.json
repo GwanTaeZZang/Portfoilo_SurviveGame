@@ -2,6 +2,7 @@
     "monsterArr": [
         {
             "Uid": 3000,
+            "bootyGold": 1,
             "status": [
                 10.0,
                 1.0,
@@ -18,6 +19,7 @@
         },
         {
             "Uid": 3001,
+            "bootyGold": 2,
             "status": [
                 10.0,
                 1.0,

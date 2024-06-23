@@ -26,12 +26,12 @@ public class TestCreateJson : MonoBehaviour
     private void Awake()
     {
         //CreateCharacterJobJson();
-        CreateWeaponJson();
-        //CreateMonsterJson();
+        //CreateWeaponJson();
+        CreateMonsterJson();
         //CreateMonsterSpwanJson();
         //CreateStageJson();
         //CreateAugmenterJson();
-        CreateItemJson();
+        //CreateItemJson();
     }
 
     private void CreateCharacterJobJson()
@@ -411,7 +411,7 @@ public class TestCreateJson : MonoBehaviour
         MonsterInfo[] monsterInfoArr = new MonsterInfo[2];
         MonsterInfo info = new MonsterInfo();
         info.Uid = 3000;
-
+        info.bootyGold = 1;
         float[] statusArr = new float[(int)MonsterStatusType.End];
         statusArr[(int)MonsterStatusType.M_HP] = 10;
         statusArr[(int)MonsterStatusType.M_Damage] = 1;
@@ -435,7 +435,7 @@ public class TestCreateJson : MonoBehaviour
 
         info = new MonsterInfo();
         info.Uid = 3001;
-
+        info.bootyGold = 2;
         statusArr = new float[(int)MonsterStatusType.End];
         statusArr[(int)MonsterStatusType.M_HP] = 10;
         statusArr[(int)MonsterStatusType.M_Damage] = 1;

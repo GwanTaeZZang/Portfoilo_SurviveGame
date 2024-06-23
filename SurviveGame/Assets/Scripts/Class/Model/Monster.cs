@@ -19,6 +19,8 @@ public class MonsterInfo
     //public float attackSpeed;
     //public float attackRange;
 
+    public int bootyGold;
+
     public float[] status = new float[(int)MonsterStatusType.End];
 
     public string stringKey;

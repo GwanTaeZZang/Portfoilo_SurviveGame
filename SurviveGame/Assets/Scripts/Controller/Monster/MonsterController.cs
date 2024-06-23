@@ -189,6 +189,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
         if (curHP <= 0)
         {
+            GlobalData.getInstance.InCreaseGold(monsterInfo.bootyGold);
             DeadMonster();
         }
     }
