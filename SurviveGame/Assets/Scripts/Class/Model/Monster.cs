@@ -41,10 +41,24 @@ public enum MonsterStatusType
     End
 }
 
+public class MonsterStatusVariance
+{
+    public float[] status = new float[(int)MonsterStatusType.End];
+
+    public MonsterStatusVariance()
+    {
+        int count = status.Length;
+        for(int i =0; i < count; i++)
+        {
+            status[i] = 0f;
+        }
+    }
+}
 
 public class BehaviorLogicBase
 {
     protected MonsterInfo info;
+    protected MonsterStatusVariance monsterStatusVariance;
     protected MonsterBehavior moveBehavior;
     protected MonsterBehavior attackBehavior;
     protected Transform target;

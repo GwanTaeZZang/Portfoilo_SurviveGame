@@ -14,6 +14,13 @@ public class MonsterManager : Singleton<MonsterManager>
     private Dictionary<int, MonsterInfo> monsterInfoDict = new Dictionary<int, MonsterInfo>();
     private Dictionary<int, Sprite> monsterSpriteDict = new Dictionary<int, Sprite>();
 
+    private Dictionary<BehaviorLogicType, Queue<BehaviorLogicBase>> behaviorLogicDict = new Dictionary<BehaviorLogicType, Queue<BehaviorLogicBase>>();
+
+    private Dictionary<MonsterMoveBehaviorType, Queue<MonsterBehavior>> moveBehaviorDict = new Dictionary<MonsterMoveBehaviorType, Queue<MonsterBehavior>>();
+
+    private Dictionary<MonsterAttackBehaviorType, Queue<MonsterBehavior>> attackBehaviorDict = new Dictionary<MonsterAttackBehaviorType, Queue<MonsterBehavior>>();
+
+
 
     private LinkedList<MonsterController> monsterCtrlList = new LinkedList<MonsterController>();
     private Queue<LinkedListNode<MonsterController>> deadMonsterQueue;
@@ -22,7 +29,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private GameObject poolParent;
     //private MonsterInfo monsterInfoVariance;
-
+    private MonsterStatusVariance monsterStatusVariance;
 
 
     public override bool Initialize()
@@ -31,20 +38,38 @@ public class MonsterManager : Singleton<MonsterManager>
 
         BindMonsterBehaviorInstance();
 
+        InitBehviorDict();
+
         CreateMonster();
 
-        InitMonsterInfoVariance();
+        InitMonsterStatusVariance();
 
         return base.Initialize();
     }
 
-    private void InitMonsterInfoVariance()
+    private void InitMonsterStatusVariance()
     {
+        if(monsterStatusVariance == null)
+        {
+            monsterStatusVariance = new MonsterStatusVariance();
+        }
         //int count = monsterInfoVariance.status.Length;
         //for(int i = 0; i < count; i++)
         //{
         //    monsterInfoVariance.status[i] = 0;
         //}
+    }
+
+    private void InitBehviorDict()
+    {
+        behaviorLogicDict[BehaviorLogicType.SeqenceBehavior] = new Queue<BehaviorLogicBase>();
+        behaviorLogicDict[BehaviorLogicType.LoopBehavior] = new Queue<BehaviorLogicBase>();
+
+        moveBehaviorDict[MonsterMoveBehaviorType.ApproachToTarget] = new Queue<MonsterBehavior>();
+        moveBehaviorDict[MonsterMoveBehaviorType.RunAwayFromTarget] = new Queue<MonsterBehavior>();
+
+        attackBehaviorDict[MonsterAttackBehaviorType.Shooting] = new Queue<MonsterBehavior>();
+        attackBehaviorDict[MonsterAttackBehaviorType.Rush] = new Queue<MonsterBehavior>();
     }
 
     private void BindMonsterBehaviorInstance()
@@ -82,12 +107,20 @@ public class MonsterManager : Singleton<MonsterManager>
     {
         //monsterInfoVariance.status[(int)_type] += _amount;
 
-        foreach (var dict in monsterInfoDict)
-        {
-            dict.Value.status[(int)_type] += _amount;
-        }
+        monsterStatusVariance.status[(int)_type] += _amount;
+
+
+        //foreach (var dict in monsterInfoDict)
+        //{
+        //    dict.Value.status[(int)_type] += _amount;
+        //}
 
         Debug.Log(_type + " status is updata  : " + _amount);
+    }
+
+    public MonsterStatusVariance GetMonsterStatusVariance()
+    {
+        return monsterStatusVariance;
     }
 
     public LinkedList<MonsterController> GetMonsterList()
@@ -168,19 +201,80 @@ public class MonsterManager : Singleton<MonsterManager>
 
     //}
 
-    public BehaviorLogicBase GetMonsterbehaviorLogic(int _idx)
+
+
+
+
+    public BehaviorLogicBase GetMonsterbehaviorLogic(BehaviorLogicType _type)
     {
-        return behaviorLogicArr[_idx].DeepCopy();
+        if (behaviorLogicDict.ContainsKey(_type))
+        {
+            if(behaviorLogicDict[_type].Count <= 0)
+            {
+                behaviorLogicDict[_type].Enqueue(behaviorLogicArr[(int)_type].DeepCopy());
+            }
+            return behaviorLogicDict[_type].Dequeue();
+        }
+
+        return null;
+
+
+        //return behaviorLogicArr[_idx].DeepCopy();
     }
 
-    public MonsterBehavior GetMonsterMoveBehavior(int _idx)
+    public MonsterBehavior GetMonsterMoveBehavior(MonsterMoveBehaviorType _type)
     {
-        return monsterMoveBehaviorArr[_idx].DeepCopy();
+        if (moveBehaviorDict.ContainsKey(_type))
+        {
+            if (moveBehaviorDict[_type].Count <= 0)
+            {
+                moveBehaviorDict[_type].Enqueue(monsterMoveBehaviorArr[(int)_type].DeepCopy());
+            }
+            return moveBehaviorDict[_type].Dequeue();
+        }
+
+        return null;
+
+
+        //return monsterMoveBehaviorArr[_idx].DeepCopy();
     }
-    public MonsterBehavior GetMonsterAttackBehavior(int _idx)
+    public MonsterBehavior GetMonsterAttackBehavior(MonsterAttackBehaviorType _type)
     {
-        return monsterAttackBehaviorArr[_idx]?.DeepCopy();
+        if (attackBehaviorDict.ContainsKey(_type))
+        {
+            if (attackBehaviorDict[_type].Count <= 0)
+            {
+                attackBehaviorDict[_type].Enqueue(monsterAttackBehaviorArr[(int)_type].DeepCopy());
+            }
+            return attackBehaviorDict[_type].Dequeue();
+        }
+
+        return null;
+
+        //return monsterAttackBehaviorArr[_idx]?.DeepCopy();
     }
+
+
+    public void ReleaseMonsterLogicBehavior(BehaviorLogicBase _logicBehavior, BehaviorLogicType _type)
+    {
+        behaviorLogicDict[_type].Enqueue(_logicBehavior);
+    }
+
+    public void ReleaseMonsterMoveBehavior(MonsterBehavior _moveBehavior, MonsterMoveBehaviorType _type)
+    {
+        moveBehaviorDict[_type].Enqueue(_moveBehavior);
+    }
+
+    public void ReleaseMonsterAttackBehavior(MonsterBehavior _attackBehavior, MonsterAttackBehaviorType _type)
+    {
+        if(_type == MonsterAttackBehaviorType.None)
+        {
+            return;
+        }
+        attackBehaviorDict[_type].Enqueue(_attackBehavior);
+    }
+
+
 
     public Sprite GetMonsterSprite(int _uid)
     {

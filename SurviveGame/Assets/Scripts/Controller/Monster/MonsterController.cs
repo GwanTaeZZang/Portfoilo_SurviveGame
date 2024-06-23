@@ -17,7 +17,11 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
 
     private MonsterInfo monsterInfo;
+    private MonsterStatusVariance monsterStatusVariance;
+    private MonsterManager monsterMgr;
     private BehaviorLogicBase monsterBehavior;
+    private MonsterBehavior moveBehavior;
+    private MonsterBehavior attackBehavior;
     private BoxInfo monsterBoxInfo;
     private Sprite monsterSprite;
     private bool isCollision = false;
@@ -33,6 +37,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
     private void Awake()
     {
+        monsterMgr = MonsterManager.getInstance;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         monsterBoxInfo = new BoxInfo();
@@ -42,7 +47,6 @@ public class MonsterController : MonoBehaviour, ITargetAble
     private void Start()
     {
         player = PlayerManager.getInstance.GetTarget();
-
     }
 
     private void Update()
@@ -101,14 +105,57 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
     public void SetMonsterInfo(MonsterInfo _info)
     {
-        monsterInfo = _info;
-        curHP = _info.status[(int)MonsterStatusType.M_HP];
+        if (monsterMgr == null)
+        {
+            monsterMgr = MonsterManager.getInstance;
+        }
+
+        if (monsterInfo == null)
+        {
+            monsterInfo = new MonsterInfo();
+        }
+
+        if(monsterStatusVariance == null)
+        {
+            monsterStatusVariance = monsterMgr.GetMonsterStatusVariance();
+        }
+
+        monsterInfo.Uid = _info.Uid;
+        monsterInfo.bootyGold = _info.bootyGold;
+        int count = _info.status.Length;
+        for(int i =0; i < count; i++)
+        {
+            monsterInfo.status[i] = _info.status[i] + monsterStatusVariance.status[i];
+        }
+        monsterInfo.stringKey = _info.stringKey;
+        monsterInfo.monsterSpritePath = _info.monsterSpritePath;
+        monsterInfo.monsterName = _info.monsterName;
+        monsterInfo.logicType = _info.logicType;
+        monsterInfo.moveType = _info.moveType;
+        monsterInfo.attackType = _info.attackType;
+
+
+        curHP = monsterInfo.status[(int)MonsterStatusType.M_HP];
     }
 
-    public void SetMonsterBehavior(BehaviorLogicBase _behavior)
+    public void SetMonsterBehavior()
     {
-        monsterBehavior = _behavior;
+
+        BehaviorLogicBase logic = monsterMgr.GetMonsterbehaviorLogic(monsterInfo.logicType);
+
+        moveBehavior = monsterMgr.GetMonsterMoveBehavior(monsterInfo.moveType);
+
+        attackBehavior = monsterMgr.GetMonsterAttackBehavior(monsterInfo.attackType);
+
+        logic.Initialize(monsterInfo, this.transform, moveBehavior, attackBehavior);
+
+        monsterBehavior = logic;
     }
+
+    //public void SetMonsterBehavior(BehaviorLogicBase _behavior)
+    //{
+    //    monsterBehavior = _behavior;
+    //}
 
     public void ShowMonster(Vector2 _spwan, Sprite _sprite)
     {
@@ -127,11 +174,15 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
     public void DeadMonster()
     {
-        this.transform.gameObject.SetActive(false);
-        monsterBehavior = null;
+        
 
-        MonsterManager.getInstance.RemoveMonsterList(this);
-;
+        monsterMgr.ReleaseMonsterLogicBehavior(monsterBehavior, monsterInfo.logicType);
+        monsterMgr.ReleaseMonsterMoveBehavior(moveBehavior, monsterInfo.moveType);
+        monsterMgr.ReleaseMonsterAttackBehavior(attackBehavior, monsterInfo.attackType);
+
+        monsterMgr.RemoveMonsterList(this);
+
+        this.transform.gameObject.SetActive(false);
         isCollision = false;
         isCreate = false;
 

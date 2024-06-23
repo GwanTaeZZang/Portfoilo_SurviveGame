@@ -22,7 +22,8 @@ public class ShopCanvas : UIBaseController
     [SerializeField] private ShopItemInfomationPopup itemInfomationPopup;
     // gold Text
     [SerializeField] private Text goldText;
-
+    // status View
+    [SerializeField] private ShopPlayerStatusView statusView;
 
 
 
@@ -67,6 +68,8 @@ public class ShopCanvas : UIBaseController
 
         goldAmount = GlobalData.getInstance.GetGoldAmount();
         goldText.text = goldAmount.ToString();
+
+        statusView.UpdateStatusAmount(PlayerManager.getInstance.GetCharacter().statusArr);
     }
 
 
@@ -354,6 +357,8 @@ public class ShopCanvas : UIBaseController
 
         UpdateEquipWeaponInfo();
         UpdateEquipPassiveItemInfo();
+        statusView.UpdateStatusAmount(PlayerManager.getInstance.GetCharacter().statusArr);
+
     }
 
     private void OnClickStartWaveBtn()

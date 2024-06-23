@@ -36,19 +36,12 @@ public class MonsterSpawnController
         {
             MonsterController monsterCtrl = monsterMgr.GetMonster();
 
-            MonsterInfo value = monsterMgr.GetValueMonsterInfoDict(_uid);
+            MonsterInfo info = monsterMgr.GetValueMonsterInfoDict(_uid);
 
-            monsterCtrl.SetMonsterInfo(value);
+            monsterCtrl.SetMonsterInfo(info);
 
-            BehaviorLogicBase logic = monsterMgr.GetMonsterbehaviorLogic((int)value.logicType);
-
-            MonsterBehavior moveBehavior = monsterMgr.GetMonsterMoveBehavior((int)value.moveType);
-
-            MonsterBehavior attackBehavior = monsterMgr.GetMonsterAttackBehavior((int)value.attackType);
-
-            logic.Initialize(value, monsterCtrl.transform, moveBehavior, attackBehavior);
-
-            monsterCtrl.SetMonsterBehavior(logic);
+            monsterCtrl.SetMonsterBehavior();
+            //monsterCtrl.SetMonsterBehavior(logic);
 
             monsterCtrl.transform.SetParent(aliveMonsterParent.transform);
 
