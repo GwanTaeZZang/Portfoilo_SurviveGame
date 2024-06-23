@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ItemManager : Singleton<ItemManager>
 {
+    private const int PLAYER_TARGET_NUM = 2;
+    private const int MONSTER_TARGET_NUM = 3;
+
     private Dictionary<int, BaseItemInfo> itemDict = new Dictionary<int, BaseItemInfo>();
     private Dictionary<int, WeaponItemInfo> weaponItemDict = new Dictionary<int, WeaponItemInfo>();
     private Dictionary<int, PassiveItemInfo> passiveItemDict = new Dictionary<int, PassiveItemInfo>();
@@ -110,6 +113,25 @@ public class ItemManager : Singleton<ItemManager>
     public void EquipPassiveItem(PassiveItemInfo _itemInfo)
     {
         playerEquipPassiveItemList.Add(_itemInfo);
+
+        int count = _itemInfo.itemEffectArr.Length;
+        for(int i =0; i < count; i++)
+        {
+            PassiveItemEffect effect = _itemInfo.itemEffectArr[i];
+            int effectType = (int)effect.statusEffectType;
+
+            int targetNum = effectType / 100;
+            int targetStatus = effectType % (targetNum * 100);
+
+            if(targetNum == PLAYER_TARGET_NUM)
+            {
+                PlayerManager.getInstance.UpdateCharacterStatus((CharacterStatusType)targetStatus, effect.amount);
+            }
+            else if(targetNum == MONSTER_TARGET_NUM)
+            {
+                MonsterManager.getInstance.UpdateMonsterStatus((MonsterStatusType)targetStatus, effect.amount);
+            }
+        }
     }
 
     public Sprite GetItemSprite(int _Uid)

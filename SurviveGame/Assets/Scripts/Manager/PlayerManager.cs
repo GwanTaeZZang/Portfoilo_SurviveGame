@@ -14,6 +14,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public override bool Initialize()
     {
         LoadJobData();
+
         return true;
     }
 
@@ -36,8 +37,19 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public Character GetCharacter()
     {
-        character = new Character(selectedJob);
+        if(character == null)
+        {
+            character = new Character(selectedJob);
+        }
+
         return character;
+    }
+
+    public void UpdateCharacterStatus(CharacterStatusType _type, float _amount)
+    {
+        character.UpdataStatus(_type, _amount);
+
+        Debug.Log(_type + "  +  " + _amount);
     }
 
     public List<Job> GetJobList()
@@ -48,6 +60,11 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetSelectedJob(Job _selectedJob)
     {
         selectedJob = _selectedJob;
+    }
+
+    public void ResetPlayer()
+    {
+        player.ResetPlayer();
     }
 
     public Job GetSelectedJob()

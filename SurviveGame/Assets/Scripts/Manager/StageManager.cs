@@ -52,6 +52,8 @@ public class StageManager : Singleton<StageManager>
             monsterSpwanDataList.Add(data);
         }
 
+        PlayerManager.getInstance.ResetPlayer();
+
         OnWaveEvent?.Invoke(monsterSpwanDataList, waveTime);
     }
 

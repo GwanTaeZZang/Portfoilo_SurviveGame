@@ -89,6 +89,19 @@ public class PlayerController : MonoBehaviour , ITargetAble
         playerSpriteRenderer.sprite = _sprite;
     }
 
+    public void ResetPlayer()
+    {
+        curHP = character.statusArr[(int)CharacterStatusType.P_MaxHP].status;
+        hpImage.fillAmount = 1f;
+
+        //this.transform.position = Vector2.zero;
+        //Vector3 curPos = this.transform.position;
+        //playerBoxInfo.center = curPos;
+        //mainCamera.transform.position = new Vector3(0,0,-10);
+
+        //curPos.y += 1;
+        //hpBar.transform.position = mainCamera.WorldToScreenPoint(curPos);
+    }
 
     public bool IsCollision()
     {

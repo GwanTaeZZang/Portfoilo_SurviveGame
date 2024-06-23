@@ -51,7 +51,7 @@ public class CharacterSelectCanvas : UIBaseController
 
     private void OnClickCharacterSelectBtn(int _idx)
     {
-        Debug.Log(_idx + "Click");
+        //Debug.Log(_idx + "Click");
         UpdateSelectCharacterInfo(_idx);
     }
 

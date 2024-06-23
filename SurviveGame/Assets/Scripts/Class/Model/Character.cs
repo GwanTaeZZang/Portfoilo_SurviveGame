@@ -42,7 +42,7 @@ public class Character
     }
 
 
-    public void UpdataStatus(CharacterStatusType _type, int _amount)
+    public void UpdataStatus(CharacterStatusType _type, float _amount)
     {
         statusArr[(int)_type].UpdataStatus(_amount);
     }
