@@ -204,7 +204,7 @@ public class MonsterBehavior
 public class Shooting : MonsterBehavior
 {
     private ObjectPool<Bullet> monsterBullet;
-    private Queue<Bullet> bulletQueue;
+    //private Queue<Bullet> bulletQueue;
     private float coolTime;
 
     public override void Update()
@@ -216,7 +216,7 @@ public class Shooting : MonsterBehavior
     {
         base.Initialize(_info, _target, _monster);
 
-        bulletQueue = new Queue<Bullet>();
+        //bulletQueue = new Queue<Bullet>();
         monsterBullet = ObjectPoolManager.getInstance.GetPool<Bullet>();
 
         info.status[(int)MonsterStatusType.M_Speed] = 3f;
@@ -240,7 +240,7 @@ public class Shooting : MonsterBehavior
     private void Shoot()
     {
         Bullet obj = monsterBullet.Dequeue();
-        bulletQueue.Enqueue(obj);
+        //bulletQueue.Enqueue(obj);
         obj.SetPosition(monster.position);
         obj.SetTarget(PlayerManager.getInstance.GetTarget());
         obj.SetDamage(info.status[(int)MonsterStatusType.M_Damage]);
