@@ -11,8 +11,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
 
     [SerializeField] SpriteRenderer playerSpriteRenderer;
     [SerializeField] JoyPad2DController joyPad;
-    [SerializeField] GameObject hpBar;
-    [SerializeField] Image hpImage;
+    [SerializeField] HpBar hpBar;
 
     //private ITargetAble[] targetArr;
     private BoxInfo playerBoxInfo;
@@ -92,7 +91,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
     public void ResetPlayer()
     {
         curHP = character.statusArr[(int)CharacterStatusType.P_MaxHP].status;
-        hpImage.fillAmount = 1f;
+        hpBar.ShowHpIamgeFillAmount(1f);
 
         //this.transform.position = Vector2.zero;
         //Vector3 curPos = this.transform.position;
@@ -117,7 +116,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
     {
         curHP -= _damageAmount;
         float fillAmount = curHP / character.statusArr[(int)CharacterStatusType.P_MaxHP].status;
-        hpImage.fillAmount = fillAmount;
+        hpBar.ShowHpIamgeFillAmount(fillAmount);
         isCollision = false;
 
         playerSpriteRenderer.color = Color.red;

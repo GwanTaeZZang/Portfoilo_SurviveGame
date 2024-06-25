@@ -83,7 +83,7 @@ public class StageController
 
     public void TempSpawnBossMosnter()
     {
-        monsterSpawnContoller.SpawnBossMonster(-1);
+        monsterSpawnContoller.SpawnBossMonster(-1, inGameCanvas);
     }
 
 }
