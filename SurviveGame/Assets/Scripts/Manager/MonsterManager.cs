@@ -20,12 +20,12 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private Dictionary<MonsterAttackBehaviorType, Queue<MonsterBehavior>> attackBehaviorDict = new Dictionary<MonsterAttackBehaviorType, Queue<MonsterBehavior>>();
 
-
+    private BossMonsterController bossCtrl;
 
     private LinkedList<MonsterController> monsterCtrlList = new LinkedList<MonsterController>();
     private Queue<LinkedListNode<MonsterController>> deadMonsterQueue;
 
-    private ITargetAble[] targetArr = new ITargetAble[100];
+    private ITargetAble[] targetArr = new ITargetAble[101];
 
     private GameObject poolParent;
     //private MonsterInfo monsterInfoVariance;
@@ -41,6 +41,8 @@ public class MonsterManager : Singleton<MonsterManager>
         InitBehviorDict();
 
         CreateMonster();
+
+        CreateBossMonster();
 
         InitMonsterStatusVariance();
 
@@ -156,6 +158,11 @@ public class MonsterManager : Singleton<MonsterManager>
         return monsterCtrl;
 
         //return randomPos;
+    }
+
+    public BossMonsterController GetBossMonster()
+    {
+        return bossCtrl;
     }
 
     public void RemoveMonsterList(MonsterController _deadMonster)
@@ -301,6 +308,14 @@ public class MonsterManager : Singleton<MonsterManager>
             deadMonsterQueue.Enqueue(node);
         }
 
+    }
+
+    private void CreateBossMonster()
+    {
+        BossMonsterController boss = GameObject.Instantiate<BossMonsterController>(Resources.Load<BossMonsterController>("Prefabs/TempBossMonster"));
+
+        bossCtrl = boss;
+        targetArr[CAPICITY] = boss;
     }
 
     private void LoadMonsterData()

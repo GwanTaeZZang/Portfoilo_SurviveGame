@@ -81,9 +81,9 @@ public class StageController
 
     }
 
-    private void ShowShopCanvas()
+    public void TempSpawnBossMosnter()
     {
-        UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
+        monsterSpawnContoller.SpawnBossMonster(-1);
     }
 
 }

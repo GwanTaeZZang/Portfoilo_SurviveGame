@@ -51,7 +51,6 @@ public class MonsterController : MonoBehaviour, ITargetAble
 
     private void Update()
     {
-
         if (!isCreate)
         {
             createDleayTime -= Time.deltaTime;

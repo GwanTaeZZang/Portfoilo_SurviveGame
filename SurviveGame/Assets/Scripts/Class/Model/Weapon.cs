@@ -37,7 +37,7 @@ public abstract class WeaponBase
     public OnAttackDelegate OnAttackEvent;
 
     protected Transform parent;
-    protected Transform target = null;
+    protected BoxInfo target = null;
     protected float timer;
 
     protected Vector2 oriWeaponPos;
@@ -66,7 +66,7 @@ public abstract class WeaponBase
         {
             return;
         }
-        distance = Vector2.Distance(weapon.position, target.position);
+        distance = Vector2.Distance(weapon.position, target.center);
 
         //if (!isAttack)
         //{
@@ -76,7 +76,7 @@ public abstract class WeaponBase
         //    parent.rotation = Quaternion.Euler(0, 0, angle);
         //}
 
-        dir = (Vector2)target.position - (Vector2)parent.position;
+        dir = (Vector2)target.center - (Vector2)parent.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         //weapon.localRotation = Quaternion.Euler(0, 0, angle);
         parent.rotation = Quaternion.Euler(0, 0, angle);
@@ -105,26 +105,57 @@ public abstract class WeaponBase
     {
         float compareDistance = float.MaxValue;
 
-        LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
+        //LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
+        ITargetAble[] tagetArr = MonsterManager.getInstance.GetTargetArr();
 
-        if(targetList.Count == 0)
-        {
-            target = null;
-        }
+        int count = tagetArr.Length;
+        //if (count == 0)
+        //{
+        //    target = null;
+        //}
 
-        foreach (MonsterController monster in targetList)
+        for(int i =0;i < count; i++)
         {
+            ITargetAble monster = tagetArr[i];
             if (monster.IsCollision())
             {
-                float distance = Vector2.Distance(weapon.position, monster.transform.position);
+                break;
+            }
+            else if(i == count - 1)
+            {
+                target = null;
+            }
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            ITargetAble monster = tagetArr[i];
+
+            if (monster.IsCollision())
+            {
+                float distance = Vector2.Distance(weapon.position, monster.GetBoxInfo().center);
 
                 if (compareDistance > distance)
                 {
                     compareDistance = distance;
-                    target = monster.transform;
+                    target = monster.GetBoxInfo();
                 }
             }
         }
+
+        //foreach (MonsterController monster in tagetArr)
+        //{
+        //    if (monster.IsCollision())
+        //    {
+        //        float distance = Vector2.Distance(weapon.position, monster.transform.position);
+
+        //        if (compareDistance > distance)
+        //        {
+        //            compareDistance = distance;
+        //            target = monster.transform;
+        //        }
+        //    }
+        //}
     }
 
     public void SetWeaponInfo(WeaponItemInfo _info)
@@ -252,6 +283,7 @@ public class ShootingWeapon : WeaponBase
         obj.SetDamage(weaponItemInfo.damage);
         obj.SetPenetrateCount(weaponItemInfo.penetrateCount);
         obj.SetDirection(_dir);
+        obj.SetSpeed(10);
         obj.OnDequeue();
 
         return true;

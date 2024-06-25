@@ -51,6 +51,12 @@ public class MonsterSpawnController
         }
     }
 
+    public void SpawnBossMonster(int _uid)
+    {
+        BossMonsterController bossCtrl = monsterMgr.GetBossMonster();
+        bossCtrl.Initialized();
+        bossCtrl.ShowBossMonster(ComputeMonsterRandomVector());
+    }
 
     private Vector2 ComputeMonsterRandomVector()
     {

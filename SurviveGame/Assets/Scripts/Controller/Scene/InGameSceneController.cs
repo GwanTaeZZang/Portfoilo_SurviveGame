@@ -75,7 +75,7 @@ public class InGameSceneController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            Instantiate<BossMonsterController>(Resources.Load<BossMonsterController>("Prefabs/TempBossMonster"));
+            stageController.TempSpawnBossMosnter();
         }
     }
 

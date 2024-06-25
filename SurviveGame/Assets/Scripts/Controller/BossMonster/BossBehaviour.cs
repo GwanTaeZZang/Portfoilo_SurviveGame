@@ -611,7 +611,7 @@ public class RampageShoot : BossAttackBehaviour
 
     private float behaviourWaitTime = 2f;
     private float shootIntervalTime = 0.2f;
-    private float shootIntervalAngle = 20f;
+    //private float shootIntervalAngle = 20f;
     private float timer;
     private float angle;
 
