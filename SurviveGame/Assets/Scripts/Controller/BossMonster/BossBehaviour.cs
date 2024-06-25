@@ -169,20 +169,145 @@ public class BossApproachToTarget : BossMoveBehaviour
 
 public class RandomDash : BossMoveBehaviour
 {
+    private float waitingTime = 2f;
+    private float timer;
+    private bool isDash = false;
+    //private bool isInRange = false;
+    private bool isEndSeqence = false;
+
+    private float randomPosMin = 2f;
+    private float randomPosMax = 8f;
+    float xPos;
+    float yPos;
+
+
+    private Vector2 targetPos;
+
+    public override void Initialize()
+    {
+        isDash = false;
+        //isInRange = false;
+        isEndSeqence = false;
+
+        timer = 0f;
+    }
 
     public override bool Update()
     {
-        throw new System.NotImplementedException();
+        //if (!isInRange)
+        //{
+        //    if (MoveToTargetInDashRange())
+        //    {
+        //        isInRange = true;
+        //    }
+        //}
+        //else if (isInRange)
+        //{
+        //    if (Charge() && !isDash)
+        //    {
+        //        SetTarget();
+        //        isDash = true;
+        //    }
+        //}
+
+        if (isDash)
+        {
+            Dash();
+        }
+        else
+        {
+            if (Charge() && !isDash)
+            {
+                SetTarget();
+                isDash = true;
+            }
+        }
+
+        return isEndSeqence;
     }
+
+    private void SetTarget()
+    {
+        //direction = playerTransform.position - bossTransform.position;
+        //targetPos = playerTransform.position;
+
+        xPos = Random.Range(randomPosMin, randomPosMax);
+        yPos = Random.Range(randomPosMin, randomPosMax);
+
+        int dir = Random.Range(0, 2);
+        xPos = dir == 0 ? xPos * -1 : xPos;
+
+        if((xPos < 0 && bossTransform.position.x < 0) ||
+            (xPos > 0 && bossTransform.position.x > 0))
+        {
+            yPos = bossTransform.position.y < 0 ? yPos : yPos * -1;
+        }
+        else
+        {
+            dir = Random.Range(0, 1);
+            yPos = dir == 0 ? yPos * -1 : yPos;
+        }
+
+        targetPos.x = xPos;
+        targetPos.y = yPos;
+
+
+        direction = targetPos - (Vector2)bossTransform.position;
+    }
+
+    private bool Charge()
+    {
+        timer += Time.deltaTime;
+
+        if (timer > waitingTime)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void Dash()
+    {
+        bossPos = bossTransform.position;
+
+        bossPos.x += Time.deltaTime * direction.normalized.x * (model.speed * 3);
+        bossPos.y += Time.deltaTime * direction.normalized.y * (model.speed * 3);
+
+        bossTransform.position = bossPos;
+
+        float curDistanceToTarget = Vector2.Distance(targetPos, bossTransform.position);
+        if (curDistanceToTarget < 0.1f)
+        {
+            isDash = false;
+            isEndSeqence = true;
+        }
+    }
+
+    //private bool MoveToTargetInDashRange()
+    //{
+    //    direction = playerTransform.position - bossTransform.position;
+
+    //    bossPos = bossTransform.position;
+    //    bossPos.x += Time.deltaTime * direction.normalized.x * model.speed;
+    //    bossPos.y += Time.deltaTime * direction.normalized.y * model.speed;
+    //    bossTransform.position = bossPos;
+
+    //    distance = Vector2.Distance(bossTransform.position, playerTransform.position);
+    //    if (distance < 5f)
+    //    {
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     public override void SetBossMonsterModel(BossMonsterModel _model)
     {
-        throw new System.NotImplementedException();
+        model = _model;
     }
-
     public override void SetTransform(Transform _bossTransform)
     {
-        throw new System.NotImplementedException();
+        bossTransform = _bossTransform;
+        playerTransform = PlayerManager.getInstance.GetPlayer().transform;
     }
 
 }

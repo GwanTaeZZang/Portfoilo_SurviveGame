@@ -21,8 +21,8 @@ public class BossMonsterModel
         patternModel = new BossPatternModel();
         patternModel.logicType = BossPatternLogicType.Seqence;
         patternModel.behaviourTypeList = new List<BossBehaviourType>();
-        patternModel.behaviourTypeList.Add(BossBehaviourType.RampageShoot);
-        patternModel.behaviourTypeList.Add(BossBehaviourType.BossApproachToTarget);
+        patternModel.behaviourTypeList.Add(BossBehaviourType.HexagonShoot);
+        patternModel.behaviourTypeList.Add(BossBehaviourType.RandomDash);
     }
 
 }
