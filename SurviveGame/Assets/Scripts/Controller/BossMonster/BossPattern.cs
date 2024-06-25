@@ -74,6 +74,13 @@ public class BossPattern
 
     private void UpdateLoopLogic()
     {
-        isPatternEnd = true;
+        int count = bossBehaviourArr.Length;
+        for(int i =0; i < count; i++)
+        {
+            if (bossBehaviourArr[i].Update())
+            {
+                bossBehaviourArr[i].Initialize();
+            }
+        }
     }
 }

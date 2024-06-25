@@ -20,9 +20,9 @@ public class BossPatternSelector
         BindBossBehaviourInstance();
     }
 
-    public BossPattern GetBossPattern()
+    public BossPattern GetBossPattern(int _phase)
     {
-        return bossPatternList[0];
+        return bossPatternList[_phase];
     }
 
     private void BindBossBehaviourInstance()
@@ -49,22 +49,30 @@ public class BossPatternSelector
         };
     }
 
-    public void CreateBossPattern(BossPatternLogicType _logicType, List<BossBehaviourType> _behaviourTypeList)
+    public void CreateBossPattern(BossPatternModel[] _bossPatternModelArr)
     {
-        BossPattern pattern = new BossPattern(model, bossTransform, _logicType);
-
-        List<IBehaviour> behaviourList = new List<IBehaviour>();
-
-        int count = _behaviourTypeList.Count;
-        for (int i =0; i < count; i++)
+        int patternCount = _bossPatternModelArr.Length;
+        for(int i =0; i < patternCount; i++)
         {
-            IBehaviour behaviour = bossBehaviourArr[(int)_behaviourTypeList[i]];
-            behaviourList.Add(behaviour);
+            BossPatternLogicType logicType = _bossPatternModelArr[i].logicType;
+            BossBehaviourType[] behaviourTypeArr = _bossPatternModelArr[i].behaviourTypeArr;
+
+            BossPattern pattern = new BossPattern(model, bossTransform, logicType);
+
+            List<IBehaviour> behaviourList = new List<IBehaviour>();
+
+            int count = behaviourTypeArr.Length;
+            for (int j = 0; j < count; j++)
+            {
+                IBehaviour behaviour = bossBehaviourArr[(int)behaviourTypeArr[j]];
+                behaviourList.Add(behaviour);
+            }
+
+            pattern.SetBehaviour(behaviourList.ToArray());
+            pattern.InitBehaviour();
+
+            bossPatternList.Add(pattern);
         }
 
-        pattern.SetBehaviour(behaviourList.ToArray());
-        pattern.InitBehaviour();
-
-        bossPatternList.Add(pattern);
     }
 }

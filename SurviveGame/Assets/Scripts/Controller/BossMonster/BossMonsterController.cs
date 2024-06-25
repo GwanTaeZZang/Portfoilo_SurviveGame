@@ -18,11 +18,14 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
 
     private bool isCollision = false;
 
-    private InGameCanvas ingameCanvas;
+    //private InGameCanvas ingameCanvas;
     private HpBar hpBar;
     private float curHP;
 
     private Camera mainCamera;
+
+    private int totalPhase;
+    private int curPhase;
 
     private void Awake()
     {
@@ -48,10 +51,11 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
 
         player = PlayerManager.getInstance.GetTarget();
 
-        patternSelector.CreateBossPattern(model.patternModel.logicType, model.patternModel.behaviourTypeList);
+        patternSelector.CreateBossPattern(model.patternModelArr);
+        totalPhase = model.patternModelArr.Length;
+        curPhase = 0;
 
-        bossPattern = patternSelector.GetBossPattern();
-
+        bossPattern = patternSelector.GetBossPattern(curPhase);
     }
 
     public void CreateBossHpBar()
@@ -117,6 +121,27 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
         curHP -= _damageAmount;
         float fillAmount = curHP / model.hp;
         hpBar.ShowHpIamgeFillAmount(fillAmount);
+
+
+        if(curHP < 0)
+        {
+            Debug.Log("MonsterDead");
+            this.gameObject.SetActive(false);
+            hpBar.gameObject.SetActive(false);
+            isCollision = false;
+            return;
+        }
+
+        float changePhaseHp = (model.hp - ((model.hp / totalPhase) * (curPhase + 1)));
+        float phaseHp = changePhaseHp / model.hp;
+
+
+        Debug.Log(fillAmount + "<" + phaseHp);
+        if(fillAmount < phaseHp && curPhase < totalPhase)
+        {
+            curPhase++;
+            bossPattern = patternSelector.GetBossPattern(curPhase);
+        }
 
         //Vector2 dir = bossBoxInfo.center - player.GetBoxInfo().center;
         //Vector2 monsterPos = this.transform.position;

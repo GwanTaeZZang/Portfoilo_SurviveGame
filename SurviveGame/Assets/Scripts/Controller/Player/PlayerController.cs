@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
 
         playerBoxInfo.size = playerSpriteRenderer.bounds.size;
 
-        hpBar.transform.position = mainCamera.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y + 0.55f));
+        hpBar.transform.position = mainCamera.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y + 0.4f));
     }
 
     private void Update()
