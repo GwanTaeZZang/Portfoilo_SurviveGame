@@ -119,6 +119,8 @@ public class BossApproachToTarget : BossMoveBehaviour
     public override void Initialize()
     {
         isEndSeqence = false;
+        timer = 0;
+
         base.Initialize();
     }
 
@@ -214,11 +216,6 @@ public class BackRush : BossMoveBehaviour
 public class HexagonShoot : BossAttackBehaviour
 {
     private ObjectPool<Bullet> bulletPool;
-    private Transform playerTransfom;
-    //private Vector2[] directionArr;
-    //private float angleStep;
-    private Vector2 direction;
-
 
     private bool isEndShoot = false;
     private bool isEndSeqence = false;
@@ -229,13 +226,8 @@ public class HexagonShoot : BossAttackBehaviour
     public override void Initialize()
     {
         bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>();
-        //directionArr = new Vector2[6];
-        //angleStep = 360f / 6f;
-
         isEndSeqence = false;
         timer = 0f;
-
-        //SetSixDirection();
     }
 
     public override bool Update()
@@ -257,43 +249,11 @@ public class HexagonShoot : BossAttackBehaviour
         return isEndSeqence;
     }
 
-    //private void SetSixDirection()
-    //{
-    //    int count = directionArr.Length;
-    //    for(int i =0; i < count; i++)
-    //    {
-    //        float angle = i * angleStep;
-    //        directionArr[i] = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-    //    }
-    //}
-
-    //private void Shoot()
-    //{
-    //    int count = directionArr.Length;
-    //    for(int i =0; i < count; i++)
-    //    {
-    //        Bullet obj = bulletPool.Dequeue();
-    //        //bulletQueue.Enqueue(obj);
-    //        obj.SetPosition(bossTransform.position);
-    //        obj.SetTarget(PlayerManager.getInstance.GetTarget());
-    //        obj.SetDamage(model.damage);
-    //        obj.SetDirection(directionArr[i].normalized);
-    //        obj.SetSpeed(3);
-    //        obj.OnDequeue();
-    //    }
-
-    //    isEndShoot = true;
-    //}
-
     private void Shoot()
     {
         float divideDegree = 360 / 6;
 
-        direction = (playerTransfom.position - bossTransform.position).normalized;
-
-        float firstAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-
-        float angle = firstAngle;
+        float angle = 0f;
 
         for (int i = 0; i < 6; i++)
         {
@@ -325,16 +285,12 @@ public class HexagonShoot : BossAttackBehaviour
     public override void SetTransform(Transform _bossTransform)
     {
         bossTransform = _bossTransform;
-        playerTransfom = PlayerManager.getInstance.GetPlayer().transform;
     }
 }
 
 public class ContinuousHexagonShoot : BossAttackBehaviour
 {
     private ObjectPool<Bullet> bulletPool;
-    private Transform playerTransfom;
-    //private Vector2[] directionArr;
-    //private float angleStep;
     private int continuousCount;
 
     private bool isEndShoot = false;
@@ -378,54 +334,16 @@ public class ContinuousHexagonShoot : BossAttackBehaviour
     public override void Initialize()
     {
         bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>();
-        //directionArr = new Vector2[6];
-        //angleStep = 360f / 6f;
 
         isEndSeqence = false;
         timer = 0f;
         continuousCount = 5;
 
-        //SetSixDirection();
-
     }
-
-    //private void Shoot()
-    //{
-    //    int count = directionArr.Length;
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        Bullet obj = bulletPool.Dequeue();
-    //        //bulletQueue.Enqueue(obj);
-    //        obj.SetPosition(bossTransform.position);
-    //        obj.SetTarget(PlayerManager.getInstance.GetTarget());
-    //        obj.SetDamage(model.damage);
-    //        obj.SetDirection(directionArr[i].normalized);
-    //        obj.SetSpeed(3);
-    //        obj.OnDequeue();
-    //    }
-
-    //    isEndShoot = true;
-    //}
-
-    //private void SetSixDirection()
-    //{
-    //    int count = directionArr.Length;
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        float angle = i * angleStep;
-    //        directionArr[i] = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-    //    }
-    //}
 
     public void Shoot(float _angleOffset)
     {
         float divideDegree = 360 / 6;
-
-        //direction = (playerTransfom.position - bossTransform.position).normalized;
-
-        //float firstAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-
-        //float angle = firstAngle + _angleOffset;
 
         float angle = _angleOffset * 20;
 
@@ -458,7 +376,6 @@ public class ContinuousHexagonShoot : BossAttackBehaviour
     public override void SetTransform(Transform _bossTransform)
     {
         bossTransform = _bossTransform;
-        playerTransfom = PlayerManager.getInstance.GetPlayer().transform;
     }
 
 }
@@ -467,15 +384,182 @@ public class TurningShoot : BossAttackBehaviour
 {
     private ObjectPool<Bullet> bulletPool;
 
+    private bool isEndShoot = false;
+    private bool isEndSeqence = false;
+
+    private float behaviourWaitTime = 2f;
+    private float shootIntervalTime = 0.2f;
+    private float shootIntervalAngle = 20f;
+    private float timer;
+    private float angle;
+
 
     public override bool Update()
     {
-        return false;
+        if (isEndShoot)
+        {
+            timer += Time.deltaTime;
+            if (behaviourWaitTime < timer)
+            {
+                isEndSeqence = true;
+                isEndShoot = false;
+            }
+        }
+        else if (!isEndSeqence)
+        {
+            timer += Time.deltaTime;
+            if (timer > shootIntervalTime)
+            {
+                Shoot(shootIntervalAngle);
+                timer = 0;
+            }
+        }
+
+        return isEndSeqence;
     }
 
     public override void Initialize()
     {
         bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>();
+        isEndSeqence = false;
+        timer = 0f;
+        angle = 0;
+
+    }
+    public void Shoot(float _angleOffset)
+    {
+         angle += _angleOffset;
+
+        if(angle < 720f)
+        {
+            Vector2 projectileDirection;
+
+            projectileDirection.x = Mathf.Cos(angle * Mathf.Deg2Rad);
+            projectileDirection.y = Mathf.Sin(angle * Mathf.Deg2Rad);
+
+            Bullet obj = bulletPool.Dequeue();
+            //bulletQueue.Enqueue(obj);
+            obj.SetPosition(bossTransform.position);
+            obj.SetTarget(PlayerManager.getInstance.GetTarget());
+            obj.SetDamage(model.damage);
+            obj.SetDirection(projectileDirection);
+            obj.SetSpeed(3);
+            obj.OnDequeue();
+
+
+            projectileDirection.x = Mathf.Cos((angle + 180) * Mathf.Deg2Rad);
+            projectileDirection.y = Mathf.Sin((angle + 180) * Mathf.Deg2Rad);
+
+            Bullet obj2 = bulletPool.Dequeue();
+            //bulletQueue.Enqueue(obj);
+            obj2.SetPosition(bossTransform.position);
+            obj2.SetTarget(PlayerManager.getInstance.GetTarget());
+            obj2.SetDamage(model.damage);
+            obj2.SetDirection(projectileDirection);
+            obj2.SetSpeed(3);
+            obj2.OnDequeue();
+
+        }
+        else
+        {
+            isEndSeqence = true;
+        }
+    }
+
+    public override void SetBossMonsterModel(BossMonsterModel _model)
+    {
+        model = _model;
+    }
+
+    public override void SetTransform(Transform _bossTransform)
+    {
+        bossTransform = _bossTransform;
+    }
+}
+
+public class RampageShoot : BossAttackBehaviour
+{
+    private ObjectPool<Bullet> bulletPool;
+
+    private bool isEndShoot = false;
+    private bool isEndSeqence = false;
+
+    private float behaviourWaitTime = 2f;
+    private float shootIntervalTime = 0.2f;
+    private float shootIntervalAngle = 20f;
+    private float timer;
+    private float angle;
+
+    public override bool Update()
+    {
+        if (isEndShoot)
+        {
+            timer += Time.deltaTime;
+            if (behaviourWaitTime < timer)
+            {
+                isEndSeqence = true;
+                isEndShoot = false;
+            }
+        }
+        else if (!isEndSeqence)
+        {
+            timer += Time.deltaTime;
+            if (timer > shootIntervalTime)
+            {
+                Shoot(Random.Range(10f, 20f));
+                timer = 0;
+            }
+        }
+
+        return isEndSeqence;
+    }
+
+    public override void Initialize()
+    {
+        bulletPool = ObjectPoolManager.getInstance.GetPool<Bullet>();
+        isEndSeqence = false;
+        timer = 0f;
+        angle = 0;
+
+    }
+    public void Shoot(float _angleOffset)
+    {
+        angle += _angleOffset;
+
+        if (angle < 720f)
+        {
+            Vector2 projectileDirection;
+
+            projectileDirection.x = Mathf.Cos(angle + 180 * Mathf.Deg2Rad);
+            projectileDirection.y = Mathf.Sin(angle + 180 * Mathf.Deg2Rad);
+
+            Bullet obj = bulletPool.Dequeue();
+            //bulletQueue.Enqueue(obj);
+            obj.SetPosition(bossTransform.position);
+            obj.SetTarget(PlayerManager.getInstance.GetTarget());
+            obj.SetDamage(model.damage);
+            obj.SetDirection(projectileDirection);
+            obj.SetSpeed(3);
+            obj.OnDequeue();
+
+
+            projectileDirection.x = Mathf.Cos(angle + 360 * Mathf.Deg2Rad);
+            projectileDirection.y = Mathf.Sin(angle + 360 * Mathf.Deg2Rad);
+
+            Bullet obj2 = bulletPool.Dequeue();
+            //bulletQueue.Enqueue(obj);
+            obj2.SetPosition(bossTransform.position);
+            obj2.SetTarget(PlayerManager.getInstance.GetTarget());
+            obj2.SetDamage(model.damage);
+            obj2.SetDirection(projectileDirection);
+            obj2.SetSpeed(3);
+            obj2.OnDequeue();
+
+        }
+        else
+        {
+            isEndSeqence = true;
+        }
     }
 
     public override void SetBossMonsterModel(BossMonsterModel _model)
@@ -489,3 +573,4 @@ public class TurningShoot : BossAttackBehaviour
     }
 
 }
+

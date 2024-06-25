@@ -30,7 +30,6 @@ public class InGameSceneController : MonoBehaviour
     private void Start()
     {
         //GameStart();
-        //UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
     }
 
     private void Update()

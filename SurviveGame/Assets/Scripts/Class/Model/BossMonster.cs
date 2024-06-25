@@ -21,8 +21,8 @@ public class BossMonsterModel
         patternModel = new BossPatternModel();
         patternModel.logicType = BossPatternLogicType.Seqence;
         patternModel.behaviourTypeList = new List<BossBehaviourType>();
-        patternModel.behaviourTypeList.Add(BossBehaviourType.ContinuousHexagonShoot);
-        patternModel.behaviourTypeList.Add(BossBehaviourType.DashToTarget);
+        patternModel.behaviourTypeList.Add(BossBehaviourType.RampageShoot);
+        patternModel.behaviourTypeList.Add(BossBehaviourType.BossApproachToTarget);
     }
 
 }
@@ -48,5 +48,6 @@ public enum BossBehaviourType
     HexagonShoot,
     ContinuousHexagonShoot,
     TurningShoot,
+    RampageShoot,
     End,
 }

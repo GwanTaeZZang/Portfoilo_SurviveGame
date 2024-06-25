@@ -34,6 +34,7 @@ public class BossPatternSelector
         HexagonShoot hexagonShoot = new HexagonShoot();
         ContinuousHexagonShoot continuousHexagonShoot = new ContinuousHexagonShoot();
         TurningShoot turningShoot = new TurningShoot();
+        RampageShoot rampageShoot = new RampageShoot();
 
         bossBehaviourArr = new IBehaviour[(int)BossBehaviourType.End]
         {
@@ -43,7 +44,8 @@ public class BossPatternSelector
             backRush,
             hexagonShoot,
             continuousHexagonShoot,
-            turningShoot
+            turningShoot,
+            rampageShoot
         };
     }
 
