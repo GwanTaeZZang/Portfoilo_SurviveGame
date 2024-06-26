@@ -7,6 +7,7 @@ public class InGameCanvas : MonoBehaviour
 {
     [SerializeField] Text waveTimeText;
     [SerializeField] Text goldText;
+    [SerializeField] Text waveText;
 
     public void Awake()
     {
@@ -21,5 +22,10 @@ public class InGameCanvas : MonoBehaviour
     public void SetwaveTimeText(int _time)
     {
         waveTimeText.text = _time.ToString();
+    }
+
+    public void ShowWave(int _curWave)
+    {
+        waveText.text = _curWave.ToString();
     }
 }
