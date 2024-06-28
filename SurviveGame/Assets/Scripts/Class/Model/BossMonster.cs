@@ -14,7 +14,7 @@ public class BossMonsterModel
     public BossMonsterModel()
     {
         Uid = 9000;
-        hp = 100;
+        hp = 300;
         damage = 3f;
         speed = 2f;
 

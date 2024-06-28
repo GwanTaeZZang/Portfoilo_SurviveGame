@@ -20,11 +20,11 @@ public class StageController
         inGameCanvas = _inGameCanvas;
     }
 
-    private void SetWave(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime)
+    private void SetWave(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime, int _curWaveIdx)
     {
         waveTime = _waveTime;
         MosnterSpwanDataList = _monsterSpwanDataList;
-
+        inGameCanvas.ShowWave(_curWaveIdx + 1);
 
         int count = MosnterSpwanDataList.Count;
         Debug.Log("This Wave Monster Type Count  : " + count);
@@ -34,7 +34,6 @@ public class StageController
         }
 
         isWave = true;
-
     }
 
     public void UpdateWave()

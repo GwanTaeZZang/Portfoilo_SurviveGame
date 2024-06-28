@@ -7,7 +7,7 @@ public class StageManager : Singleton<StageManager>
     private Dictionary<int, MonsterGroupData> monsterGroupDict = new Dictionary<int, MonsterGroupData>();
     private Dictionary<int, StageData> stageDict = new Dictionary<int, StageData>();
 
-    public delegate void WaveDelegate(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime);
+    public delegate void WaveDelegate(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime, int _curWaveIdx);
     public WaveDelegate OnWaveEvent;
 
     private List<MonsterSpawnData> monsterSpwanDataList = new List<MonsterSpawnData>();
@@ -54,7 +54,7 @@ public class StageManager : Singleton<StageManager>
 
         PlayerManager.getInstance.ResetPlayer();
 
-        OnWaveEvent?.Invoke(monsterSpwanDataList, waveTime);
+        OnWaveEvent?.Invoke(monsterSpwanDataList, waveTime, GetSelectedStage().curWaveIdx);
     }
 
     public bool EndWave()

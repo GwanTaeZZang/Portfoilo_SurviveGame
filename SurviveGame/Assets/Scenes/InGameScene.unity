@@ -2989,7 +2989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveTimeText: {fileID: 516927350}
   goldText: {fileID: 1504683247}
-  waveText: {fileID: 0}
+  waveText: {fileID: 65462689}
 --- !u!1 &2012715696
 GameObject:
   m_ObjectHideFlags: 0
