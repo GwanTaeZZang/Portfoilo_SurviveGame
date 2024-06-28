@@ -226,7 +226,16 @@ public class MonsterController : MonoBehaviour, ITargetAble
     {
         curHP -= _damageAmount;
         //isCollision = false;
-        spriteRenderer.color = Color.yellow;
+        float maxHp = monsterInfo.status[(int)MonsterStatusType.M_HP];
+
+        if (maxHp * 0.5f > curHP)
+        {
+            spriteRenderer.color = Color.yellow;
+        }
+        if(maxHp * 0.2f > curHP)
+        {
+            spriteRenderer.color = Color.red;
+        }
 
         if (isCreate)
         {
