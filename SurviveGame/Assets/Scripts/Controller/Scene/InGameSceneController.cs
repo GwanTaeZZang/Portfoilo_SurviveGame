@@ -15,21 +15,23 @@ public class InGameSceneController : MonoBehaviour
     private Tile[,] tiles;
 
     private StageController stageController;
+    private TileMapModel mapData;
 
     private void Awake()
     {
+        LoadMap();
+
         stageController = new StageController();
 
-        stageController.Initialized(inGameCanvas);
+        stageController.Initialized(inGameCanvas, mapData);
         playerController.Initialize();
         weaponController.Initialize();
 
-        LoadMap();
     }
 
     private void Start()
     {
-        //GameStart();
+        GameStart();
     }
 
     private void Update()
@@ -45,7 +47,7 @@ public class InGameSceneController : MonoBehaviour
 
     private void LoadMap()
     {
-        TileMapModel mapData = JsonController.ReadJson<TileMapModel>("MapData");
+        mapData = JsonController.ReadJson<TileMapModel>("MapData");
         TileModel[] tileArr = mapData.tileModelArr;
         int width = mapData.width;
         int height = mapData.height;

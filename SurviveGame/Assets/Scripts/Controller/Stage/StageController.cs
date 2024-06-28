@@ -11,11 +11,11 @@ public class StageController
     private float waveTime;
     private bool isWave = false;
 
-    public void Initialized(InGameCanvas _inGameCanvas)
+    public void Initialized(InGameCanvas _inGameCanvas, TileMapModel _mapData)
     {
         StageManager.getInstance.OnWaveEvent = SetWave;
         monsterSpawnContoller = new MonsterSpawnController();
-        monsterSpawnContoller.Initialized();
+        monsterSpawnContoller.Initialized(_mapData);
 
         inGameCanvas = _inGameCanvas;
     }
@@ -39,6 +39,10 @@ public class StageController
 
     public void UpdateWave()
     {
+        monsterSpawnContoller.UpdateVecter();
+
+
+
         if (isWave)
         {
             waveTime -= Time.deltaTime;

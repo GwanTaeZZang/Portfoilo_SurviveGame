@@ -9,6 +9,9 @@ public class MonsterController : MonoBehaviour, ITargetAble
     private const float COLLISION_RANGE = 0.3f;
     private const float COLLISION_DLEAY_TIME = 0.2f;
     private const float CREATE_DLEAY_TIME = 1f;
+    private const float MONSTER_KNOCKBACK_RANGE = 0.3f;
+    private const float MONSTER_HP_HALF = 0.5f;
+    private const float MONSTER_HP_20PERCENT = 0.2f;
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -60,6 +63,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
                 isCollision = true;
                 createDleayTime = CREATE_DLEAY_TIME;
                 spriteRenderer.sprite = monsterSprite;
+                agent.enabled = true;
             }
         }
 
@@ -166,7 +170,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
         monsterBoxInfo.size = spriteRenderer.bounds.size;
         isCollision = false;
         isCreate = false;
-
+        agent.enabled = false;
         spriteRenderer.color = Color.white;
 
     }
@@ -180,7 +184,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
         monsterMgr.ReleaseMonsterAttackBehavior(attackBehavior, monsterInfo.attackType);
 
         monsterMgr.RemoveMonsterList(this);
-
+        this.transform.position = Vector3.zero;
         this.transform.gameObject.SetActive(false);
         isCollision = false;
         isCreate = false;
@@ -228,11 +232,11 @@ public class MonsterController : MonoBehaviour, ITargetAble
         //isCollision = false;
         float maxHp = monsterInfo.status[(int)MonsterStatusType.M_HP];
 
-        if (maxHp * 0.5f > curHP)
+        if (maxHp * MONSTER_HP_HALF > curHP)
         {
             spriteRenderer.color = Color.yellow;
         }
-        if(maxHp * 0.2f > curHP)
+        if(maxHp * MONSTER_HP_20PERCENT > curHP)
         {
             spriteRenderer.color = Color.red;
         }
@@ -241,8 +245,8 @@ public class MonsterController : MonoBehaviour, ITargetAble
         {
             Vector2 dir = monsterBoxInfo.center - player.GetBoxInfo().center;
             Vector2 monsterPos = this.transform.position;
-            monsterPos.x += dir.normalized.x * 0.3f;
-            monsterPos.y += dir.normalized.y * 0.3f;
+            monsterPos.x += dir.normalized.x * MONSTER_KNOCKBACK_RANGE;
+            monsterPos.y += dir.normalized.y * MONSTER_KNOCKBACK_RANGE;
             this.transform.position = monsterPos;
         }
 

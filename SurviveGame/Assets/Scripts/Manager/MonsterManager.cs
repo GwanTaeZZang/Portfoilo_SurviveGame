@@ -184,7 +184,10 @@ public class MonsterManager : Singleton<MonsterManager>
         {
             monsterCtrlList.Last.Value.DeadMonster();
         }
-
+        if (bossCtrl.IsCollision())
+        {
+            bossCtrl.DeadBossMonster();
+        }
     }
 
     public MonsterInfo GetValueMonsterInfoDict(int _uid)
@@ -303,7 +306,7 @@ public class MonsterManager : Singleton<MonsterManager>
             obj.monsterIdx = i;
             //monsterArr[i] = obj;
             targetArr[i] = obj;
-
+            obj.transform.position = Vector3.zero;
             LinkedListNode<MonsterController> node = new LinkedListNode<MonsterController>(obj);
             deadMonsterQueue.Enqueue(node);
         }
@@ -312,7 +315,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
     private void CreateBossMonster()
     {
-        BossMonsterController boss = GameObject.Instantiate<BossMonsterController>(Resources.Load<BossMonsterController>("Prefabs/TempBossMonster"));
+        BossMonsterController boss = GameObject.Instantiate<BossMonsterController>(Resources.Load<BossMonsterController>("Prefabs/BossMonster"));
 
         bossCtrl = boss;
         targetArr[CAPICITY] = boss;

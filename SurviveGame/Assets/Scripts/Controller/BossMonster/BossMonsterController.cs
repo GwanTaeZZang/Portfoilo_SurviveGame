@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class BossMonsterController : MonoBehaviour, ITargetAble
 {
+    [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Canvas mainCanvas;
 
@@ -42,6 +44,9 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
 
     public void Initialized()
     {
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        isCollision = false;
         model = new BossMonsterModel();
         patternSelector = new BossPatternSelector(model, this.transform);
         bossBoxInfo = new BoxInfo();
@@ -106,6 +111,15 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
 
     }
 
+    public void DeadBossMonster()
+    {
+        Debug.Log("MonsterDead");
+        this.gameObject.SetActive(false);
+        hpBar.gameObject.SetActive(false);
+        isCollision = false;
+
+    }
+
     public BoxInfo GetBoxInfo()
     {
         return bossBoxInfo;
@@ -125,10 +139,7 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
 
         if(curHP < 0)
         {
-            Debug.Log("MonsterDead");
-            this.gameObject.SetActive(false);
-            hpBar.gameObject.SetActive(false);
-            isCollision = false;
+            DeadBossMonster();
             return;
         }
 

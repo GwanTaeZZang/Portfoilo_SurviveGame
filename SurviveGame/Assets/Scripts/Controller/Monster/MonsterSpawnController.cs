@@ -18,11 +18,12 @@ public class MonsterSpawnController
     private float playerNonSpwanArea = 3f;
 
     private GameObject aliveMonsterParent;
+    private TileMapModel mapData;
 
-
-    public void Initialized()
+    public void Initialized(TileMapModel _mapData)
     {
         monsterMgr = MonsterManager.getInstance;
+        mapData = _mapData;
         aliveMonsterParent = new GameObject();
         aliveMonsterParent.name = "Alive Monster Parent";
 
@@ -58,6 +59,15 @@ public class MonsterSpawnController
         bossCtrl.ShowBossMonster(ComputeMonsterRandomVector(), _ingameCanvas);
     }
 
+    public void UpdateVecter()
+    {
+
+        Debug.DrawLine(Vector3.zero, xStartVector, Color.blue);
+        Debug.DrawLine(Vector3.zero, yStartVector, Color.green);
+        Debug.DrawLine(Vector3.zero, endVector, Color.red);
+        Debug.DrawLine(Vector3.zero, ramdomWeightVector, Color.black);
+    }
+
     private Vector2 ComputeMonsterRandomVector()
     {
         int xpos = Random.Range(min, max);
@@ -65,8 +75,19 @@ public class MonsterSpawnController
 
         randomVector = new Vector2(xpos, ypos).normalized;
 
-        xStartVector = new Vector2(10 * (randomVector.x > 0 ? +1 : -1), 0);
-        yStartVector = new Vector2(0, 10 * (randomVector.y > 0 ? +1 : -1));
+        //xStartVector = new Vector2((mapData.width * 0.5f) * (randomVector.x > 0 ? +1 : -1),
+        //    (mapData.height * 0.5f) * (randomVector.y < 0 ? +1 : -1));
+
+        //yStartVector = new Vector2((mapData.width * 0.5f) * (randomVector.x < 0 ? +1 : -1),
+        //    (mapData.height * 0.5f) * (randomVector.y > 0 ? +1 : -1));
+
+        xStartVector = new Vector2((mapData.width * 0.5f) * (randomVector.x > 0 ? +1 : -1),
+            0);
+
+        yStartVector = new Vector2(0,
+            (mapData.height * 0.5f) * (randomVector.y > 0 ? +1 : -1));
+
+
         endVector = new Vector2(xStartVector.x, yStartVector.y);
 
         ramdomWeightVector.x = randomVector.x * weight;
@@ -75,20 +96,20 @@ public class MonsterSpawnController
         Vector2 crossVector = Vector2.zero;
         Vector2 playerPos = PlayerManager.getInstance.GetPlayer().transform.position;
 
-        bool result = CrossCheck2D(playerPos, ramdomWeightVector, xStartVector, endVector);
+        bool result = CrossCheck2D(Vector3.zero, ramdomWeightVector, xStartVector, endVector);
         if (result)
         {
-            crossVector = CrossCheck2DVector(playerPos, ramdomWeightVector, xStartVector, endVector);
+            crossVector = CrossCheck2DVector(Vector3.zero, ramdomWeightVector, xStartVector, endVector);
         }
         else
         {
-            crossVector = CrossCheck2DVector(playerPos, ramdomWeightVector, yStartVector, endVector);
+            crossVector = CrossCheck2DVector(Vector3.zero, ramdomWeightVector, yStartVector, endVector);
         }
 
         float distance = Vector2.Distance(playerPos, crossVector);
         float randomDistance = Random.Range(playerNonSpwanArea, distance);
 
-        if (distance < playerNonSpwanArea + 1)
+        if (distance < playerNonSpwanArea)
         {
             Vector2 monsterPos = new Vector2(-randomVector.x * randomDistance, -randomVector.y * randomDistance);
             return monsterPos;

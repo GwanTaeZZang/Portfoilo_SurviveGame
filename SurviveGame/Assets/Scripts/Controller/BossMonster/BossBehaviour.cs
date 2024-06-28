@@ -175,8 +175,8 @@ public class RandomDash : BossMoveBehaviour
     //private bool isInRange = false;
     private bool isEndSeqence = false;
 
-    private float randomPosMin = 2f;
-    private float randomPosMax = 8f;
+    private float randomPosMin = 8f;
+    private float randomPosMax = 13f;
     float xPos;
     float yPos;
 
