@@ -39,7 +39,7 @@ public class StageController
 
     public void UpdateWave()
     {
-        monsterSpawnContoller.UpdateVecter();
+        //monsterSpawnContoller.UpdateVecter();
 
 
 
