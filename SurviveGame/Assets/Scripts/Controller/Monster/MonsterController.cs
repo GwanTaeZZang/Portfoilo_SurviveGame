@@ -12,10 +12,13 @@ public class MonsterController : MonoBehaviour, ITargetAble
     private const float MONSTER_KNOCKBACK_RANGE = 0.3f;
     private const float MONSTER_HP_HALF = 0.5f;
     private const float MONSTER_HP_20PERCENT = 0.2f;
+    private const int JOB_UID_INITIAL_VALUE = 3000;
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite beforeCreationImage;
+    [SerializeField] private List<RuntimeAnimatorController> animCtrlList;
+    [SerializeField] private Animator anim;
     //[SerializeField] private OBBCollision obbController;
 
 
@@ -64,6 +67,9 @@ public class MonsterController : MonoBehaviour, ITargetAble
                 createDleayTime = CREATE_DLEAY_TIME;
                 spriteRenderer.sprite = monsterSprite;
                 agent.enabled = true;
+                int monsterUid = monsterInfo.Uid;
+                anim.runtimeAnimatorController = animCtrlList[monsterUid % JOB_UID_INITIAL_VALUE];
+
             }
         }
 
@@ -137,7 +143,6 @@ public class MonsterController : MonoBehaviour, ITargetAble
         monsterInfo.moveType = _info.moveType;
         monsterInfo.attackType = _info.attackType;
 
-
         curHP = monsterInfo.status[(int)MonsterStatusType.M_HP];
     }
 
@@ -184,6 +189,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
         monsterMgr.ReleaseMonsterAttackBehavior(attackBehavior, monsterInfo.attackType);
 
         monsterMgr.RemoveMonsterList(this);
+        anim.runtimeAnimatorController = null;
         this.transform.position = Vector3.zero;
         this.transform.gameObject.SetActive(false);
         isCollision = false;

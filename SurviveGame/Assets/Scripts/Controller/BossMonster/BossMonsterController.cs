@@ -6,9 +6,12 @@ using UnityEngine.UI;
 
 public class BossMonsterController : MonoBehaviour, ITargetAble
 {
+    private const float COLLISION_RANGE = 0.4f;
+
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Canvas mainCanvas;
+    [SerializeField] private Animator anim;
 
     private BossMonsterModel model;
     private BossPatternSelector patternSelector;
@@ -102,6 +105,12 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
 
         bossPattern.UpdateBehaviour();
 
+
+        bool result = OnCollisionAABB();
+        if (result)
+        {
+            player.OnDamege(model.damage);
+        }
     }
 
     public void LateUpdate()
@@ -109,7 +118,39 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
         Vector2 moveDir = this.transform.position - prevVector;
         spriteRenderer.flipX = moveDir.x < 0 ? true : false;
 
+        //Debug.Log(moveDir.magnitude);
+        anim.SetFloat("Move", moveDir.normalized.magnitude);
+
     }
+
+    private bool OnCollisionAABB()
+    {
+        if (player.IsCollision())
+        {
+            BoxInfo playerBox = player.GetBoxInfo();
+
+            Vector2 playerCenter = playerBox.center;
+            Vector2 monsterCenter = bossBoxInfo.center;
+
+            float playerWidth = playerBox.size.x;
+            float playerHeight = playerBox.size.y;
+            float monsterWidth = bossBoxInfo.size.x;
+            float monsterHeight = bossBoxInfo.size.y;
+
+
+            if (playerCenter.x - playerWidth * COLLISION_RANGE < monsterCenter.x + monsterWidth * COLLISION_RANGE &&
+                playerCenter.x + playerWidth * COLLISION_RANGE > monsterCenter.x - monsterWidth * COLLISION_RANGE &&
+                playerCenter.y - playerHeight * COLLISION_RANGE < monsterCenter.y + monsterHeight * COLLISION_RANGE &&
+                playerCenter.y + playerHeight * COLLISION_RANGE > monsterCenter.y - monsterHeight * COLLISION_RANGE)
+            {
+                return true;
+
+            }
+        }
+        return false;
+
+    }
+
 
     public void DeadBossMonster()
     {
@@ -147,7 +188,7 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
         float phaseHp = changePhaseHp / model.hp;
 
 
-        Debug.Log(fillAmount + "<" + phaseHp);
+        //Debug.Log(fillAmount + "<" + phaseHp);
         if(fillAmount < phaseHp && curPhase < totalPhase)
         {
             curPhase++;

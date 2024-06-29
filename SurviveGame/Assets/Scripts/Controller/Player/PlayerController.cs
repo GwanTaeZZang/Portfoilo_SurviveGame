@@ -10,12 +10,12 @@ public class PlayerController : MonoBehaviour , ITargetAble
     private const float COLLISION_DLEAY_TIME = 1f;
     private const int JOB_UID_INITIAL_VALUE = 1000;
 
-    [SerializeField] SpriteRenderer playerSpriteRenderer;
-    [SerializeField] JoyPad2DController joyPad;
-    [SerializeField] HpBar hpBar;
-    [SerializeField] CameraController cameraController;
-    [SerializeField] List<RuntimeAnimatorController> animCrtlList;
-    [SerializeField] Animator anim;
+    [SerializeField] private SpriteRenderer playerSpriteRenderer;
+    [SerializeField] private JoyPad2DController joyPad;
+    [SerializeField] private HpBar hpBar;
+    [SerializeField] private CameraController cameraController;
+    [SerializeField] private List<RuntimeAnimatorController> animCrtlList;
+    [SerializeField] private Animator anim;
 
     //private ITargetAble[] targetArr;
     private BoxInfo playerBoxInfo;

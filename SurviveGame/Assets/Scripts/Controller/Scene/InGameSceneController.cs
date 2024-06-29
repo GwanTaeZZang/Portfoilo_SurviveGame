@@ -31,7 +31,7 @@ public class InGameSceneController : MonoBehaviour
 
     private void Start()
     {
-        GameStart();
+        //GameStart();
     }
 
     private void Update()

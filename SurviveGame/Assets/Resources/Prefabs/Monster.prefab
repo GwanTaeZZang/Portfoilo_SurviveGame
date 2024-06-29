@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8708719934316000803}
   - component: {fileID: -6728436181944237184}
   - component: {fileID: -9115805898952842550}
+  - component: {fileID: 3676841547088480232}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -123,4 +124,29 @@ MonoBehaviour:
   agent: {fileID: -6728436181944237184}
   spriteRenderer: {fileID: 8708719934316000803}
   beforeCreationImage: {fileID: 2129895255, guid: 99a24620d31e5ce4e823c32d11e17c2c, type: 3}
+  animCtrlList:
+  - {fileID: 9100000, guid: 3d0f1fdb673ae4db484c8720f774d9c9, type: 2}
+  - {fileID: 22100000, guid: b493d27f05504489988d4fb76314e890, type: 2}
+  anim: {fileID: 3676841547088480232}
   monsterIdx: 0
+--- !u!95 &3676841547088480232
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617871791674449270}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

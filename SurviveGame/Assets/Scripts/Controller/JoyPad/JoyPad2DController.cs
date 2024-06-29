@@ -61,7 +61,7 @@ public class JoyPad2DController : MonoBehaviour
         {
             InputJoyPadButtonDrag(Input.mousePosition);
         }
-        if (isInit && dir != Vector2.zero)
+        if (isInit)
         {
             OnJoyStickMove?.Invoke(dir.normalized);
         }
