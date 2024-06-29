@@ -4,11 +4,18 @@
             "Uid": 4100,
             "waveMonsterGroupId": [
                 4000,
+                4000,
+                4001,
                 4001,
                 4002,
+                4002,
+                4003,
                 4003,
                 4004,
+                4004,
                 4005,
+                4005,
+                4006,
                 4006
             ],
             "stageInformation": 0,
@@ -19,11 +26,28 @@
             "Uid": 4101,
             "waveMonsterGroupId": [
                 4006,
+                4006,
+                4005,
                 4005,
                 4004,
+                4004,
+                4003,
                 4003,
                 4002,
+                4002,
+                4001,
                 4001
+            ],
+            "stageInformation": 0,
+            "bossMonsterId": 0,
+            "curWaveIdx": 0
+        },
+        {
+            "Uid": 4102,
+            "waveMonsterGroupId": [
+                4001,
+                4004,
+                4006
             ],
             "stageInformation": 0,
             "bossMonsterId": 0,

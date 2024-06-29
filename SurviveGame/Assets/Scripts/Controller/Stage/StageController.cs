@@ -9,7 +9,9 @@ public class StageController
     private MonsterSpawnController monsterSpawnContoller;
     private InGameCanvas inGameCanvas;
     private float waveTime;
+    private float bossTimer;
     private bool isWave = false;
+    private bool isBossWave = false;
 
     public void Initialized(InGameCanvas _inGameCanvas, TileMapModel _mapData)
     {
@@ -20,7 +22,7 @@ public class StageController
         inGameCanvas = _inGameCanvas;
     }
 
-    private void SetWave(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime, int _curWaveIdx)
+    private void SetWave(List<MonsterSpawnData> _monsterSpwanDataList, float _waveTime, int _curWaveIdx, bool _isBossWave)
     {
         waveTime = _waveTime;
         MosnterSpwanDataList = _monsterSpwanDataList;
@@ -33,6 +35,7 @@ public class StageController
             Debug.Log("This Wave Monster Type   : " + MosnterSpwanDataList[i].monsterId + " Monster Count  : " + MosnterSpwanDataList[i].count);
         }
 
+        isBossWave = _isBossWave;
         isWave = true;
     }
 
@@ -80,11 +83,22 @@ public class StageController
                     monster.timer = 0;
                 }
             }
+
+            if (isBossWave)
+            {
+                bossTimer += Time.deltaTime;
+                if(bossTimer > 3)
+                {
+                    monsterSpawnContoller.SpawnBossMonster(-1, inGameCanvas);
+                    isBossWave = false;
+
+                }
+            }
         }
 
     }
 
-    public void TempSpawnBossMosnter()
+    public void SpawnBossMosnter()
     {
         monsterSpawnContoller.SpawnBossMonster(-1, inGameCanvas);
     }

@@ -439,9 +439,9 @@ public class TestCreateJson : MonoBehaviour
         statusArr = new float[(int)MonsterStatusType.End];
         statusArr[(int)MonsterStatusType.M_HP] = 10;
         statusArr[(int)MonsterStatusType.M_Damage] = 1;
-        statusArr[(int)MonsterStatusType.M_Speed] = 1.5f;
-        statusArr[(int)MonsterStatusType.M_AttackSpeed] = 3;
-        statusArr[(int)MonsterStatusType.M_AttackRange] = 4;
+        statusArr[(int)MonsterStatusType.M_Speed] = 0.5f;
+        statusArr[(int)MonsterStatusType.M_AttackSpeed] = 1.5f;
+        statusArr[(int)MonsterStatusType.M_AttackRange] = 6;
 
         info.status = statusArr;
 
@@ -659,6 +659,22 @@ public class TestCreateJson : MonoBehaviour
         model.bossMonsterId = 0;
 
         stageDataList.Add(model);
+
+
+
+        model = new StageData();
+        model.Uid = 4102;
+        model.waveMonsterGroupId = new int[]
+        {
+            4001,
+            4004,
+            4006,
+        };
+        model.stageInformation = 0;
+        model.bossMonsterId = 0;
+
+        stageDataList.Add(model);
+
 
         stageGroupData.stageDataArr = stageDataList.ToArray();
     }

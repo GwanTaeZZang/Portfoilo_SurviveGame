@@ -21,7 +21,6 @@ public class CameraController : MonoBehaviour
 
         player = PlayerManager.getInstance.GetPlayer();
 
-        cameraSpeed = character.statusArr[(int)CharacterStatusType.P_Speed].status;
     }
 
     public void Initialize(TileMapModel _mapData)
@@ -35,6 +34,8 @@ public class CameraController : MonoBehaviour
             return;
 
         //float speed = character.statusArr[(int)CharacterStatusType.P_Speed].status;
+        cameraSpeed = character.statusArr[(int)CharacterStatusType.P_Speed].status;
+
 
         Vector2 playerPos = player.transform.position;
 

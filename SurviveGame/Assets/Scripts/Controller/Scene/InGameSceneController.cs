@@ -79,7 +79,7 @@ public class InGameSceneController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            stageController.TempSpawnBossMosnter();
+            stageController.SpawnBossMosnter();
         }
     }
 
