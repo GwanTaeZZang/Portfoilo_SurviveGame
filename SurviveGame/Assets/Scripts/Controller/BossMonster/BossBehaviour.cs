@@ -68,8 +68,8 @@ public class DashToTarget : BossMoveBehaviour
     {
         bossPos = bossTransform.position;
 
-        bossPos.x += Time.deltaTime * direction.normalized.x * (model.speed * 3);
-        bossPos.y += Time.deltaTime * direction.normalized.y * (model.speed * 3);
+        bossPos.x += Time.deltaTime * direction.normalized.x * (model.speed * 4);
+        bossPos.y += Time.deltaTime * direction.normalized.y * (model.speed * 4);
 
         bossTransform.position = bossPos;
 
@@ -270,8 +270,8 @@ public class RandomDash : BossMoveBehaviour
     {
         bossPos = bossTransform.position;
 
-        bossPos.x += Time.deltaTime * direction.normalized.x * (model.speed * 3);
-        bossPos.y += Time.deltaTime * direction.normalized.y * (model.speed * 3);
+        bossPos.x += Time.deltaTime * direction.normalized.x * (model.speed * 4);
+        bossPos.y += Time.deltaTime * direction.normalized.y * (model.speed * 4);
 
         bossTransform.position = bossPos;
 
