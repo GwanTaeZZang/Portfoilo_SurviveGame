@@ -78,6 +78,11 @@ public class PlayerController : MonoBehaviour , ITargetAble
             OnMove(inputVector.normalized);
             cameraController.OnMoveCamera(inputVector.normalized);
         }
+
+        if (isDead)
+        {
+            Debug.Log("Game Over");
+        }
     }
 
     private void OnMove(Vector2 _dir)

@@ -97,6 +97,7 @@ public class ShopCanvas : UIBaseController
             element.ShowItemIconImage(itemMgr.GetItemSprite(itemInfo.Uid));
             element.ShowEffectInformationText(itemInfo.itemContent);
             element.ShowItemPriceText(itemInfo.price);
+            element.gameObject.SetActive(true);
         }
     }
 
@@ -354,7 +355,7 @@ public class ShopCanvas : UIBaseController
             itemMgr.EquipPassiveItem((PassiveItemInfo)itemInfo);
         }
 
-
+        itemElementList[_idx].gameObject.SetActive(false);
         UpdateEquipWeaponInfo();
         UpdateEquipPassiveItemInfo();
         statusView.UpdateStatusAmount(PlayerManager.getInstance.GetCharacter().statusArr);
