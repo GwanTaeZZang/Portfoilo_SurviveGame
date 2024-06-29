@@ -73,6 +73,7 @@ public class ShopCanvas : UIBaseController
     }
 
 
+
     private void UpdateItemElementInfo()
     {
         int count = itemElementList.Count;
@@ -291,11 +292,18 @@ public class ShopCanvas : UIBaseController
     {
         if(curSelectedEquipWeaponIdx != -1)
         {
+            WeaponItemInfo info = equipWeaponArr[curSelectedEquipWeaponIdx];
+            GlobalData.getInstance.InCreaseGold(info.price);
+            goldAmount += info.price;
+            goldText.text = goldAmount.ToString();
+
+
             itemMgr.UnEquipWeapon(curSelectedEquipWeaponIdx);
 
             shopEquipWeaponList[curSelectedEquipWeaponIdx].isEquip = false;
             shopEquipWeaponList[curSelectedEquipWeaponIdx].ShowWeaponImage(null);
 
+            
         }
         OnClickOptionCancleButton();
 

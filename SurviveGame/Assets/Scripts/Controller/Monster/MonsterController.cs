@@ -30,6 +30,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
     private MonsterBehavior attackBehavior;
     private BoxInfo monsterBoxInfo;
     private Sprite monsterSprite;
+    private Vector3 prevVector;
     private bool isCollision = false;
     private bool isCreate = true;
     private ITargetAble player;
@@ -74,6 +75,7 @@ public class MonsterController : MonoBehaviour, ITargetAble
         }
 
         monsterBoxInfo.center = this.transform.position;
+        prevVector = this.transform.position;
         //monsterBoxInfo.rot = this.transform.eulerAngles.z;
 
 
@@ -105,6 +107,12 @@ public class MonsterController : MonoBehaviour, ITargetAble
         }
 
 
+    }
+
+    public void LateUpdate()
+    {
+        Vector2 moveDir = this.transform.position - prevVector;
+        spriteRenderer.flipX = moveDir.x < 0 ? true : false;
     }
 
     public BoxInfo GetBoxInfo()
