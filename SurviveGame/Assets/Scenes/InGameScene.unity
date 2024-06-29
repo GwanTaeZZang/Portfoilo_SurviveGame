@@ -1726,6 +1726,7 @@ MonoBehaviour:
   playerController: {fileID: 68296369}
   weaponController: {fileID: 68296370}
   inGameCanvas: {fileID: 1969229675}
+  cameraController: {fileID: 2136629965}
 --- !u!1 &1281737701
 GameObject:
   m_ObjectHideFlags: 0

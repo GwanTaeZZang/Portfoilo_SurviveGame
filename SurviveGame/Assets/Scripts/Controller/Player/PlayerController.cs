@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
     //private const float HALF = 0.5f;
     private const float COLLISION_DLEAY_TIME = 1f;
     private const int JOB_UID_INITIAL_VALUE = 1000;
+    private const float HALF = 0.5f;
 
     [SerializeField] private SpriteRenderer playerSpriteRenderer;
     [SerializeField] private JoyPad2DController joyPad;
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour , ITargetAble
     [SerializeField] private List<RuntimeAnimatorController> animCrtlList;
     [SerializeField] private Animator anim;
 
-    //private ITargetAble[] targetArr;
+    private TileMapModel mapData;
     private BoxInfo playerBoxInfo;
     private Character character;
     private Camera mainCamera;
@@ -41,8 +42,10 @@ public class PlayerController : MonoBehaviour , ITargetAble
 
 
     }
-    public void Initialize()
+    public void Initialize(TileMapModel _mapData)
     {
+        mapData = _mapData;
+
         character = PlayerManager.getInstance.GetCharacter();
         curHP = character.statusArr[(int)CharacterStatusType.P_MaxHP].status;
 
@@ -95,10 +98,25 @@ public class PlayerController : MonoBehaviour , ITargetAble
 
         float speed = character.statusArr[(int)CharacterStatusType.P_Speed].status;
 
-
         Vector3 curPos = this.transform.position;
+
         curPos.x += _dir.x * speed * Time.deltaTime;
         curPos.y += _dir.y * speed * Time.deltaTime;
+        float playerSizeX = playerBoxInfo.size.x;
+        float playerSizeY = playerBoxInfo.size.y;
+
+        if (curPos.x + playerSizeX * HALF > mapData.width * HALF ||
+            curPos.x - playerSizeX * HALF < -mapData.width * HALF)
+        {
+            curPos.x = this.transform.position.x;
+        }
+        if(curPos.y + playerSizeY * HALF > mapData.height * HALF ||
+            curPos.y - playerSizeY * HALF < -mapData.height * HALF)
+        {
+            curPos.y = this.transform.position.y;
+        }
+
+
         this.transform.position = curPos;
         playerBoxInfo.center = curPos;
 

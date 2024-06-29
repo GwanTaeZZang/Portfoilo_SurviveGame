@@ -11,6 +11,7 @@ public class InGameSceneController : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private WeaponController weaponController;
     [SerializeField] private InGameCanvas inGameCanvas;
+    [SerializeField] private CameraController cameraController;
 
     private Tile[,] tiles;
 
@@ -24,7 +25,8 @@ public class InGameSceneController : MonoBehaviour
         stageController = new StageController();
 
         stageController.Initialized(inGameCanvas, mapData);
-        playerController.Initialize();
+        playerController.Initialize(mapData);
+        cameraController.Initialize(mapData);
         weaponController.Initialize();
 
     }
