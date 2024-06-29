@@ -76,6 +76,8 @@ public class StageManager : Singleton<StageManager>
         {
             Debug.Log("Game Clear");
             isGameClear = true;
+
+            UIManager.getInstance.Show<GameClearCanvas>("Canvas/GameClearCanvas");
         }
         return isGameClear;
     }

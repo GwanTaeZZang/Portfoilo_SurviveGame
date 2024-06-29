@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCanvas: {fileID: 8163931870136715130}
+  homeButton: {fileID: 1064309170066087366}
 --- !u!114 &4278958646150085814
 MonoBehaviour:
   m_ObjectHideFlags: 0

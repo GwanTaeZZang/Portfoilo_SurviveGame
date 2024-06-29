@@ -159,6 +159,7 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
         hpBar.gameObject.SetActive(false);
         isCollision = false;
 
+        StageManager.getInstance.EndWave();
     }
 
     public BoxInfo GetBoxInfo()
