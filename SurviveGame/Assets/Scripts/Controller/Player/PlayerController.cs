@@ -8,19 +8,25 @@ public class PlayerController : MonoBehaviour , ITargetAble
 {
     //private const float HALF = 0.5f;
     private const float COLLISION_DLEAY_TIME = 1f;
+    private const int JOB_UID_INITIAL_VALUE = 1000;
 
     [SerializeField] SpriteRenderer playerSpriteRenderer;
     [SerializeField] JoyPad2DController joyPad;
     [SerializeField] HpBar hpBar;
+    [SerializeField] CameraController cameraController;
+    [SerializeField] List<RuntimeAnimatorController> animCrtlList;
+    [SerializeField] Animator anim;
 
     //private ITargetAble[] targetArr;
     private BoxInfo playerBoxInfo;
     private Character character;
     private Camera mainCamera;
+    private Vector2 inputVector;
 
     private float curHP;
 
     private bool isCollision = true;
+    private bool isDead = false;
     private float invincibleTime = COLLISION_DLEAY_TIME;
 
     private void Awake()
@@ -40,6 +46,8 @@ public class PlayerController : MonoBehaviour , ITargetAble
         character = PlayerManager.getInstance.GetCharacter();
         curHP = character.statusArr[(int)CharacterStatusType.P_MaxHP].status;
 
+        int jobUid = PlayerManager.getInstance.GetSelectedJob().Uid;
+        anim.runtimeAnimatorController = animCrtlList[(jobUid % JOB_UID_INITIAL_VALUE)];
         SetPlayerSprite(Resources.Load<Sprite>(character.job.jobSpritePath));
 
         playerBoxInfo.size = playerSpriteRenderer.bounds.size;
@@ -61,10 +69,22 @@ public class PlayerController : MonoBehaviour , ITargetAble
                 playerSpriteRenderer.color = Color.white;
             }
         }
+
+        inputVector.x = Input.GetAxis("Horizontal");
+        inputVector.y = Input.GetAxis("Vertical");
+        if(inputVector.magnitude > 0.01f)
+        {
+            //Debug.Log(inputVector.normalized.magnitude);
+            OnMove(inputVector.normalized);
+            cameraController.OnMoveCamera(inputVector.normalized);
+        }
     }
 
     private void OnMove(Vector2 _dir)
     {
+        //Debug.Log(_dir.magnitude);
+        anim.SetFloat("Speed", _dir.magnitude);
+
         if (_dir == Vector2.zero)
             return;
 
@@ -120,6 +140,13 @@ public class PlayerController : MonoBehaviour , ITargetAble
         isCollision = false;
 
         playerSpriteRenderer.color = Color.red;
+
+        if(curHP <= 0)
+        {
+            isDead = true;
+            anim.SetTrigger("Dead");
+        }
+
 
         Debug.Log("Ums");
     }
