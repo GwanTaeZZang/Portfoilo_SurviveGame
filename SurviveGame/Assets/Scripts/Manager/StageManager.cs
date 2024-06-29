@@ -43,7 +43,7 @@ public class StageManager : Singleton<StageManager>
 
         MonsterGroupData monsterData = GetMonsterSpwanData(monsterGroupId);
 
-        float waveTime = 30;
+        float waveTime = 40;
 
         int count = monsterData.monsterSpawnDataArr.Count;
         for (int i = 0; i < count; i++)
@@ -56,6 +56,7 @@ public class StageManager : Singleton<StageManager>
 
         if (GetSelectedStage().curWaveIdx == GetSelectedStage().waveMonsterGroupId.Length - 1)
         {
+            waveTime = 60;
             Debug.Log("Last Wave");
             OnWaveEvent?.Invoke(monsterSpwanDataList, waveTime, GetSelectedStage().curWaveIdx, true);
         }
