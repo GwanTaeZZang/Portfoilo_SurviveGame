@@ -439,7 +439,7 @@ public class TestCreateJson : MonoBehaviour
         statusArr = new float[(int)MonsterStatusType.End];
         statusArr[(int)MonsterStatusType.M_HP] = 10;
         statusArr[(int)MonsterStatusType.M_Damage] = 1;
-        statusArr[(int)MonsterStatusType.M_Speed] = 0.5f;
+        statusArr[(int)MonsterStatusType.M_Speed] = 1f;
         statusArr[(int)MonsterStatusType.M_AttackSpeed] = 1.5f;
         statusArr[(int)MonsterStatusType.M_AttackRange] = 6;
 

@@ -219,7 +219,7 @@ public class Shooting : MonsterBehavior
         //bulletQueue = new Queue<Bullet>();
         monsterBullet = ObjectPoolManager.getInstance.GetPool<Bullet>();
 
-        info.status[(int)MonsterStatusType.M_Speed] = 3f;
+        //info.status[(int)MonsterStatusType.M_Speed] = 3f;
     }
 
     private void AttackCool()
@@ -319,6 +319,8 @@ public class RunAwayFromTarget : MonsterBehavior
 
         Vector2 dir = targetPos - monsterPos;
         float distance = Vector2.Distance(monsterPos, targetPos);
+
+        Debug.Log((int)info.status[(int)MonsterStatusType.M_Speed]);
 
         if(distance > info.status[(int)MonsterStatusType.M_AttackRange])
         {
