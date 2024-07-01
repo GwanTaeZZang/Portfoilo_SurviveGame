@@ -164,13 +164,10 @@ public class PlayerController : MonoBehaviour , ITargetAble
 
         playerSpriteRenderer.color = Color.red;
 
-        if(curHP <= 0)
+        if (curHP <= 0)
         {
             isDead = true;
             anim.SetTrigger("Dead");
         }
-
-
-        Debug.Log("Ums");
     }
 }
