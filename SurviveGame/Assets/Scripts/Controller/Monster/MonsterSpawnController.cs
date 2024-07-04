@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterSpawnController
 {
+    private const float HALF = 0.5f;
+
     private MonsterManager monsterMgr;
 
     private Vector2 xStartVector = Vector2.zero;
@@ -14,6 +16,7 @@ public class MonsterSpawnController
     private Vector2 playerRandomVector = Vector2.zero;
     private Vector2 playerPos = Vector2.zero;
     private Vector2 crossVector = Vector2.zero;
+    private Vector2 randomPos = Vector2.zero;
 
     private int max = 50;
     private int min = -50;
@@ -35,8 +38,6 @@ public class MonsterSpawnController
 
     public void SpawnMonster(int _count, int _uid)
     {
-        Vector2 randomPos = Vector2.zero;
-
         for (int i =0; i < _count; i++)
         {
             MonsterController monsterCtrl = monsterMgr.GetMonster();
@@ -46,7 +47,6 @@ public class MonsterSpawnController
             monsterCtrl.SetMonsterInfo(info);
 
             monsterCtrl.SetMonsterBehavior();
-            //monsterCtrl.SetMonsterBehavior(logic);
 
             monsterCtrl.transform.SetParent(aliveMonsterParent.transform);
 
@@ -63,71 +63,8 @@ public class MonsterSpawnController
         bossCtrl.ShowBossMonster(ComputeMonsterRandomVector(), _ingameCanvas);
     }
 
-    //public void UpdateVecter()
-    //{
-
-    //    Debug.DrawLine(Vector3.zero, xStartVector, Color.blue);
-    //    Debug.DrawLine(Vector3.zero, yStartVector, Color.green);
-    //    Debug.DrawLine(Vector3.zero, endVector, Color.red);
-    //    Debug.DrawLine(Vector3.zero, randomWeightVector, Color.black);
-    //}
-
     private Vector2 ComputeMonsterRandomVector()
     {
-        //int xpos = Random.Range(min, max);
-        //int ypos = Random.Range(min, max);
-
-        //randomVector = new Vector2(xpos, ypos).normalized;
-
-        ////xStartVector = new Vector2((mapData.width * 0.5f) * (randomVector.x > 0 ? +1 : -1),
-        ////    (mapData.height * 0.5f) * (randomVector.y < 0 ? +1 : -1));
-
-        ////yStartVector = new Vector2((mapData.width * 0.5f) * (randomVector.x < 0 ? +1 : -1),
-        ////    (mapData.height * 0.5f) * (randomVector.y > 0 ? +1 : -1));
-
-        //xStartVector = new Vector2((mapData.width * 0.5f) * (randomVector.x > 0 ? +1 : -1),
-        //    0);
-
-        //yStartVector = new Vector2(0,
-        //    (mapData.height * 0.5f) * (randomVector.y > 0 ? +1 : -1));
-
-
-        //endVector = new Vector2(xStartVector.x, yStartVector.y);
-
-        //ramdomWeightVector.x = randomVector.x * weight;
-        //ramdomWeightVector.y = randomVector.y * weight;
-
-        //Vector2 crossVector = Vector2.zero;
-        //Vector2 playerPos = PlayerManager.getInstance.GetPlayer().transform.position;
-
-        //bool result = CrossCheck2D(Vector3.zero, ramdomWeightVector, xStartVector, endVector);
-        //if (result)
-        //{
-        //    crossVector = CrossCheck2DVector(Vector3.zero, ramdomWeightVector, xStartVector, endVector);
-        //}
-        //else
-        //{
-        //    crossVector = CrossCheck2DVector(Vector3.zero, ramdomWeightVector, yStartVector, endVector);
-        //}
-
-        //float distance = Vector2.Distance(playerPos, crossVector);
-        //float randomDistance = Random.Range(playerNonSpwanArea, distance);
-
-        //if (distance < playerNonSpwanArea)
-        //{
-        //    Vector2 monsterPos = new Vector2(-randomVector.x * randomDistance, -randomVector.y * randomDistance);
-        //    return monsterPos;
-        //}
-        //else
-        //{
-        //    Vector2 monsterPos = new Vector2(randomVector.x * randomDistance, randomVector.y * randomDistance);
-        //    return monsterPos;
-        //}
-
-
-
-
-
         int xpos = Random.Range(min, max);
         int ypos = Random.Range(min, max);
 
@@ -145,11 +82,11 @@ public class MonsterSpawnController
             playerRandomVector.y = playerPos.y + caculaterVecter.y;
 
 
-            xStartVector = new Vector2((20 * 0.5f) * (caculaterVecter.x > 0 ? +1 : -1),
-                (20 * 0.5f) * (caculaterVecter.y > 0 ? -1 : +1));
+            xStartVector = new Vector2((mapData.width * HALF) * (caculaterVecter.x > 0 ? +1 : -1),
+                (mapData.height * HALF) * (caculaterVecter.y > 0 ? -1 : +1));
 
-            yStartVector = new Vector2((20 * 0.5f) * (caculaterVecter.x > 0 ? -1 : +1),
-                (20 * 0.5f) * (caculaterVecter.y > 0 ? +1 : -1));
+            yStartVector = new Vector2((mapData.width * HALF) * (caculaterVecter.x > 0 ? -1 : +1),
+                (mapData.height * HALF) * (caculaterVecter.y > 0 ? +1 : -1));
 
 
             endVector = new Vector2(xStartVector.x, yStartVector.y);
@@ -191,17 +128,12 @@ public class MonsterSpawnController
         if (result)
         {
             crossVector = CrossCheck2DVector(_playerVector, _randomWeightVector, _xStartVector, _endVector);
-            //GameObject a = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //a.transform.position = crossVector;
             return crossVector;
         }
         else
         {
             crossVector = CrossCheck2DVector(_playerVector, _randomWeightVector, _yStartVector, _endVector);
-            //GameObject a = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //a.transform.position = crossVector;
             return crossVector;
-
         }
 
     }
@@ -236,14 +168,6 @@ public class MonsterSpawnController
         X = ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) / cross;
         Y = ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) / cross;
 
-        //if(cross == 0)
-        //{
-        //    return false;
-        //}
-        //else
-        //{
-        //    return true;
-        //}
 
         return CheckDotInLine(aStart, aEnd, new Vector2(X, Y)) && CheckDotInLine(bStart, bEnd, new Vector2(X, Y));
     }

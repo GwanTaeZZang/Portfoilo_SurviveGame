@@ -12,13 +12,6 @@ public struct MonsterInfoArrData
 public class MonsterInfo
 {
     public int Uid;
-
-    //public int hp;
-    //public float damage;
-    //public float speed;
-    //public float attackSpeed;
-    //public float attackRange;
-
     public int bootyGold;
 
     public float[] status = new float[(int)MonsterStatusType.End];
@@ -90,25 +83,6 @@ public class BehaviorLogicBase
 
 public class SeqenceBehavior : BehaviorLogicBase
 { 
-    //public SeqenceBehavior(params MonsterBehavior[] _monsterBehaviorArr)
-    //{
-
-    //}
-
-    //public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
-    //{
-    //    moveBehavior = _move;
-    //    attackBehavior = _attack;
-
-    //    monster = _monster;
-    //    target = PlayerManager.getInstance.GetPlayer();
-
-    //    moveBehavior.Initialize(target, monster);
-    //    attackBehavior?.Initialize(target, monster);
-
-    //}
-
-
     public override void Update()
     {
         moveBehavior.Update();
@@ -123,24 +97,6 @@ public class SeqenceBehavior : BehaviorLogicBase
 
 public class LoopBehavior : BehaviorLogicBase
 {
-    //public LoopBehavior(params MonsterBehavior[] _monsterBehaviorArr)
-    //{
-
-    //}
-    //public override void Initialize(Transform _monster, MonsterBehavior _move, MonsterBehavior _attack = null)
-    //{
-    //    moveBehavior = _move;
-    //    attackBehavior = _attack;
-
-    //    monster = _monster;
-    //    target = PlayerManager.getInstance.GetPlayer();
-
-    //    moveBehavior.Initialize(target , monster);
-    //    attackBehavior?.Initialize(target, monster);
-
-    //}
-
-
     public override void Update()
     {
         moveBehavior.Update();
@@ -204,7 +160,6 @@ public class MonsterBehavior
 public class Shooting : MonsterBehavior
 {
     private ObjectPool<Bullet> monsterBullet;
-    //private Queue<Bullet> bulletQueue;
     private float coolTime;
 
     public override void Update()
@@ -216,10 +171,7 @@ public class Shooting : MonsterBehavior
     {
         base.Initialize(_info, _target, _monster);
 
-        //bulletQueue = new Queue<Bullet>();
         monsterBullet = ObjectPoolManager.getInstance.GetPool<Bullet>();
-
-        //info.status[(int)MonsterStatusType.M_Speed] = 3f;
     }
 
     private void AttackCool()
@@ -319,8 +271,6 @@ public class RunAwayFromTarget : MonsterBehavior
 
         Vector2 dir = targetPos - monsterPos;
         float distance = Vector2.Distance(monsterPos, targetPos);
-
-        //Debug.Log((int)info.status[(int)MonsterStatusType.M_Speed]);
 
         if(distance > info.status[(int)MonsterStatusType.M_AttackRange])
         {

@@ -18,7 +18,6 @@ public class ItemManager : Singleton<ItemManager>
     private List<BaseItemInfo> itemInfoList = new List<BaseItemInfo>();
     private List<WeaponItemInfo> weaponItemList = new List<WeaponItemInfo>();
     private List<PassiveItemInfo> passiveItemList = new List<PassiveItemInfo>();
-    //private List<Sprite> weaponItemSpriteList = new List<Sprite>();
     private WeaponItemInfo selectedWeapon;
 
     private WeaponBase[] weaponBaseArr = new WeaponBase[(int)WeaponType.End];
@@ -52,11 +51,6 @@ public class ItemManager : Singleton<ItemManager>
 
         return weaponItemDict[_key];
 
-
-        //if (jobDict.TryGetValue(_key, out Job value))
-        //{
-        //    return value;
-        //}
     }
 
     public List<WeaponItemInfo> GetWeaponList()
@@ -166,26 +160,6 @@ public class ItemManager : Singleton<ItemManager>
         return playerEquipPassiveItemList;
     }
 
-    //public WeaponItemInfo DeepCopyWeaponItemInfo(WeaponItemInfo _weaponItemInfo)
-    //{
-    //    WeaponItemInfo newWeaponItemInfo = new WeaponItemInfo();
-
-    //    newWeaponItemInfo.Uid = _weaponItemInfo.Uid;
-    //    newWeaponItemInfo.level = _weaponItemInfo.level;
-    //    newWeaponItemInfo.damage = _weaponItemInfo.damage;
-    //    newWeaponItemInfo.damageRate = _weaponItemInfo.damageRate;
-    //    newWeaponItemInfo.attackSpeed = _weaponItemInfo.attackSpeed;
-    //    newWeaponItemInfo.attackRange = _weaponItemInfo.attackRange;
-    //    newWeaponItemInfo.stringKey = _weaponItemInfo.stringKey;
-    //    newWeaponItemInfo.weaponSpritePath = _weaponItemInfo.weaponSpritePath;
-    //    newWeaponItemInfo.weaponName = _weaponItemInfo.weaponName;
-    //    newWeaponItemInfo.weaponType = _weaponItemInfo.weaponType;
-
-    //    //newWeaponItemInfo = _weaponItemInfo;
-
-    //    return newWeaponItemInfo;
-    //}
-
     private void LoadWeaponData()
     {
         WeaponArrData weaponData = JsonController.ReadJson<WeaponArrData>("WeaponData");
@@ -222,7 +196,6 @@ public class ItemManager : Singleton<ItemManager>
 
         for (int i = 0; i < count; i++)
         {
-            //weaponItemSpriteList.Add(Resources.Load<Sprite>(weaponItemList[i].weaponSpritePath));
             Sprite sprite = Resources.Load<Sprite>(weaponItemList[i].itemSpritePath);
             itemSpriteDict.Add(weaponItemList[i].Uid, sprite);
         }

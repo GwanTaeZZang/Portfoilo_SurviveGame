@@ -10,7 +10,6 @@ public class MonsterManager : Singleton<MonsterManager>
     private MonsterBehavior[] monsterAttackBehaviorArr;
     private MonsterBehavior[] monsterMoveBehaviorArr;
 
-    //private List<MonsterInfo> monsterInfoList = new List<MonsterInfo>();
     private Dictionary<int, MonsterInfo> monsterInfoDict = new Dictionary<int, MonsterInfo>();
     private Dictionary<int, Sprite> monsterSpriteDict = new Dictionary<int, Sprite>();
 
@@ -28,7 +27,6 @@ public class MonsterManager : Singleton<MonsterManager>
     private ITargetAble[] targetArr = new ITargetAble[101];
 
     private GameObject poolParent;
-    //private MonsterInfo monsterInfoVariance;
     private MonsterStatusVariance monsterStatusVariance;
 
 
@@ -55,11 +53,6 @@ public class MonsterManager : Singleton<MonsterManager>
         {
             monsterStatusVariance = new MonsterStatusVariance();
         }
-        //int count = monsterInfoVariance.status.Length;
-        //for(int i = 0; i < count; i++)
-        //{
-        //    monsterInfoVariance.status[i] = 0;
-        //}
     }
 
     private void InitBehviorDict()
@@ -107,15 +100,7 @@ public class MonsterManager : Singleton<MonsterManager>
 
     public void UpdateMonsterStatus(MonsterStatusType _type, float _amount)
     {
-        //monsterInfoVariance.status[(int)_type] += _amount;
-
         monsterStatusVariance.status[(int)_type] += _amount;
-
-
-        //foreach (var dict in monsterInfoDict)
-        //{
-        //    dict.Value.status[(int)_type] += _amount;
-        //}
 
         Debug.Log(_type + " status is updata  : " + _amount);
     }
@@ -200,21 +185,6 @@ public class MonsterManager : Singleton<MonsterManager>
         return null;
     }
 
-    //public MonsterInfo GetCurrentMonsterInfo(int _uid)
-    //{
-    //    monsterInfoDict.TryGetValue(_uid, out MonsterInfo value);
-    //    if (value != null)
-    //    {
-    //        return value;
-    //    }
-    //    return null;
-
-    //}
-
-
-
-
-
     public BehaviorLogicBase GetMonsterbehaviorLogic(BehaviorLogicType _type)
     {
         if (behaviorLogicDict.ContainsKey(_type))
@@ -227,9 +197,6 @@ public class MonsterManager : Singleton<MonsterManager>
         }
 
         return null;
-
-
-        //return behaviorLogicArr[_idx].DeepCopy();
     }
 
     public MonsterBehavior GetMonsterMoveBehavior(MonsterMoveBehaviorType _type)
@@ -244,9 +211,6 @@ public class MonsterManager : Singleton<MonsterManager>
         }
 
         return null;
-
-
-        //return monsterMoveBehaviorArr[_idx].DeepCopy();
     }
     public MonsterBehavior GetMonsterAttackBehavior(MonsterAttackBehaviorType _type)
     {
@@ -260,8 +224,6 @@ public class MonsterManager : Singleton<MonsterManager>
         }
 
         return null;
-
-        //return monsterAttackBehaviorArr[_idx]?.DeepCopy();
     }
 
 
@@ -304,7 +266,6 @@ public class MonsterManager : Singleton<MonsterManager>
 
             MonsterController obj = GameObject.Instantiate<MonsterController>(res, poolParent.transform);
             obj.monsterIdx = i;
-            //monsterArr[i] = obj;
             targetArr[i] = obj;
             obj.transform.position = Vector3.zero;
             LinkedListNode<MonsterController> node = new LinkedListNode<MonsterController>(obj);
@@ -329,7 +290,6 @@ public class MonsterManager : Singleton<MonsterManager>
         for(int i =0; i < count; i++)
         {
             MonsterInfo info = monsterData.monsterArr[i];
-            //monsterInfoList.Add(info);
 
             int uid = info.Uid;
             monsterInfoDict.Add(uid, info);

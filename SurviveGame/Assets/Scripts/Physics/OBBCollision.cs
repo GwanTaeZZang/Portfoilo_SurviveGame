@@ -24,18 +24,6 @@ public class OBBCollision : MonoBehaviour
 
     private List<ITargetAble> collisionTargetList = new List<ITargetAble>();
 
-    //private int resultIdx = -1;
-    //private float damage;
-
-    //private void Awake()
-    //{
-    //    if(spriteRenderer == null)
-    //    {
-    //        spriteRenderer = GetComponent<SpriteRenderer>();
-    //    }
-    //    myInfo.size = spriteRenderer.bounds.size;
-    //}
-
 
     private void Update()
     {
@@ -53,8 +41,6 @@ public class OBBCollision : MonoBehaviour
 
                 if (result)
                 {
-                    //resultIdx = i;
-                    //targetArr[i].OnDamege(damage);
                     collisionTargetList.Add(targetArr[i]);
                     OnOBBCollisionEvent?.Invoke(targetArr[i]);
                 }
@@ -68,11 +54,6 @@ public class OBBCollision : MonoBehaviour
         myInfo.center = this.transform.position;
         myInfo.rot = this.transform.eulerAngles.z;
     }
-
-    //public void SetDamage(float _damageAmount)
-    //{
-    //    damage = _damageAmount;
-    //}
 
     public void SetObejctSize()
     {
@@ -93,7 +74,6 @@ public class OBBCollision : MonoBehaviour
     public bool IsCollisionOBB(BoxInfo _target)
     {
         Vector2 distance = GetCenterDistanceVector(_target);
-        //Debug.DrawLine(this.transform.position, _target.center, Color.red);
 
         Vector2[] vec = new Vector2[4]
         {
@@ -108,7 +88,6 @@ public class OBBCollision : MonoBehaviour
         {
             float sum = 0f;
             unitVec = GetUnitVector(vec[i]);
-            //Debug.Log("UnitVec = " + unitVec);
             for (int j = 0; j < 4; j++)
             {
                 sum += Mathf.Abs(vec[j].x * unitVec.x + vec[j].y * unitVec.y);
@@ -117,7 +96,6 @@ public class OBBCollision : MonoBehaviour
             float dotProduct = Mathf.Abs(distance.x * unitVec.x + distance.y * unitVec.y);
             bool isNotCollision = dotProduct >= sum;
 
-            //Debug.Log("sum : " + sum + "  dotProduct : " + dotProduct + "  isNotCollision :" + isNotCollision);
 
             if (dotProduct >= sum)
             {
@@ -139,8 +117,6 @@ public class OBBCollision : MonoBehaviour
         float x = _box.size.y * Mathf.Cos(Deg2Rad(_box.rot - 90f)) / 2;
         float y = _box.size.y * Mathf.Sin(Deg2Rad(_box.rot - 90f)) / 2;
 
-        //Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.red);
-
         return new Vector2(x, y);
     }
 
@@ -148,8 +124,6 @@ public class OBBCollision : MonoBehaviour
     {
         float x = _box.size.x * Mathf.Cos(Deg2Rad(_box.rot)) / 2;
         float y = _box.size.x * Mathf.Sin(Deg2Rad(_box.rot)) / 2;
-
-        //Debug.DrawLine(_box.center, new Vector2(x + _box.center.x, y + _box.center.y), Color.blue);
 
         return new Vector2(x, y);
     }

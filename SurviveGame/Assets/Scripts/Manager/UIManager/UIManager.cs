@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    //private static UIManager instance = null;
-    //public static UIManager Instance
-    //{
-    //    get
-    //    {
-    //        if(instance == null)
-    //        {
-    //            instance = new UIManager();
-    //        }
-    //        return instance;
-    //    }
-    //}
-
     private List<UIBaseController> UIList = new List<UIBaseController>();
     private Stack<UIBaseController> UIStack = new Stack<UIBaseController>(4);
     private const int LAYER_INCREASE = 10;
@@ -51,8 +38,6 @@ public class UIManager : Singleton<UIManager>
 
     public T CreateCanvas<T>(string _path) where T : UIBaseController
     {
-        //T prefab = Resources.Load(_path) as T;
-        //T obj = UnityEngine.Object.Instantiate(prefab);
         T obj = Object.Instantiate(Resources.Load<T>(_path));
         UIList.Add(obj);
         return obj;

@@ -12,17 +12,13 @@ public struct WeaponArrData
 [System.Serializable]
 public class WeaponItemInfo : BaseItemInfo
 {
-    //public int Uid;
     public int level;
-    //public int price;
     public int penetrateCount;
     public float damage;
     public float damageRate;
     public float attackSpeed;
     public float attackRange;
     public string stringKey;
-    //public string itemSpritePath;
-    //public string itemName;
     public WeaponType weaponType;
 }
 
@@ -41,7 +37,6 @@ public abstract class WeaponBase
     protected float timer;
 
     protected Vector2 oriWeaponPos;
-    //protected Vector2 targetPos;
     protected Vector2 dir;
     protected float distance;
     protected bool isAttack = false;
@@ -68,17 +63,9 @@ public abstract class WeaponBase
         }
         distance = Vector2.Distance(weapon.position, target.center);
 
-        //if (!isAttack)
-        //{
-        //    dir = (Vector2)target.position - (Vector2)parent.position;
-        //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //    //weapon.localRotation = Quaternion.Euler(0, 0, angle);
-        //    parent.rotation = Quaternion.Euler(0, 0, angle);
-        //}
 
         dir = (Vector2)target.center - (Vector2)parent.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        //weapon.localRotation = Quaternion.Euler(0, 0, angle);
         parent.rotation = Quaternion.Euler(0, 0, angle);
 
 
@@ -90,12 +77,6 @@ public abstract class WeaponBase
             {
                 isAttack = true;
                 OnAttackEvent?.Invoke(isAttack);
-                //if (Attack())
-                //{
-                //    isAttack = false;
-                //    OnAttackEvent?.Invoke(isAttack);
-                //    timer = 0;
-                //}
             }
         }
     }
@@ -104,15 +85,8 @@ public abstract class WeaponBase
     protected virtual void FindTarget()
     {
         float compareDistance = float.MaxValue;
-
-        //LinkedList<MonsterController> targetList = MonsterManager.getInstance.GetMonsterList();
         ITargetAble[] tagetArr = MonsterManager.getInstance.GetTargetArr();
-
         int count = tagetArr.Length;
-        //if (count == 0)
-        //{
-        //    target = null;
-        //}
 
         for(int i =0;i < count; i++)
         {
@@ -142,20 +116,6 @@ public abstract class WeaponBase
                 }
             }
         }
-
-        //foreach (MonsterController monster in tagetArr)
-        //{
-        //    if (monster.IsCollision())
-        //    {
-        //        float distance = Vector2.Distance(weapon.position, monster.transform.position);
-
-        //        if (compareDistance > distance)
-        //        {
-        //            compareDistance = distance;
-        //            target = monster.transform;
-        //        }
-        //    }
-        //}
     }
 
     public void SetWeaponInfo(WeaponItemInfo _info)
@@ -206,9 +166,6 @@ public class StingWeapon : WeaponBase
 
         if (isGo)
         {
-            //curWeaponPos.x += _dir.x * Time.deltaTime * ATTACK_SPEED;
-            //curWeaponPos.y += _dir.y * Time.deltaTime * ATTACK_SPEED;
-
             curWeaponPos.x += Time.deltaTime * ATTACK_SPEED;
 
             weapon.localPosition = curWeaponPos;
@@ -222,9 +179,6 @@ public class StingWeapon : WeaponBase
 
         else if (!isGo)
         {
-            //curWeaponPos.x -= _dir.x * Time.deltaTime * ATTACK_SPEED;
-            //curWeaponPos.y -= _dir.y * Time.deltaTime * ATTACK_SPEED;
-
             curWeaponPos.x -= Time.deltaTime * ATTACK_SPEED;
 
             weapon.localPosition = curWeaponPos;
@@ -288,40 +242,6 @@ public class ShootingWeapon : WeaponBase
 
         return true;
     }
-
-    //protected override void LookAtEnemyInRange()
-    //{
-    //    if (target == null)
-    //    {
-    //        return;
-    //    }
-
-    //    distance = Vector2.Distance(weapon.position, target.position);
-
-    //    if (!isAttack)
-    //    {
-    //        dir = (Vector2)target.position - (Vector2)weapon.localPosition;
-    //        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-    //        //weapon.localRotation = Quaternion.Euler(0, 0, angle);
-    //        parent.rotation = Quaternion.Euler(0, 0, angle);
-    //    }
-
-    //    if (distance < weaponItemInfo.attackRange || isAttack)
-    //    {
-    //        timer += Time.deltaTime;
-    //        if (timer > weaponItemInfo.attackSpeed)
-    //        {
-    //            isAttack = true;
-
-    //            if (Shoot(dir.normalized))
-    //            {
-    //                isAttack = false;
-    //                timer = 0;
-    //            }
-    //        }
-    //    }
-
-    //}
 
     public override WeaponBase DeepCopy()
     {

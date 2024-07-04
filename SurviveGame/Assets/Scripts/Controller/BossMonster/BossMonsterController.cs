@@ -32,19 +32,6 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
     private int totalPhase;
     private int curPhase;
 
-    private void Awake()
-    {
-        //model = new BossMonsterModel();
-        //patternSelector = new BossPatternSelector(model, this.transform);
-    }
-
-    private void Start()
-    {
-        //patternSelector.CreateBossPattern(model.patternModel.logicType, model.patternModel.behaviourTypeList);
-
-        //bossPattern = patternSelector.GetBossPattern();
-    }
-
     public void Initialized()
     {
         agent.updateRotation = false;
@@ -118,9 +105,7 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
         Vector2 moveDir = this.transform.position - prevVector;
         spriteRenderer.flipX = moveDir.x < 0 ? true : false;
 
-        //Debug.Log(moveDir.magnitude);
         anim.SetFloat("Move", moveDir.normalized.magnitude);
-
     }
 
     private bool OnCollisionAABB()
@@ -189,17 +174,11 @@ public class BossMonsterController : MonoBehaviour, ITargetAble
         float phaseHp = changePhaseHp / model.hp;
 
 
-        //Debug.Log(fillAmount + "<" + phaseHp);
         if(fillAmount < phaseHp && curPhase < totalPhase)
         {
             curPhase++;
             bossPattern = patternSelector.GetBossPattern(curPhase);
         }
 
-        //Vector2 dir = bossBoxInfo.center - player.GetBoxInfo().center;
-        //Vector2 monsterPos = this.transform.position;
-        //monsterPos.x += dir.normalized.x * 0.05f;
-        //monsterPos.y += dir.normalized.y * 0.05f;
-        //this.transform.position = monsterPos;
     }
 }

@@ -172,7 +172,6 @@ public class RandomDash : BossMoveBehaviour
     private float waitingTime = 2f;
     private float timer;
     private bool isDash = false;
-    //private bool isInRange = false;
     private bool isEndSeqence = false;
 
     private float randomPosMin = 8f;
@@ -186,7 +185,6 @@ public class RandomDash : BossMoveBehaviour
     public override void Initialize()
     {
         isDash = false;
-        //isInRange = false;
         isEndSeqence = false;
 
         timer = 0f;
@@ -194,21 +192,6 @@ public class RandomDash : BossMoveBehaviour
 
     public override bool Update()
     {
-        //if (!isInRange)
-        //{
-        //    if (MoveToTargetInDashRange())
-        //    {
-        //        isInRange = true;
-        //    }
-        //}
-        //else if (isInRange)
-        //{
-        //    if (Charge() && !isDash)
-        //    {
-        //        SetTarget();
-        //        isDash = true;
-        //    }
-        //}
 
         if (isDash)
         {
@@ -228,8 +211,6 @@ public class RandomDash : BossMoveBehaviour
 
     private void SetTarget()
     {
-        //direction = playerTransform.position - bossTransform.position;
-        //targetPos = playerTransform.position;
 
         xPos = Random.Range(randomPosMin, randomPosMax);
         yPos = Random.Range(randomPosMin, randomPosMax);
@@ -283,22 +264,6 @@ public class RandomDash : BossMoveBehaviour
         }
     }
 
-    //private bool MoveToTargetInDashRange()
-    //{
-    //    direction = playerTransform.position - bossTransform.position;
-
-    //    bossPos = bossTransform.position;
-    //    bossPos.x += Time.deltaTime * direction.normalized.x * model.speed;
-    //    bossPos.y += Time.deltaTime * direction.normalized.y * model.speed;
-    //    bossTransform.position = bossPos;
-
-    //    distance = Vector2.Distance(bossTransform.position, playerTransform.position);
-    //    if (distance < 5f)
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
 
     public override void SetBossMonsterModel(BossMonsterModel _model)
     {
@@ -480,7 +445,6 @@ public class ContinuousHexagonShoot : BossAttackBehaviour
             projectileDirection.y = Mathf.Sin(angle * Mathf.Deg2Rad);
 
             Bullet obj = bulletPool.Dequeue();
-            //bulletQueue.Enqueue(obj);
             obj.SetPosition(bossTransform.position);
             obj.SetTarget(PlayerManager.getInstance.GetTarget());
             obj.SetDamage(model.damage);
@@ -563,7 +527,6 @@ public class TurningShoot : BossAttackBehaviour
             projectileDirection.y = Mathf.Sin(angle * Mathf.Deg2Rad);
 
             Bullet obj = bulletPool.Dequeue();
-            //bulletQueue.Enqueue(obj);
             obj.SetPosition(bossTransform.position);
             obj.SetTarget(PlayerManager.getInstance.GetTarget());
             obj.SetDamage(model.damage);
@@ -576,7 +539,6 @@ public class TurningShoot : BossAttackBehaviour
             projectileDirection.y = Mathf.Sin((angle + 180) * Mathf.Deg2Rad);
 
             Bullet obj2 = bulletPool.Dequeue();
-            //bulletQueue.Enqueue(obj);
             obj2.SetPosition(bossTransform.position);
             obj2.SetTarget(PlayerManager.getInstance.GetTarget());
             obj2.SetDamage(model.damage);

@@ -27,12 +27,6 @@ public class AugmenterCanvas : UIBaseController
 
     private AugmenterManager augmenterMgr;
 
-    //System.Random random = new System.Random();
-
-    //List<AugmenterData> list = new List<AugmenterData>();
-    //Queue<AugmenterData> augmenterDataQueue = new Queue<AugmenterData>();
-
-
     private void Awake()
     {
         augmenterMgr = AugmenterManager.getInstance;
@@ -68,11 +62,6 @@ public class AugmenterCanvas : UIBaseController
             {
                 continue;
             }
-            // Is Duplicat Check 
-            //if(!augmenter.isDuplicat && showAugmenterGroupId.Contains(augmenter.groupId))
-            //{
-            //    continue;
-            //}
             if(!augmenter.isDuplicat && CheckNotDuplicatGroupId(augmenter.groupId))
             {
                 continue;
@@ -99,9 +88,6 @@ public class AugmenterCanvas : UIBaseController
         int count = augmenterElementList.Count;
         for (int i = 0; i < count; i++)
         {
-
-            //int randomIdx = Random.Range(0, augmenterList.Count);
-            //AugmenterData augmenterData = augmenterList[randomIdx];
             AugmenterData augmenterData = showAugmenterList[i];
             AugmenterElement element = augmenterElementList[i];
 
@@ -125,18 +111,6 @@ public class AugmenterCanvas : UIBaseController
         }
         return false;
     }
-
-    //private void CopyAugmenterList()
-    //{
-    //    List<AugmenterData> oriaugmenterList = AugmenterManager.getInstance.GetAugmenterList();
-    //    augmenterList = new List<AugmenterData>();
-
-    //    int count = oriaugmenterList.Count;
-    //    for(int i =0; i < count; i++)
-    //    {
-    //        augmenterList.Add(oriaugmenterList[i]);
-    //    }
-    //}
 
 
     private void BindButtonEvent()
@@ -166,18 +140,6 @@ public class AugmenterCanvas : UIBaseController
         selectAugmenterElement.SetAugmenterTitle(selectedAugmenter.augmenterName);
         selectAugmenterElement.SetAugmenterInfo(selectedAugmenter.augmenterContent);
 
-
-
-
-
-        //AugmenterData selectedAugmenter = showAugmenterList[_idx];
-        //augmenterMgr.SetSeletedAugmenterList(selectedAugmenter);
-        //augmenterMgr.SetSelectedAugmenterUid(selectedAugmenter.Uid);
-
-        //Debug.Log("Selected Augmenter Uid is  =  " + selectedAugmenter.Uid);
-
-        //UIManager.getInstance.Show<ShopCanvas>("Canvas/ShopCanvas");
-        //this.Hide();
     }
 
 

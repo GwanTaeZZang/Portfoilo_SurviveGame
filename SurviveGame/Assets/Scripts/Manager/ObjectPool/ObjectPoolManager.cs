@@ -6,21 +6,6 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 {
     private List<IObjectPool> poolList = new List<IObjectPool>();
 
-    //private static ObjectPoolManager instance;
-    //public static ObjectPoolManager Instance
-    //{
-    //    get
-    //    {
-    //        if(instance == null)
-    //        {
-    //            instance = new ObjectPoolManager();
-    //        }
-    //        return instance;
-    //    }
-    //}
-
-
-
     public ObjectPool<T> GetPool<T>(int _capacity = 10, int increaseSize = 4) where T : IPoolable, new()
     {
         int count = poolList.Count;

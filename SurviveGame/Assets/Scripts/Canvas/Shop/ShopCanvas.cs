@@ -28,12 +28,10 @@ public class ShopCanvas : UIBaseController
 
 
     private ItemManager itemMgr;
-    //private List<WeaponItemInfo> weaponList;
     private List<BaseItemInfo> itemList;
     private List<ShopEquipPassiveItemElement> passiveItemSlotList = new List<ShopEquipPassiveItemElement>();
     private WeaponItemInfo[] equipWeaponArr;
     private List<PassiveItemInfo> equipPassiveItemList = new List<PassiveItemInfo>();
-    //private WeaponItemInfo[] itemElementinfoArr = new WeaponItemInfo[4];
     private BaseItemInfo[] baseItemElementinfoArr = new BaseItemInfo[4];
     private WeaponItemInfo curSelectedEquipWeapon;
     private int curSelectedEquipWeaponIdx = -1;
@@ -47,7 +45,6 @@ public class ShopCanvas : UIBaseController
         itemMgr = ItemManager.getInstance;
 
         itemList = itemMgr.GetItemInfoList();
-        //weaponList = itemMgr.GetWeaponList();
         equipWeaponArr = itemMgr.GetEquipmentWeaponArr();
         equipPassiveItemList = itemMgr.GetEquipPassiveItemList();
 
@@ -79,15 +76,6 @@ public class ShopCanvas : UIBaseController
         int count = itemElementList.Count;
         for (int i = 0; i < count; i++)
         {
-            //int randomWeaponNum = Random.Range(0, weaponList.Count);
-            //WeaponItemInfo weaponInfo = weaponList[randomWeaponNum];
-            //itemElementinfoArr[i] = weaponInfo;
-
-            //itemElementList[i].ShowItemIconImage(Resources.Load<Sprite>(weaponInfo.itemSpritePath));
-
-
-
-            // 수정  
             int randomWeaponNum = Random.Range(0, itemList.Count);
             BaseItemInfo itemInfo = itemList[randomWeaponNum];
             baseItemElementinfoArr[i] = itemInfo;
@@ -117,17 +105,6 @@ public class ShopCanvas : UIBaseController
 
     private void UpdateEquipPassiveItemInfo()
     {
-        //int count = equipPassiveItemList.Count;
-        //for(int i =0; i < count; i++)
-        //{
-        //    ShopEquipPassiveItemElement slot = passiveItemSlotList[i];
-        //    PassiveItemInfo info = equipPassiveItemList[i];
-
-        //    slot.gameObject.SetActive(true);
-        //    slot.SetIconIamge(itemMgr.GetItemSprite(info.Uid));
-        //    slot.SetItemName(info.itemName);
-        //    slot.SetItemContent(info.itemContent);
-        //}
 
         int count = equipPassiveItemList.Count;
 
@@ -327,7 +304,6 @@ public class ShopCanvas : UIBaseController
 
     private void OnClickItemBuyBtn(int _idx)
     {
-        //WeaponItemInfo itemInfo = itemElementinfoArr[_idx];
         BaseItemInfo itemInfo = baseItemElementinfoArr[_idx];
 
         if(goldAmount - itemInfo.price < 0)
@@ -349,9 +325,6 @@ public class ShopCanvas : UIBaseController
             Debug.Log("have not slot");
             return;
         }
-        // 무기아이템인지 패시브 아이템인지 나눠 담아야 함
-
-        //ItemManager.getInstance.EquipWeapon(itemInfo, slotIdx);
 
         if(itemInfo.itemType == ItemType.WeaponType)
         {
@@ -372,22 +345,9 @@ public class ShopCanvas : UIBaseController
 
     private void OnClickStartWaveBtn()
     {
-        //UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
-        //int curWaveIdx = StageManager.getInstance.GetCurrentWave();
-
         StageManager.getInstance.StartWave();
 
-        //if (curWaveIdx == 6 || curWaveIdx == 11)
-        //{
-        //    UIManager.getInstance.Show<AugmenterCanvas>("Canvas/AugmenterCanvas");
-        //}
-        //else
-        //{
-        //    StageManager.getInstance.StartWave();
-        //}
-
         this.Hide();
-
     }
 
     private void OnClickReRollBtn()

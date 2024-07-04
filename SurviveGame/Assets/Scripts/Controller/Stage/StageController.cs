@@ -28,12 +28,12 @@ public class StageController
         MosnterSpwanDataList = _monsterSpwanDataList;
         inGameCanvas.ShowWave(_curWaveIdx + 1);
 
-        int count = MosnterSpwanDataList.Count;
-        Debug.Log("This Wave Monster Type Count  : " + count);
-        for (int i = 0; i < count; i++)
-        {
-            Debug.Log("This Wave Monster Type   : " + MosnterSpwanDataList[i].monsterId + " Monster Count  : " + MosnterSpwanDataList[i].count);
-        }
+        //int count = MosnterSpwanDataList.Count;
+        //Debug.Log("This Wave Monster Type Count  : " + count);
+        //for (int i = 0; i < count; i++)
+        //{
+        //    Debug.Log("This Wave Monster Type   : " + MosnterSpwanDataList[i].monsterId + " Monster Count  : " + MosnterSpwanDataList[i].count);
+        //}
 
         isBossWave = _isBossWave;
         isWave = true;
@@ -41,10 +41,6 @@ public class StageController
 
     public void UpdateWave()
     {
-        //monsterSpawnContoller.UpdateVecter();
-
-
-
         if (isWave)
         {
             waveTime -= Time.deltaTime;
